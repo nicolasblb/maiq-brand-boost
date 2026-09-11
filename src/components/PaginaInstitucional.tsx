@@ -97,6 +97,8 @@ export default function PaginaInstitucional() {
   const overlayRef = useRef<Any>(null);
   const overlay2Ref = useRef<Any>(null);
   const overlay2WrapRef = useRef<Any>(null);
+  const overlay3Ref = useRef<Any>(null);
+
   const segSunRef = useRef<Any>(null);
   const segMoonRef = useRef<Any>(null);
   const marqueeRef = useRef<Any>(null);
