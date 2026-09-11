@@ -215,8 +215,13 @@ export default function Dominio() {
       if (!span) return;
 
       const parent = track.parentElement!;
-      while (track.scrollWidth < parent.clientWidth * 2 + span) {
-        children.forEach((n) => track.appendChild(n.cloneNode(true)));
+      const target = Math.min(parent.clientWidth + span * 2, 12000);
+      // Duplica no máximo 8 vezes; sem esse teto uma medição de largura
+      // inválida (imagem ainda sem layout) trava a aba num laço infinito.
+      for (let i = 0; i < 8 && track.scrollWidth < target; i++) {
+        const frag = document.createDocumentFragment();
+        children.forEach((n) => frag.appendChild(n.cloneNode(true)));
+        track.appendChild(frag);
       }
 
       let x = 0;
