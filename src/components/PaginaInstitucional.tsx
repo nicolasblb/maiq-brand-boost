@@ -154,14 +154,16 @@ export default function PaginaInstitucional() {
     const g = S._dnaGeom && S._dnaGeom[side];
     const marginProp = side === 'left' ? 'marginLeft' : 'marginRight';
     const delay = i === 0 ? 0 : (active ? 90 + i * 55 : (4 - i) * 55);
-    el.style.transition = `margin ${DNA_DUR}ms ${DNA_EASE} ${delay}ms, width ${DNA_DUR}ms ${DNA_EASE} ${delay}ms, border-color 320ms ${DNA_EASE} ${delay}ms, box-shadow 320ms ${DNA_EASE} ${delay}ms`;
+    // Sem box-shadow: em alguns navegadores a sombra interna vaza como um
+    // traço vertical nas laterais da linha durante o hover.
+    el.style.transition = `margin ${DNA_DUR}ms ${DNA_EASE} ${delay}ms, width ${DNA_DUR}ms ${DNA_EASE} ${delay}ms, border-color 320ms ${DNA_EASE} ${delay}ms`;
+    el.style.boxShadow = 'none';
     if (active && g) {
       if (i === 0) {
         el.style[marginProp] = -g.rail + 'px';
         el.style.width = (cfg.width + cfg.inset + g.rail) + 'px';
       }
       el.style.borderTopColor = 'var(--p-hair-strong,rgba(233,224,209,.32))';
-      el.style.boxShadow = 'inset 0 1px 0 0 var(--p-hair-strong,rgba(233,224,209,.32))';
       setDnaDot(el, true, delay);
     } else {
       if (i === 0) {
@@ -169,9 +171,9 @@ export default function PaginaInstitucional() {
         el.style.width = cfg.width + 'px';
       }
       el.style.borderTopColor = 'var(--p-hair,rgba(233,224,209,.14))';
-      el.style.boxShadow = 'inset 0 1px 0 0 rgba(233,224,209,0)';
       setDnaDot(el, false, delay);
     }
+
   };
 
   const setDnaSide = (side: string, active: boolean) => {
