@@ -13,6 +13,7 @@ export function VdrEmbed({ accent = '#91A398', showGhosts = true }: VdrEmbedProp
   const ref = useRef<HTMLDivElement | null>(null);
   const boxRef = useRef<HTMLDivElement | null>(null);
   const [run, setRun] = useState(0);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     const onRestart = () => setRun((n) => n + 1);
@@ -35,13 +36,27 @@ export function VdrEmbed({ accent = '#91A398', showGhosts = true }: VdrEmbedProp
     return () => ro.disconnect();
   }, []);
 
+  useEffect(() => {
+    const root = ref.current;
+    if (!root || !window.IntersectionObserver) {
+      setVisible(true);
+      return;
+    }
+    const observer = new IntersectionObserver(
+      ([entry]) => setVisible(Boolean(entry?.isIntersecting)),
+      { rootMargin: '120px', threshold: 0.01 },
+    );
+    observer.observe(root);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div ref={ref} style={{ position: 'absolute', inset: 0, overflow: 'hidden', background: '#143737' }}>
       <div ref={boxRef} style={{
         position: 'absolute', left: '50%', top: '50%', width: 1080, height: 1080,
         transformOrigin: 'center', transform: 'translate(-50%, -50%)',
       }}>
-        <VdrScene accent={accent} showGhosts={showGhosts} resetSignal={run} />
+        {visible ? <VdrScene accent={accent} showGhosts={showGhosts} resetSignal={run} /> : null}
       </div>
     </div>
   );
