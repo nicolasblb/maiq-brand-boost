@@ -804,7 +804,7 @@ export default function PaginaInstitucional() {
     };
     S._measureOv2 = () => {
       const wrap = overlay2WrapRef.current, ov2 = overlay2Ref.current, next = overlay3Ref.current;
-      if (!wrap || !ov2 || !next || ov2.style.position === 'fixed') return;
+      if (!wrap || !ov2 || !next) return;
       const vh = window.innerHeight;
       S._ov2Top = ov2.getBoundingClientRect().top + window.scrollY;
       S._netEntryStart = S._ov2Top - vh;
@@ -821,28 +821,7 @@ export default function PaginaInstitucional() {
       const ov2 = overlay2Ref.current, wrap = overlay2WrapRef.current;
       const content = netContentRef.current;
       if (!ov2 || !wrap || S._ov2Top == null) return;
-      if (ov2.style.position !== 'fixed') S._measureOv2();
       const vh = window.innerHeight;
-      const top = S._ov2Top - window.scrollY;
-      const fixed = ov2.style.position === 'fixed';
-      if (top > 0 && top <= vh) {
-        if (!fixed) {
-          wrap.style.height = wrap.offsetHeight + 'px';
-          ov2.style.position = 'fixed';
-          ov2.style.top = '0px';
-          ov2.style.left = '0px';
-          ov2.style.width = '100%';
-        }
-      } else {
-        if (fixed) {
-          ov2.style.position = '';
-          ov2.style.top = '';
-          ov2.style.left = '';
-          ov2.style.width = '';
-          wrap.style.height = '';
-        }
-        if (top > vh) S._ov2Top = ov2.getBoundingClientRect().top + window.scrollY;
-      }
       ov2.style.transform = 'translate3d(0,0,0)';
       if (content) {
         // Os marcos são absolutos para a geometria não mudar quando o bloco
