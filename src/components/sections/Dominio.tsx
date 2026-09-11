@@ -38,7 +38,7 @@ function FounderCard({ person, index }: { person: typeof FOUNDERS[0]; index: num
         flexDirection: 'column',
         gap: '14px',
         flex: '1 1 0',
-        minWidth: '180px',
+        minWidth: '0',
       }}
     >
       <div
@@ -262,6 +262,7 @@ export default function Dominio() {
         padding: 'clamp(104px,13vh,150px) clamp(24px,5vw,48px) clamp(36px,4.5vh,64px)',
         display: 'flex',
         alignItems: 'center',
+        overflowX: 'clip',
       }}
     >
       <div style={{ width: '100%', maxWidth: '1200px', margin: '0 auto' }}>
