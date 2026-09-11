@@ -288,7 +288,7 @@ export default function Dominio() {
               textWrap: 'pretty',
             }}
           >
-            Conhecimento prático de quem vive o mercado de M&A e de quem constrói a tecnologia que escala esse conhecimento.
+            Conhecimento de quem vive o mercado de M&A, compartilhado com segurança e praticidade.
           </p>
         </div>
 
