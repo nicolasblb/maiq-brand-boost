@@ -805,6 +805,7 @@ export default function PaginaInstitucional() {
     // a seção anterior "sai de cima" e revela a Plataforma, que fica presa ao topo
     S._paintOv2 = () => {
       const ov2 = overlay2Ref.current, wrap = overlay2WrapRef.current;
+      const net = netWrapRef.current, previous = overlayRef.current, next = overlay3Ref.current;
       if (!ov2 || !wrap || S._ov2Top == null) return;
       const vh = window.innerHeight;
       const top = S._ov2Top - window.scrollY;
@@ -828,6 +829,16 @@ export default function PaginaInstitucional() {
         if (top > vh) S._ov2Top = ov2.getBoundingClientRect().top + window.scrollY;
       }
       ov2.style.transform = 'translate3d(0,0,0)';
+      if (net) {
+        const previousBottom = previous ? previous.getBoundingClientRect().bottom : vh;
+        const reveal = Math.max(0, Math.min(1, (vh - previousBottom) / vh));
+        const revealEase = 1 - Math.pow(1 - reveal, 3);
+        const nextTop = next ? next.getBoundingClientRect().top : vh;
+        const conceal = Math.max(0, Math.min(1, (vh - nextTop) / vh));
+        const concealEase = conceal * conceal * conceal;
+        const offset = 64 * (1 - revealEase) - 72 * concealEase;
+        net.style.transform = `translate3d(0,${offset.toFixed(2)}px,0)`;
+      }
     };
     S._onScroll = () => {
       S._paintOv2();
@@ -1171,7 +1182,7 @@ export default function PaginaInstitucional() {
         </div>
       </section>
       <div ref={overlayRef} style={{ position: "relative", zIndex: "2", background: "var(--p-bg,#0D2423)", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderBottom: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "24px", overflow: "clip", boxShadow: "var(--p-overlay-shadow,0 -30px 60px -18px rgba(4,16,16,.62)), 0 30px 60px -18px rgba(4,16,16,.62)", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
-        <div style={{ position: "relative", zIndex: "2", background: "linear-gradient(140deg, var(--p-bg-deep,#0A1D1D) 0%, color-mix(in oklab, var(--p-bg-deep,#0A1D1D) 88%, var(--p-mark-2,#33605A)) 34%, color-mix(in oklab, var(--p-bg-deep,#0A1D1D) 80%, var(--p-mark-2,#33605A)) 50%, color-mix(in oklab, var(--p-bg-deep,#0A1D1D) 88%, var(--p-mark-2,#33605A)) 66%, var(--p-bg-deep,#0A1D1D) 100%)", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
+        <div className="maiq-model-pilares-bg" style={{ position: "relative", zIndex: "2", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
         <section aria-label="Nosso modelo" style={{ position: "relative", zIndex: "1", minHeight: "100vh", boxSizing: "border-box", display: "flex", alignItems: "center", padding: "clamp(104px,13vh,150px) 48px clamp(36px,4.5vh,64px)" }}>
           <div style={{ width: "100%", maxWidth: "1200px", margin: "0 auto", display: "flex", flexDirection: "column", gap: "clamp(24px,3vh,44px)" }}>
             <div>
@@ -1364,7 +1375,7 @@ export default function PaginaInstitucional() {
       </div>
       <div ref={overlay2WrapRef} style={{ position: "relative", zIndex: "1" }}>
           <div ref={overlay2Ref} style={{ position: "relative", zIndex: "1", background: "var(--p-bg,#0D2423)", overflow: "clip", willChange: "transform", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
-            <div ref={netWrapRef} style={{ position: "sticky", top: "0", zIndex: "0", overflow: "clip", background: "var(--p-bg,#0D2423)", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
+            <div ref={netWrapRef} style={{ position: "sticky", top: "0", zIndex: "0", overflow: "clip", background: "var(--p-bg,#0D2423)", transition: "background 320ms cubic-bezier(.16,1,.3,1)", willChange: "transform" }}>
               <canvas aria-hidden="true" ref={platBgRef} data-maiq-plat-bg="" style={{ position: "sticky", top: "0", left: "0", width: "100%", height: "calc(100vh + 26vh)", marginBottom: "calc(-100vh - 26vh)", display: "block", pointerEvents: "none", zIndex: "0", willChange: "transform" }}>
               </canvas>
               <section aria-label="A Plataforma" style={{ position: "relative", zIndex: "1" }}>
@@ -1510,112 +1521,11 @@ export default function PaginaInstitucional() {
               <Ciclo />
             </div>
             <div ref={overlay3Ref} style={{ position: "relative", zIndex: "2", background: "var(--p-bg,#0D2423)", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "24px 24px 0 0", overflow: "clip", boxShadow: "var(--p-overlay-shadow,0 -30px 60px -18px rgba(4,16,16,.62))", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
-            <section style={{ padding: "96px 48px" }}>
-
-              <div style={{ maxWidth: "1200px", margin: "0 auto", display: "grid", gridTemplateColumns: "1.15fr 1fr", gap: "80px", alignItems: "center" }}>
-                <div>
-                  <div style={{ fontSize: "12px", letterSpacing: ".14em", textTransform: "uppercase", fontWeight: "500", color: "var(--p-muted,#91A398)" }}>
-                    02 Convicção
-                  </div>
-                  <h2 style={{ fontFamily: "Inter,var(--font-core)", fontSize: "40px", lineHeight: "1.1", letterSpacing: "-.016em", fontWeight: "600", margin: "18px 0 24px", maxWidth: "24ch" }}>
-                    A empresa que só cresce de forma orgânica pode estar limitando o próprio futuro.
-                  </h2>
-                  <p style={{ fontSize: "16px", lineHeight: "1.7", color: "var(--p-muted,#91A398)", maxWidth: "62ch", margin: "0" }}>
-                    Toda empresa deve avaliar o crescimento via M&A, mesmo que nunca realize. Se feita da maneira correta, como disciplina contínua, uma combinação de negócios pode criar valor incomparável.
-                  </p>
-                </div>
-                <div style={{ background: "var(--p-card,#1B4442)", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "16px", padding: "40px", display: "flex", flexDirection: "column", gap: "32px", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
-                  <div>
-                    <div style={{ fontSize: "56px", lineHeight: "1", letterSpacing: "-.02em", fontWeight: "600", fontVariantNumeric: "tabular-nums" }}>
-                      ~93%
-                    </div>
-                    <div style={{ fontSize: "20px", fontWeight: "500", marginTop: "8px" }}>
-                      dos M&As falham
-                    </div>
-                    <p style={{ fontSize: "14px", lineHeight: "1.6", color: "var(--p-muted,#91A398)", margin: "8px 0 0", maxWidth: "32ch" }}>
-                      Somando as tentativas que não chegam ao closing, 6 em cada 100 M&As criam valor.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </section>
-            <section style={{ padding: "0 48px 96px" }}>
-              <div style={{ maxWidth: "1200px", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: "32px" }}>
-                <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-                  <div style={{ height: "3px", background: "var(--p-mark-1,#91A398)" }}>
-                  </div>
-                  <div style={{ fontSize: "12px", letterSpacing: ".14em", textTransform: "uppercase", color: "var(--p-muted,#91A398)" }}>
-                    01
-                  </div>
-                  <div style={{ fontSize: "14px", fontWeight: "500" }}>
-                    Tese
-                  </div>
-                  <div style={{ fontSize: "13px", lineHeight: "1.5", color: "var(--p-muted,#91A398)" }}>
-                    Onde a expansão inorgânica se encaixa na estratégia.
-                  </div>
-                </div>
-                <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-                  <div style={{ height: "3px", background: "var(--p-mark-2,#33605A)" }}>
-                  </div>
-                  <div style={{ fontSize: "12px", letterSpacing: ".14em", textTransform: "uppercase", color: "var(--p-muted,#91A398)" }}>
-                    02
-                  </div>
-                  <div style={{ fontSize: "14px", fontWeight: "500" }}>
-                    Prontidão
-                  </div>
-                  <div style={{ fontSize: "13px", lineHeight: "1.5", color: "var(--p-muted,#91A398)" }}>
-                    QUARPX® mede e eleva a maturidade da empresa.
-                  </div>
-                </div>
-                <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-                  <div style={{ height: "3px", background: "var(--p-hair,rgba(233,224,209,.14))" }}>
-                  </div>
-                  <div style={{ fontSize: "12px", letterSpacing: ".14em", textTransform: "uppercase", color: "var(--p-muted,#91A398)" }}>
-                    03
-                  </div>
-                  <div style={{ fontSize: "14px", fontWeight: "500", color: "var(--p-muted,#91A398)" }}>
-                    Transação
-                  </div>
-                  <div style={{ fontSize: "13px", lineHeight: "1.5", color: "var(--p-muted,#91A398)" }}>
-                    Coordenação interna e externa do processo.
-                  </div>
-                </div>
-                <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-                  <div style={{ height: "3px", background: "var(--p-hair,rgba(233,224,209,.14))" }}>
-                  </div>
-                  <div style={{ fontSize: "12px", letterSpacing: ".14em", textTransform: "uppercase", color: "var(--p-muted,#91A398)" }}>
-                    04
-                  </div>
-                  <div style={{ fontSize: "14px", fontWeight: "500", color: "var(--p-muted,#91A398)" }}>
-                    Integração
-                  </div>
-                  <div style={{ fontSize: "13px", lineHeight: "1.5", color: "var(--p-muted,#91A398)" }}>
-                    Captura efetiva de valor e sinergias.
-                  </div>
-                </div>
-              </div>
-            </section>
-            <section style={{ background: "var(--p-band-bg,#E9E0D1)", padding: "96px 48px", position: "relative", overflow: "hidden", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
-              <div style={{ position: "absolute", inset: "0", overflow: "hidden", filter: "blur(48px)" }}>
-                <div data-maiq-anim="" style={{ position: "absolute", background: "radial-gradient(closest-side, var(--p-band-vol-shadow,rgba(20,55,55,.20)) 0%, var(--p-band-vol-shadow-2,rgba(20,55,55,.06)) 52%, var(--p-band-fade,rgba(233,224,209,0)) 76%)", left: "-16%", top: "-24%", width: "74%", height: "150%", animation: "maiqVolB 20s cubic-bezier(.4,0,.6,1) infinite", willChange: "transform" }}>
-                </div>
-                <div data-maiq-anim="" style={{ position: "absolute", background: "radial-gradient(closest-side, var(--p-band-vol-accent,rgba(51,96,90,.16)) 0%, var(--p-band-vol-accent-2,rgba(51,96,90,.05)) 50%, var(--p-band-fade,rgba(233,224,209,0)) 76%)", left: "48%", top: "10%", width: "66%", height: "140%", animation: "maiqVolA 15s cubic-bezier(.4,0,.6,1) infinite", willChange: "transform" }}>
-                </div>
-                <div data-maiq-anim="" style={{ position: "absolute", background: "radial-gradient(closest-side, var(--p-band-vol-light,rgba(255,252,246,.5)) 0%, var(--p-band-vol-light-2,rgba(255,252,246,.14)) 50%, var(--p-band-fade,rgba(233,224,209,0)) 78%)", left: "22%", top: "-40%", width: "52%", height: "120%", animation: "maiqVolC 23s cubic-bezier(.4,0,.6,1) infinite", willChange: "transform" }}>
-                </div>
-              </div>
-              <div style={{ position: "relative", maxWidth: "1200px", margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: "48px", flexWrap: "wrap" }}>
-                <div>
-                  <div style={{ fontSize: "12px", letterSpacing: ".14em", textTransform: "uppercase", fontWeight: "500", color: "var(--p-band-overline,#33605A)" }}>
-                    Copilotos do crescimento
-                  </div>
-                  <h2 style={{ fontFamily: "Inter,var(--font-core)", fontSize: "40px", lineHeight: "1.1", letterSpacing: "-.016em", fontWeight: "600", color: "var(--p-band-text,#143737)", margin: "16px 0 0", maxWidth: "26ch" }}>
-                    O empresário se dedica ao que conhece. Nós cuidamos do crescimento inorgânico.
-                  </h2>
-                </div>
-                <div style={{ display: "flex", height: "52px", padding: "0 30px", alignItems: "center", background: "var(--p-band-btn-bg,#143737)", color: "var(--p-band-btn-fg,#E9E0D1)", borderRadius: "999px", fontSize: "16px", fontWeight: "500", cursor: "pointer" }}>
-                  Agendar conversa
-                </div>
+            <section aria-label="O Conhecimento" style={{ minHeight: "100vh", boxSizing: "border-box", padding: "clamp(104px,13vh,150px) 48px clamp(36px,4.5vh,64px)" }}>
+              <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+                <h2 style={{ fontFamily: "Inter,var(--font-core)", fontSize: "clamp(38px,4.2vw,58px)", lineHeight: "1.04", letterSpacing: "-.022em", fontWeight: "600", margin: "0" }}>
+                  O Conhecimento
+                </h2>
               </div>
             </section>
             <footer style={{ background: "var(--p-footer-bg,#0A1D1D)", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", padding: "64px 48px 32px", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>

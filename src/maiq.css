@@ -248,6 +248,7 @@
 body{margin:0;background:#0D2423;transition:background 320ms cubic-bezier(.16,1,.3,1)}a{color:#E9E0D1;text-decoration:none}a:hover{color:#FFFFFF}
 [data-maiq-scope]{
 --p-bg:#0D2423;--p-hero-bg:#143737;--p-card:#1B4442;--p-footer-bg:#0A1D1D;--p-bg-deep:#0A1D1D;--p-tool-filter:brightness(0) invert(1);--p-helix:rgba(145,163,152,.6);--p-helix-hi:rgba(233,224,209,.92);--p-helix-dim:rgba(145,163,152,.16);
+--p-model-base:#0A1D1D;--p-model-edge:rgba(51,96,90,.42);--p-model-core:rgba(145,163,152,.30);--p-model-wave:rgba(203,216,208,.18);
 --p-text:#E9E0D1;--p-text-2:#B7C4BC;--p-muted:#91A398;
 --p-hair:rgba(233,224,209,.14);--p-hair-soft:rgba(233,224,209,.10);
 --p-chip-bg:rgba(233,224,209,.04);--p-chip-bg-strong:rgba(233,224,209,.13);--p-ring:#CBD8D0;--p-ring-glow:rgba(203,216,208,.40);--p-net-ink:145,163,152;--p-net-neb:51,96,90;--p-net-op:.70;--p-net-blend:lighter;--p-plat-veil:rgba(10,29,29,.46);--p-chip-text:#D8D0C2;
@@ -270,6 +271,7 @@ body{margin:0;background:#0D2423;transition:background 320ms cubic-bezier(.16,1,
 }
 [data-maiq-scope][data-theme="claro"]{
 --p-bg:#EDE6D9;--p-hero-bg:#E2D8C6;--p-card:#F7F3EA;--p-footer-bg:#E2D8C6;--p-bg-deep:#E4DACA;--p-tool-filter:brightness(0);--p-helix:rgba(104,70,43,.5);--p-helix-hi:rgba(63,42,27,.9);--p-helix-dim:rgba(104,70,43,.12);
+--p-model-base:#F1EBE0;--p-model-edge:rgba(104,70,43,.24);--p-model-core:rgba(255,253,248,.78);--p-model-wave:rgba(51,96,90,.16);
 --p-text:#3F2A1B;--p-text-2:#68462B;--p-muted:#8A6A4B;
 --p-hair:rgba(63,42,27,.14);--p-hair-soft:rgba(63,42,27,.10);
 --p-chip-bg:rgba(255,253,248,.20);--p-chip-bg-strong:rgba(104,70,43,.10);--p-ring:#68462B;--p-ring-glow:rgba(104,70,43,.26);--p-net-ink:104,70,43;--p-net-neb:138,106,75;--p-net-op:.40;--p-net-blend:multiply;--p-plat-veil:rgba(247,243,234,.52);--p-chip-text:#3F2A1B;
@@ -291,6 +293,42 @@ body{margin:0;background:#0D2423;transition:background 320ms cubic-bezier(.16,1,
 --p-band-vol-light:rgba(145,163,152,.20);--p-band-vol-light-2:rgba(145,163,152,.06);
 --p-band-fade:rgba(20,55,55,0);
 --p-cta-bg:#68462B;--p-cta-fg:#F1EBE0;--p-cta-bg-hover:#7A5334;--p-cta-bg-active:#543619;
+}
+.maiq-model-pilares-bg{
+  isolation:isolate;
+  overflow:hidden;
+  background:
+    linear-gradient(142deg,var(--p-model-base) 0%,var(--p-model-edge) 31%,var(--p-model-core) 50%,var(--p-model-edge) 69%,var(--p-model-base) 100%);
+}
+.maiq-model-pilares-bg::before,
+.maiq-model-pilares-bg::after{
+  content:"";
+  position:absolute;
+  z-index:0;
+  inset:-18% -35%;
+  pointer-events:none;
+  transform:translate3d(-7%,-4%,0) rotate(-4deg);
+  background:linear-gradient(142deg,transparent 30%,var(--p-model-wave) 43%,transparent 56%);
+  filter:blur(42px);
+  animation:maiqEnergyWave 16s cubic-bezier(.45,0,.55,1) infinite alternate;
+  will-change:transform,opacity;
+}
+.maiq-model-pilares-bg::after{
+  inset:-24% -44%;
+  opacity:.58;
+  filter:blur(70px);
+  animation-duration:23s;
+  animation-delay:-8s;
+  animation-direction:alternate-reverse;
+}
+.maiq-model-pilares-bg > section{position:relative;z-index:1}
+@keyframes maiqEnergyWave{
+  0%{transform:translate3d(-9%,-5%,0) rotate(-4deg) scale(1)}
+  48%{transform:translate3d(2%,4%,0) rotate(-2deg) scale(1.08)}
+  100%{transform:translate3d(10%,-2%,0) rotate(-5deg) scale(1.02)}
+}
+@media (prefers-reduced-motion:reduce){
+  .maiq-model-pilares-bg::before,.maiq-model-pilares-bg::after{animation:none}
 }
 @keyframes maiqVolA{0%,100%{transform:translate3d(0,0,0) scale(1)}33%{transform:translate3d(-20%,14%,0) scale(1.18)}66%{transform:translate3d(18%,-12%,0) scale(1.06)}}
 @keyframes maiqVolB{0%,100%{transform:translate3d(0,0,0) scale(1.06)}33%{transform:translate3d(20%,-14%,0) scale(1)}66%{transform:translate3d(-16%,14%,0) scale(1.18)}}
