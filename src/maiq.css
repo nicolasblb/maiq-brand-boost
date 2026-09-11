@@ -300,11 +300,11 @@ body{margin:0;background:#0D2423;transition:background 320ms cubic-bezier(.16,1,
   background:
     linear-gradient(52deg,
       var(--p-model-base) 0%,
-      var(--p-model-base) 16%,
-      var(--p-model-edge) 26%,
-      var(--p-model-core) 34%,
-      var(--p-model-edge) 42%,
-      var(--p-model-base) 56%,
+      var(--p-model-base) 4%,
+      var(--p-model-edge) 14%,
+      var(--p-model-core) 22%,
+      var(--p-model-edge) 30%,
+      var(--p-model-base) 46%,
       var(--p-model-base) 100%);
 }
 .maiq-model-pilares-bg::before,
@@ -316,7 +316,7 @@ body{margin:0;background:#0D2423;transition:background 320ms cubic-bezier(.16,1,
   width:auto;
   height:auto;
   pointer-events:none;
-  background:linear-gradient(52deg,transparent 18%,var(--p-model-wave) 30%,transparent 42%);
+  background:linear-gradient(52deg,transparent 6%,var(--p-model-wave) 19%,transparent 32%);
   filter:blur(44px);
   animation:maiqEnergyWave 16s cubic-bezier(.45,0,.55,1) infinite alternate;
   will-change:transform,opacity;
