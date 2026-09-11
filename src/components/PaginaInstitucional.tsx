@@ -306,6 +306,8 @@ export default function PaginaInstitucional() {
       if (S._logoMode) window.removeEventListener('resize', S._logoMode);
       if (S._logoLoad) window.removeEventListener('load', S._logoLoad);
       if (S._fitHero) window.removeEventListener('resize', S._fitHero);
+      if (S._fitNet) window.removeEventListener('resize', S._fitNet);
+
       if (S._wrap) {
         S._wrap.removeEventListener('mouseenter', S._enter);
         S._wrap.removeEventListener('mouseleave', S._leave);
