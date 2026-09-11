@@ -1,19 +1,25 @@
 import { useEffect, useRef } from 'react';
+import socioEnzo from '@/assets/socio-enzo.jpg.asset.json';
+import socioNicolas from '@/assets/socio-nicolas.jpg.asset.json';
+import logoFalconi from '@/assets/logo-falconi.png.asset.json';
+import logoDeloitte from '@/assets/logo-deloitte.png.asset.json';
+import logoPwc from '@/assets/logo-pwc.png.asset.json';
+import logoBradesco from '@/assets/logo-bradesco.png.asset.json';
+import logoAbc from '@/assets/logo-abc.png.asset.json';
+import logoThomsonReuters from '@/assets/logo-thomson-reuters.png.asset.json';
 
-// Placeholders: substituir pelos assets reais quando o usuário enviar as imagens.
-// Cada entrada pode ter `src` (string) ou usar o fallback com iniciais.
 const FOUNDERS = [
-  { name: 'Enzo Braga Rodrigues', role: 'Business', initials: 'EB', src: null as string | null },
-  { name: 'Nicolas Bernard', role: 'Digital', initials: 'NB', src: null as string | null },
+  { name: 'Enzo Braga Rodrigues', role: 'Business', initials: 'EB', src: socioEnzo.url as string | null },
+  { name: 'Nicolas Bernard', role: 'Digital', initials: 'NB', src: socioNicolas.url as string | null },
 ];
 
 const PARTNERS = [
-  { name: 'Empresa 1', src: null as string | null },
-  { name: 'Empresa 2', src: null as string | null },
-  { name: 'Empresa 3', src: null as string | null },
-  { name: 'Empresa 4', src: null as string | null },
-  { name: 'Empresa 5', src: null as string | null },
-  { name: 'Empresa 6', src: null as string | null },
+  { name: 'Falconi', src: logoFalconi.url as string | null },
+  { name: 'Deloitte', src: logoDeloitte.url as string | null },
+  { name: 'PwC', src: logoPwc.url as string | null },
+  { name: 'Bradesco', src: logoBradesco.url as string | null },
+  { name: 'Banco ABC', src: logoAbc.url as string | null },
+  { name: 'Thomson Reuters', src: logoThomsonReuters.url as string | null },
 ];
 
 const QUOTE = {
@@ -103,6 +109,7 @@ function PartnerLogo({ partner }: { partner: typeof PARTNERS[0] }) {
   const hasLogo = Boolean(partner.src);
   return (
     <div
+      className="dominio-partner-logo"
       style={{
         flex: '0 0 auto',
         display: 'flex',
@@ -111,10 +118,9 @@ function PartnerLogo({ partner }: { partner: typeof PARTNERS[0] }) {
         height: '44px',
         padding: '0 28px',
         opacity: 0.55,
-        filter: 'grayscale(1)',
         transition: 'opacity 220ms cubic-bezier(.2,0,0,1),filter 220ms cubic-bezier(.2,0,0,1)',
       }}
-      data-hover-style="opacity:1;filter:grayscale(0)"
+      data-hover-style="opacity:1"
     >
       {hasLogo ? (
         <img
@@ -197,32 +203,46 @@ export default function Dominio() {
     const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduce) return;
 
-    const children = Array.from(track.children) as HTMLElement[];
-    if (!children.length) return;
-    const gap = parseFloat(getComputedStyle(track).columnGap || '0') || 0;
-    const span = children.reduce((w, n) => w + n.getBoundingClientRect().width + gap, 0) - gap;
-    if (!span) return;
-
-    const parent = track.parentElement!;
-    while (track.scrollWidth < parent.clientWidth * 2 + span) {
-      children.forEach((n) => track.appendChild(n.cloneNode(true)));
-    }
-
-    let x = 0;
+    let cancelled = false;
     let raf: number | null = null;
-    let last = performance.now();
-    const speed = 42; // px/s
-    const tick = (now: number) => {
-      const dt = Math.min((now - last) / 1000, 0.05);
-      last = now;
-      x -= speed * dt;
-      if (x <= -span) x += span;
-      track.style.transform = `translate3d(${x.toFixed(2)}px,0,0)`;
+
+    const start = () => {
+      if (cancelled) return;
+      const children = Array.from(track.children) as HTMLElement[];
+      if (!children.length) return;
+      const gap = parseFloat(getComputedStyle(track).columnGap || '0') || 0;
+      const span = children.reduce((w, n) => w + n.getBoundingClientRect().width + gap, 0) - gap;
+      if (!span) return;
+
+      const parent = track.parentElement!;
+      while (track.scrollWidth < parent.clientWidth * 2 + span) {
+        children.forEach((n) => track.appendChild(n.cloneNode(true)));
+      }
+
+      let x = 0;
+      let last = performance.now();
+      const speed = 42; // px/s
+      const tick = (now: number) => {
+        const dt = Math.min((now - last) / 1000, 0.05);
+        last = now;
+        x -= speed * dt;
+        if (x <= -span) x += span;
+        track.style.transform = `translate3d(${x.toFixed(2)}px,0,0)`;
+        raf = requestAnimationFrame(tick);
+      };
       raf = requestAnimationFrame(tick);
     };
-    raf = requestAnimationFrame(tick);
+
+    // Espera as imagens carregarem antes de medir a largura dos logos.
+    const imgs = Array.from(track.querySelectorAll('img'));
+    if (imgs.length) {
+      Promise.all(imgs.map((im) => im.decode().catch(() => undefined))).then(start);
+    } else {
+      start();
+    }
 
     return () => {
+      cancelled = true;
       if (raf) cancelAnimationFrame(raf);
     };
   }, []);
@@ -389,6 +409,13 @@ export default function Dominio() {
       </div>
 
       <style>{`
+        /* Logos monocromáticas pretas: invertemos para claro no tema noturno */
+        .dominio-partner-logo img {
+          filter: invert(1) brightness(1.05);
+        }
+        [data-theme="claro"] .dominio-partner-logo img {
+          filter: none;
+        }
         @media (max-width: 900px) {
           [aria-label="O Domínio"] > div > div:last-child {
             grid-template-columns: 1fr !important;
