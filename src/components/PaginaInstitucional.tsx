@@ -1169,7 +1169,7 @@ export default function PaginaInstitucional() {
         </div>
       </section>
       <div ref={overlayRef} style={{ position: "relative", zIndex: "2", background: "var(--p-bg,#0D2423)", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderBottom: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "24px", overflow: "clip", boxShadow: "var(--p-overlay-shadow,0 -30px 60px -18px rgba(4,16,16,.62)), 0 30px 60px -18px rgba(4,16,16,.62)", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
-        <div style={{ position: "relative", zIndex: "2", background: "linear-gradient(135deg, var(--p-bg-deep,#0A1D1D) 0%, color-mix(in oklab, var(--p-bg-deep,#0A1D1D) 93%, var(--p-mark-2,#33605A)) 50%, var(--p-bg-deep,#0A1D1D) 100%)", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
+        <div style={{ position: "relative", zIndex: "2", background: "linear-gradient(140deg, var(--p-bg-deep,#0A1D1D) 0%, color-mix(in oklab, var(--p-bg-deep,#0A1D1D) 88%, var(--p-mark-2,#33605A)) 34%, color-mix(in oklab, var(--p-bg-deep,#0A1D1D) 80%, var(--p-mark-2,#33605A)) 50%, color-mix(in oklab, var(--p-bg-deep,#0A1D1D) 88%, var(--p-mark-2,#33605A)) 66%, var(--p-bg-deep,#0A1D1D) 100%)", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
         <section aria-label="Nosso modelo" style={{ position: "relative", zIndex: "1", minHeight: "100vh", boxSizing: "border-box", display: "flex", alignItems: "center", padding: "clamp(104px,13vh,150px) 48px clamp(36px,4.5vh,64px)" }}>
           <div style={{ width: "100%", maxWidth: "1200px", margin: "0 auto", display: "flex", flexDirection: "column", gap: "clamp(24px,3vh,44px)" }}>
             <div>
