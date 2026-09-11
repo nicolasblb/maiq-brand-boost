@@ -98,6 +98,7 @@ export default function PaginaInstitucional() {
   const overlay2Ref = useRef<Any>(null);
   const overlay2WrapRef = useRef<Any>(null);
   const overlay3Ref = useRef<Any>(null);
+  const netContentRef = useRef<Any>(null);
 
   const segSunRef = useRef<Any>(null);
   const segMoonRef = useRef<Any>(null);
@@ -588,8 +589,11 @@ export default function PaginaInstitucional() {
 
     const docTop = (el: Any) => { let y = 0, n = el; while (n) { y += n.offsetTop; n = n.offsetParent; } return y; };
     const measureBlock = () => {
-      const ov2 = overlay2Ref.current, ov3 = overlay3Ref.current;
-      S._netBlockStart = ov2 ? docTop(ov2) : docTop(host);
+      const wrap = overlay2WrapRef.current, ov3 = overlay3Ref.current;
+      const vh = window.innerHeight || 800;
+      // O percurso começa no primeiro pixel revelado na base da tela e termina
+      // quando a seção seguinte cobre o bloco por completo.
+      S._netBlockStart = (wrap ? docTop(wrap) : docTop(host)) - vh;
       S._netBlockEnd = ov3 ? docTop(ov3) : docTop(host) + host.offsetHeight;
     };
 
@@ -799,50 +803,40 @@ export default function PaginaInstitucional() {
       }
     };
     S._measureOv2 = () => {
-      const wrap = overlay2WrapRef.current, ov2 = overlay2Ref.current;
-      if (!wrap || !ov2 || ov2.style.position === 'fixed') return;
+      const wrap = overlay2WrapRef.current, ov2 = overlay2Ref.current, next = overlay3Ref.current;
+      if (!wrap || !ov2 || !next) return;
+      const vh = window.innerHeight;
       S._ov2Top = ov2.getBoundingClientRect().top + window.scrollY;
+      S._netEntryStart = S._ov2Top - vh;
+      S._netEntryEnd = S._ov2Top;
+      S._netExitEnd = next.getBoundingClientRect().top + window.scrollY;
+      S._netExitStart = S._netExitEnd - vh;
+      S._netBlockStart = S._netEntryStart;
+      S._netBlockEnd = S._netExitEnd;
     };
     S._measureOv2();
     window.addEventListener('resize', S._measureOv2);
     // a seção anterior "sai de cima" e revela a Plataforma, que fica presa ao topo
     S._paintOv2 = () => {
       const ov2 = overlay2Ref.current, wrap = overlay2WrapRef.current;
-      const net = netWrapRef.current, previous = overlayRef.current, next = overlay3Ref.current;
+      const content = netContentRef.current;
       if (!ov2 || !wrap || S._ov2Top == null) return;
       const vh = window.innerHeight;
-      const top = S._ov2Top - window.scrollY;
-      const fixed = ov2.style.position === 'fixed';
-      if (top > 0 && top <= vh) {
-        if (!fixed) {
-          wrap.style.height = wrap.offsetHeight + 'px';
-          ov2.style.position = 'fixed';
-          ov2.style.top = '0px';
-          ov2.style.left = '0px';
-          ov2.style.width = '100%';
-        }
-      } else {
-        if (fixed) {
-          ov2.style.position = '';
-          ov2.style.top = '';
-          ov2.style.left = '';
-          ov2.style.width = '';
-          wrap.style.height = '';
-        }
-        if (top > vh) S._ov2Top = ov2.getBoundingClientRect().top + window.scrollY;
-      }
       ov2.style.transform = 'translate3d(0,0,0)';
-      if (net) {
-        const previousBottom = previous ? previous.getBoundingClientRect().bottom : vh;
-        const reveal = Math.max(0, Math.min(1, (vh - previousBottom) / vh));
-        const nextTop = next ? next.getBoundingClientRect().top : vh;
-        const conceal = Math.max(0, Math.min(1, (vh - nextTop) / vh));
-        // deslocamentos simétricos: velocidade do conteúdo varia progressivamente
-        // entre 0.2x e 1x tanto na entrada quanto na saída
-        const revealLag = 0.2 * reveal + 0.4 * reveal * reveal;
-        const concealLag = 0.2 * conceal + 0.4 * conceal * conceal;
-        const offset = 180 * revealLag - 180 * concealLag;
-        net.style.transform = `translate3d(0,${offset.toFixed(2)}px,0)`;
+      if (content) {
+        // Os marcos são absolutos para a geometria não mudar quando o bloco
+        // alterna entre fluxo normal e posição fixa durante a sobreposição.
+        const reveal = Math.max(0, Math.min(1, (window.scrollY - S._netEntryStart) / Math.max(1, S._netEntryEnd - S._netEntryStart)));
+        const conceal = Math.max(0, Math.min(1, (window.scrollY - S._netExitStart) / Math.max(1, S._netExitEnd - S._netExitStart)));
+        // Entrada: v(t) = 0.2 + 0.8t. Saída: v(t) = 1 - 0.8t.
+        // As integrais geram percursos simétricos de 0.6 viewport, mantendo
+        // posição e velocidade contínuas nos encontros com o trecho central.
+        // O elemento parte já dentro da faixa revelada: sua posição visual
+        // percorre 0.6 viewport enquanto a velocidade cresce de 0.2x a 1x.
+        const entryOffset = vh * (-0.4 + 0.8 * reveal - 0.4 * reveal * reveal);
+        const exitOffset = vh * (conceal - 0.4 * conceal * conceal);
+        const offset = entryOffset - exitOffset;
+        content.style.transform = `translate3d(0,${offset.toFixed(2)}px,0)`;
       }
     };
     S._onScroll = () => {
@@ -1383,6 +1377,7 @@ export default function PaginaInstitucional() {
             <div ref={netWrapRef} style={{ position: "sticky", top: "0", zIndex: "0", overflow: "clip", background: "var(--p-bg,#0D2423)", transition: "background 320ms cubic-bezier(.16,1,.3,1)", willChange: "transform" }}>
               <canvas aria-hidden="true" ref={platBgRef} data-maiq-plat-bg="" style={{ position: "sticky", top: "0", left: "0", width: "100%", height: "calc(100vh + 26vh)", marginBottom: "calc(-100vh - 26vh)", display: "block", pointerEvents: "none", zIndex: "0", willChange: "transform" }}>
               </canvas>
+              <div ref={netContentRef} data-maiq-net-content="" style={{ position: "relative", zIndex: "1", willChange: "transform" }}>
               <section aria-label="A Plataforma" style={{ position: "relative", zIndex: "1" }}>
                 <div data-maiq-plat-pin="" style={{ position: "relative", minHeight: "100vh", boxSizing: "border-box", display: "flex", alignItems: "flex-start", padding: "0 48px" }}>
                   <div ref={platInnerRef} data-maiq-plat-inner="" style={{ position: "relative", zIndex: "1", width: "100%", maxWidth: "1200px", height: "100vh", boxSizing: "border-box", margin: "0 auto", display: "flex", flexDirection: "column", paddingTop: "clamp(104px,13vh,150px)" }}>
@@ -1524,6 +1519,7 @@ export default function PaginaInstitucional() {
                 </div>
               </section>
               <Ciclo />
+              </div>
             </div>
             <div ref={overlay3Ref} style={{ position: "relative", zIndex: "2", background: "var(--p-bg,#0D2423)", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "24px 24px 0 0", overflow: "clip", boxShadow: "var(--p-overlay-shadow,0 -30px 60px -18px rgba(4,16,16,.62))", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
             <section aria-label="O Conhecimento" style={{ minHeight: "100vh", boxSizing: "border-box", padding: "clamp(104px,13vh,150px) 48px clamp(36px,4.5vh,64px)" }}>
