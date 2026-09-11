@@ -271,7 +271,7 @@ body{margin:0;background:#0D2423;transition:background 320ms cubic-bezier(.16,1,
 }
 [data-maiq-scope][data-theme="claro"]{
 --p-bg:#EDE6D9;--p-hero-bg:#E2D8C6;--p-card:#F7F3EA;--p-footer-bg:#E2D8C6;--p-bg-deep:#E4DACA;--p-tool-filter:brightness(0);--p-helix:rgba(104,70,43,.5);--p-helix-hi:rgba(63,42,27,.9);--p-helix-dim:rgba(104,70,43,.12);
---p-model-base:#F1EBE0;--p-model-edge:rgba(104,70,43,.24);--p-model-core:rgba(255,253,248,.78);--p-model-wave:rgba(51,96,90,.16);
+--p-model-base:#F1EBE0;--p-model-edge:rgba(160,124,86,.26);--p-model-core:rgba(255,253,248,.85);--p-model-wave:rgba(104,70,43,.20);
 --p-text:#3F2A1B;--p-text-2:#68462B;--p-muted:#8A6A4B;
 --p-hair:rgba(63,42,27,.14);--p-hair-soft:rgba(63,42,27,.10);
 --p-chip-bg:rgba(255,253,248,.20);--p-chip-bg-strong:rgba(104,70,43,.10);--p-ring:#68462B;--p-ring-glow:rgba(104,70,43,.26);--p-net-ink:104,70,43;--p-net-neb:138,106,75;--p-net-op:.40;--p-net-blend:multiply;--p-plat-veil:rgba(247,243,234,.52);--p-chip-text:#3F2A1B;
@@ -298,7 +298,7 @@ body{margin:0;background:#0D2423;transition:background 320ms cubic-bezier(.16,1,
   isolation:isolate;
   overflow:hidden;
   background:
-    linear-gradient(142deg,var(--p-model-base) 0%,var(--p-model-edge) 31%,var(--p-model-core) 50%,var(--p-model-edge) 69%,var(--p-model-base) 100%);
+    linear-gradient(142deg,var(--p-model-base) 0%,var(--p-model-base) 34%,var(--p-model-edge) 42%,var(--p-model-core) 50%,var(--p-model-edge) 58%,var(--p-model-base) 66%,var(--p-model-base) 100%);
 }
 .maiq-model-pilares-bg::before,
 .maiq-model-pilares-bg::after{
@@ -308,7 +308,7 @@ body{margin:0;background:#0D2423;transition:background 320ms cubic-bezier(.16,1,
   inset:-18% -35%;
   pointer-events:none;
   transform:translate3d(-7%,-4%,0) rotate(-4deg);
-  background:linear-gradient(142deg,transparent 30%,var(--p-model-wave) 43%,transparent 56%);
+  background:linear-gradient(142deg,transparent 37%,var(--p-model-wave) 43.5%,transparent 50%);
   filter:blur(42px);
   animation:maiqEnergyWave 16s cubic-bezier(.45,0,.55,1) infinite alternate;
   will-change:transform,opacity;
