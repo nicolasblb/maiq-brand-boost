@@ -57,6 +57,8 @@ export default function Ciclo() {
         c.setAttribute('stroke-width', String(w));
         c.setAttribute('opacity', '0');
         c.style.setProperty('--pulse-peak', peak);
+        // isola o repaint do pulso para não re-rasterizar textos vizinhos
+        c.style.willChange = 'opacity';
         g.appendChild(c);
         return c as unknown as HTMLElement;
       };
@@ -126,6 +128,11 @@ export default function Ciclo() {
       const pt = r.cur.p.getPointAtLength(Math.min(r.d, r.cur.len));
       r.trav.setAttribute('transform', 'translate(' + pt.x.toFixed(1) + ',' + pt.y.toFixed(1) + ')');
     };
+    // o grupo em movimento ganha camada própria: sem isso o SVG inteiro é
+    // re-rasterizado a cada quadro e textos/formas "vibram" pelo antialias
+    Array.prototype.slice.call(svg.querySelectorAll('[data-c-trav]')).forEach((g: Element) => {
+      (g as SVGGElement).style.willChange = 'transform';
+    });
     const stepRun = (r: Runner, dt: number, now: number) => {
       if (!r.cur || !r.trav) return;
       if (r.mode === 'hold') {
