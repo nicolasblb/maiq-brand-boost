@@ -320,6 +320,25 @@ export default function PaginaInstitucional() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Pausa as animações CSS pesadas (hero e degradê) quando saem da tela
+  function setupOffscreenPause() {
+    const scope = scopeRef.current;
+    if (!scope || !('IntersectionObserver' in window)) return;
+    const groups: Any[] = [];
+    if (heroRef.current) groups.push(heroRef.current);
+    Array.prototype.slice
+      .call(scope.querySelectorAll('.maiq-model-pilares-bg'))
+      .forEach((el: Any) => groups.push(el));
+    if (!groups.length) return;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        (e.target as HTMLElement).classList.toggle('maiq-anim-off', !e.isIntersecting);
+      });
+    }, { rootMargin: '10% 0px' });
+    groups.forEach((g) => io.observe(g));
+    S._pauseIO = io;
+  }
+
   // Odômetro: números da seção "O Modelo" rolam de zero ao valor real
   function setupOdometers() {
     const scope = scopeRef.current;
