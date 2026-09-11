@@ -394,6 +394,24 @@ export default function PaginaInstitucional() {
     let W = 0, H = 0, dpr = 1, layers: Any[] = [], neb: Any = null, seeds: Any[] = [];
     let ink = '145,163,152', nebRgb = '51,96,90', gop = 0.62, blend = 'lighter';
     const rnd = (a: number, b: number) => a + Math.random() * (b - a);
+    // sprites de brilho (um por dureza de borda), reconstruídos só quando a cor muda
+    const sprites: Any = { soft: null, hard: null, ink: '' };
+    const glowSprite = (soft: boolean) => {
+      const key = soft ? 'soft' : 'hard';
+      if (sprites.ink !== ink) { sprites.soft = null; sprites.hard = null; sprites.ink = ink; }
+      if (sprites[key]) return sprites[key];
+      const S2 = 64, c = document.createElement('canvas');
+      c.width = S2; c.height = S2;
+      const g2 = c.getContext('2d')!;
+      const gr = g2.createRadialGradient(S2 / 2, S2 / 2, 0, S2 / 2, S2 / 2, S2 / 2);
+      gr.addColorStop(0, 'rgba(' + ink + ',1)');
+      gr.addColorStop(soft ? 0.35 : 0.62, 'rgba(' + ink + ',0.42)');
+      gr.addColorStop(1, 'rgba(' + ink + ',0)');
+      g2.fillStyle = gr;
+      g2.fillRect(0, 0, S2, S2);
+      sprites[key] = c;
+      return c;
+    };
 
     const readTokens = () => {
       const cs = getComputedStyle(scope);
@@ -420,7 +438,7 @@ export default function PaginaInstitucional() {
       const wsum = seeds.reduce((a, s) => a + s.w, 0);
       let run = 0;
       seeds.forEach((s) => { run += s.w / wsum; s.cum = run; });
-      const scale = Math.max(0.45, Math.min(1.9, (W * H) / (1440 * 900)));
+      const scale = Math.max(0.45, Math.min(1.2, (W * H) / (1440 * 900)));
       layers = LAYERS.map((L) => {
         const n = Math.round(L.count * scale);
         const nodes: Any[] = [];
@@ -539,21 +557,17 @@ export default function PaginaInstitucional() {
             }
           }
         }
+        // O brilho de cada ponto vem de um sprite pré-renderizado: evita
+        // centenas de createRadialGradient por quadro.
+        const sprite = glowSprite(cfg.soft > 1);
         nodes.forEach((p: Any) => {
           if (p.life <= 0.01) return;
           const x = p.x, y = p.y;
           const glow = p.pulse;
           const a = gop * cfg.op * (0.62 + 0.38 * Math.sin((t + p.ph) / 4200)) * (1 + glow * 1.7) * p.life;
-          const r = p.r * (1 + glow * 0.5) + cfg.soft;
-          const g = ctx.createRadialGradient(x, y, 0, x, y, Math.max(0.6, r));
-          g.addColorStop(0, 'rgba(' + ink + ',' + Math.max(0, Math.min(1, a)).toFixed(3) + ')');
-          g.addColorStop(cfg.soft > 1 ? 0.35 : 0.62, 'rgba(' + ink + ',' + (Math.max(0, Math.min(1, a)) * 0.42).toFixed(3) + ')');
-          g.addColorStop(1, 'rgba(' + ink + ',0)');
-          ctx.globalAlpha = 1;
-          ctx.fillStyle = g;
-          ctx.beginPath();
-          ctx.arc(x, y, Math.max(0.6, r), 0, Math.PI * 2);
-          ctx.fill();
+          const r = Math.max(0.6, p.r * (1 + glow * 0.5) + cfg.soft);
+          ctx.globalAlpha = Math.max(0, Math.min(1, a));
+          ctx.drawImage(sprite, x - r, y - r, r * 2, r * 2);
         });
       });
       ctx.globalAlpha = 1;
