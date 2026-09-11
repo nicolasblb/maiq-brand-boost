@@ -1537,7 +1537,7 @@ export default function PaginaInstitucional() {
               </div>
             </div>
             <div ref={overlay3Ref} style={{ position: "relative", zIndex: "2", background: "var(--p-bg,#0D2423)", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "24px 24px 0 0", overflow: "clip", boxShadow: "var(--p-overlay-shadow,0 -30px 60px -18px rgba(4,16,16,.62))", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
-            <section aria-label="O Expertise" style={{ minHeight: "100vh", boxSizing: "border-box", padding: "clamp(104px,13vh,150px) 48px clamp(36px,4.5vh,64px)" }}>
+            <section aria-label="O Domínio" style={{ minHeight: "100vh", boxSizing: "border-box", padding: "clamp(104px,13vh,150px) 48px clamp(36px,4.5vh,64px)" }}>
               <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
                 <h2 style={{ fontFamily: "Inter,var(--font-core)", fontSize: "clamp(38px,4.2vw,58px)", lineHeight: "1.04", letterSpacing: "-.022em", fontWeight: "600", margin: "0" }}>
                   O Conhecimento
