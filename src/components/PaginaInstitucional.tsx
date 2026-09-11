@@ -1385,10 +1385,11 @@ export default function PaginaInstitucional() {
       </div>
       <div ref={overlay2WrapRef} style={{ position: "relative", zIndex: "1" }}>
           <div ref={overlay2Ref} style={{ position: "relative", zIndex: "1", background: "var(--p-bg,#0D2423)", overflow: "clip", willChange: "transform", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
-            <div ref={netWrapRef} style={{ position: "sticky", top: "0", zIndex: "0", overflow: "clip", background: "var(--p-bg,#0D2423)", transition: "background 320ms cubic-bezier(.16,1,.3,1)", willChange: "transform" }}>
+            <div ref={netWrapRef} style={{ position: "sticky", top: "0", zIndex: "0", marginTop: "-100vh", overflow: "clip", background: "var(--p-bg,#0D2423)", transition: "background 320ms cubic-bezier(.16,1,.3,1)", willChange: "transform" }}>
               <canvas aria-hidden="true" ref={platBgRef} data-maiq-plat-bg="" style={{ position: "sticky", top: "0", left: "0", width: "100%", height: "calc(100vh + 26vh)", marginBottom: "calc(-100vh - 26vh)", display: "block", pointerEvents: "none", zIndex: "0", willChange: "transform" }}>
               </canvas>
-              <div ref={netContentRef} data-maiq-net-content="" style={{ position: "relative", zIndex: "1", willChange: "transform" }}>
+              <div ref={netContentRef} data-maiq-net-content="" style={{ position: "relative", zIndex: "1", marginTop: "100vh", willChange: "transform" }}>
+
               <section aria-label="A Plataforma" style={{ position: "relative", zIndex: "1" }}>
                 <div data-maiq-plat-pin="" style={{ position: "relative", minHeight: "100vh", boxSizing: "border-box", display: "flex", alignItems: "flex-start", padding: "0 48px" }}>
                   <div ref={platInnerRef} data-maiq-plat-inner="" style={{ position: "relative", zIndex: "1", width: "100%", maxWidth: "1200px", height: "100vh", boxSizing: "border-box", margin: "0 auto", display: "flex", flexDirection: "column", paddingTop: "clamp(104px,13vh,150px)" }}>
