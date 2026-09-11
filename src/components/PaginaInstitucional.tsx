@@ -586,17 +586,23 @@ export default function PaginaInstitucional() {
     window.addEventListener('resize', S._netResize);
 
     if (!reduce) {
-      const DRIFT = 0.10;
+      // o fundo se move desde a entrada das seções até serem encobertas pela próxima
+      const docTop = (el: Any) => { let y = 0, n = el; while (n) { y += n.offsetTop; n = n.offsetParent; } return y; };
       S._netPar = () => {
         const vh = window.innerHeight || 800;
-        const hr = host.getBoundingClientRect();
-        const span = Math.max(0, hr.height - vh);
-        const base = Math.max(0, Math.min(span, -hr.top));
-        const y = -Math.min(base * DRIFT, vh * 0.2);
-        cv.style.transform = 'translate3d(0,' + y.toFixed(1) + 'px,0)';
+        const ov2 = overlay2Ref.current, ov3 = overlay3Ref.current;
+        if (!ov2 || ov2.style.position !== 'fixed') {
+          S._netStart = docTop(host) - vh;
+          S._netEnd = ov3 ? docTop(ov3) : docTop(host) + host.offsetHeight;
+        }
+        const s = S._netStart == null ? 0 : S._netStart;
+        const e = S._netEnd == null ? s + 1 : S._netEnd;
+        const p = Math.max(0, Math.min(1, (window.scrollY - s) / Math.max(1, e - s)));
+        cv.style.transform = 'translate3d(0,' + (-p * vh * 0.2).toFixed(1) + 'px,0)';
       };
       S._netPar();
     }
+
     readTokens();
     size();
     draw(performance.now());
