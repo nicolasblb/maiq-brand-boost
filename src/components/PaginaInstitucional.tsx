@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Sun, Moon, TriangleAlert } from 'lucide-react';
 import Ciclo from '@/components/sections/Ciclo';
+import Dominio from '@/components/sections/Dominio';
 import VdrEmbed from '@/components/maiq/vdr/VdrEmbed';
 import MaiqButton from '@/components/maiq/MaiqButton';
 import logoBranco from '@/assets/logo-maiq-branco.png';
