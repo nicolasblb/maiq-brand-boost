@@ -159,7 +159,7 @@ function Shape({
 }
 
 function docCenter(i: number): [number, number] {
-  return [GX[i % 3] + DW / 2, GY[Math.floor(i / 3)] + DH / 2];
+  return [GX[i % 3]! + DW / 2, GY[Math.floor(i / 3)]! + DH / 2];
 }
 
 interface DocProps {
@@ -221,7 +221,7 @@ function Doc({ i, T, cue, accent, showGhosts }: DocProps) {
       }}>
         <Icon icon={d.icon} size={17} color={resolved > 0.3 ? mint(0.85) : sand(0.5)} />
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginTop: 13 }}>
-          {LINES[i].map((w, li) => {
+          {LINES[i]!.map((w, li) => {
             let wid = w;
             if (isCenter) {
               const e = EDITS.find((ed) => ed.line === li);
@@ -277,8 +277,8 @@ export function VdrScene({ accent = C.mint, showGhosts = true, resetSignal = 0 }
 
   const cursorEdit = EDITS.reduce<EditDef | null>((acc, e) => (T >= e.at - 0.35 ? e : acc), null);
   const cursorOn = Math.min(ease(0, 1, RA + 0.35, RA + 0.7)(T), ease(1, 0, RA + 3.3, RA + 3.7)(T));
-  const cursorY = cursorEdit ? GY[1] + 39 + cursorEdit.line * 12 : 0;
-  const cursorX = GX[1] + 26 + 60 * (cursorEdit ? cursorEdit.to : 0.5);
+  const cursorY = cursorEdit ? GY[1]! + 39 + cursorEdit.line * 12 : 0;
+  const cursorX = GX[1]! + 26 + 60 * (cursorEdit ? cursorEdit.to : 0.5);
 
   return (
     <div style={{ position: 'absolute', inset: 0, background: C.deep, fontFamily: FONT, overflow: 'hidden' }}>
@@ -385,7 +385,7 @@ export function VdrScene({ accent = C.mint, showGhosts = true, resetSignal = 0 }
 
         {/* coluna de marcadores de versão */}
         <div style={{
-          position: 'absolute', left: GX[1] - 6, top: GY[1] + 22, width: 13,
+          position: 'absolute', left: GX[1]! - 6, top: GY[1]! + 22, width: 13,
           display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 9, zIndex: 6,
         }}>
           {EDITS.map((e, i) => {
