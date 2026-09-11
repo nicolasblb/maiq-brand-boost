@@ -317,7 +317,7 @@ export default function PaginaInstitucional() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Odômetro: números da seção "Nosso modelo" rolam de zero ao valor real
+  // Odômetro: números da seção "O Modelo" rolam de zero ao valor real
   function setupOdometers() {
     const scope = scopeRef.current;
     if (!scope) return;
@@ -1101,7 +1101,7 @@ export default function PaginaInstitucional() {
         </div>
         <div ref={heroContentRef} style={{ position: "relative", maxWidth: "1200px", margin: "0 auto", width: "100%", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap: "clamp(30px,5vh,72px)", willChange: "transform,opacity" }}>
           <h1 style={{ fontFamily: "Inter, var(--font-core)", fontSize: "clamp(40px, 4.6vw, 68px)", lineHeight: "1.06", letterSpacing: "-.022em", fontWeight: "600", margin: "0", maxWidth: "30ch", color: "var(--p-h1,#E9E0D1)", textWrap: "balance" }}>
-            O hub de Fusões e Aquisições para Médias Empresas
+            O Hub de Fusões e Aquisições para Médias Empresas
           </h1>
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "clamp(30px,5vh,72px)", width: "100%" }}>
             <div style={{ width: "clamp(120px,18vw,260px)", height: "1px", background: "linear-gradient(90deg,transparent 0%,var(--p-hair,rgba(233,224,209,.14)) 18%,var(--p-hair,rgba(233,224,209,.14)) 82%,transparent 100%)" }}>
@@ -1364,7 +1364,7 @@ export default function PaginaInstitucional() {
             </div>
           </div>
         </section>
-        <section aria-label="Os Pilares" style={{ position: "relative", zIndex: "1", minHeight: "100vh", boxSizing: "border-box", display: "flex", alignItems: "stretch", padding: "clamp(104px,13vh,150px) 48px clamp(36px,4.5vh,64px)" }}>
+        <section aria-label="A Fundação" style={{ position: "relative", zIndex: "1", minHeight: "100vh", boxSizing: "border-box", display: "flex", alignItems: "stretch", padding: "clamp(104px,13vh,150px) 48px clamp(36px,4.5vh,64px)" }}>
           <div style={{ width: "100%", maxWidth: "1200px", margin: "0 auto", display: "flex", flexDirection: "column", gap: "clamp(24px,3vh,44px)" }}>
             <div>
               <h2 style={{ fontFamily: "Inter,var(--font-core)", fontSize: "clamp(38px,4.2vw,58px)", lineHeight: "1.04", letterSpacing: "-.022em", fontWeight: "600", margin: "0" }}>
@@ -1537,7 +1537,7 @@ export default function PaginaInstitucional() {
               </div>
             </div>
             <div ref={overlay3Ref} style={{ position: "relative", zIndex: "2", background: "var(--p-bg,#0D2423)", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "24px 24px 0 0", overflow: "clip", boxShadow: "var(--p-overlay-shadow,0 -30px 60px -18px rgba(4,16,16,.62))", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
-            <section aria-label="O Conhecimento" style={{ minHeight: "100vh", boxSizing: "border-box", padding: "clamp(104px,13vh,150px) 48px clamp(36px,4.5vh,64px)" }}>
+            <section aria-label="O Expertise" style={{ minHeight: "100vh", boxSizing: "border-box", padding: "clamp(104px,13vh,150px) 48px clamp(36px,4.5vh,64px)" }}>
               <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
                 <h2 style={{ fontFamily: "Inter,var(--font-core)", fontSize: "clamp(38px,4.2vw,58px)", lineHeight: "1.04", letterSpacing: "-.022em", fontWeight: "600", margin: "0" }}>
                   O Conhecimento
