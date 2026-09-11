@@ -604,18 +604,23 @@ export default function PaginaInstitucional() {
       // o fundo se move de forma constante durante todo o bloco Plataforma/Ciclo,
       // posicionado pela tela, sem ser afetado pelo efeito de reveal/conceal
       measureBlock();
+      let parRaf = 0 as Any, parPending = 0;
+      const applyPar = () => {
+        parRaf = 0;
+        cv.style.transform = 'translate3d(0,' + parPending.toFixed(1) + 'px,0)';
+      };
       S._netPar = () => {
         const vh = window.innerHeight || 800;
         const s = S._netBlockStart == null ? 0 : S._netBlockStart;
         const e = S._netBlockEnd == null ? s + 1 : S._netBlockEnd;
         const p = Math.max(0, Math.min(1, (window.scrollY - s) / Math.max(1, e - s)));
-        // Enquanto o bloco ainda está sendo revelado ele ocupa a posição do
-        // documento; compensamos essa distância para o fundo já se comportar
-        // como fixo à tela desde o primeiro pixel exibido.
-        const top = S._ov2Top == null ? s + vh : S._ov2Top;
-        const comp = Math.max(0, Math.min(vh, top - window.scrollY));
-        cv.style.transform = 'translate3d(0,' + (-(comp + p * vh * 0.2)).toFixed(1) + 'px,0)';
+        // O canvas fica preso à tela pelo próprio position:sticky (mesma
+        // estratégia estável da saída do bloco). Aqui aplicamos apenas o
+        // deslocamento suave de profundidade, sempre dentro de um rAF.
+        parPending = -p * vh * 0.2;
+        if (!parRaf) parRaf = requestAnimationFrame(applyPar);
       };
+
 
       S._netPar();
     }
