@@ -97,6 +97,8 @@ export default function PaginaInstitucional() {
   const overlayRef = useRef<Any>(null);
   const overlay2Ref = useRef<Any>(null);
   const overlay2WrapRef = useRef<Any>(null);
+  const overlay3Ref = useRef<Any>(null);
+
   const segSunRef = useRef<Any>(null);
   const segMoonRef = useRef<Any>(null);
   const marqueeRef = useRef<Any>(null);
@@ -304,6 +306,8 @@ export default function PaginaInstitucional() {
       if (S._logoMode) window.removeEventListener('resize', S._logoMode);
       if (S._logoLoad) window.removeEventListener('load', S._logoLoad);
       if (S._fitHero) window.removeEventListener('resize', S._fitHero);
+      if (S._fitNet) window.removeEventListener('resize', S._fitNet);
+
       if (S._wrap) {
         S._wrap.removeEventListener('mouseenter', S._enter);
         S._wrap.removeEventListener('mouseleave', S._leave);
@@ -586,17 +590,23 @@ export default function PaginaInstitucional() {
     window.addEventListener('resize', S._netResize);
 
     if (!reduce) {
-      const DRIFT = 0.10;
+      // o fundo se move desde a entrada das seções até serem encobertas pela próxima
+      const docTop = (el: Any) => { let y = 0, n = el; while (n) { y += n.offsetTop; n = n.offsetParent; } return y; };
       S._netPar = () => {
         const vh = window.innerHeight || 800;
-        const hr = host.getBoundingClientRect();
-        const span = Math.max(0, hr.height - vh);
-        const base = Math.max(0, Math.min(span, -hr.top));
-        const y = -Math.min(base * DRIFT, vh * 0.2);
-        cv.style.transform = 'translate3d(0,' + y.toFixed(1) + 'px,0)';
+        const ov2 = overlay2Ref.current, ov3 = overlay3Ref.current;
+        if (!ov2 || ov2.style.position !== 'fixed') {
+          S._netStart = docTop(host) - vh;
+          S._netEnd = ov3 ? docTop(ov3) : docTop(host) + host.offsetHeight;
+        }
+        const s = S._netStart == null ? 0 : S._netStart;
+        const e = S._netEnd == null ? s + 1 : S._netEnd;
+        const p = Math.max(0, Math.min(1, (window.scrollY - s) / Math.max(1, e - s)));
+        cv.style.transform = 'translate3d(0,' + (-p * vh * 0.2).toFixed(1) + 'px,0)';
       };
       S._netPar();
     }
+
     readTokens();
     size();
     draw(performance.now());
@@ -758,6 +768,18 @@ export default function PaginaInstitucional() {
       S._fitHero();
       window.addEventListener('resize', S._fitHero);
     }
+
+    // Plataforma + Ciclo ficam presos quando totalmente exibidos; a próxima seção passa por cima
+    const net = netWrapRef.current;
+    if (net) {
+      S._fitNet = () => {
+        net.style.top = Math.min(0, window.innerHeight - net.offsetHeight) + 'px';
+      };
+      S._fitNet();
+      window.addEventListener('resize', S._fitNet);
+    }
+
+
 
     const el = heroContentRef.current;
     if (!el || (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
@@ -1149,7 +1171,7 @@ export default function PaginaInstitucional() {
         </div>
       </section>
       <div ref={overlayRef} style={{ position: "relative", zIndex: "2", background: "var(--p-bg,#0D2423)", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderBottom: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "24px", overflow: "clip", boxShadow: "var(--p-overlay-shadow,0 -30px 60px -18px rgba(4,16,16,.62)), 0 30px 60px -18px rgba(4,16,16,.62)", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
-        <div style={{ position: "relative", zIndex: "2", background: "linear-gradient(135deg, var(--p-bg-deep,#0A1D1D) 0%, color-mix(in oklab, var(--p-bg-deep,#0A1D1D) 93%, var(--p-mark-2,#33605A)) 50%, var(--p-bg-deep,#0A1D1D) 100%)", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
+        <div style={{ position: "relative", zIndex: "2", background: "linear-gradient(140deg, var(--p-bg-deep,#0A1D1D) 0%, color-mix(in oklab, var(--p-bg-deep,#0A1D1D) 88%, var(--p-mark-2,#33605A)) 34%, color-mix(in oklab, var(--p-bg-deep,#0A1D1D) 80%, var(--p-mark-2,#33605A)) 50%, color-mix(in oklab, var(--p-bg-deep,#0A1D1D) 88%, var(--p-mark-2,#33605A)) 66%, var(--p-bg-deep,#0A1D1D) 100%)", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
         <section aria-label="Nosso modelo" style={{ position: "relative", zIndex: "1", minHeight: "100vh", boxSizing: "border-box", display: "flex", alignItems: "center", padding: "clamp(104px,13vh,150px) 48px clamp(36px,4.5vh,64px)" }}>
           <div style={{ width: "100%", maxWidth: "1200px", margin: "0 auto", display: "flex", flexDirection: "column", gap: "clamp(24px,3vh,44px)" }}>
             <div>
@@ -1321,7 +1343,7 @@ export default function PaginaInstitucional() {
             </div>
           </div>
         </section>
-        <section aria-label="Os Pilares" style={{ position: "relative", zIndex: "1", minHeight: "100vh", boxSizing: "border-box", display: "flex", alignItems: "center", padding: "clamp(104px,13vh,150px) 48px clamp(36px,4.5vh,64px)" }}>
+        <section aria-label="Os Pilares" style={{ position: "relative", zIndex: "1", minHeight: "100vh", boxSizing: "border-box", display: "flex", alignItems: "stretch", padding: "clamp(104px,13vh,150px) 48px clamp(36px,4.5vh,64px)" }}>
           <div style={{ width: "100%", maxWidth: "1200px", margin: "0 auto", display: "flex", flexDirection: "column", gap: "clamp(24px,3vh,44px)" }}>
             <div>
               <h2 style={{ fontFamily: "Inter,var(--font-core)", fontSize: "clamp(38px,4.2vw,58px)", lineHeight: "1.04", letterSpacing: "-.022em", fontWeight: "600", margin: "0" }}>
@@ -1342,7 +1364,7 @@ export default function PaginaInstitucional() {
       </div>
       <div ref={overlay2WrapRef} style={{ position: "relative", zIndex: "1" }}>
           <div ref={overlay2Ref} style={{ position: "relative", zIndex: "1", background: "var(--p-bg,#0D2423)", overflow: "clip", willChange: "transform", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
-            <div ref={netWrapRef} style={{ position: "relative", overflow: "clip" }}>
+            <div ref={netWrapRef} style={{ position: "sticky", top: "0", zIndex: "0", overflow: "clip", background: "var(--p-bg,#0D2423)", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
               <canvas aria-hidden="true" ref={platBgRef} data-maiq-plat-bg="" style={{ position: "sticky", top: "0", left: "0", width: "100%", height: "calc(100vh + 26vh)", marginBottom: "calc(-100vh - 26vh)", display: "block", pointerEvents: "none", zIndex: "0", willChange: "transform" }}>
               </canvas>
               <section aria-label="A Plataforma" style={{ position: "relative", zIndex: "1" }}>
@@ -1487,7 +1509,9 @@ export default function PaginaInstitucional() {
               </section>
               <Ciclo />
             </div>
+            <div ref={overlay3Ref} style={{ position: "relative", zIndex: "2", background: "var(--p-bg,#0D2423)", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "24px 24px 0 0", overflow: "clip", boxShadow: "var(--p-overlay-shadow,0 -30px 60px -18px rgba(4,16,16,.62))", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
             <section style={{ padding: "96px 48px" }}>
+
               <div style={{ maxWidth: "1200px", margin: "0 auto", display: "grid", gridTemplateColumns: "1.15fr 1fr", gap: "80px", alignItems: "center" }}>
                 <div>
                   <div style={{ fontSize: "12px", letterSpacing: ".14em", textTransform: "uppercase", fontWeight: "500", color: "var(--p-muted,#91A398)" }}>
@@ -1608,9 +1632,11 @@ export default function PaginaInstitucional() {
                 © 2026 Maiq. Todos os direitos reservados.
               </div>
             </footer>
+            </div>
           </div>
         </div>
       </div>
+
 
   );
 }
