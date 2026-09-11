@@ -586,21 +586,24 @@ export default function PaginaInstitucional() {
     const stop = () => { if (!S._netRaf) return; cancelAnimationFrame(S._netRaf); S._netRaf = null; };
     S._netStop = stop;
 
-    S._netResize = () => { size(); draw(performance.now()); S._netPar && S._netPar(); };
+    const docTop = (el: Any) => { let y = 0, n = el; while (n) { y += n.offsetTop; n = n.offsetParent; } return y; };
+    const measureBlock = () => {
+      const ov2 = overlay2Ref.current, ov3 = overlay3Ref.current;
+      S._netBlockStart = ov2 ? docTop(ov2) : docTop(host);
+      S._netBlockEnd = ov3 ? docTop(ov3) : docTop(host) + host.offsetHeight;
+    };
+
+    S._netResize = () => { size(); draw(performance.now()); measureBlock(); S._netPar && S._netPar(); };
     window.addEventListener('resize', S._netResize);
 
     if (!reduce) {
-      // o fundo se move desde a entrada das seções até serem encobertas pela próxima
-      const docTop = (el: Any) => { let y = 0, n = el; while (n) { y += n.offsetTop; n = n.offsetParent; } return y; };
+      // o fundo se move de forma constante durante todo o bloco Plataforma/Ciclo,
+      // posicionado pela tela, sem ser afetado pelo efeito de reveal/conceal
+      measureBlock();
       S._netPar = () => {
         const vh = window.innerHeight || 800;
-        const ov2 = overlay2Ref.current, ov3 = overlay3Ref.current;
-        if (!ov2 || ov2.style.position !== 'fixed') {
-          S._netStart = docTop(host) - vh;
-          S._netEnd = ov3 ? docTop(ov3) : docTop(host) + host.offsetHeight;
-        }
-        const s = S._netStart == null ? 0 : S._netStart;
-        const e = S._netEnd == null ? s + 1 : S._netEnd;
+        const s = S._netBlockStart == null ? 0 : S._netBlockStart;
+        const e = S._netBlockEnd == null ? s + 1 : S._netBlockEnd;
         const p = Math.max(0, Math.min(1, (window.scrollY - s) / Math.max(1, e - s)));
         cv.style.transform = 'translate3d(0,' + (-p * vh * 0.2).toFixed(1) + 'px,0)';
       };
