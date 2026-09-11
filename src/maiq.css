@@ -337,6 +337,10 @@ body{margin:0;background:#0D2423;transition:background 320ms cubic-bezier(.16,1,
 @media (prefers-reduced-motion:reduce){
   .maiq-model-pilares-bg::before,.maiq-model-pilares-bg::after{animation:none}
 }
+/* animações suspensas enquanto o bloco está fora da tela */
+.maiq-anim-off [data-maiq-anim],
+.maiq-anim-off::before,
+.maiq-anim-off::after{animation-play-state:paused!important}
 @keyframes maiqVolA{0%,100%{transform:translate3d(0,0,0) scale(1)}33%{transform:translate3d(-20%,14%,0) scale(1.18)}66%{transform:translate3d(18%,-12%,0) scale(1.06)}}
 @keyframes maiqVolB{0%,100%{transform:translate3d(0,0,0) scale(1.06)}33%{transform:translate3d(20%,-14%,0) scale(1)}66%{transform:translate3d(-16%,14%,0) scale(1.18)}}
 @keyframes maiqVolC{0%,100%{transform:translate3d(0,0,0) scale(1.04)}33%{transform:translate3d(-20%,-15%,0) scale(1.2)}66%{transform:translate3d(16%,12%,0) scale(1.06)}}

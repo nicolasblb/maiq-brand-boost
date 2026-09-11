@@ -283,12 +283,14 @@ export default function PaginaInstitucional() {
     setupMarquee();
     S._paintLogo = setupLogoFlight();
     setupScroll();
+    setupOffscreenPause();
 
     return () => {
       if (S._paintOdos) {
         window.removeEventListener('scroll', S._paintOdos);
         window.removeEventListener('resize', S._odoResize);
       }
+      if (S._pauseIO) S._pauseIO.disconnect();
       if (S._netStop) S._netStop();
       if (S._netIO) S._netIO.disconnect();
       if (S._netResize) window.removeEventListener('resize', S._netResize);
@@ -317,6 +319,25 @@ export default function PaginaInstitucional() {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Pausa as animações CSS pesadas (hero e degradê) quando saem da tela
+  function setupOffscreenPause() {
+    const scope = scopeRef.current;
+    if (!scope || !('IntersectionObserver' in window)) return;
+    const groups: Any[] = [];
+    if (heroRef.current) groups.push(heroRef.current);
+    Array.prototype.slice
+      .call(scope.querySelectorAll('.maiq-model-pilares-bg'))
+      .forEach((el: Any) => groups.push(el));
+    if (!groups.length) return;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        (e.target as HTMLElement).classList.toggle('maiq-anim-off', !e.isIntersecting);
+      });
+    }, { rootMargin: '10% 0px' });
+    groups.forEach((g) => io.observe(g));
+    S._pauseIO = io;
+  }
 
   // Odômetro: números da seção "O Modelo" rolam de zero ao valor real
   function setupOdometers() {
@@ -358,23 +379,37 @@ export default function PaginaInstitucional() {
       const finals = raw.split('').map(Number);
       return { el, sec, off: 0, finals, strips, digits, target, p: 0 };
     });
-    S._paintOdos = () => {
-      const vh = window.innerHeight;
+    // as posições só mudam em resize: medir a cada scroll causava recálculo de layout
+    const measureOdos = () => {
       S._odos.forEach((o: Any) => {
         let n = o.sec, off = 0;
         while (n) { off += n.offsetTop; n = n.offsetParent; }
-        const topV = off - window.scrollY;
-        const band = vh * 0.2;
-        o.p = Math.min(1, Math.max(0, (band - topV) / band));
-        const e = o.p * o.p * (3 - 2 * o.p);
+        o.off = off;
+      });
+    };
+    const paintOdos = () => {
+      const vh = window.innerHeight;
+      const band = vh * 0.2;
+      S._odos.forEach((o: Any) => {
+        const topV = o.off - window.scrollY;
+        const p = Math.min(1, Math.max(0, (band - topV) / band));
+        if (Math.abs(p - o.p) < 0.001 && o.painted) return;
+        o.p = p; o.painted = true;
+        const e = p * p * (3 - 2 * p);
         for (let i = 0; i < o.digits; i++) {
           const pos = o.finals[i] * e;
           o.strips[i].style.transform = 'translate3d(0,' + (-pos * 100 / 12).toFixed(4) + '%,0)';
         }
       });
     };
-    S._odoResize = () => S._paintOdos();
-    S._paintOdos();
+    let odoRaf = 0 as Any;
+    S._paintOdos = () => {
+      if (odoRaf) return;
+      odoRaf = requestAnimationFrame(() => { odoRaf = 0; paintOdos(); });
+    };
+    S._odoResize = () => { measureOdos(); paintOdos(); };
+    measureOdos();
+    paintOdos();
     window.addEventListener('scroll', S._paintOdos, { passive: true });
     window.addEventListener('resize', S._odoResize);
   }
@@ -394,6 +429,24 @@ export default function PaginaInstitucional() {
     let W = 0, H = 0, dpr = 1, layers: Any[] = [], neb: Any = null, seeds: Any[] = [];
     let ink = '145,163,152', nebRgb = '51,96,90', gop = 0.62, blend = 'lighter';
     const rnd = (a: number, b: number) => a + Math.random() * (b - a);
+    // sprites de brilho (um por dureza de borda), reconstruídos só quando a cor muda
+    const sprites: Any = { soft: null, hard: null, ink: '' };
+    const glowSprite = (soft: boolean) => {
+      const key = soft ? 'soft' : 'hard';
+      if (sprites.ink !== ink) { sprites.soft = null; sprites.hard = null; sprites.ink = ink; }
+      if (sprites[key]) return sprites[key];
+      const S2 = 64, c = document.createElement('canvas');
+      c.width = S2; c.height = S2;
+      const g2 = c.getContext('2d')!;
+      const gr = g2.createRadialGradient(S2 / 2, S2 / 2, 0, S2 / 2, S2 / 2, S2 / 2);
+      gr.addColorStop(0, 'rgba(' + ink + ',1)');
+      gr.addColorStop(soft ? 0.35 : 0.62, 'rgba(' + ink + ',0.42)');
+      gr.addColorStop(1, 'rgba(' + ink + ',0)');
+      g2.fillStyle = gr;
+      g2.fillRect(0, 0, S2, S2);
+      sprites[key] = c;
+      return c;
+    };
 
     const readTokens = () => {
       const cs = getComputedStyle(scope);
@@ -420,7 +473,7 @@ export default function PaginaInstitucional() {
       const wsum = seeds.reduce((a, s) => a + s.w, 0);
       let run = 0;
       seeds.forEach((s) => { run += s.w / wsum; s.cum = run; });
-      const scale = Math.max(0.45, Math.min(1.9, (W * H) / (1440 * 900)));
+      const scale = Math.max(0.45, Math.min(1.2, (W * H) / (1440 * 900)));
       layers = LAYERS.map((L) => {
         const n = Math.round(L.count * scale);
         const nodes: Any[] = [];
@@ -482,7 +535,8 @@ export default function PaginaInstitucional() {
       const r = host.getBoundingClientRect();
       W = Math.max(1, cv.clientWidth || Math.round(r.width));
       H = Math.max(1, cv.clientHeight || Math.round(r.height));
-      dpr = Math.min(1.5, window.devicePixelRatio || 1);
+      // em telas grandes o custo por pixel domina: 1x já é suficiente para um fundo difuso
+      dpr = Math.min(window.innerWidth > 1024 ? 1 : 1.5, window.devicePixelRatio || 1);
       cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       place(); buildNeb();
@@ -539,21 +593,17 @@ export default function PaginaInstitucional() {
             }
           }
         }
+        // O brilho de cada ponto vem de um sprite pré-renderizado: evita
+        // centenas de createRadialGradient por quadro.
+        const sprite = glowSprite(cfg.soft > 1);
         nodes.forEach((p: Any) => {
           if (p.life <= 0.01) return;
           const x = p.x, y = p.y;
           const glow = p.pulse;
           const a = gop * cfg.op * (0.62 + 0.38 * Math.sin((t + p.ph) / 4200)) * (1 + glow * 1.7) * p.life;
-          const r = p.r * (1 + glow * 0.5) + cfg.soft;
-          const g = ctx.createRadialGradient(x, y, 0, x, y, Math.max(0.6, r));
-          g.addColorStop(0, 'rgba(' + ink + ',' + Math.max(0, Math.min(1, a)).toFixed(3) + ')');
-          g.addColorStop(cfg.soft > 1 ? 0.35 : 0.62, 'rgba(' + ink + ',' + (Math.max(0, Math.min(1, a)) * 0.42).toFixed(3) + ')');
-          g.addColorStop(1, 'rgba(' + ink + ',0)');
-          ctx.globalAlpha = 1;
-          ctx.fillStyle = g;
-          ctx.beginPath();
-          ctx.arc(x, y, Math.max(0.6, r), 0, Math.PI * 2);
-          ctx.fill();
+          const r = Math.max(0.6, p.r * (1 + glow * 0.5) + cfg.soft);
+          ctx.globalAlpha = Math.max(0, Math.min(1, a));
+          ctx.drawImage(sprite, x - r, y - r, r * 2, r * 2);
         });
       });
       ctx.globalAlpha = 1;
@@ -812,6 +862,16 @@ export default function PaginaInstitucional() {
       el.style.opacity = (1 - 0.72 * ease).toFixed(3);
       if (S._paintLogo) {
         S._paintLogo(Math.min(1, Math.max(0, (window.scrollY - vh * 0.6) / (vh * 0.3))));
+      }
+      // O hero é sticky: sem isso suas ~15 camadas desfocadas continuam sendo
+      // compostas em toda a página, mesmo já cobertas pela seção seguinte.
+      if (hero) {
+        const covered = window.scrollY > vh * 1.08;
+        if (covered !== S._heroCovered) {
+          S._heroCovered = covered;
+          hero.style.visibility = covered ? 'hidden' : '';
+          hero.classList.toggle('maiq-anim-off', covered);
+        }
       }
     };
     S._measureOv2 = () => {
@@ -1327,12 +1387,12 @@ export default function PaginaInstitucional() {
               </div>
             </div>
             <div style={{ width: "60%", minWidth: "520px", maxWidth: "100%", margin: "0 auto", backgroundImage: "linear-gradient(90deg,transparent 0%,var(--p-hair,rgba(233,224,209,.14)) 14%,var(--p-hair,rgba(233,224,209,.14)) 86%,transparent 100%),linear-gradient(90deg,transparent 0%,var(--p-hair,rgba(233,224,209,.14)) 14%,var(--p-hair,rgba(233,224,209,.14)) 86%,transparent 100%)", backgroundSize: "100% 1px,100% 1px", backgroundPosition: "0 0,0 100%", backgroundRepeat: "no-repeat", padding: "22px clamp(8px,2vw,24px)", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "clamp(24px,4vw,48px)", flexWrap: "wrap" }}>
-              <img src={toolGpt} alt="OpenAI" style={{ height: "24px", width: "auto", display: "block", opacity: ".42", filter: "var(--p-tool-filter,brightness(0) invert(1))", transition: "opacity 200ms cubic-bezier(.2,0,0,1)" }} data-hover-style="opacity:.9" />
-              <img src={toolClaude} alt="Claude" style={{ height: "24px", width: "auto", display: "block", opacity: ".42", filter: "var(--p-tool-filter,brightness(0) invert(1))", transition: "opacity 200ms cubic-bezier(.2,0,0,1)" }} data-hover-style="opacity:.9" />
-              <img src={toolGemini} alt="Gemini" style={{ height: "24px", width: "auto", display: "block", opacity: ".42", filter: "var(--p-tool-filter,brightness(0) invert(1))", transition: "opacity 200ms cubic-bezier(.2,0,0,1)" }} data-hover-style="opacity:.9" />
-              <img src={toolNotebooklm} alt="NotebookLM" style={{ height: "24px", width: "auto", display: "block", opacity: ".42", filter: "var(--p-tool-filter,brightness(0) invert(1))", transition: "opacity 200ms cubic-bezier(.2,0,0,1)" }} data-hover-style="opacity:.9" />
-              <img src={toolPerplexity} alt="Perplexity" style={{ height: "24px", width: "auto", display: "block", opacity: ".42", filter: "var(--p-tool-filter,brightness(0) invert(1))", transition: "opacity 200ms cubic-bezier(.2,0,0,1)" }} data-hover-style="opacity:.9" />
-              <img src={toolN8n} alt="n8n" style={{ height: "24px", width: "auto", display: "block", opacity: ".42", filter: "var(--p-tool-filter,brightness(0) invert(1))", transition: "opacity 200ms cubic-bezier(.2,0,0,1)" }} data-hover-style="opacity:.9" />
+              <img src={toolGpt} alt="OpenAI" loading="lazy" decoding="async" style={{ height: "24px", width: "auto", display: "block", opacity: ".42", filter: "var(--p-tool-filter,brightness(0) invert(1))", transition: "opacity 200ms cubic-bezier(.2,0,0,1)" }} data-hover-style="opacity:.9" />
+              <img src={toolClaude} alt="Claude" loading="lazy" decoding="async" style={{ height: "24px", width: "auto", display: "block", opacity: ".42", filter: "var(--p-tool-filter,brightness(0) invert(1))", transition: "opacity 200ms cubic-bezier(.2,0,0,1)" }} data-hover-style="opacity:.9" />
+              <img src={toolGemini} alt="Gemini" loading="lazy" decoding="async" style={{ height: "24px", width: "auto", display: "block", opacity: ".42", filter: "var(--p-tool-filter,brightness(0) invert(1))", transition: "opacity 200ms cubic-bezier(.2,0,0,1)" }} data-hover-style="opacity:.9" />
+              <img src={toolNotebooklm} alt="NotebookLM" loading="lazy" decoding="async" style={{ height: "24px", width: "auto", display: "block", opacity: ".42", filter: "var(--p-tool-filter,brightness(0) invert(1))", transition: "opacity 200ms cubic-bezier(.2,0,0,1)" }} data-hover-style="opacity:.9" />
+              <img src={toolPerplexity} alt="Perplexity" loading="lazy" decoding="async" style={{ height: "24px", width: "auto", display: "block", opacity: ".42", filter: "var(--p-tool-filter,brightness(0) invert(1))", transition: "opacity 200ms cubic-bezier(.2,0,0,1)" }} data-hover-style="opacity:.9" />
+              <img src={toolN8n} alt="n8n" loading="lazy" decoding="async" style={{ height: "24px", width: "auto", display: "block", opacity: ".42", filter: "var(--p-tool-filter,brightness(0) invert(1))", transition: "opacity 200ms cubic-bezier(.2,0,0,1)" }} data-hover-style="opacity:.9" />
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(3,minmax(0,1fr))", gap: "clamp(24px,4vw,56px)" }}>
               <div style={{ display: "flex", flexDirection: "column", gap: "13px" }}>
