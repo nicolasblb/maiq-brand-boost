@@ -203,8 +203,13 @@ export default function Dominio() {
     const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduce) return;
 
-    const children = Array.from(track.children) as HTMLElement[];
-    if (!children.length) return;
+    let cancelled = false;
+    let raf: number | null = null;
+
+    const start = () => {
+      if (cancelled) return;
+      const children = Array.from(track.children) as HTMLElement[];
+      if (!children.length) return;
     const gap = parseFloat(getComputedStyle(track).columnGap || '0') || 0;
     const span = children.reduce((w, n) => w + n.getBoundingClientRect().width + gap, 0) - gap;
     if (!span) return;
