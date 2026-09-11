@@ -283,12 +283,14 @@ export default function PaginaInstitucional() {
     setupMarquee();
     S._paintLogo = setupLogoFlight();
     setupScroll();
+    setupOffscreenPause();
 
     return () => {
       if (S._paintOdos) {
         window.removeEventListener('scroll', S._paintOdos);
         window.removeEventListener('resize', S._odoResize);
       }
+      if (S._pauseIO) S._pauseIO.disconnect();
       if (S._netStop) S._netStop();
       if (S._netIO) S._netIO.disconnect();
       if (S._netResize) window.removeEventListener('resize', S._netResize);
