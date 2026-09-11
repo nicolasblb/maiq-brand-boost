@@ -767,6 +767,18 @@ export default function PaginaInstitucional() {
       window.addEventListener('resize', S._fitHero);
     }
 
+    // Plataforma + Ciclo ficam presos quando totalmente exibidos; a próxima seção passa por cima
+    const net = netWrapRef.current;
+    if (net) {
+      S._fitNet = () => {
+        net.style.top = Math.min(0, window.innerHeight - net.offsetHeight) + 'px';
+      };
+      S._fitNet();
+      window.addEventListener('resize', S._fitNet);
+    }
+
+
+
     const el = heroContentRef.current;
     if (!el || (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
     let queued = false;
