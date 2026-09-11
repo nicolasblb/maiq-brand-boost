@@ -607,8 +607,14 @@ export default function PaginaInstitucional() {
         const s = S._netBlockStart == null ? 0 : S._netBlockStart;
         const e = S._netBlockEnd == null ? s + 1 : S._netBlockEnd;
         const p = Math.max(0, Math.min(1, (window.scrollY - s) / Math.max(1, e - s)));
-        cv.style.transform = 'translate3d(0,' + (-p * vh * 0.2).toFixed(1) + 'px,0)';
+        // Enquanto o bloco ainda está sendo revelado ele ocupa a posição do
+        // documento; compensamos essa distância para o fundo já se comportar
+        // como fixo à tela desde o primeiro pixel exibido.
+        const top = S._ov2Top == null ? s + vh : S._ov2Top;
+        const comp = Math.max(0, Math.min(vh, top - window.scrollY));
+        cv.style.transform = 'translate3d(0,' + (-(comp + p * vh * 0.2)).toFixed(1) + 'px,0)';
       };
+
       S._netPar();
     }
 
