@@ -1630,13 +1630,13 @@ export default function PaginaInstitucional() {
               </div>
               <div style={{ maxWidth: "1200px", margin: "48px auto 0", paddingTop: "24px", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", fontSize: "13px", color: "var(--p-muted,#91A398)" }}>
                 © 2026 Maiq. Todos os direitos reservados.
-            </div>
-          </div>
-
+              </div>
             </footer>
+            </div>
           </div>
         </div>
       </div>
+
 
   );
 }
