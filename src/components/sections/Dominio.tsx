@@ -210,30 +210,39 @@ export default function Dominio() {
       if (cancelled) return;
       const children = Array.from(track.children) as HTMLElement[];
       if (!children.length) return;
-    const gap = parseFloat(getComputedStyle(track).columnGap || '0') || 0;
-    const span = children.reduce((w, n) => w + n.getBoundingClientRect().width + gap, 0) - gap;
-    if (!span) return;
+      const gap = parseFloat(getComputedStyle(track).columnGap || '0') || 0;
+      const span = children.reduce((w, n) => w + n.getBoundingClientRect().width + gap, 0) - gap;
+      if (!span) return;
 
-    const parent = track.parentElement!;
-    while (track.scrollWidth < parent.clientWidth * 2 + span) {
-      children.forEach((n) => track.appendChild(n.cloneNode(true)));
-    }
+      const parent = track.parentElement!;
+      while (track.scrollWidth < parent.clientWidth * 2 + span) {
+        children.forEach((n) => track.appendChild(n.cloneNode(true)));
+      }
 
-    let x = 0;
-    let raf: number | null = null;
-    let last = performance.now();
-    const speed = 42; // px/s
-    const tick = (now: number) => {
-      const dt = Math.min((now - last) / 1000, 0.05);
-      last = now;
-      x -= speed * dt;
-      if (x <= -span) x += span;
-      track.style.transform = `translate3d(${x.toFixed(2)}px,0,0)`;
+      let x = 0;
+      let last = performance.now();
+      const speed = 42; // px/s
+      const tick = (now: number) => {
+        const dt = Math.min((now - last) / 1000, 0.05);
+        last = now;
+        x -= speed * dt;
+        if (x <= -span) x += span;
+        track.style.transform = `translate3d(${x.toFixed(2)}px,0,0)`;
+        raf = requestAnimationFrame(tick);
+      };
       raf = requestAnimationFrame(tick);
     };
-    raf = requestAnimationFrame(tick);
+
+    // Espera as imagens carregarem antes de medir a largura dos logos.
+    const imgs = Array.from(track.querySelectorAll('img'));
+    if (imgs.length) {
+      Promise.all(imgs.map((im) => im.decode().catch(() => undefined))).then(start);
+    } else {
+      start();
+    }
 
     return () => {
+      cancelled = true;
       if (raf) cancelAnimationFrame(raf);
     };
   }, []);
