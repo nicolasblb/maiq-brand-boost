@@ -611,7 +611,7 @@ export default function PaginaInstitucional() {
         // documento; compensamos essa distância para o fundo já se comportar
         // como fixo à tela desde o primeiro pixel exibido.
         const top = S._ov2Top == null ? s + vh : S._ov2Top;
-        const comp = Math.max(0, top - window.scrollY);
+        const comp = Math.max(0, Math.min(vh, top - window.scrollY));
         cv.style.transform = 'translate3d(0,' + (-(comp + p * vh * 0.2)).toFixed(1) + 'px,0)';
       };
 
