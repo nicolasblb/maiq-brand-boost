@@ -144,10 +144,8 @@ export default function PaginaInstitucional() {
   const setDnaDot = (el: Any, active: boolean, delay: number) => {
     const dot = el.querySelector('[data-maiq-dot]');
     if (!dot) return;
-    dot.style.willChange = 'opacity, transform';
-    dot.style.transition = `opacity 320ms ${DNA_EASE} ${delay}ms, transform 320ms ${DNA_EASE} ${delay}ms`;
+    dot.style.transition = `opacity 320ms ${DNA_EASE} ${delay}ms`;
     dot.style.opacity = active ? '1' : '0';
-    dot.style.transform = `scale(${active ? 1 : 0.35})`;
   };
 
   const setDnaRow = (el: Any, i: number, side: string, active: boolean) => {
