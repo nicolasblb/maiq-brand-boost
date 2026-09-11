@@ -373,8 +373,8 @@ export default function Ciclo() {
               textWrap: 'pretty' as any,
             }}
           >
-            Um deal de sucesso não se inicia com negociações e tampouco se limita à assinatura de um contrato, se
-            traduz em um ciclo contínuo que fomenta oportunidades.
+            O deal de sucesso não nasce nas negociações e tampouco se limita à assinatura de um contrato. O M&A é
+            um ciclo contínuo que fomenta oportunidades.
           </p>
         </div>
         <div
