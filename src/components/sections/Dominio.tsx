@@ -55,6 +55,10 @@ function FounderCard({ person, index }: { person: typeof FOUNDERS[0]; index: num
           <img
             src={person.src!}
             alt={person.name}
+            loading="lazy"
+            decoding="async"
+            width={600}
+            height={800}
             style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
           />
         ) : (
@@ -126,6 +130,8 @@ function PartnerLogo({ partner }: { partner: typeof PARTNERS[0] }) {
         <img
           src={partner.src!}
           alt={partner.name}
+          loading="lazy"
+          decoding="async"
           style={{ height: '28px', width: 'auto', maxWidth: '140px', objectFit: 'contain', display: 'block' }}
         />
       ) : (
