@@ -604,18 +604,23 @@ export default function PaginaInstitucional() {
       // o fundo se move de forma constante durante todo o bloco Plataforma/Ciclo,
       // posicionado pela tela, sem ser afetado pelo efeito de reveal/conceal
       measureBlock();
+      let parRaf = 0 as Any, parPending = 0;
+      const applyPar = () => {
+        parRaf = 0;
+        cv.style.transform = 'translate3d(0,' + parPending.toFixed(1) + 'px,0)';
+      };
       S._netPar = () => {
         const vh = window.innerHeight || 800;
         const s = S._netBlockStart == null ? 0 : S._netBlockStart;
         const e = S._netBlockEnd == null ? s + 1 : S._netBlockEnd;
         const p = Math.max(0, Math.min(1, (window.scrollY - s) / Math.max(1, e - s)));
-        // Enquanto o bloco ainda está sendo revelado ele ocupa a posição do
-        // documento; compensamos essa distância para o fundo já se comportar
-        // como fixo à tela desde o primeiro pixel exibido.
-        const top = S._ov2Top == null ? s + vh : S._ov2Top;
-        const comp = Math.max(0, Math.min(vh, top - window.scrollY));
-        cv.style.transform = 'translate3d(0,' + (-(comp + p * vh * 0.2)).toFixed(1) + 'px,0)';
+        // O canvas fica preso à tela pelo próprio position:sticky (mesma
+        // estratégia estável da saída do bloco). Aqui aplicamos apenas o
+        // deslocamento suave de profundidade, sempre dentro de um rAF.
+        parPending = -p * vh * 0.2;
+        if (!parRaf) parRaf = requestAnimationFrame(applyPar);
       };
+
 
       S._netPar();
     }
@@ -1378,12 +1383,16 @@ export default function PaginaInstitucional() {
         </section>
         </div>
       </div>
-      <div ref={overlay2WrapRef} style={{ position: "relative", zIndex: "1" }}>
-          <div ref={overlay2Ref} style={{ position: "relative", zIndex: "1", background: "var(--p-bg,#0D2423)", overflow: "clip", willChange: "transform", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
-            <div ref={netWrapRef} style={{ position: "sticky", top: "0", zIndex: "0", overflow: "clip", background: "var(--p-bg,#0D2423)", transition: "background 320ms cubic-bezier(.16,1,.3,1)", willChange: "transform" }}>
-              <canvas aria-hidden="true" ref={platBgRef} data-maiq-plat-bg="" style={{ position: "sticky", top: "0", left: "0", width: "100%", height: "calc(100vh + 26vh)", marginBottom: "calc(-100vh - 26vh)", display: "block", pointerEvents: "none", zIndex: "0", willChange: "transform" }}>
-              </canvas>
+      <div ref={overlay2WrapRef} style={{ position: "relative", zIndex: "1", background: "var(--p-bg,#0D2423)", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
+          <div aria-hidden="true" style={{ position: "absolute", left: "0", right: "0", top: "-100vh", bottom: "0", zIndex: "0", overflow: "clip", pointerEvents: "none" }}>
+            <canvas ref={platBgRef} data-maiq-plat-bg="" style={{ position: "sticky", top: "0", left: "0", width: "100%", height: "calc(100vh + 26vh)", marginBottom: "calc(-26vh)", display: "block", pointerEvents: "none", willChange: "transform" }}>
+            </canvas>
+          </div>
+          <div ref={overlay2Ref} style={{ position: "relative", zIndex: "1", overflow: "clip", willChange: "transform" }}>
+            <div ref={netWrapRef} style={{ position: "sticky", top: "0", zIndex: "0", overflow: "clip" }}>
               <div ref={netContentRef} data-maiq-net-content="" style={{ position: "relative", zIndex: "1", willChange: "transform" }}>
+
+
               <section aria-label="A Plataforma" style={{ position: "relative", zIndex: "1" }}>
                 <div data-maiq-plat-pin="" style={{ position: "relative", minHeight: "100vh", boxSizing: "border-box", display: "flex", alignItems: "flex-start", padding: "0 48px" }}>
                   <div ref={platInnerRef} data-maiq-plat-inner="" style={{ position: "relative", zIndex: "1", width: "100%", maxWidth: "1200px", height: "100vh", boxSizing: "border-box", margin: "0 auto", display: "flex", flexDirection: "column", paddingTop: "clamp(104px,13vh,150px)" }}>
