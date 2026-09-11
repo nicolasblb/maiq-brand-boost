@@ -863,6 +863,16 @@ export default function PaginaInstitucional() {
       if (S._paintLogo) {
         S._paintLogo(Math.min(1, Math.max(0, (window.scrollY - vh * 0.6) / (vh * 0.3))));
       }
+      // O hero é sticky: sem isso suas ~15 camadas desfocadas continuam sendo
+      // compostas em toda a página, mesmo já cobertas pela seção seguinte.
+      if (hero) {
+        const covered = window.scrollY > vh * 1.08;
+        if (covered !== S._heroCovered) {
+          S._heroCovered = covered;
+          hero.style.visibility = covered ? 'hidden' : '';
+          hero.classList.toggle('maiq-anim-off', covered);
+        }
+      }
     };
     S._measureOv2 = () => {
       const wrap = overlay2WrapRef.current, ov2 = overlay2Ref.current, next = overlay3Ref.current;
