@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { Sun, Moon } from 'lucide-react';
+import { Sun, Moon, TriangleAlert } from 'lucide-react';
 import Ciclo from '@/components/sections/Ciclo';
 import VdrEmbed from '@/components/maiq/vdr/VdrEmbed';
 import MaiqButton from '@/components/maiq/MaiqButton';
@@ -780,6 +780,7 @@ export default function PaginaInstitucional() {
     };
     S._measureOv2();
     window.addEventListener('resize', S._measureOv2);
+    // a seção anterior "sai de cima" e revela a Plataforma, que fica presa ao topo
     S._paintOv2 = () => {
       const ov2 = overlay2Ref.current, wrap = overlay2WrapRef.current;
       if (!ov2 || !wrap || S._ov2Top == null) return;
@@ -794,11 +795,6 @@ export default function PaginaInstitucional() {
           ov2.style.left = '0px';
           ov2.style.width = '100%';
         }
-        const DWELL = 0.14;
-        const q = Math.min(1, Math.max(0, (vh - top) / vh));
-        const w = Math.min(1, Math.max(0, (q - DWELL) / (1 - DWELL)));
-        const eo = 1 - Math.pow(1 - w, 3);
-        ov2.style.transform = 'translate3d(' + ((1 - eo) * 100).toFixed(3) + '%,0,0)';
       } else {
         if (fixed) {
           ov2.style.position = '';
@@ -807,9 +803,9 @@ export default function PaginaInstitucional() {
           ov2.style.width = '';
           wrap.style.height = '';
         }
-        ov2.style.transform = top > vh ? 'translate3d(100%,0,0)' : 'translate3d(0,0,0)';
         if (top > vh) S._ov2Top = ov2.getBoundingClientRect().top + window.scrollY;
       }
+      ov2.style.transform = 'translate3d(0,0,0)';
     };
     S._onScroll = () => {
       S._paintOv2();
@@ -1152,8 +1148,9 @@ export default function PaginaInstitucional() {
           </div>
         </div>
       </section>
-      <div ref={overlayRef} style={{ position: "relative", zIndex: "1", background: "var(--p-bg,#0D2423)", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "24px 24px 0 0", overflow: "clip", boxShadow: "var(--p-overlay-shadow,0 -30px 60px -18px rgba(4,16,16,.62))", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
-        <section style={{ position: "sticky", top: "0", zIndex: "1", minHeight: "100vh", boxSizing: "border-box", display: "flex", alignItems: "center", background: "var(--p-bg-deep,#0A1D1D)", padding: "clamp(104px,13vh,150px) 48px clamp(36px,4.5vh,64px)", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
+      <div ref={overlayRef} style={{ position: "relative", zIndex: "2", background: "var(--p-bg,#0D2423)", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderBottom: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "24px", overflow: "clip", boxShadow: "var(--p-overlay-shadow,0 -30px 60px -18px rgba(4,16,16,.62)), 0 30px 60px -18px rgba(4,16,16,.62)", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
+        <div style={{ position: "relative", zIndex: "2", background: "linear-gradient(135deg, var(--p-bg-deep,#0A1D1D) 0%, color-mix(in oklab, var(--p-bg-deep,#0A1D1D) 93%, var(--p-mark-2,#33605A)) 50%, var(--p-bg-deep,#0A1D1D) 100%)", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
+        <section aria-label="Nosso modelo" style={{ position: "relative", zIndex: "1", minHeight: "100vh", boxSizing: "border-box", display: "flex", alignItems: "center", padding: "clamp(104px,13vh,150px) 48px clamp(36px,4.5vh,64px)" }}>
           <div style={{ width: "100%", maxWidth: "1200px", margin: "0 auto", display: "flex", flexDirection: "column", gap: "clamp(24px,3vh,44px)" }}>
             <div>
               <h2 data-maiq-modelo-h2="" style={{ fontFamily: "Inter,var(--font-core)", fontSize: "clamp(38px,4.2vw,58px)", lineHeight: "1.04", letterSpacing: "-.022em", fontWeight: "600", margin: "0" }}>
@@ -1324,10 +1321,27 @@ export default function PaginaInstitucional() {
             </div>
           </div>
         </section>
-        <div aria-hidden="true" style={{ height: "15vh" }}>
+        <section aria-label="Os Pilares" style={{ position: "relative", zIndex: "1", minHeight: "100vh", boxSizing: "border-box", display: "flex", alignItems: "center", padding: "clamp(104px,13vh,150px) 48px clamp(36px,4.5vh,64px)" }}>
+          <div style={{ width: "100%", maxWidth: "1200px", margin: "0 auto", display: "flex", flexDirection: "column", gap: "clamp(24px,3vh,44px)" }}>
+            <div>
+              <h2 style={{ fontFamily: "Inter,var(--font-core)", fontSize: "clamp(38px,4.2vw,58px)", lineHeight: "1.04", letterSpacing: "-.022em", fontWeight: "600", margin: "0" }}>
+                Os Pilares
+              </h2>
+              <p style={{ fontSize: "17px", lineHeight: "1.6", color: "var(--p-muted,#91A398)", margin: "14px 0 0", maxWidth: "56ch", textWrap: "pretty" }}>
+                Seção em construção.
+              </p>
+            </div>
+            <div style={{ flex: "1 1 auto", display: "flex", alignItems: "center", justifyContent: "center", padding: "clamp(24px,6vh,72px) 0" }}>
+              <div aria-hidden="true" style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "clamp(120px,14vw,168px)", height: "clamp(120px,14vw,168px)", borderRadius: "999px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", background: "var(--p-chip-bg,rgba(233,224,209,.04))", color: "var(--p-muted,#91A398)" }}>
+                <TriangleAlert strokeWidth={1.25} style={{ width: "52%", height: "52%" }} />
+              </div>
+            </div>
+          </div>
+        </section>
         </div>
-        <div ref={overlay2WrapRef} style={{ position: "relative", zIndex: "2" }}>
-          <div ref={overlay2Ref} style={{ position: "relative", zIndex: "2", background: "var(--p-bg,#0D2423)", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderLeft: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "24px 0 0 0", willChange: "transform", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
+      </div>
+      <div ref={overlay2WrapRef} style={{ position: "relative", zIndex: "1" }}>
+          <div ref={overlay2Ref} style={{ position: "relative", zIndex: "1", background: "var(--p-bg,#0D2423)", overflow: "clip", willChange: "transform", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
             <div ref={netWrapRef} style={{ position: "relative", overflow: "clip" }}>
               <canvas aria-hidden="true" ref={platBgRef} data-maiq-plat-bg="" style={{ position: "sticky", top: "0", left: "0", width: "100%", height: "calc(100vh + 26vh)", marginBottom: "calc(-100vh - 26vh)", display: "block", pointerEvents: "none", zIndex: "0", willChange: "transform" }}>
               </canvas>
@@ -1597,7 +1611,6 @@ export default function PaginaInstitucional() {
           </div>
         </div>
       </div>
-    </div>
 
   );
 }
