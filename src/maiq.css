@@ -330,9 +330,9 @@ body{margin:0;background:#0D2423;transition:background 320ms cubic-bezier(.16,1,
 }
 .maiq-model-pilares-bg > section{position:relative;z-index:1}
 @keyframes maiqEnergyWave{
-  0%{transform:translate3d(-4%,2%,0) rotate(52deg) scale(1)}
-  48%{transform:translate3d(2%,-1%,0) rotate(54deg) scale(1.08)}
-  100%{transform:translate3d(5%,2%,0) rotate(50deg) scale(1.02)}
+  0%{transform:translate3d(-9%,7%,0) scale(1)}
+  48%{transform:translate3d(1%,-1%,0) scale(1.06)}
+  100%{transform:translate3d(9%,-7%,0) scale(1.02)}
 }
 @media (prefers-reduced-motion:reduce){
   .maiq-model-pilares-bg::before,.maiq-model-pilares-bg::after{animation:none}
