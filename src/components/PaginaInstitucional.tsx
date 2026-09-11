@@ -881,9 +881,14 @@ export default function PaginaInstitucional() {
       r.base = kids.slice(0, kids.length / 2);
       kids.slice(r.base.length).forEach((n) => n.remove());
       measure(r);
+      if (!Number.isFinite(r.span) || r.span <= 0) return;
       const need = r.span + (r.el.parentElement.clientWidth || 1200) * 2;
-      while (r.el.scrollWidth < need) {
-        r.base.forEach((n: Any) => r.el.appendChild(n.cloneNode(true)));
+      // A largura pode ser zero enquanto imagens/fontes ainda carregam. Um
+      // while sem limite nessa condição bloqueia a aba inteira.
+      for (let i = 0; i < 8 && r.el.scrollWidth < need; i++) {
+        const frag = document.createDocumentFragment();
+        r.base.forEach((n: Any) => frag.appendChild(n.cloneNode(true)));
+        r.el.appendChild(frag);
       }
       if (r.dir === 1) r.x = -r.span;
     });
@@ -950,6 +955,7 @@ export default function PaginaInstitucional() {
       last = now;
       S._speed += (S._target - S._speed) * Math.min(dt / 0.32, 1);
       rows.forEach((r) => {
+        if (!Number.isFinite(r.span) || r.span <= 0) return;
         r.x += r.dir * r.px * S._speed * dt;
         if (r.x <= -r.span) r.x += r.span;
         if (r.x >= 0) r.x -= r.span;
