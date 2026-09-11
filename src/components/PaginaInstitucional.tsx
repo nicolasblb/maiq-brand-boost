@@ -835,13 +835,13 @@ export default function PaginaInstitucional() {
       if (net) {
         const previousBottom = previous ? previous.getBoundingClientRect().bottom : vh;
         const reveal = Math.max(0, Math.min(1, (vh - previousBottom) / vh));
-        // velocidade do conteúdo cresce linearmente com a revelação (0% -> 50% -> 100%)
-        const revealLag = 1 - reveal * reveal;
         const nextTop = next ? next.getBoundingClientRect().top : vh;
         const conceal = Math.max(0, Math.min(1, (vh - nextTop) / vh));
-        // e decai simetricamente enquanto a próxima seção encobre
-        const concealLag = 2 * conceal - conceal * conceal;
-        const offset = 110 * revealLag - 110 * concealLag;
+        // deslocamentos simétricos: velocidade do conteúdo varia progressivamente
+        // entre 0.2x e 1x tanto na entrada quanto na saída
+        const revealLag = 0.2 * reveal + 0.4 * reveal * reveal;
+        const concealLag = 0.2 * conceal + 0.4 * conceal * conceal;
+        const offset = 180 * revealLag - 180 * concealLag;
         net.style.transform = `translate3d(0,${offset.toFixed(2)}px,0)`;
       }
     };
