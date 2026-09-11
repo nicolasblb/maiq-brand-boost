@@ -1384,8 +1384,8 @@ export default function PaginaInstitucional() {
         </div>
       </div>
       <div ref={overlay2WrapRef} style={{ position: "relative", zIndex: "1", background: "var(--p-bg,#0D2423)", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
-          <div aria-hidden="true" style={{ position: "absolute", left: "0", right: "0", top: "-100vh", bottom: "-26vh", zIndex: "0", overflow: "clip", pointerEvents: "none" }}>
-            <canvas ref={platBgRef} data-maiq-plat-bg="" style={{ position: "sticky", top: "0", left: "0", width: "100%", height: "calc(100vh + 26vh)", display: "block", pointerEvents: "none", willChange: "transform" }}>
+          <div aria-hidden="true" style={{ position: "absolute", left: "0", right: "0", top: "-100vh", bottom: "0", zIndex: "0", overflow: "clip", pointerEvents: "none" }}>
+            <canvas ref={platBgRef} data-maiq-plat-bg="" style={{ position: "sticky", top: "0", left: "0", width: "100%", height: "calc(100vh + 26vh)", marginBottom: "calc(-26vh)", display: "block", pointerEvents: "none", willChange: "transform" }}>
             </canvas>
           </div>
           <div ref={overlay2Ref} style={{ position: "relative", zIndex: "1", overflow: "clip", willChange: "transform" }}>
