@@ -295,7 +295,7 @@ export default function Dominio() {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'clamp(280px,42%,480px) 1fr',
+            gridTemplateColumns: 'minmax(0,clamp(280px,42%,480px)) minmax(0,1fr)',
             gap: 'clamp(32px,5vw,80px)',
             alignItems: 'start',
           }}
@@ -320,6 +320,7 @@ export default function Dominio() {
               flexDirection: 'column',
               gap: 'clamp(40px,6vh,72px)',
               paddingTop: 'clamp(0px,2vh,24px)',
+              minWidth: 0,
             }}
           >
             <div data-dominio-reveal="" data-dominio-delay={1}>
