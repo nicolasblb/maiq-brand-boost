@@ -1507,7 +1507,9 @@ export default function PaginaInstitucional() {
               </section>
               <Ciclo />
             </div>
+            <div ref={overlay3Ref} style={{ position: "relative", zIndex: "2", background: "var(--p-bg,#0D2423)", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "24px 24px 0 0", overflow: "clip", boxShadow: "var(--p-overlay-shadow,0 -30px 60px -18px rgba(4,16,16,.62))", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
             <section style={{ padding: "96px 48px" }}>
+
               <div style={{ maxWidth: "1200px", margin: "0 auto", display: "grid", gridTemplateColumns: "1.15fr 1fr", gap: "80px", alignItems: "center" }}>
                 <div>
                   <div style={{ fontSize: "12px", letterSpacing: ".14em", textTransform: "uppercase", fontWeight: "500", color: "var(--p-muted,#91A398)" }}>
