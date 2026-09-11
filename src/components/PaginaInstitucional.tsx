@@ -832,11 +832,13 @@ export default function PaginaInstitucional() {
       if (net) {
         const previousBottom = previous ? previous.getBoundingClientRect().bottom : vh;
         const reveal = Math.max(0, Math.min(1, (vh - previousBottom) / vh));
-        const revealEase = 1 - Math.pow(1 - reveal, 3);
+        // velocidade do conteúdo cresce linearmente com a revelação (0% -> 50% -> 100%)
+        const revealLag = 1 - reveal * reveal;
         const nextTop = next ? next.getBoundingClientRect().top : vh;
         const conceal = Math.max(0, Math.min(1, (vh - nextTop) / vh));
-        const concealEase = conceal * conceal * conceal;
-        const offset = 64 * (1 - revealEase) - 72 * concealEase;
+        // e decai simetricamente enquanto a próxima seção encobre
+        const concealLag = 2 * conceal - conceal * conceal;
+        const offset = 110 * revealLag - 110 * concealLag;
         net.style.transform = `translate3d(0,${offset.toFixed(2)}px,0)`;
       }
     };
