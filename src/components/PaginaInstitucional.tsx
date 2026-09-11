@@ -144,10 +144,8 @@ export default function PaginaInstitucional() {
   const setDnaDot = (el: Any, active: boolean, delay: number) => {
     const dot = el.querySelector('[data-maiq-dot]');
     if (!dot) return;
-    dot.style.willChange = 'opacity, transform';
-    dot.style.transition = `opacity 320ms ${DNA_EASE} ${delay}ms, transform 320ms ${DNA_EASE} ${delay}ms`;
+    dot.style.transition = `opacity 320ms ${DNA_EASE} ${delay}ms`;
     dot.style.opacity = active ? '1' : '0';
-    dot.style.transform = `scale(${active ? 1 : 0.35})`;
   };
 
   const setDnaRow = (el: Any, i: number, side: string, active: boolean) => {
@@ -1240,22 +1238,22 @@ export default function PaginaInstitucional() {
                       <span ref={scoreTextRef}>
                         Score de prontidão
                       </span>
-                      <div data-maiq-dot="" style={{ position: "absolute", top: "-3.7px", left: "-4.2px", width: "8.4px", height: "8.4px", borderRadius: "999px", background: "var(--p-text,#E9E0D1)", opacity: "0", transform: "scale(0)", pointerEvents: "none" }}>
+                      <div data-maiq-dot="" style={{ position: "absolute", top: "-3.7px", left: "-4.2px", width: "8.4px", height: "8.4px", borderRadius: "999px", background: "var(--p-text,#E9E0D1)", opacity: "0", pointerEvents: "none" }}>
                       </div>
                     </div>
                     <div ref={lRow1Ref} style={{ position: "relative", marginLeft: "31px", width: "246px", padding: "13px 0", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", fontSize: "14px", color: "var(--p-text-2,#B7C4BC)", textAlign: "right" }}>
                       Roadmap de evolução
-                      <div data-maiq-dot="" style={{ position: "absolute", top: "-3.7px", left: "-4.2px", width: "8.4px", height: "8.4px", borderRadius: "999px", background: "var(--p-text,#E9E0D1)", opacity: "0", transform: "scale(0)", pointerEvents: "none" }}>
+                      <div data-maiq-dot="" style={{ position: "absolute", top: "-3.7px", left: "-4.2px", width: "8.4px", height: "8.4px", borderRadius: "999px", background: "var(--p-text,#E9E0D1)", opacity: "0", pointerEvents: "none" }}>
                       </div>
                     </div>
                     <div ref={lRow2Ref} style={{ position: "relative", marginLeft: "52px", width: "233px", padding: "13px 0", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", fontSize: "14px", color: "var(--p-text-2,#B7C4BC)", textAlign: "right" }}>
                       10 dimensões avaliadas
-                      <div data-maiq-dot="" style={{ position: "absolute", top: "-3.7px", left: "-4.2px", width: "8.4px", height: "8.4px", borderRadius: "999px", background: "var(--p-text,#E9E0D1)", opacity: "0", transform: "scale(0)", pointerEvents: "none" }}>
+                      <div data-maiq-dot="" style={{ position: "absolute", top: "-3.7px", left: "-4.2px", width: "8.4px", height: "8.4px", borderRadius: "999px", background: "var(--p-text,#E9E0D1)", opacity: "0", pointerEvents: "none" }}>
                       </div>
                     </div>
                     <div ref={lRow3Ref} style={{ position: "relative", marginLeft: "93px", width: "213px", padding: "13px 0", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", fontSize: "14px", color: "var(--p-text-2,#B7C4BC)", textAlign: "right" }}>
                       Playbook de integração
-                      <div data-maiq-dot="" style={{ position: "absolute", top: "-3.7px", left: "-4.2px", width: "8.4px", height: "8.4px", borderRadius: "999px", background: "var(--p-text,#E9E0D1)", opacity: "0", transform: "scale(0)", pointerEvents: "none" }}>
+                      <div data-maiq-dot="" style={{ position: "absolute", top: "-3.7px", left: "-4.2px", width: "8.4px", height: "8.4px", borderRadius: "999px", background: "var(--p-text,#E9E0D1)", opacity: "0", pointerEvents: "none" }}>
                       </div>
                     </div>
                   </div>
@@ -1277,22 +1275,22 @@ export default function PaginaInstitucional() {
                       <span ref={chatTextRef}>
                         Chat especialista
                       </span>
-                      <div data-maiq-dot="" style={{ position: "absolute", top: "-3.7px", right: "-4.2px", width: "8.4px", height: "8.4px", borderRadius: "999px", background: "var(--p-text,#E9E0D1)", opacity: "0", transform: "scale(0)", pointerEvents: "none" }}>
+                      <div data-maiq-dot="" style={{ position: "absolute", top: "-3.7px", right: "-4.2px", width: "8.4px", height: "8.4px", borderRadius: "999px", background: "var(--p-text,#E9E0D1)", opacity: "0", pointerEvents: "none" }}>
                       </div>
                     </div>
                     <div ref={rRow1Ref} style={{ position: "relative", marginRight: "31px", width: "246px", padding: "13px 0", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", fontSize: "14px", color: "var(--p-text-2,#B7C4BC)", textAlign: "left" }}>
                       Gestão à vista
-                      <div data-maiq-dot="" style={{ position: "absolute", top: "-3.7px", right: "-4.2px", width: "8.4px", height: "8.4px", borderRadius: "999px", background: "var(--p-text,#E9E0D1)", opacity: "0", transform: "scale(0)", pointerEvents: "none" }}>
+                      <div data-maiq-dot="" style={{ position: "absolute", top: "-3.7px", right: "-4.2px", width: "8.4px", height: "8.4px", borderRadius: "999px", background: "var(--p-text,#E9E0D1)", opacity: "0", pointerEvents: "none" }}>
                       </div>
                     </div>
                     <div ref={rRow2Ref} style={{ position: "relative", marginRight: "52px", width: "233px", padding: "13px 0", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", fontSize: "14px", color: "var(--p-text-2,#B7C4BC)", textAlign: "left" }}>
                       Análise holística
-                      <div data-maiq-dot="" style={{ position: "absolute", top: "-3.7px", right: "-4.2px", width: "8.4px", height: "8.4px", borderRadius: "999px", background: "var(--p-text,#E9E0D1)", opacity: "0", transform: "scale(0)", pointerEvents: "none" }}>
+                      <div data-maiq-dot="" style={{ position: "absolute", top: "-3.7px", right: "-4.2px", width: "8.4px", height: "8.4px", borderRadius: "999px", background: "var(--p-text,#E9E0D1)", opacity: "0", pointerEvents: "none" }}>
                       </div>
                     </div>
                     <div ref={rRow3Ref} style={{ position: "relative", marginRight: "93px", width: "213px", padding: "13px 0", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", fontSize: "14px", color: "var(--p-text-2,#B7C4BC)", textAlign: "left" }}>
                       Monitoramento contínuo
-                      <div data-maiq-dot="" style={{ position: "absolute", top: "-3.7px", right: "-4.2px", width: "8.4px", height: "8.4px", borderRadius: "999px", background: "var(--p-text,#E9E0D1)", opacity: "0", transform: "scale(0)", pointerEvents: "none" }}>
+                      <div data-maiq-dot="" style={{ position: "absolute", top: "-3.7px", right: "-4.2px", width: "8.4px", height: "8.4px", borderRadius: "999px", background: "var(--p-text,#E9E0D1)", opacity: "0", pointerEvents: "none" }}>
                       </div>
                     </div>
                   </div>
