@@ -945,7 +945,7 @@ export default function PaginaInstitucional() {
   return (
     <div data-maiq-scope="" ref={scopeRef} style={{ fontFamily: "'Grandview','Barlow',Helvetica,Arial,sans-serif", background: "var(--p-bg,#0D2423)", color: "var(--p-text,#E9E0D1)", minHeight: "100vh", transition: "background 320ms cubic-bezier(.16,1,.3,1),color 320ms cubic-bezier(.16,1,.3,1)" }}>
       <div data-maiq-toggle="" style={{ position: "fixed", top: "30px", right: "32px", zIndex: "51", display: "flex" }}>
-        <div onClick={toggleTheme} onMouseEnter={showTip} onMouseLeave={hideTip} style={{ position: "relative", display: "flex", alignItems: "center", height: "44px", padding: "5px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-header-bg,rgba(20,55,55,.72))", backdropFilter: "blur(18px)", WebkitBackdropFilter: "blur(18px)", boxShadow: "var(--p-header-shadow,0 10px 40px rgba(6,20,20,.35))", cursor: "pointer", transition: "border-color 200ms cubic-bezier(.2,0,0,1),background 320ms cubic-bezier(.16,1,.3,1)" }} data-hover-style="border-color:var(--p-hair-strong,rgba(233,224,209,.32))">
+        <div onClick={toggleTheme} onMouseEnter={showTip} onMouseLeave={hideTip} style={{ position: "relative", display: "flex", alignItems: "center", height: "44px", padding: "5px", borderWidth: "1px", borderStyle: "solid", borderColor: "var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-header-bg,rgba(20,55,55,.72))", backdropFilter: "blur(18px)", WebkitBackdropFilter: "blur(18px)", boxShadow: "var(--p-header-shadow,0 10px 40px rgba(6,20,20,.35))", cursor: "pointer", transition: "border-color 200ms cubic-bezier(.2,0,0,1),background 320ms cubic-bezier(.16,1,.3,1)" }} data-hover-style="border-color:var(--p-hair-strong,rgba(233,224,209,.32))">
           <div ref={thumbRef} style={{ position: "absolute", top: "5px", left: "5px", width: "34px", height: "34px", borderRadius: "999px", background: "var(--p-toggle-thumb,rgba(233,224,209,.14))", transition: "transform 320ms cubic-bezier(.16,1,.3,1),background 320ms cubic-bezier(.16,1,.3,1)" }}>
           </div>
           <div ref={segSunRef} style={{ position: "relative", display: "flex", alignItems: "center", justifyContent: "center", width: "34px", height: "34px", color: "var(--p-muted,#91A398)", transition: "color 320ms cubic-bezier(.16,1,.3,1)" }}>
@@ -972,16 +972,16 @@ export default function PaginaInstitucional() {
         </div>
         <nav style={{ display: "flex", alignItems: "center", gap: "28px", marginRight: "28px", fontSize: "14px", fontWeight: "500", color: "var(--p-muted,#91A398)" }}>
           <span style={{ cursor: "pointer", transition: "color 200ms cubic-bezier(.2,0,0,1)" }} data-hover-style="color:var(--p-text,#E9E0D1)">
-            Método
+            Home
           </span>
           <span style={{ cursor: "pointer", transition: "color 200ms cubic-bezier(.2,0,0,1)" }} data-hover-style="color:var(--p-text,#E9E0D1)">
-            Plataforma
+            Demo
           </span>
           <span style={{ cursor: "pointer", transition: "color 200ms cubic-bezier(.2,0,0,1)" }} data-hover-style="color:var(--p-text,#E9E0D1)">
             Planos
           </span>
           <span style={{ cursor: "pointer", transition: "color 200ms cubic-bezier(.2,0,0,1)" }} data-hover-style="color:var(--p-text,#E9E0D1)">
-            Insights
+            FAQ
           </span>
         </nav>
         <div style={{ "--action-primary-bg": "var(--p-cta-bg,#68462B)", "--action-primary-fg": "var(--p-cta-fg,#F1EBE0)", "--action-primary-bg-hover": "var(--p-cta-bg-hover,#7A5334)", "--action-primary-bg-active": "var(--p-cta-bg-active,#543619)", display: "flex" } as unknown as React.CSSProperties}>
