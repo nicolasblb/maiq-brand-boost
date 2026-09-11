@@ -500,7 +500,8 @@ export default function PaginaInstitucional() {
       const r = host.getBoundingClientRect();
       W = Math.max(1, cv.clientWidth || Math.round(r.width));
       H = Math.max(1, cv.clientHeight || Math.round(r.height));
-      dpr = Math.min(1.5, window.devicePixelRatio || 1);
+      // em telas grandes o custo por pixel domina: 1x já é suficiente para um fundo difuso
+      dpr = Math.min(window.innerWidth > 1024 ? 1 : 1.5, window.devicePixelRatio || 1);
       cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       place(); buildNeb();
