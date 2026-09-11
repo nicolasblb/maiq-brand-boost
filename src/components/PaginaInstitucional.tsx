@@ -358,23 +358,37 @@ export default function PaginaInstitucional() {
       const finals = raw.split('').map(Number);
       return { el, sec, off: 0, finals, strips, digits, target, p: 0 };
     });
-    S._paintOdos = () => {
-      const vh = window.innerHeight;
+    // as posições só mudam em resize: medir a cada scroll causava recálculo de layout
+    const measureOdos = () => {
       S._odos.forEach((o: Any) => {
         let n = o.sec, off = 0;
         while (n) { off += n.offsetTop; n = n.offsetParent; }
-        const topV = off - window.scrollY;
-        const band = vh * 0.2;
-        o.p = Math.min(1, Math.max(0, (band - topV) / band));
-        const e = o.p * o.p * (3 - 2 * o.p);
+        o.off = off;
+      });
+    };
+    const paintOdos = () => {
+      const vh = window.innerHeight;
+      const band = vh * 0.2;
+      S._odos.forEach((o: Any) => {
+        const topV = o.off - window.scrollY;
+        const p = Math.min(1, Math.max(0, (band - topV) / band));
+        if (Math.abs(p - o.p) < 0.001 && o.painted) return;
+        o.p = p; o.painted = true;
+        const e = p * p * (3 - 2 * p);
         for (let i = 0; i < o.digits; i++) {
           const pos = o.finals[i] * e;
           o.strips[i].style.transform = 'translate3d(0,' + (-pos * 100 / 12).toFixed(4) + '%,0)';
         }
       });
     };
-    S._odoResize = () => S._paintOdos();
-    S._paintOdos();
+    let odoRaf = 0 as Any;
+    S._paintOdos = () => {
+      if (odoRaf) return;
+      odoRaf = requestAnimationFrame(() => { odoRaf = 0; paintOdos(); });
+    };
+    S._odoResize = () => { measureOdos(); paintOdos(); };
+    measureOdos();
+    paintOdos();
     window.addEventListener('scroll', S._paintOdos, { passive: true });
     window.addEventListener('resize', S._odoResize);
   }
