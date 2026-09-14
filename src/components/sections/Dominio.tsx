@@ -326,7 +326,7 @@ export default function Dominio() {
             style={{
               display: 'flex',
               flexDirection: 'column',
-              gap: 'clamp(40px,6vh,72px)',
+              gap: 'clamp(24px,3.5vh,40px)',
               paddingTop: 'clamp(0px,2vh,24px)',
               minWidth: 0,
             }}
@@ -373,7 +373,7 @@ export default function Dominio() {
                 style={{
                   height: '1px',
                   width: '100%',
-                  margin: 'clamp(28px,4vh,44px) 0',
+                  margin: 'clamp(24px,3.5vh,40px) 0',
                   background: 'linear-gradient(90deg, transparent 0%, var(--p-hair,rgba(233,224,209,.14)) 20%, var(--p-hair,rgba(233,224,209,.14)) 80%, transparent 100%)',
                   opacity: 0.65,
                 }}
@@ -389,7 +389,8 @@ export default function Dominio() {
                   textTransform: 'uppercase',
                   fontWeight: 500,
                   color: 'var(--p-muted,#91A398)',
-                  marginBottom: '20px',
+                  marginBottom: 'clamp(24px,3.5vh,40px)',
+                  textAlign: 'center',
                 }}
               >
                 Experiência com múltiplos líderes de mercado
