@@ -76,9 +76,46 @@ function parseStyleText(text: string): Record<string, string> {
   return out;
 }
 
+const SECOES = [
+  { id: 'topo', label: 'Início' },
+  { id: 'modelo', label: 'O Modelo' },
+  { id: 'fundacao', label: 'A Fundação' },
+  { id: 'plataforma', label: 'A Plataforma' },
+  { id: 'ciclo', label: 'O Ciclo' },
+  { id: 'dominio', label: 'O Domínio' },
+];
+
 export default function PaginaInstitucional() {
   const [theme, setTheme] = useState<'noite' | 'claro'>('noite');
   const themeRef = useRef<'noite' | 'claro'>('noite');
+  const [homeOpen, setHomeOpen] = useState(false);
+  const homeMenuRef = useRef<Any>(null);
+
+  useEffect(() => {
+    if (!homeOpen) return;
+    const onDown = (e: MouseEvent) => {
+      const el = homeMenuRef.current;
+      if (el && !el.contains(e.target as Node)) setHomeOpen(false);
+    };
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setHomeOpen(false); };
+    document.addEventListener('mousedown', onDown);
+    document.addEventListener('keydown', onKey);
+    return () => {
+      document.removeEventListener('mousedown', onDown);
+      document.removeEventListener('keydown', onKey);
+    };
+  }, [homeOpen]);
+
+  const goToSection = (id: string) => {
+    setHomeOpen(false);
+    if (id === 'topo') { window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
+    const el = document.querySelector('[data-maiq-sec="' + id + '"]') as HTMLElement | null;
+    if (!el) return;
+    let off = 0, n: Any = el;
+    while (n) { off += n.offsetTop; n = n.offsetParent; }
+    window.scrollTo({ top: Math.max(0, off - 8), behavior: 'smooth' });
+  };
+
 
   const scopeRef = useRef<Any>(null);
   const logoDayRef = useRef<Any>(null);
