@@ -1059,8 +1059,42 @@ export default function PaginaInstitucional() {
           </div>
         </div>
         <nav style={{ display: "flex", alignItems: "center", gap: "28px", marginRight: "28px", fontSize: "14px", fontWeight: "500", color: "var(--p-muted,#91A398)" }}>
-          <span style={{ cursor: "pointer", transition: "color 200ms cubic-bezier(.2,0,0,1)" }} data-hover-style="color:var(--p-text,#E9E0D1)">
-            Home
+          <span ref={homeMenuRef} style={{ position: "relative" }}>
+            <span
+              role="button"
+              tabIndex={0}
+              aria-expanded={homeOpen}
+              onClick={() => setHomeOpen((v) => !v)}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setHomeOpen((v) => !v); } }}
+              style={{ display: "inline-flex", alignItems: "center", gap: "6px", cursor: "pointer", color: homeOpen ? "var(--p-text,#E9E0D1)" : "inherit", transition: "color 200ms cubic-bezier(.2,0,0,1)" }}
+              data-hover-style="color:var(--p-text,#E9E0D1)"
+            >
+              Home
+              <ChevronRight
+                strokeWidth={2}
+                style={{ width: 15, height: 15, transform: homeOpen ? "rotate(90deg)" : "rotate(0deg)", transition: "transform 220ms cubic-bezier(.16,1,.3,1)" }}
+              />
+            </span>
+            {homeOpen ? (
+              <div
+                role="menu"
+                style={{ position: "absolute", top: "34px", left: "-14px", minWidth: "212px", padding: "8px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "16px", background: "var(--p-header-bg,rgba(20,55,55,.72))", backdropFilter: "blur(18px)", WebkitBackdropFilter: "blur(18px)", boxShadow: "var(--p-header-shadow,0 10px 40px rgba(6,20,20,.35))", display: "flex", flexDirection: "column", gap: "2px" }}
+              >
+                {SECOES.map((s) => (
+                  <span
+                    key={s.id}
+                    role="menuitem"
+                    tabIndex={0}
+                    onClick={() => goToSection(s.id)}
+                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); goToSection(s.id); } }}
+                    style={{ padding: "9px 12px", borderRadius: "10px", cursor: "pointer", whiteSpace: "nowrap", transition: "color 200ms cubic-bezier(.2,0,0,1),background 200ms cubic-bezier(.2,0,0,1)" }}
+                    data-hover-style="color:var(--p-text,#E9E0D1);background:var(--p-chip-bg,rgba(233,224,209,.06))"
+                  >
+                    {s.label}
+                  </span>
+                ))}
+              </div>
+            ) : null}
           </span>
           <span style={{ cursor: "pointer", transition: "color 200ms cubic-bezier(.2,0,0,1)" }} data-hover-style="color:var(--p-text,#E9E0D1)">
             Demo
@@ -1072,8 +1106,18 @@ export default function PaginaInstitucional() {
             FAQ
           </span>
         </nav>
-        <div style={{ "--action-primary-bg": "var(--p-cta-bg,#68462B)", "--action-primary-fg": "var(--p-cta-fg,#F1EBE0)", "--action-primary-bg-hover": "var(--p-cta-bg-hover,#7A5334)", "--action-primary-bg-active": "var(--p-cta-bg-active,#543619)", display: "flex" } as unknown as React.CSSProperties}>
-          <MaiqButton size="md">Fale com um especialista</MaiqButton>
+        <div style={{ display: "flex", alignItems: "center", height: "42px", padding: "0 0 0 4px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))" }}>
+          <button
+            type="button"
+            style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", height: "34px", padding: "0 18px", border: "none", borderRadius: "999px", background: "transparent", color: "var(--p-muted,#91A398)", font: "inherit", fontSize: "14px", fontWeight: 500, cursor: "pointer", whiteSpace: "nowrap", transition: "color 200ms cubic-bezier(.2,0,0,1),background 200ms cubic-bezier(.2,0,0,1)" }}
+            data-hover-style="color:var(--p-text,#E9E0D1);background:var(--p-chip-bg,rgba(233,224,209,.08))"
+          >
+            Entrar
+          </button>
+          <div style={{ width: "1px", height: "20px", background: "var(--p-hair,rgba(233,224,209,.14))", marginRight: "4px" } as React.CSSProperties} />
+          <div style={{ "--action-primary-bg": "var(--p-cta-bg,#68462B)", "--action-primary-fg": "var(--p-cta-fg,#F1EBE0)", "--action-primary-bg-hover": "var(--p-cta-bg-hover,#7A5334)", "--action-primary-bg-active": "var(--p-cta-bg-active,#543619)", display: "flex", margin: "-1px -1px -1px 0" } as unknown as React.CSSProperties}>
+            <MaiqButton size="md">Fale com um especialista</MaiqButton>
+          </div>
         </div>
       </header>
       <div ref={flyLogoRef} aria-hidden="true" style={{ position: "fixed", left: "0", top: "0", transformOrigin: "0 0", zIndex: "51", pointerEvents: "none", display: "flex", willChange: "transform,opacity" }}>
