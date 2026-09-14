@@ -1143,18 +1143,22 @@ export default function PaginaInstitucional() {
             FAQ
           </span>
         </nav>
-        <div style={{ display: "flex", alignItems: "center", height: "44px", padding: "4px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))" }}>
-          <button
-            type="button"
-            style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", height: "36px", padding: "0 18px", border: "none", borderRadius: "999px", background: "transparent", color: "var(--p-muted,#91A398)", font: "inherit", fontSize: "14px", fontWeight: 500, cursor: "pointer", whiteSpace: "nowrap", transition: "color 200ms cubic-bezier(.2,0,0,1),background 200ms cubic-bezier(.2,0,0,1)" }}
-            data-hover-style="color:var(--p-text,#E9E0D1);background:var(--p-chip-bg,rgba(233,224,209,.08))"
+        <div style={{ display: "flex", alignItems: "center", height: "44px", padding: "4px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-cta-bg,#E9E0D1)", color: "var(--p-cta-fg,#143737)" }}>
+          <MaiqButton
+            size="md"
+            variant="ghost"
+            style={{ "--action-ghost-fg": "var(--p-cta-fg,#143737)", "--action-ghost-bg-hover": "var(--p-cta-bg-hover,#F1EBE0)", color: "var(--p-cta-fg,#143737)" } as React.CSSProperties}
           >
             Entrar
-          </button>
-          <div style={{ width: "1px", height: "20px", background: "var(--p-hair,rgba(233,224,209,.14))", margin: "0 4px" } as React.CSSProperties} />
-          <div style={{ "--action-primary-bg": "var(--p-cta-bg,#E2D8C6)", "--action-primary-fg": "var(--p-cta-fg,#143737)", "--action-primary-bg-hover": "var(--p-cta-bg-hover,#F1EBE0)", "--action-primary-bg-active": "var(--p-cta-bg-active,#D6CBB6)", display: "flex" } as unknown as React.CSSProperties}>
-            <MaiqButton size="md">Fale com um especialista</MaiqButton>
-          </div>
+          </MaiqButton>
+          <div style={{ width: "1px", height: "20px", background: "var(--p-cta-fg,#143737)", opacity: 0.2 }} />
+          <MaiqButton
+            size="md"
+            variant="ghost"
+            style={{ "--action-ghost-fg": "var(--p-cta-fg,#143737)", "--action-ghost-bg-hover": "var(--p-cta-bg-hover,#F1EBE0)", color: "var(--p-cta-fg,#143737)" } as React.CSSProperties}
+          >
+            Fale com um especialista
+          </MaiqButton>
         </div>
       </header>
       <div ref={flyLogoRef} aria-hidden="true" style={{ position: "fixed", left: "0", top: "0", transformOrigin: "0 0", zIndex: "51", pointerEvents: "none", display: "flex", willChange: "transform,opacity" }}>
