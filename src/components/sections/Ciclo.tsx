@@ -333,6 +333,7 @@ export default function Ciclo() {
 
   return (
     <section
+      data-maiq-sec="ciclo"
       aria-label="O Ciclo"
       ref={cicloRef}
       style={{

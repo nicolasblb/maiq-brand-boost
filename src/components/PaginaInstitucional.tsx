@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { Sun, Moon, TriangleAlert } from 'lucide-react';
+import { Sun, Moon, TriangleAlert, ChevronRight } from 'lucide-react';
 import Ciclo from '@/components/sections/Ciclo';
 import Dominio from '@/components/sections/Dominio';
 import VdrEmbed from '@/components/maiq/vdr/VdrEmbed';
@@ -1331,7 +1331,7 @@ export default function PaginaInstitucional() {
       </section>
       <div ref={overlayRef} style={{ position: "relative", zIndex: "2", background: "var(--p-bg,#0D2423)", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderBottom: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "24px", overflow: "clip", boxShadow: "var(--p-overlay-shadow,0 -30px 60px -18px rgba(4,16,16,.62)), 0 30px 60px -18px rgba(4,16,16,.62)", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
         <div className="maiq-model-pilares-bg" style={{ position: "relative", zIndex: "2", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
-        <section aria-label="Nosso modelo" style={{ position: "relative", zIndex: "1", minHeight: "100vh", boxSizing: "border-box", display: "flex", alignItems: "center", padding: "clamp(104px,13vh,150px) 48px clamp(36px,4.5vh,64px)" }}>
+        <section data-maiq-sec="modelo" aria-label="Nosso modelo" style={{ position: "relative", zIndex: "1", minHeight: "100vh", boxSizing: "border-box", display: "flex", alignItems: "center", padding: "clamp(104px,13vh,150px) 48px clamp(36px,4.5vh,64px)" }}>
           <div style={{ width: "100%", maxWidth: "1200px", margin: "0 auto", display: "flex", flexDirection: "column", gap: "clamp(24px,3vh,44px)" }}>
             <div>
               <h2 data-maiq-modelo-h2="" style={{ fontFamily: "Inter,var(--font-core)", fontSize: "clamp(38px,4.2vw,58px)", lineHeight: "1.04", letterSpacing: "-.022em", fontWeight: "600", margin: "0" }}>
@@ -1502,7 +1502,7 @@ export default function PaginaInstitucional() {
             </div>
           </div>
         </section>
-        <section aria-label="A Fundação" style={{ position: "relative", zIndex: "1", minHeight: "100vh", boxSizing: "border-box", display: "flex", alignItems: "stretch", padding: "clamp(104px,13vh,150px) 48px clamp(36px,4.5vh,64px)" }}>
+        <section data-maiq-sec="fundacao" aria-label="A Fundação" style={{ position: "relative", zIndex: "1", minHeight: "100vh", boxSizing: "border-box", display: "flex", alignItems: "stretch", padding: "clamp(104px,13vh,150px) 48px clamp(36px,4.5vh,64px)" }}>
           <div style={{ width: "100%", maxWidth: "1200px", margin: "0 auto", display: "flex", flexDirection: "column", gap: "clamp(24px,3vh,44px)" }}>
             <div>
               <h2 style={{ fontFamily: "Inter,var(--font-core)", fontSize: "clamp(38px,4.2vw,58px)", lineHeight: "1.04", letterSpacing: "-.022em", fontWeight: "600", margin: "0" }}>
@@ -1531,7 +1531,7 @@ export default function PaginaInstitucional() {
               <div ref={netContentRef} data-maiq-net-content="" style={{ position: "relative", zIndex: "1", willChange: "transform" }}>
 
 
-              <section aria-label="A Plataforma" style={{ position: "relative", zIndex: "1" }}>
+              <section data-maiq-sec="plataforma" aria-label="A Plataforma" style={{ position: "relative", zIndex: "1" }}>
                 <div data-maiq-plat-pin="" style={{ position: "relative", minHeight: "100vh", boxSizing: "border-box", display: "flex", alignItems: "flex-start", padding: "0 48px" }}>
                   <div ref={platInnerRef} data-maiq-plat-inner="" style={{ position: "relative", zIndex: "1", width: "100%", maxWidth: "1200px", height: "100vh", boxSizing: "border-box", margin: "0 auto", display: "flex", flexDirection: "column", paddingTop: "clamp(104px,13vh,150px)" }}>
                     <div>

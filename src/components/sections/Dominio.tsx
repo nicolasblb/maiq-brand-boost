@@ -261,6 +261,7 @@ export default function Dominio() {
   return (
     <section
       ref={sectionRef}
+      data-maiq-sec="dominio"
       aria-label="O Domínio"
       style={{
         minHeight: '100vh',
