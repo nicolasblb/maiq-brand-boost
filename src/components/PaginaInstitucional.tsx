@@ -1084,16 +1084,6 @@ export default function PaginaInstitucional() {
         <img src={logoBranco} alt="" style={{ height: "clamp(22px,3.4vw,44px)", width: "auto", display: "block" }} />
       </div>
       <section ref={heroRef} style={{ background: "var(--p-hero-bg,#143737)", padding: "clamp(140px,12.5vh,160px) 48px clamp(44px,6.5vh,84px)", boxSizing: "border-box", minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center", position: "sticky", top: "0", zIndex: "0", overflow: "hidden", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
-        <div style={{ position: "absolute", inset: "0", overflow: "hidden", filter: "blur(34px)", opacity: ".58" }}>
-          <div data-maiq-anim="" style={{ position: "absolute", background: "radial-gradient(closest-side, var(--p-vol-accent,rgba(51,96,90,.72)) 0%, var(--p-vol-accent-2,rgba(51,96,90,.24)) 44%, var(--p-fade,rgba(20,55,55,0)) 72%)", left: "-6%", top: "-22%", width: "72%", height: "122%", animation: "maiqVolA 21.4s cubic-bezier(.4,0,.6,1) infinite", willChange: "transform" }}>
-          </div>
-          <div data-maiq-anim="" style={{ position: "absolute", background: "radial-gradient(closest-side, var(--p-vol-shadow,rgba(4,16,16,.78)) 0%, var(--p-vol-shadow-2,rgba(51,96,90,.22)) 44%, var(--p-fade,rgba(20,55,55,0)) 72%)", left: "42%", top: "16%", width: "70%", height: "116%", animation: "maiqVolB 23.8s cubic-bezier(.4,0,.6,1) infinite", willChange: "transform" }}>
-          </div>
-          <div data-maiq-anim="" style={{ position: "absolute", background: "radial-gradient(closest-side, var(--p-vol-mint,rgba(145,163,152,.22)) 0%, var(--p-vol-mint-2,rgba(145,163,152,.09)) 44%, var(--p-fade,rgba(20,55,55,0)) 72%)", left: "14%", top: "34%", width: "58%", height: "82%", animation: "maiqVolC 26.2s cubic-bezier(.4,0,.6,1) infinite", willChange: "transform" }}>
-          </div>
-          <div data-maiq-anim="" style={{ position: "absolute", background: "radial-gradient(closest-side, var(--p-vol-deep,rgba(6,22,21,.62)) 0%, var(--p-vol-deep-2,rgba(145,163,152,.08)) 44%, var(--p-fade,rgba(20,55,55,0)) 72%)", left: "58%", top: "-28%", width: "60%", height: "100%", animation: "maiqVolD 28.6s cubic-bezier(.4,0,.6,1) infinite", willChange: "transform" }}>
-          </div>
-        </div>
         <div aria-hidden="true" style={{ position: "absolute", inset: "0", overflow: "hidden", isolation: "isolate" }}>
           <div data-maiq-anim="" style={{ position: "absolute", inset: "0", animation: "maiqPathA 45s linear infinite", willChange: "transform" }}>
             <div data-maiq-anim="" style={{ position: "absolute", left: "0", top: "0", width: "0", height: "0", animation: "maiqExA 45s linear infinite" }}>
