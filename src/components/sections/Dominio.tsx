@@ -371,14 +371,14 @@ export default function Dominio() {
               </div>
               <div
                 style={{
-                  marginTop: '22px',
-                  fontSize: 'var(--fs-body,16px)',
-                  color: 'var(--p-text-2,#B7C4BC)',
-                  fontWeight: 500,
+                  height: '1px',
+                  width: '100%',
+                  margin: 'clamp(28px,4vh,44px) 0',
+                  background: 'linear-gradient(90deg, transparent 0%, var(--p-hair,rgba(233,224,209,.14)) 20%, var(--p-hair,rgba(233,224,209,.14)) 80%, transparent 100%)',
+                  opacity: 0.65,
                 }}
-              >
-                {QUOTE.author}
-              </div>
+                aria-hidden="true"
+              />
             </div>
 
             <div data-dominio-reveal="" data-dominio-delay={2}>
