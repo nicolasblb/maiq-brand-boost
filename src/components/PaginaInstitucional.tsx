@@ -1157,7 +1157,7 @@ export default function PaginaInstitucional() {
             variant="ghost"
             style={{ "--action-ghost-fg": "var(--p-cta-fg,#143737)", "--action-ghost-bg-hover": "var(--p-cta-bg-hover,#F1EBE0)", color: "var(--p-cta-fg,#143737)" } as React.CSSProperties}
           >
-            Fale com um especialista
+            Fale Conosco
           </MaiqButton>
         </div>
       </header>
