@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { Sun, Moon, TriangleAlert } from 'lucide-react';
+import { Sun, Moon, TriangleAlert, ChevronRight } from 'lucide-react';
 import Ciclo from '@/components/sections/Ciclo';
 import Dominio from '@/components/sections/Dominio';
 import VdrEmbed from '@/components/maiq/vdr/VdrEmbed';
@@ -76,9 +76,46 @@ function parseStyleText(text: string): Record<string, string> {
   return out;
 }
 
+const SECOES = [
+  { id: 'topo', label: 'Início' },
+  { id: 'modelo', label: 'O Modelo' },
+  { id: 'fundacao', label: 'A Fundação' },
+  { id: 'plataforma', label: 'A Plataforma' },
+  { id: 'ciclo', label: 'O Ciclo' },
+  { id: 'dominio', label: 'O Domínio' },
+];
+
 export default function PaginaInstitucional() {
   const [theme, setTheme] = useState<'noite' | 'claro'>('noite');
   const themeRef = useRef<'noite' | 'claro'>('noite');
+  const [homeOpen, setHomeOpen] = useState(false);
+  const homeMenuRef = useRef<Any>(null);
+
+  useEffect(() => {
+    if (!homeOpen) return;
+    const onDown = (e: MouseEvent) => {
+      const el = homeMenuRef.current;
+      if (el && !el.contains(e.target as Node)) setHomeOpen(false);
+    };
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setHomeOpen(false); };
+    document.addEventListener('mousedown', onDown);
+    document.addEventListener('keydown', onKey);
+    return () => {
+      document.removeEventListener('mousedown', onDown);
+      document.removeEventListener('keydown', onKey);
+    };
+  }, [homeOpen]);
+
+  const goToSection = (id: string) => {
+    setHomeOpen(false);
+    if (id === 'topo') { window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
+    const el = document.querySelector('[data-maiq-sec="' + id + '"]') as HTMLElement | null;
+    if (!el) return;
+    let off = 0, n: Any = el;
+    while (n) { off += n.offsetTop; n = n.offsetParent; }
+    window.scrollTo({ top: Math.max(0, off - 8), behavior: 'smooth' });
+  };
+
 
   const scopeRef = useRef<Any>(null);
   const logoDayRef = useRef<Any>(null);
@@ -1059,8 +1096,42 @@ export default function PaginaInstitucional() {
           </div>
         </div>
         <nav style={{ display: "flex", alignItems: "center", gap: "28px", marginRight: "28px", fontSize: "14px", fontWeight: "500", color: "var(--p-muted,#91A398)" }}>
-          <span style={{ cursor: "pointer", transition: "color 200ms cubic-bezier(.2,0,0,1)" }} data-hover-style="color:var(--p-text,#E9E0D1)">
-            Home
+          <span ref={homeMenuRef} style={{ position: "relative" }}>
+            <span
+              role="button"
+              tabIndex={0}
+              aria-expanded={homeOpen}
+              onClick={() => setHomeOpen((v) => !v)}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setHomeOpen((v) => !v); } }}
+              style={{ display: "inline-flex", alignItems: "center", gap: "6px", cursor: "pointer", color: homeOpen ? "var(--p-text,#E9E0D1)" : "inherit", transition: "color 200ms cubic-bezier(.2,0,0,1)" }}
+              data-hover-style="color:var(--p-text,#E9E0D1)"
+            >
+              Home
+              <ChevronRight
+                strokeWidth={2}
+                style={{ width: 15, height: 15, transform: homeOpen ? "rotate(90deg)" : "rotate(0deg)", transition: "transform 220ms cubic-bezier(.16,1,.3,1)" }}
+              />
+            </span>
+            {homeOpen ? (
+              <div
+                role="menu"
+                style={{ position: "absolute", top: "34px", left: "-14px", minWidth: "212px", padding: "8px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "16px", background: "var(--p-card,#1B4442)", backdropFilter: "blur(18px)", WebkitBackdropFilter: "blur(18px)", boxShadow: "var(--p-header-shadow,0 10px 40px rgba(6,20,20,.35))", display: "flex", flexDirection: "column", gap: "2px" }}
+              >
+                {SECOES.map((s) => (
+                  <span
+                    key={s.id}
+                    role="menuitem"
+                    tabIndex={0}
+                    onClick={() => goToSection(s.id)}
+                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); goToSection(s.id); } }}
+                    style={{ padding: "9px 12px", borderRadius: "10px", cursor: "pointer", whiteSpace: "nowrap", transition: "color 200ms cubic-bezier(.2,0,0,1),background 200ms cubic-bezier(.2,0,0,1)" }}
+                    data-hover-style="color:var(--p-text,#E9E0D1);background:var(--p-chip-bg,rgba(233,224,209,.06))"
+                  >
+                    {s.label}
+                  </span>
+                ))}
+              </div>
+            ) : null}
           </span>
           <span style={{ cursor: "pointer", transition: "color 200ms cubic-bezier(.2,0,0,1)" }} data-hover-style="color:var(--p-text,#E9E0D1)">
             Demo
@@ -1072,8 +1143,18 @@ export default function PaginaInstitucional() {
             FAQ
           </span>
         </nav>
-        <div style={{ "--action-primary-bg": "var(--p-cta-bg,#68462B)", "--action-primary-fg": "var(--p-cta-fg,#F1EBE0)", "--action-primary-bg-hover": "var(--p-cta-bg-hover,#7A5334)", "--action-primary-bg-active": "var(--p-cta-bg-active,#543619)", display: "flex" } as unknown as React.CSSProperties}>
-          <MaiqButton size="md">Fale com um especialista</MaiqButton>
+        <div style={{ display: "flex", alignItems: "center", height: "42px", padding: "0 0 0 4px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))" }}>
+          <button
+            type="button"
+            style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", height: "34px", padding: "0 18px", border: "none", borderRadius: "999px", background: "transparent", color: "var(--p-muted,#91A398)", font: "inherit", fontSize: "14px", fontWeight: 500, cursor: "pointer", whiteSpace: "nowrap", transition: "color 200ms cubic-bezier(.2,0,0,1),background 200ms cubic-bezier(.2,0,0,1)" }}
+            data-hover-style="color:var(--p-text,#E9E0D1);background:var(--p-chip-bg,rgba(233,224,209,.08))"
+          >
+            Entrar
+          </button>
+          <div style={{ width: "1px", height: "20px", background: "var(--p-hair,rgba(233,224,209,.14))", marginRight: "4px" } as React.CSSProperties} />
+          <div style={{ "--action-primary-bg": "var(--p-cta-bg,#68462B)", "--action-primary-fg": "var(--p-cta-fg,#F1EBE0)", "--action-primary-bg-hover": "var(--p-cta-bg-hover,#7A5334)", "--action-primary-bg-active": "var(--p-cta-bg-active,#543619)", display: "flex", margin: "-1px -1px -1px 0" } as unknown as React.CSSProperties}>
+            <MaiqButton size="md">Fale com um especialista</MaiqButton>
+          </div>
         </div>
       </header>
       <div ref={flyLogoRef} aria-hidden="true" style={{ position: "fixed", left: "0", top: "0", transformOrigin: "0 0", zIndex: "51", pointerEvents: "none", display: "flex", willChange: "transform,opacity" }}>
@@ -1250,7 +1331,7 @@ export default function PaginaInstitucional() {
       </section>
       <div ref={overlayRef} style={{ position: "relative", zIndex: "2", background: "var(--p-bg,#0D2423)", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderBottom: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "24px", overflow: "clip", boxShadow: "var(--p-overlay-shadow,0 -30px 60px -18px rgba(4,16,16,.62)), 0 30px 60px -18px rgba(4,16,16,.62)", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
         <div className="maiq-model-pilares-bg" style={{ position: "relative", zIndex: "2", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
-        <section aria-label="Nosso modelo" style={{ position: "relative", zIndex: "1", minHeight: "100vh", boxSizing: "border-box", display: "flex", alignItems: "center", padding: "clamp(104px,13vh,150px) 48px clamp(36px,4.5vh,64px)" }}>
+        <section data-maiq-sec="modelo" aria-label="Nosso modelo" style={{ position: "relative", zIndex: "1", minHeight: "100vh", boxSizing: "border-box", display: "flex", alignItems: "center", padding: "clamp(104px,13vh,150px) 48px clamp(36px,4.5vh,64px)" }}>
           <div style={{ width: "100%", maxWidth: "1200px", margin: "0 auto", display: "flex", flexDirection: "column", gap: "clamp(24px,3vh,44px)" }}>
             <div>
               <h2 data-maiq-modelo-h2="" style={{ fontFamily: "Inter,var(--font-core)", fontSize: "clamp(38px,4.2vw,58px)", lineHeight: "1.04", letterSpacing: "-.022em", fontWeight: "600", margin: "0" }}>
@@ -1421,7 +1502,7 @@ export default function PaginaInstitucional() {
             </div>
           </div>
         </section>
-        <section aria-label="A Fundação" style={{ position: "relative", zIndex: "1", minHeight: "100vh", boxSizing: "border-box", display: "flex", alignItems: "stretch", padding: "clamp(104px,13vh,150px) 48px clamp(36px,4.5vh,64px)" }}>
+        <section data-maiq-sec="fundacao" aria-label="A Fundação" style={{ position: "relative", zIndex: "1", minHeight: "100vh", boxSizing: "border-box", display: "flex", alignItems: "stretch", padding: "clamp(104px,13vh,150px) 48px clamp(36px,4.5vh,64px)" }}>
           <div style={{ width: "100%", maxWidth: "1200px", margin: "0 auto", display: "flex", flexDirection: "column", gap: "clamp(24px,3vh,44px)" }}>
             <div>
               <h2 style={{ fontFamily: "Inter,var(--font-core)", fontSize: "clamp(38px,4.2vw,58px)", lineHeight: "1.04", letterSpacing: "-.022em", fontWeight: "600", margin: "0" }}>
@@ -1450,7 +1531,7 @@ export default function PaginaInstitucional() {
               <div ref={netContentRef} data-maiq-net-content="" style={{ position: "relative", zIndex: "1", willChange: "transform" }}>
 
 
-              <section aria-label="A Plataforma" style={{ position: "relative", zIndex: "1" }}>
+              <section data-maiq-sec="plataforma" aria-label="A Plataforma" style={{ position: "relative", zIndex: "1" }}>
                 <div data-maiq-plat-pin="" style={{ position: "relative", minHeight: "100vh", boxSizing: "border-box", display: "flex", alignItems: "flex-start", padding: "0 48px" }}>
                   <div ref={platInnerRef} data-maiq-plat-inner="" style={{ position: "relative", zIndex: "1", width: "100%", maxWidth: "1200px", height: "100vh", boxSizing: "border-box", margin: "0 auto", display: "flex", flexDirection: "column", paddingTop: "clamp(104px,13vh,150px)" }}>
                     <div>
