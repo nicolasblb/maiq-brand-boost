@@ -1115,7 +1115,7 @@ export default function PaginaInstitucional() {
             {homeOpen ? (
               <div
                 role="menu"
-                style={{ position: "absolute", top: "34px", left: "-14px", minWidth: "212px", padding: "8px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "16px", background: "var(--p-header-bg,rgba(20,55,55,.72))", backdropFilter: "blur(18px)", WebkitBackdropFilter: "blur(18px)", boxShadow: "var(--p-header-shadow,0 10px 40px rgba(6,20,20,.35))", display: "flex", flexDirection: "column", gap: "2px" }}
+                style={{ position: "absolute", top: "34px", left: "-14px", minWidth: "212px", padding: "8px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "16px", background: "var(--p-card,#1B4442)", backdropFilter: "blur(18px)", WebkitBackdropFilter: "blur(18px)", boxShadow: "var(--p-header-shadow,0 10px 40px rgba(6,20,20,.35))", display: "flex", flexDirection: "column", gap: "2px" }}
               >
                 {SECOES.map((s) => (
                   <span
