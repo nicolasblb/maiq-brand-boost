@@ -116,7 +116,7 @@ function ResetPasswordPage() {
             </div>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} style={{ marginTop: '24px', display: 'grid', gap: '16px', opacity: ready ? 1 : 0.6 }}>
+          <form onSubmit={handleSubmit} noValidate style={{ marginTop: '24px', display: 'grid', gap: '16px', opacity: ready ? 1 : 0.6 }}>
             <label htmlFor="new-password" style={{ display: 'grid', gap: '8px' }}>
               <span style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--p-text-2,#B7C4BC)', fontSize: '13px', fontWeight: 500 }}><LockKeyhole size={16} /> Nova senha</span>
               <input id="new-password" type="password" autoComplete="new-password" value={password} onChange={(event) => setPassword(event.target.value)} style={fieldStyle} disabled={!ready || loading} />

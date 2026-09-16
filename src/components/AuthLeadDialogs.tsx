@@ -332,7 +332,7 @@ export default function AuthLeadDialogs({
             </div>
           </div>
         ) : authMode === 'recover' ? (
-          <form onSubmit={handleRecover}>
+          <form onSubmit={handleRecover} noValidate>
             <DialogHeader eyebrow="Recuperação" title="Redefina sua senha.">
               <p style={{ margin: 0 }}>Enviaremos um link seguro para o email cadastrado.</p>
             </DialogHeader>
@@ -349,7 +349,7 @@ export default function AuthLeadDialogs({
             </div>
           </form>
         ) : (
-          <form onSubmit={handleLogin}>
+          <form onSubmit={handleLogin} noValidate>
             <DialogHeader eyebrow="Acesso" title="Entre na área Maiq.">
               <p style={{ margin: 0 }}>A área logada será liberada em breve para usuários autorizados.</p>
             </DialogHeader>
@@ -381,7 +381,7 @@ export default function AuthLeadDialogs({
             </div>
           </div>
         ) : (
-          <form onSubmit={handleLeadSubmit}>
+          <form onSubmit={handleLeadSubmit} noValidate>
             <DialogHeader eyebrow="Contato" title="Converse com a Maiq.">
               <p style={{ margin: 0 }}>Preencha seus dados para iniciarmos uma conversa sobre crescimento inorgânico.</p>
             </DialogHeader>
