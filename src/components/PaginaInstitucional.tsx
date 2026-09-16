@@ -1125,8 +1125,17 @@ export default function PaginaInstitucional() {
       <header style={{ position: "fixed", top: "20px", left: "50%", transform: "translateX(-50%)", zIndex: "50", display: "flex", alignItems: "center", gap: "0", height: "64px", padding: "0 10px 0 26px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-header-bg,rgba(20,55,55,.72))", backdropFilter: "blur(18px)", WebkitBackdropFilter: "blur(18px)", boxShadow: "var(--p-header-shadow,0 10px 40px rgba(6,20,20,.35))", transition: "background 320ms cubic-bezier(.16,1,.3,1),border-color 320ms cubic-bezier(.16,1,.3,1)" }}>
         <div ref={headerSlotRef} style={{ position: "relative", display: "flex", alignItems: "center", height: "22px", width: "0", marginRight: "0", overflow: "hidden", top: "3px" }}>
           <div ref={headerLogoRef} style={{ position: "relative", display: "flex", flex: "none", opacity: "0" }}>
-            <img src={logoBranco} alt="Maiq" style={{ height: "22px", width: "auto", display: "block" }} />
-            <img ref={logoDayRef} src={logoMadeira} alt="" style={{ position: "absolute", left: "0", top: "0", height: "22px", width: "auto", display: "block", opacity: "0", transition: "opacity 320ms cubic-bezier(.16,1,.3,1)" }} />
+            <Link
+              to="/"
+              aria-label="Maiq — Página institucional"
+              title="Maiq — Página institucional"
+              onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+              style={{ display: "flex", cursor: "pointer", textDecoration: "none", transition: "opacity 200ms cubic-bezier(.2,0,0,1)" }}
+              data-hover-style="opacity:0.82"
+            >
+              <img src={logoBranco} alt="Maiq" style={{ height: "22px", width: "auto", display: "block" }} />
+              <img ref={logoDayRef} src={logoMadeira} alt="" style={{ position: "absolute", left: "0", top: "0", height: "22px", width: "auto", display: "block", opacity: "0", transition: "opacity 320ms cubic-bezier(.16,1,.3,1)" }} />
+            </Link>
           </div>
         </div>
         <nav style={{ display: "flex", alignItems: "center", gap: "28px", marginRight: "28px", fontSize: "14px", fontWeight: "500", color: "var(--p-muted,#91A398)" }}>
