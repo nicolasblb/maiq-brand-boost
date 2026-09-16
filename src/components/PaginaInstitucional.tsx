@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { Sun, Moon, TriangleAlert, ChevronRight } from 'lucide-react';
+import { Link } from '@tanstack/react-router';
+import { Sun, Moon, TriangleAlert, ChevronDown } from 'lucide-react';
 import Ciclo from '@/components/sections/Ciclo';
 import Dominio from '@/components/sections/Dominio';
 import VdrEmbed from '@/components/maiq/vdr/VdrEmbed';
@@ -85,29 +86,62 @@ const SECOES = [
   { id: 'dominio', label: 'O Domínio' },
 ];
 
+function NavDropdown(props: { label: string; items: { key: string; label: string }[]; onSelect?: (key: string) => void }) {
+  const [open, setOpen] = useState(false);
+  const closeTimer = useRef<Any>(null);
+  const cancelClose = () => { if (closeTimer.current) { clearTimeout(closeTimer.current); closeTimer.current = null; } };
+  const scheduleClose = () => { cancelClose(); closeTimer.current = setTimeout(() => setOpen(false), 160); };
+  useEffect(() => () => { if (closeTimer.current) clearTimeout(closeTimer.current); }, []);
+  const menuStyle: React.CSSProperties = { position: "absolute", top: "34px", left: "-14px", minWidth: "212px", padding: "8px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "16px", background: "var(--p-card,#1B4442)", backdropFilter: "blur(18px)", WebkitBackdropFilter: "blur(18px)", boxShadow: "var(--p-header-shadow,0 10px 40px rgba(6,20,20,.35))", display: "flex", flexDirection: "column", gap: "2px" };
+  return (
+    <span
+      style={{ position: "relative", display: "inline-flex" }}
+      onMouseEnter={() => { cancelClose(); setOpen(true); }}
+      onMouseLeave={scheduleClose}
+      onFocus={() => { cancelClose(); setOpen(true); }}
+      onBlur={(e) => { if (!e.currentTarget.contains(e.relatedTarget as Node)) scheduleClose(); }}
+      onKeyDown={(e) => { if (e.key === 'Escape') setOpen(false); }}
+    >
+      <span
+        role="button"
+        tabIndex={0}
+        aria-expanded={open}
+        aria-haspopup="menu"
+        style={{ display: "inline-flex", alignItems: "center", gap: "6px", cursor: "pointer", color: open ? "var(--p-text,#E9E0D1)" : "inherit", transition: "color 200ms cubic-bezier(.2,0,0,1)" }}
+        data-hover-style="color:var(--p-text,#E9E0D1)"
+      >
+        {props.label}
+        <ChevronDown
+          strokeWidth={2}
+          style={{ width: 15, height: 15, transform: open ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 220ms cubic-bezier(.16,1,.3,1)" }}
+        />
+      </span>
+      {open ? (
+        <div role="menu" style={menuStyle}>
+          {props.items.map((it) => (
+            <span
+              key={it.key}
+              role="menuitem"
+              tabIndex={0}
+              onClick={() => { setOpen(false); props.onSelect?.(it.key); }}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setOpen(false); props.onSelect?.(it.key); } }}
+              style={{ padding: "9px 12px", borderRadius: "10px", cursor: "pointer", whiteSpace: "nowrap", transition: "color 200ms cubic-bezier(.2,0,0,1),background 200ms cubic-bezier(.2,0,0,1)" }}
+              data-hover-style="color:var(--p-text,#E9E0D1);background:var(--p-chip-bg,rgba(233,224,209,.06))"
+            >
+              {it.label}
+            </span>
+          ))}
+        </div>
+      ) : null}
+    </span>
+  );
+}
+
 export default function PaginaInstitucional() {
   const [theme, setTheme] = useState<'noite' | 'claro'>('noite');
   const themeRef = useRef<'noite' | 'claro'>('noite');
-  const [homeOpen, setHomeOpen] = useState(false);
-  const homeMenuRef = useRef<Any>(null);
-
-  useEffect(() => {
-    if (!homeOpen) return;
-    const onDown = (e: MouseEvent) => {
-      const el = homeMenuRef.current;
-      if (el && !el.contains(e.target as Node)) setHomeOpen(false);
-    };
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setHomeOpen(false); };
-    document.addEventListener('mousedown', onDown);
-    document.addEventListener('keydown', onKey);
-    return () => {
-      document.removeEventListener('mousedown', onDown);
-      document.removeEventListener('keydown', onKey);
-    };
-  }, [homeOpen]);
 
   const goToSection = (id: string) => {
-    setHomeOpen(false);
     if (id === 'topo') { window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
     const el = document.querySelector('[data-maiq-sec="' + id + '"]') as HTMLElement | null;
     if (!el) return;
@@ -1091,56 +1125,37 @@ export default function PaginaInstitucional() {
       <header style={{ position: "fixed", top: "20px", left: "50%", transform: "translateX(-50%)", zIndex: "50", display: "flex", alignItems: "center", gap: "0", height: "64px", padding: "0 10px 0 26px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-header-bg,rgba(20,55,55,.72))", backdropFilter: "blur(18px)", WebkitBackdropFilter: "blur(18px)", boxShadow: "var(--p-header-shadow,0 10px 40px rgba(6,20,20,.35))", transition: "background 320ms cubic-bezier(.16,1,.3,1),border-color 320ms cubic-bezier(.16,1,.3,1)" }}>
         <div ref={headerSlotRef} style={{ position: "relative", display: "flex", alignItems: "center", height: "22px", width: "0", marginRight: "0", overflow: "hidden", top: "3px" }}>
           <div ref={headerLogoRef} style={{ position: "relative", display: "flex", flex: "none", opacity: "0" }}>
-            <img src={logoBranco} alt="Maiq" style={{ height: "22px", width: "auto", display: "block" }} />
-            <img ref={logoDayRef} src={logoMadeira} alt="" style={{ position: "absolute", left: "0", top: "0", height: "22px", width: "auto", display: "block", opacity: "0", transition: "opacity 320ms cubic-bezier(.16,1,.3,1)" }} />
+            <Link
+              to="/"
+              aria-label="Maiq — Página institucional"
+              title="Maiq — Página institucional"
+              onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+              style={{ display: "flex", cursor: "pointer", textDecoration: "none", transition: "opacity 200ms cubic-bezier(.2,0,0,1)" }}
+              data-hover-style="opacity:0.82"
+            >
+              <img src={logoBranco} alt="Maiq" style={{ height: "22px", width: "auto", display: "block" }} />
+              <img ref={logoDayRef} src={logoMadeira} alt="" style={{ position: "absolute", left: "0", top: "0", height: "22px", width: "auto", display: "block", opacity: "0", transition: "opacity 320ms cubic-bezier(.16,1,.3,1)" }} />
+            </Link>
           </div>
         </div>
         <nav style={{ display: "flex", alignItems: "center", gap: "28px", marginRight: "28px", fontSize: "14px", fontWeight: "500", color: "var(--p-muted,#91A398)" }}>
-          <span ref={homeMenuRef} style={{ position: "relative" }}>
-            <span
-              role="button"
-              tabIndex={0}
-              aria-expanded={homeOpen}
-              onClick={() => setHomeOpen((v) => !v)}
-              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setHomeOpen((v) => !v); } }}
-              style={{ display: "inline-flex", alignItems: "center", gap: "6px", cursor: "pointer", color: homeOpen ? "var(--p-text,#E9E0D1)" : "inherit", transition: "color 200ms cubic-bezier(.2,0,0,1)" }}
-              data-hover-style="color:var(--p-text,#E9E0D1)"
-            >
-              Home
-              <ChevronRight
-                strokeWidth={2}
-                style={{ width: 15, height: 15, transform: homeOpen ? "rotate(90deg)" : "rotate(0deg)", transition: "transform 220ms cubic-bezier(.16,1,.3,1)" }}
-              />
-            </span>
-            {homeOpen ? (
-              <div
-                role="menu"
-                style={{ position: "absolute", top: "34px", left: "-14px", minWidth: "212px", padding: "8px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "16px", background: "var(--p-card,#1B4442)", backdropFilter: "blur(18px)", WebkitBackdropFilter: "blur(18px)", boxShadow: "var(--p-header-shadow,0 10px 40px rgba(6,20,20,.35))", display: "flex", flexDirection: "column", gap: "2px" }}
-              >
-                {SECOES.map((s) => (
-                  <span
-                    key={s.id}
-                    role="menuitem"
-                    tabIndex={0}
-                    onClick={() => goToSection(s.id)}
-                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); goToSection(s.id); } }}
-                    style={{ padding: "9px 12px", borderRadius: "10px", cursor: "pointer", whiteSpace: "nowrap", transition: "color 200ms cubic-bezier(.2,0,0,1),background 200ms cubic-bezier(.2,0,0,1)" }}
-                    data-hover-style="color:var(--p-text,#E9E0D1);background:var(--p-chip-bg,rgba(233,224,209,.06))"
-                  >
-                    {s.label}
-                  </span>
-                ))}
-              </div>
-            ) : null}
-          </span>
+          <NavDropdown
+            label="Home"
+            items={SECOES.map((s) => ({ key: s.id, label: s.label }))}
+            onSelect={goToSection}
+          />
+          <NavDropdown
+            label="Sobre nós"
+            items={[
+              { key: 'dominios', label: 'Domínios' },
+              { key: 'marca', label: 'Marca' },
+            ]}
+          />
           <span style={{ cursor: "pointer", transition: "color 200ms cubic-bezier(.2,0,0,1)" }} data-hover-style="color:var(--p-text,#E9E0D1)">
-            Demo
+            Insights
           </span>
           <span style={{ cursor: "pointer", transition: "color 200ms cubic-bezier(.2,0,0,1)" }} data-hover-style="color:var(--p-text,#E9E0D1)">
             Planos
-          </span>
-          <span style={{ cursor: "pointer", transition: "color 200ms cubic-bezier(.2,0,0,1)" }} data-hover-style="color:var(--p-text,#E9E0D1)">
-            FAQ
           </span>
         </nav>
         <div style={{ display: "flex", alignItems: "center", height: "44px", padding: "4px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-cta-bg,#E9E0D1)", color: "var(--p-cta-fg,#143737)" }}>
