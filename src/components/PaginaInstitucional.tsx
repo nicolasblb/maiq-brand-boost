@@ -1,10 +1,13 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from '@tanstack/react-router';
+import type { User } from '@supabase/supabase-js';
 import { Sun, Moon, TriangleAlert, ChevronDown } from 'lucide-react';
 import Ciclo from '@/components/sections/Ciclo';
 import Dominio from '@/components/sections/Dominio';
+import AuthLeadDialogs from '@/components/AuthLeadDialogs';
 import VdrEmbed from '@/components/maiq/vdr/VdrEmbed';
 import MaiqButton from '@/components/maiq/MaiqButton';
+import { supabase } from '@/integrations/supabase/client';
 import logoBranco from '@/assets/logo-maiq-branco.png';
 import logoMadeira from '@/assets/logo-maiq-madeira.png';
 import toolGpt from '@/assets/tool-gpt.webp';
@@ -139,6 +142,9 @@ function NavDropdown(props: { label: string; items: { key: string; label: string
 
 export default function PaginaInstitucional() {
   const [theme, setTheme] = useState<'noite' | 'claro'>('noite');
+  const [authOpen, setAuthOpen] = useState(false);
+  const [leadOpen, setLeadOpen] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
   const themeRef = useRef<'noite' | 'claro'>('noite');
 
   const goToSection = (id: string) => {
@@ -171,6 +177,20 @@ export default function PaginaInstitucional() {
   const overlay2WrapRef = useRef<Any>(null);
   const overlay3Ref = useRef<Any>(null);
   const netContentRef = useRef<Any>(null);
+
+  useEffect(() => {
+    let mounted = true;
+    void supabase.auth.getUser().then(({ data }) => {
+      if (mounted) setUser(data.user);
+    });
+    const { data } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+    return () => {
+      mounted = false;
+      data.subscription.unsubscribe();
+    };
+  }, []);
 
   const segSunRef = useRef<Any>(null);
   const segMoonRef = useRef<Any>(null);
@@ -1103,6 +1123,15 @@ export default function PaginaInstitucional() {
 
   return (
     <div data-maiq-scope="" ref={scopeRef} style={{ fontFamily: "'Grandview','Barlow',Helvetica,Arial,sans-serif", background: "var(--p-bg,#0D2423)", color: "var(--p-text,#E9E0D1)", minHeight: "100vh", transition: "background 320ms cubic-bezier(.16,1,.3,1),color 320ms cubic-bezier(.16,1,.3,1)" }}>
+      <AuthLeadDialogs
+        theme={theme}
+        authOpen={authOpen}
+        leadOpen={leadOpen}
+        user={user}
+        onAuthOpenChange={setAuthOpen}
+        onLeadOpenChange={setLeadOpen}
+        onUserChange={setUser}
+      />
       <div data-maiq-toggle="" style={{ position: "fixed", top: "30px", right: "32px", zIndex: "51", display: "flex" }}>
         <div onClick={toggleTheme} onMouseEnter={showTip} onMouseLeave={hideTip} style={{ position: "relative", display: "flex", alignItems: "center", height: "44px", padding: "5px", borderWidth: "1px", borderStyle: "solid", borderColor: "var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-header-bg,rgba(20,55,55,.72))", backdropFilter: "blur(18px)", WebkitBackdropFilter: "blur(18px)", boxShadow: "var(--p-header-shadow,0 10px 40px rgba(6,20,20,.35))", cursor: "pointer", transition: "border-color 200ms cubic-bezier(.2,0,0,1),background 320ms cubic-bezier(.16,1,.3,1)" }} data-hover-style="border-color:var(--p-hair-strong,rgba(233,224,209,.32))">
           <div ref={thumbRef} style={{ position: "absolute", top: "5px", left: "5px", width: "34px", height: "34px", borderRadius: "999px", background: "var(--p-toggle-thumb,rgba(233,224,209,.14))", transition: "transform 320ms cubic-bezier(.16,1,.3,1),background 320ms cubic-bezier(.16,1,.3,1)" }}>
@@ -1162,14 +1191,16 @@ export default function PaginaInstitucional() {
           <MaiqButton
             size="md"
             variant="ghost"
+            onClick={() => setAuthOpen(true)}
             style={{ "--action-ghost-fg": "var(--p-cta-fg,#143737)", "--action-ghost-bg-hover": "var(--p-cta-bg-hover,#F1EBE0)", color: "var(--p-cta-fg,#143737)" } as React.CSSProperties}
           >
-            Entrar
+            {user ? 'Conta' : 'Entrar'}
           </MaiqButton>
           <div style={{ width: "1px", height: "20px", background: "var(--p-cta-fg,#143737)", opacity: 0.2 }} />
           <MaiqButton
             size="md"
             variant="ghost"
+            onClick={() => setLeadOpen(true)}
             style={{ "--action-ghost-fg": "var(--p-cta-fg,#143737)", "--action-ghost-bg-hover": "var(--p-cta-bg-hover,#F1EBE0)", color: "var(--p-cta-fg,#143737)" } as React.CSSProperties}
           >
             Fale Conosco
