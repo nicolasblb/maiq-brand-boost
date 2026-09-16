@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { Sun, Moon, TriangleAlert, ChevronRight } from 'lucide-react';
+import { Link } from '@tanstack/react-router';
+import { Sun, Moon, TriangleAlert, ChevronDown } from 'lucide-react';
 import Ciclo from '@/components/sections/Ciclo';
 import Dominio from '@/components/sections/Dominio';
 import VdrEmbed from '@/components/maiq/vdr/VdrEmbed';
