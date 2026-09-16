@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from '@tanstack/react-router';
+import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { useEffect, useState } from 'react';
 import type { CSSProperties, FormEvent, ReactNode } from 'react';
 import { CheckCircle2, LockKeyhole, AlertCircle } from 'lucide-react';
@@ -47,6 +47,7 @@ const fieldStyle: CSSProperties = {
 };
 
 function ResetPasswordPage() {
+  const navigate = useNavigate();
   const [ready, setReady] = useState(false);
   const [invalid, setInvalid] = useState(false);
   const [password, setPassword] = useState('');
@@ -104,18 +105,14 @@ function ResetPasswordPage() {
           <div style={{ marginTop: '24px' }}>
             <Message tone="critical">Este link não está mais válido. Solicite uma nova recuperação pelo formulário de login.</Message>
             <div style={{ marginTop: '18px' }}>
-              <Link to="/" style={{ textDecoration: 'none' }}>
-                <MaiqButton size="lg" variant="primary" fullWidth style={primaryButtonStyle}>Voltar para a página institucional</MaiqButton>
-              </Link>
+              <MaiqButton type="button" size="lg" variant="primary" fullWidth style={primaryButtonStyle} onClick={() => navigate({ to: '/' })}>Voltar para a página institucional</MaiqButton>
             </div>
           </div>
         ) : success ? (
           <div style={{ marginTop: '24px' }}>
             <Message tone="success">Sua senha foi atualizada. Você já pode voltar e entrar com a nova senha.</Message>
             <div style={{ marginTop: '18px' }}>
-              <Link to="/" style={{ textDecoration: 'none' }}>
-                <MaiqButton size="lg" variant="primary" fullWidth style={primaryButtonStyle}>Voltar para a página institucional</MaiqButton>
-              </Link>
+              <MaiqButton type="button" size="lg" variant="primary" fullWidth style={primaryButtonStyle} onClick={() => navigate({ to: '/' })}>Voltar para a página institucional</MaiqButton>
             </div>
           </div>
         ) : (
@@ -129,7 +126,7 @@ function ResetPasswordPage() {
               <input id="confirm-password" type="password" autoComplete="new-password" value={confirmPassword} onChange={(event) => setConfirmPassword(event.target.value)} style={fieldStyle} disabled={!ready || loading} />
             </label>
             {error ? <Message tone="critical">{error}</Message> : null}
-            <MaiqButton size="lg" variant="primary" fullWidth style={primaryButtonStyle} disabled={!ready || loading}>
+            <MaiqButton type="submit" size="lg" variant="primary" fullWidth style={primaryButtonStyle} disabled={!ready || loading}>
               {loading ? 'Atualizando...' : 'Atualizar senha'}
             </MaiqButton>
           </form>
