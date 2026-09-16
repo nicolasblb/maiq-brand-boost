@@ -323,7 +323,7 @@ export default function AuthLeadDialogs({
             </DialogHeader>
             <div style={{ padding: '24px 28px 28px', display: 'grid', gap: '14px' }}>
               {authError ? <Message tone="critical">{authError}</Message> : null}
-              <MaiqButton size="lg" variant="primary" fullWidth style={primaryButtonStyle} disabled={authLoading}>
+              <MaiqButton type="button" size="lg" variant="primary" fullWidth style={primaryButtonStyle} disabled={authLoading}>
                 Em breve
               </MaiqButton>
               <MaiqButton size="md" variant="ghost" fullWidth style={secondaryButtonStyle} onClick={handleSignOut} disabled={authLoading}>
@@ -340,7 +340,7 @@ export default function AuthLeadDialogs({
               <TextInput id="recover-email" label="Email" icon={<Mail size={16} />} type="email" autoComplete="email" value={authForm.email} onChange={(event) => setAuthForm((current) => ({ ...current, email: event.target.value }))} />
               {recoverSent ? <Message tone="success">Confira sua caixa de entrada para continuar.</Message> : null}
               {authError ? <Message tone="critical">{authError}</Message> : null}
-              <MaiqButton size="lg" variant="primary" fullWidth style={primaryButtonStyle} disabled={authLoading}>
+              <MaiqButton type="submit" size="lg" variant="primary" fullWidth style={primaryButtonStyle} disabled={authLoading}>
                 {authLoading ? 'Enviando...' : 'Enviar link'}
               </MaiqButton>
               <MaiqButton type="button" size="md" variant="ghost" fullWidth style={secondaryButtonStyle} onClick={() => { setAuthMode('login'); setAuthError(null); }}>
@@ -357,7 +357,7 @@ export default function AuthLeadDialogs({
               <TextInput id="login-email" label="Email" icon={<Mail size={16} />} type="email" autoComplete="email" value={authForm.email} onChange={(event) => setAuthForm((current) => ({ ...current, email: event.target.value }))} />
               <TextInput id="login-password" label="Senha" icon={<LockKeyhole size={16} />} type="password" autoComplete="current-password" value={authForm.password} onChange={(event) => setAuthForm((current) => ({ ...current, password: event.target.value }))} />
               {authError ? <Message tone="critical">{authError}</Message> : null}
-              <MaiqButton size="lg" variant="primary" fullWidth style={primaryButtonStyle} disabled={authLoading}>
+              <MaiqButton type="submit" size="lg" variant="primary" fullWidth style={primaryButtonStyle} disabled={authLoading}>
                 {authLoading ? 'Entrando...' : 'Entrar'}
               </MaiqButton>
               <MaiqButton type="button" size="md" variant="ghost" fullWidth style={secondaryButtonStyle} onClick={() => { setAuthMode('recover'); setAuthError(null); }}>
@@ -375,7 +375,7 @@ export default function AuthLeadDialogs({
               <p style={{ margin: 0 }}>Seu cadastro foi registrado. O time Maiq entrará em contato pelos dados enviados.</p>
             </DialogHeader>
             <div style={{ padding: '24px 28px 28px' }}>
-              <MaiqButton size="lg" variant="primary" fullWidth style={primaryButtonStyle} onClick={closeLead}>
+              <MaiqButton type="button" size="lg" variant="primary" fullWidth style={primaryButtonStyle} onClick={closeLead}>
                 Fechar
               </MaiqButton>
             </div>
@@ -391,7 +391,7 @@ export default function AuthLeadDialogs({
               <TextInput id="lead-phone" label="Telefone" icon={<Phone size={16} />} type="tel" autoComplete="tel" value={leadForm.phone ?? ''} onChange={(event) => setLeadForm((current) => ({ ...current, phone: event.target.value }))} />
               <TextInput id="lead-company" label="Empresa" icon={<Building2 size={16} />} type="text" autoComplete="organization" value={leadForm.company} onChange={(event) => setLeadForm((current) => ({ ...current, company: event.target.value }))} />
               {leadError ? <Message tone="critical">{leadError}</Message> : null}
-              <MaiqButton size="lg" variant="primary" fullWidth style={primaryButtonStyle} disabled={leadLoading}>
+              <MaiqButton type="submit" size="lg" variant="primary" fullWidth style={primaryButtonStyle} disabled={leadLoading}>
                 {leadLoading ? 'Registrando...' : 'Enviar contato'}
               </MaiqButton>
             </div>
