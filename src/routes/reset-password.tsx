@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { useEffect, useState } from 'react';
+import type { CSSProperties, FormEvent, ReactNode } from 'react';
 import { CheckCircle2, LockKeyhole, AlertCircle } from 'lucide-react';
 import { toast } from 'sonner';
 
@@ -31,9 +32,9 @@ const primaryButtonStyle = {
   '--action-primary-fg': 'var(--p-cta-fg,#143737)',
   '--action-primary-bg-hover': 'var(--p-cta-bg-hover,#F1EBE0)',
   '--action-primary-bg-active': 'var(--p-cta-bg-active,#DCD0BC)',
-} as React.CSSProperties;
+} as CSSProperties;
 
-const fieldStyle: React.CSSProperties = {
+const fieldStyle: CSSProperties = {
   width: '100%',
   height: '46px',
   border: '1px solid var(--p-hair,rgba(233,224,209,.14))',
@@ -68,7 +69,7 @@ function ResetPasswordPage() {
     return () => { mounted = false; };
   }, []);
 
-  const handleSubmit = async (event: React.FormEvent) => {
+  const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     setError(null);
     if (password.length < 8) {
@@ -138,7 +139,7 @@ function ResetPasswordPage() {
   );
 }
 
-function Message({ tone, children }: { tone: 'success' | 'critical'; children: React.ReactNode }) {
+function Message({ tone, children }: { tone: 'success' | 'critical'; children: ReactNode }) {
   const Icon = tone === 'success' ? CheckCircle2 : AlertCircle;
   return (
     <div role={tone === 'critical' ? 'alert' : 'status'} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', border: '1px solid var(--p-hair,rgba(233,224,209,.14))', borderRadius: 'var(--radius-md)', background: 'var(--p-chip-bg,rgba(233,224,209,.04))', color: tone === 'success' ? 'var(--state-positive,#4E8F6E)' : 'var(--state-critical,#9E4A31)', padding: '12px 14px', fontSize: '14px', lineHeight: 1.45 }}>

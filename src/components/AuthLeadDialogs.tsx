@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, type CSSProperties, type FormEvent, type InputHTMLAttributes, type ReactNode } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { useServerFn } from '@tanstack/react-start';
 import type { User } from '@supabase/supabase-js';
@@ -33,7 +33,7 @@ type LeadForm = LeadInput;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE_RE = /^[+()\d\s.-]{8,40}$/;
 
-const fieldStyle: React.CSSProperties = {
+const fieldStyle: CSSProperties = {
   width: '100%',
   height: '46px',
   border: '1px solid var(--p-hair,rgba(233,224,209,.14))',
@@ -46,7 +46,7 @@ const fieldStyle: React.CSSProperties = {
   transition: 'border-color 200ms cubic-bezier(.2,0,0,1), background 200ms cubic-bezier(.2,0,0,1)',
 };
 
-const labelStyle: React.CSSProperties = {
+const labelStyle: CSSProperties = {
   display: 'flex',
   alignItems: 'center',
   gap: '8px',
@@ -59,14 +59,14 @@ const secondaryButtonStyle = {
   '--action-ghost-fg': 'var(--p-text-2,#B7C4BC)',
   '--action-ghost-bg-hover': 'var(--p-chip-bg-strong,rgba(233,224,209,.13))',
   color: 'var(--p-text-2,#B7C4BC)',
-} as React.CSSProperties;
+} as CSSProperties;
 
 const primaryButtonStyle = {
   '--action-primary-bg': 'var(--p-cta-bg,#E9E0D1)',
   '--action-primary-fg': 'var(--p-cta-fg,#143737)',
   '--action-primary-bg-hover': 'var(--p-cta-bg-hover,#F1EBE0)',
   '--action-primary-bg-active': 'var(--p-cta-bg-active,#DCD0BC)',
-} as React.CSSProperties;
+} as CSSProperties;
 
 function normalizeEmail(value: string) {
   return value.trim().toLowerCase();
@@ -92,7 +92,7 @@ function ModalFrame({
   open: boolean;
   theme: Theme;
   title: string;
-  children: React.ReactNode;
+  children: ReactNode;
   onClose: () => void;
 }) {
   useEffect(() => {
@@ -149,7 +149,7 @@ function ModalFrame({
   );
 }
 
-function DialogHeader({ title, eyebrow, children }: { title: string; eyebrow: string; children?: React.ReactNode }) {
+function DialogHeader({ title, eyebrow, children }: { title: string; eyebrow: string; children?: ReactNode }) {
   return (
     <div style={{ padding: '28px 28px 0' }}>
       <p style={{ margin: 0, color: 'var(--p-muted,#91A398)', fontSize: '12px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '.12em' }}>
@@ -169,7 +169,7 @@ function TextInput({
   icon,
   error,
   ...props
-}: React.InputHTMLAttributes<HTMLInputElement> & { id: string; label: string; icon: React.ReactNode; error?: boolean }) {
+}: InputHTMLAttributes<HTMLInputElement> & { id: string; label: string; icon: ReactNode; error?: boolean }) {
   return (
     <label htmlFor={id} style={{ display: 'grid', gap: '8px' }}>
       <span style={labelStyle}>{icon}{label}</span>
@@ -221,7 +221,7 @@ export default function AuthLeadDialogs({
     }
   }, [leadOpen, signedInEmail]);
 
-  const handleLogin = async (event: React.FormEvent) => {
+  const handleLogin = async (event: FormEvent) => {
     event.preventDefault();
     const email = normalizeEmail(authForm.email);
     if (!EMAIL_RE.test(email)) {
@@ -245,7 +245,7 @@ export default function AuthLeadDialogs({
     toast.success('Login realizado com sucesso.');
   };
 
-  const handleRecover = async (event: React.FormEvent) => {
+  const handleRecover = async (event: FormEvent) => {
     event.preventDefault();
     const email = normalizeEmail(authForm.email);
     if (!EMAIL_RE.test(email)) {
@@ -281,7 +281,7 @@ export default function AuthLeadDialogs({
     toast.success('Sessão encerrada.');
   };
 
-  const handleLeadSubmit = async (event: React.FormEvent) => {
+  const handleLeadSubmit = async (event: FormEvent) => {
     event.preventDefault();
     const validationError = validateLead(leadForm);
     if (validationError) {
@@ -402,7 +402,7 @@ export default function AuthLeadDialogs({
   );
 }
 
-function Message({ tone, children }: { tone: 'success' | 'critical'; children: React.ReactNode }) {
+function Message({ tone, children }: { tone: 'success' | 'critical'; children: ReactNode }) {
   const Icon = tone === 'success' ? CheckCircle2 : AlertCircle;
   return (
     <div
