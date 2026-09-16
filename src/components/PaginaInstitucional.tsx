@@ -86,29 +86,62 @@ const SECOES = [
   { id: 'dominio', label: 'O Domínio' },
 ];
 
+function NavDropdown(props: { label: string; items: { key: string; label: string }[]; onSelect?: (key: string) => void }) {
+  const [open, setOpen] = useState(false);
+  const closeTimer = useRef<Any>(null);
+  const cancelClose = () => { if (closeTimer.current) { clearTimeout(closeTimer.current); closeTimer.current = null; } };
+  const scheduleClose = () => { cancelClose(); closeTimer.current = setTimeout(() => setOpen(false), 160); };
+  useEffect(() => () => { if (closeTimer.current) clearTimeout(closeTimer.current); }, []);
+  const menuStyle: React.CSSProperties = { position: "absolute", top: "34px", left: "-14px", minWidth: "212px", padding: "8px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "16px", background: "var(--p-card,#1B4442)", backdropFilter: "blur(18px)", WebkitBackdropFilter: "blur(18px)", boxShadow: "var(--p-header-shadow,0 10px 40px rgba(6,20,20,.35))", display: "flex", flexDirection: "column", gap: "2px" };
+  return (
+    <span
+      style={{ position: "relative", display: "inline-flex" }}
+      onMouseEnter={() => { cancelClose(); setOpen(true); }}
+      onMouseLeave={scheduleClose}
+      onFocus={() => { cancelClose(); setOpen(true); }}
+      onBlur={(e) => { if (!e.currentTarget.contains(e.relatedTarget as Node)) scheduleClose(); }}
+      onKeyDown={(e) => { if (e.key === 'Escape') setOpen(false); }}
+    >
+      <span
+        role="button"
+        tabIndex={0}
+        aria-expanded={open}
+        aria-haspopup="menu"
+        style={{ display: "inline-flex", alignItems: "center", gap: "6px", cursor: "pointer", color: open ? "var(--p-text,#E9E0D1)" : "inherit", transition: "color 200ms cubic-bezier(.2,0,0,1)" }}
+        data-hover-style="color:var(--p-text,#E9E0D1)"
+      >
+        {props.label}
+        <ChevronDown
+          strokeWidth={2}
+          style={{ width: 15, height: 15, transform: open ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 220ms cubic-bezier(.16,1,.3,1)" }}
+        />
+      </span>
+      {open ? (
+        <div role="menu" style={menuStyle}>
+          {props.items.map((it) => (
+            <span
+              key={it.key}
+              role="menuitem"
+              tabIndex={0}
+              onClick={() => { setOpen(false); props.onSelect?.(it.key); }}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setOpen(false); props.onSelect?.(it.key); } }}
+              style={{ padding: "9px 12px", borderRadius: "10px", cursor: "pointer", whiteSpace: "nowrap", transition: "color 200ms cubic-bezier(.2,0,0,1),background 200ms cubic-bezier(.2,0,0,1)" }}
+              data-hover-style="color:var(--p-text,#E9E0D1);background:var(--p-chip-bg,rgba(233,224,209,.06))"
+            >
+              {it.label}
+            </span>
+          ))}
+        </div>
+      ) : null}
+    </span>
+  );
+}
+
 export default function PaginaInstitucional() {
   const [theme, setTheme] = useState<'noite' | 'claro'>('noite');
   const themeRef = useRef<'noite' | 'claro'>('noite');
-  const [homeOpen, setHomeOpen] = useState(false);
-  const homeMenuRef = useRef<Any>(null);
-
-  useEffect(() => {
-    if (!homeOpen) return;
-    const onDown = (e: MouseEvent) => {
-      const el = homeMenuRef.current;
-      if (el && !el.contains(e.target as Node)) setHomeOpen(false);
-    };
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setHomeOpen(false); };
-    document.addEventListener('mousedown', onDown);
-    document.addEventListener('keydown', onKey);
-    return () => {
-      document.removeEventListener('mousedown', onDown);
-      document.removeEventListener('keydown', onKey);
-    };
-  }, [homeOpen]);
 
   const goToSection = (id: string) => {
-    setHomeOpen(false);
     if (id === 'topo') { window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
     const el = document.querySelector('[data-maiq-sec="' + id + '"]') as HTMLElement | null;
     if (!el) return;
