@@ -254,7 +254,7 @@ export interface VdrSceneProps {
   accent?: string;
   showGhosts?: boolean;
   playing?: boolean;
-  time?: number;
+  time?: number | undefined;
   initialTime?: number;
   /** bump to seek back to the supplied initial time */
   resetSignal?: number;

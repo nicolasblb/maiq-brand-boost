@@ -8,7 +8,7 @@ export interface VdrEmbedProps {
   accent?: string;
   showGhosts?: boolean;
   playing?: boolean;
-  time?: number;
+  time?: number | undefined;
   initialTime?: number;
   resetSignal?: number;
   onProgress?: ((time: number, duration: number) => void) | undefined;

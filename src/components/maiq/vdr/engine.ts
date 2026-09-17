@@ -199,7 +199,7 @@ export interface UseCompositionOpts {
   autoplay?: boolean;
   playing?: boolean;
   /** externally controlled playback time, in seconds */
-  time?: number;
+  time?: number | undefined;
   initialTime?: number;
   /** bump to seek back to 0 and resume playback */
   resetSignal?: number;
