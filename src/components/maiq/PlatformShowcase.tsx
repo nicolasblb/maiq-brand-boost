@@ -276,7 +276,6 @@ export default function PlatformShowcase() {
         </div>
         <div className="maiq-platform-copy" onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
           <div key={active} className="maiq-platform-copy-inner">
-            <p className="maiq-platform-feature-name">{feature.name}</p>
             <h3>{feature.title}</h3>
             <p>{feature.description}</p>
           </div>
