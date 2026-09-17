@@ -94,7 +94,8 @@ export default function PlatformShowcase() {
   const [navSettling, setNavSettling] = useState(false);
   const progressRef = useRef(0);
   const segmentProgressRef = useRef(0);
-  const lastRef = useRef<number | null>(null);
+  const mediaLastRef = useRef<number | null>(null);
+  const navLastRef = useRef<number | null>(null);
   const feature = FEATURES[active] ?? FEATURES[0];
   const timerPaused = hovered || !visible || modalOpen;
   const mediaPlaying = playing && visible;
@@ -135,14 +136,14 @@ export default function PlatformShowcase() {
 
   useEffect(() => {
     if (timerPaused || navSettling) {
-      lastRef.current = null;
+      navLastRef.current = null;
       return;
     }
     let raf = 0;
     const tick = (now: number) => {
-      if (lastRef.current == null) lastRef.current = now;
-      const elapsed = now - lastRef.current;
-      lastRef.current = now;
+      if (navLastRef.current == null) navLastRef.current = now;
+      const elapsed = now - navLastRef.current;
+      navLastRef.current = now;
       const nextSegmentProgress = Math.min(1, segmentProgressRef.current + elapsed / (FEATURE_DURATION * 1000));
       segmentProgressRef.current = nextSegmentProgress;
       setNavProgress(active + nextSegmentProgress);
@@ -168,14 +169,14 @@ export default function PlatformShowcase() {
 
   useEffect(() => {
     if (!mediaPlaying || progressRef.current >= 1) {
-      lastRef.current = null;
+      mediaLastRef.current = null;
       return;
     }
     let raf = 0;
     const tick = (now: number) => {
-      if (lastRef.current == null) lastRef.current = now;
-      const next = Math.min(1, progressRef.current + (now - lastRef.current) / (FEATURE_DURATION * 1000));
-      lastRef.current = now;
+      if (mediaLastRef.current == null) mediaLastRef.current = now;
+      const next = Math.min(1, progressRef.current + (now - mediaLastRef.current) / (FEATURE_DURATION * 1000));
+      mediaLastRef.current = now;
       progressRef.current = next;
       setProgress(next);
       if (next >= 1) {
