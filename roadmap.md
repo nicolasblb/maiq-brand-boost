@@ -13,3 +13,4 @@
 - [x] Centralizar a navegação, integrar divisórias luminosas e reforçar os estados das funcionalidades.
 - [x] Sincronizar o indicador circular com o progresso real da mídia, inclusive após pausar e retomar.
 - [x] Refinar a pílula ativa, preencher as divisórias e unificar o relógio fluido das cinco mídias.
+- [x] Tornar as divisórias opacas e substituir os fundos animados por degradês verticais nos dois temas.

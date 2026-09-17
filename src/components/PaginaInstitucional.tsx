@@ -395,15 +395,12 @@ export default function PaginaInstitucional() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Pausa as animações CSS pesadas (hero e degradê) quando saem da tela
+  // Pausa as animações CSS pesadas do hero quando saem da tela
   function setupOffscreenPause() {
     const scope = scopeRef.current;
     if (!scope || !('IntersectionObserver' in window)) return;
     const groups: Any[] = [];
     if (heroRef.current) groups.push(heroRef.current);
-    Array.prototype.slice
-      .call(scope.querySelectorAll('.maiq-model-pilares-bg'))
-      .forEach((el: Any) => groups.push(el));
     if (!groups.length) return;
     const io = new IntersectionObserver((entries) => {
       entries.forEach((e) => {
@@ -1184,7 +1181,7 @@ export default function PaginaInstitucional() {
       <div ref={overlay2WrapRef} style={{ position: "relative", zIndex: "1", background: "var(--p-bg,#0D2423)", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
           <div ref={overlay2Ref} style={{ position: "relative", zIndex: "1", overflow: "clip", willChange: "transform" }}>
             <div ref={netWrapRef} style={{ position: "sticky", top: "0", zIndex: "0", overflow: "clip" }}>
-              <div ref={netContentRef} data-maiq-net-content="" style={{ position: "relative", zIndex: "1", willChange: "transform" }}>
+              <div ref={netContentRef} data-maiq-net-content="" className="maiq-platform-ciclo-bg" style={{ position: "relative", zIndex: "1", willChange: "transform" }}>
 
 
               <section data-maiq-sec="plataforma" aria-label="A Plataforma" className="maiq-platform-section">
