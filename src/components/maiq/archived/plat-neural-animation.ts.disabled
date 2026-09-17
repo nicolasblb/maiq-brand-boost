@@ -1,0 +1,280 @@
+/*
+ * ARQUIVADO TEMPORARIAMENTE — fundo neural de “A Plataforma” e “O Ciclo”.
+ * Não remover: pode ser retomado após decisão do produto.
+ * Código-fonte preservado abaixo como referência fiel da implementação desativada.
+ */
+
+  // Fundo neural da seção "A Plataforma"
+  function setupPlatNet() {
+    const cv = platBgRef.current, scope = scopeRef.current;
+    if (!cv || !scope || !cv.getContext) return;
+    const ctx = cv.getContext('2d');
+    const host = cv.parentElement;
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const LAYERS = [
+      { count: 58, rMin: 0.7, rMax: 1.4, link: 126, op: 0.32, spd: 0.05, soft: 2.6 },
+      { count: 34, rMin: 1.2, rMax: 2.1, link: 150, op: 0.55, spd: 0.095, soft: 1.5 },
+      { count: 15, rMin: 2.0, rMax: 3.1, link: 184, op: 0.86, spd: 0.16, soft: 0 },
+    ];
+    let W = 0, H = 0, dpr = 1, layers: Any[] = [], neb: Any = null, seeds: Any[] = [];
+    let ink = '145,163,152', nebRgb = '51,96,90', gop = 0.62, blend = 'lighter';
+    const rnd = (a: number, b: number) => a + Math.random() * (b - a);
+    // sprites de brilho (um por dureza de borda), reconstruídos só quando a cor muda
+    const sprites: Any = { soft: null, hard: null, ink: '' };
+    const glowSprite = (soft: boolean) => {
+      const key = soft ? 'soft' : 'hard';
+      if (sprites.ink !== ink) { sprites.soft = null; sprites.hard = null; sprites.ink = ink; }
+      if (sprites[key]) return sprites[key];
+      const S2 = 64, c = document.createElement('canvas');
+      c.width = S2; c.height = S2;
+      const g2 = c.getContext('2d')!;
+      const gr = g2.createRadialGradient(S2 / 2, S2 / 2, 0, S2 / 2, S2 / 2, S2 / 2);
+      gr.addColorStop(0, 'rgba(' + ink + ',1)');
+      gr.addColorStop(soft ? 0.35 : 0.62, 'rgba(' + ink + ',0.42)');
+      gr.addColorStop(1, 'rgba(' + ink + ',0)');
+      g2.fillStyle = gr;
+      g2.fillRect(0, 0, S2, S2);
+      sprites[key] = c;
+      return c;
+    };
+
+    const readTokens = () => {
+      const cs = getComputedStyle(scope);
+      ink = (cs.getPropertyValue('--p-net-ink') || '145,163,152').trim();
+      nebRgb = (cs.getPropertyValue('--p-net-neb') || '51,96,90').trim();
+      gop = parseFloat(cs.getPropertyValue('--p-net-op')) || 0.62;
+      blend = (cs.getPropertyValue('--p-net-blend') || 'lighter').trim();
+      buildNeb();
+    };
+    S._netSync = readTokens;
+
+    const place = () => {
+      const bandH = H / Math.max(1, Math.round(H / Math.max(520, window.innerHeight || 800)));
+      S._netBand = bandH;
+      const REL = [
+        [0.84, 0.13, 3.2], [0.96, 0.28, 2.6], [0.71, 0.05, 1.8], [0.92, 0.46, 1.2],
+        [0.04, 0.14, 0.32], [0.02, 0.74, 0.30], [0.92, 0.93, 0.26], [0.28, 0.97, 0.22],
+      ];
+      seeds = [];
+      for (let b = 0; b * bandH < H - 1; b++) {
+        const k = b === 0 ? 1 : 0.6;
+        REL.forEach((r) => seeds.push({ x: W * r[0]!, y: b * bandH + bandH * r[1]!, w: r[2]! * k }));
+      }
+      const wsum = seeds.reduce((a, s) => a + s.w, 0);
+      let run = 0;
+      seeds.forEach((s) => { run += s.w / wsum; s.cum = run; });
+      const scale = Math.max(0.45, Math.min(1.2, (W * H) / (1440 * 900)));
+      layers = LAYERS.map((L) => {
+        const n = Math.round(L.count * scale);
+        const nodes: Any[] = [];
+        let guard = 0;
+        while (nodes.length < n && guard++ < n * 40) {
+          let x, y, s: Any = null;
+          if (Math.random() < 0.94) {
+            const u = Math.random();
+            s = seeds[seeds.length - 1];
+            for (let k = 0; k < seeds.length; k++) { if (u <= seeds[k]!.cum) { s = seeds[k]; break; } }
+            const g = () => (Math.random() + Math.random() + Math.random() - 1.5) / 1.5;
+            const sp = s.w > 1 ? 0.13 : 0.09;
+            x = s.x + g() * W * sp;
+            y = s.y + g() * bandH * (sp + 0.02);
+          } else {
+            x = rnd(0, W); y = rnd(0, H);
+          }
+          if (x < -20 || x > W + 20 || y < -20 || y > H + 20) continue;
+          const cx = x / Math.max(1, W), cy = ((y % bandH) + bandH) % bandH / bandH;
+          const card = Math.max(0, 1 - Math.hypot((cx - 0.5) / 0.34, (cy - 0.74) / 0.30));
+          const head = Math.max(0, 1 - Math.hypot((cx - 0.22) / 0.30, (cy - 0.18) / 0.20));
+          if (Math.random() < Math.max(card, head) * 0.72) continue;
+          const core = s ? s.w > 1 : false;
+          nodes.push({
+            hx: x, hy: y, x, y, r: rnd(L.rMin, L.rMax), core,
+            ax: rnd(7, 17) * L.spd * 9, ay: rnd(7, 17) * L.spd * 9,
+            fx: rnd(0.6, 1.5), fy: rnd(0.6, 1.5), px: rnd(0, Math.PI * 2), py: rnd(0, Math.PI * 2),
+            ph: rnd(0, 1e4), pulse: 0,
+            life: core ? 1 : 0, lph: rnd(0, 1), lspd: rnd(0.045, 0.1),
+          });
+        }
+        return { cfg: L, nodes };
+      });
+    };
+
+    const buildNeb = () => {
+      if (!W || !H) return;
+      const w = Math.max(2, Math.round(W / 9)), h = Math.max(2, Math.round(H / 9));
+      neb = document.createElement('canvas');
+      neb.width = w; neb.height = h;
+      const c = neb.getContext('2d');
+      const blobs = [[0.85, 0.16, 0.60, 1], [0.97, 0.36, 0.46, 0.9], [0.66, 0.04, 0.40, 0.62], [0.05, 0.22, 0.42, 0.30], [0.55, 0.97, 0.40, 0.26], [0.02, 0.80, 0.32, 0.24]];
+      const bh = Math.max(4, ((S._netBand || H) / 9));
+      for (let bi = 0; bi * bh < h - 1; bi++) {
+        const k = bi === 0 ? 1 : 0.6;
+        blobs.forEach((b) => {
+          const cxp = b[0]! * w, cyp = bi * bh + b[1]! * bh;
+          const r = Math.max(w, bh) * b[2]!;
+          const g = c.createRadialGradient(cxp, cyp, 0, cxp, cyp, r);
+          g.addColorStop(0, 'rgba(' + nebRgb + ',' + (0.62 * b[3]! * k).toFixed(3) + ')');
+          g.addColorStop(1, 'rgba(' + nebRgb + ',0)');
+          c.fillStyle = g;
+          c.fillRect(0, 0, w, h);
+        });
+      }
+    };
+
+    const size = () => {
+      const r = host.getBoundingClientRect();
+      W = Math.max(1, cv.clientWidth || Math.round(r.width));
+      H = Math.max(1, cv.clientHeight || Math.round(r.height));
+      // em telas grandes o custo por pixel domina: 1x já é suficiente para um fundo difuso
+      dpr = Math.min(window.innerWidth > 1024 ? 1 : 1.5, window.devicePixelRatio || 1);
+      cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      place(); buildNeb();
+    };
+
+    const draw = (t: number) => {
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, W, H);
+      ctx.globalCompositeOperation = 'source-over';
+      if (neb) {
+        ctx.globalAlpha = gop * 0.95;
+        ctx.globalCompositeOperation = blend;
+        const dx = Math.sin(t / 41000) * W * 0.02, dy = Math.cos(t / 53000) * H * 0.02;
+        ctx.drawImage(neb, dx - W * 0.03, dy - H * 0.03, W * 1.06, H * 1.06);
+      }
+      ctx.globalCompositeOperation = blend;
+      layers.forEach((L: Any) => {
+        const cfg = L.cfg, nodes = L.nodes, lk = cfg.link, cell = lk;
+        const cols = Math.max(1, Math.ceil(W / cell)), rows = Math.max(1, Math.ceil(H / cell));
+        const grid: Any[] = new Array(cols * rows);
+        nodes.forEach((p: Any) => {
+          const gx = Math.min(cols - 1, Math.max(0, (p.x / cell) | 0));
+          const gy = Math.min(rows - 1, Math.max(0, (p.y / cell) | 0));
+          const k = gy * cols + gx;
+          (grid[k] || (grid[k] = [])).push(p);
+        });
+        ctx.lineWidth = cfg.soft > 1 ? 0.7 : 1;
+        for (let gy = 0; gy < rows; gy++) {
+          for (let gx = 0; gx < cols; gx++) {
+            const a = grid[gy * cols + gx];
+            if (!a) continue;
+            for (let ny = gy; ny <= gy + 1; ny++) {
+              for (let nx = gx - 1; nx <= gx + 1; nx++) {
+                if (ny === gy && nx < gx) continue;
+                if (nx < 0 || nx >= cols || ny >= rows) continue;
+                const b = grid[ny * cols + nx];
+                if (!b) continue;
+                for (let i = 0; i < a.length; i++) {
+                  for (let j = (a === b ? i + 1 : 0); j < b.length; j++) {
+                    const p = a[i], q = b[j];
+                    const dx = p.x - q.x, dy = p.y - q.y;
+                    const d2 = dx * dx + dy * dy;
+                    if (d2 > lk * lk) continue;
+                    const f = 1 - Math.sqrt(d2) / lk;
+                    ctx.globalAlpha = gop * cfg.op * f * f * 1.15 * Math.min(p.life, q.life);
+                    ctx.strokeStyle = 'rgba(' + ink + ',1)';
+                    ctx.beginPath();
+                    ctx.moveTo(p.x, p.y);
+                    ctx.lineTo(q.x, q.y);
+                    ctx.stroke();
+                  }
+                }
+              }
+            }
+          }
+        }
+        // O brilho de cada ponto vem de um sprite pré-renderizado: evita
+        // centenas de createRadialGradient por quadro.
+        const sprite = glowSprite(cfg.soft > 1);
+        nodes.forEach((p: Any) => {
+          if (p.life <= 0.01) return;
+          const x = p.x, y = p.y;
+          const glow = p.pulse;
+          const a = gop * cfg.op * (0.62 + 0.38 * Math.sin((t + p.ph) / 4200)) * (1 + glow * 1.7) * p.life;
+          const r = Math.max(0.6, p.r * (1 + glow * 0.5) + cfg.soft);
+          ctx.globalAlpha = Math.max(0, Math.min(1, a));
+          ctx.drawImage(sprite, x - r, y - r, r * 2, r * 2);
+        });
+      });
+      ctx.globalAlpha = 1;
+      ctx.globalCompositeOperation = 'source-over';
+    };
+
+    let last = 0;
+    const step = (now: number) => {
+      S._netRaf = requestAnimationFrame(step);
+      const dt = Math.min(48, now - (last || now));
+      last = now;
+      const s = now / 1000;
+      const dxg = Math.sin(s * 0.026) * W * 0.014, dyg = Math.cos(s * 0.021) * H * 0.016;
+      layers.forEach((L: Any, li: number) => {
+        const k = 1 + li * 0.35;
+        L.nodes.forEach((p: Any) => {
+          p.x = p.hx + dxg * k + Math.sin(s * 0.07 * p.fx + p.px) * p.ax + Math.sin(s * 0.031 * p.fy + p.py) * p.ax * 0.4;
+          p.y = p.hy + dyg * k + Math.cos(s * 0.062 * p.fy + p.py) * p.ay + Math.cos(s * 0.027 * p.fx + p.px) * p.ay * 0.4;
+          if (!p.core) {
+            p.lph = (p.lph + p.lspd * dt / 1000) % 1;
+            const w = Math.sin(p.lph * Math.PI * 2);
+            p.life = Math.max(0, w) * Math.max(0, w);
+          }
+          if (p.pulse > 0) p.pulse = Math.max(0, p.pulse - dt / 1400);
+          else if (p.core && Math.random() < 0.00005 * dt) p.pulse = 1;
+        });
+      });
+      draw(now);
+    };
+
+    const start = () => { if (reduce || S._netRaf) return; last = 0; S._netRaf = requestAnimationFrame(step); };
+    const stop = () => { if (!S._netRaf) return; cancelAnimationFrame(S._netRaf); S._netRaf = null; };
+    S._netStop = stop;
+
+    const docTop = (el: Any) => { let y = 0, n = el; while (n) { y += n.offsetTop; n = n.offsetParent; } return y; };
+    const measureBlock = () => {
+      const wrap = overlay2WrapRef.current, ov3 = overlay3Ref.current;
+      const vh = window.innerHeight || 800;
+      // O percurso começa no primeiro pixel revelado na base da tela e termina
+      // quando a seção seguinte cobre o bloco por completo.
+      S._netBlockStart = (wrap ? docTop(wrap) : docTop(host)) - vh;
+      S._netBlockEnd = ov3 ? docTop(ov3) : docTop(host) + host.offsetHeight;
+    };
+
+    S._netResize = () => { size(); draw(performance.now()); measureBlock(); S._netPar && S._netPar(); };
+    window.addEventListener('resize', S._netResize);
+
+    if (!reduce) {
+      // o fundo se move de forma constante durante todo o bloco Plataforma/Ciclo,
+      // posicionado pela tela, sem ser afetado pelo efeito de reveal/conceal
+      measureBlock();
+      let parRaf = 0 as Any, parPending = 0;
+      const applyPar = () => {
+        parRaf = 0;
+        cv.style.transform = 'translate3d(0,' + parPending.toFixed(1) + 'px,0)';
+      };
+      S._netPar = () => {
+        const vh = window.innerHeight || 800;
+        const s = S._netBlockStart == null ? 0 : S._netBlockStart;
+        const e = S._netBlockEnd == null ? s + 1 : S._netBlockEnd;
+        const p = Math.max(0, Math.min(1, (window.scrollY - s) / Math.max(1, e - s)));
+        // O canvas fica preso à tela pelo próprio position:sticky (mesma
+        // estratégia estável da saída do bloco). Aqui aplicamos apenas o
+        // deslocamento suave de profundidade, sempre dentro de um rAF.
+        parPending = -p * vh * 0.2;
+        if (!parRaf) parRaf = requestAnimationFrame(applyPar);
+      };
+
+
+      S._netPar();
+    }
+
+    readTokens();
+    size();
+    draw(performance.now());
+    if ('IntersectionObserver' in window) {
+      S._netIO = new IntersectionObserver((es) => {
+        es.forEach((e) => { if (e.isIntersecting) start(); else stop(); });
+      }, { threshold: 0.02 });
+      S._netIO.observe(host);
+    } else {
+      start();
+    }
+  }
