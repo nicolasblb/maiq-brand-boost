@@ -3,7 +3,9 @@ import { Link } from '@tanstack/react-router';
 import type { User } from '@supabase/supabase-js';
 import { Sun, Moon, TriangleAlert, ChevronDown } from 'lucide-react';
 import Ciclo from '@/components/sections/Ciclo';
-import Dominio from '@/components/sections/Dominio';
+// O Domínio removido da página institucional; componente e logos preservados
+// (src/components/sections/Dominio.tsx e src/assets/logo-*.asset.json) para a
+// futura página "Sobre nós > Domínios".
 import Faq from '@/components/sections/Faq';
 import AuthLeadDialogs from '@/components/AuthLeadDialogs';
 import PlatformShowcase from '@/components/maiq/PlatformShowcase';
