@@ -172,7 +172,7 @@ function TextInput({
   error,
   trailingAction,
   ...props
-}: InputHTMLAttributes<HTMLInputElement> & { id: string; label: string; icon: ReactNode; error?: boolean; trailingAction?: ReactNode }) {
+}: InputHTMLAttributes<HTMLInputElement> & { id: string; label: string; icon: ReactNode; error?: boolean | undefined; trailingAction?: ReactNode }) {
   return (
     <div style={{ display: 'grid', gap: '8px' }}>
       <label htmlFor={id} style={labelStyle}>{icon}{label}</label>
@@ -189,7 +189,7 @@ function TextInput({
   );
 }
 
-function TextArea({ id, label, icon, error, ...props }: TextareaHTMLAttributes<HTMLTextAreaElement> & { id: string; label: string; icon: ReactNode; error?: boolean }) {
+function TextArea({ id, label, icon, error, ...props }: TextareaHTMLAttributes<HTMLTextAreaElement> & { id: string; label: string; icon: ReactNode; error?: boolean | undefined }) {
   return (
     <div style={{ display: 'grid', gap: '8px' }}>
       <label htmlFor={id} style={labelStyle}>{icon}{label}</label>
@@ -219,7 +219,7 @@ export default function AuthLeadDialogs({
   const [leadMode, setLeadMode] = useState<LeadMode>('form');
   const [leadForm, setLeadForm] = useState<LeadForm>({ name: '', email: '', phone: '', company: '', message: '' });
   const [leadError, setLeadError] = useState<string | null>(null);
-  const [leadFieldErrors, setLeadFieldErrors] = useState<Partial<Record<LeadField, string>>>({});
+  const [leadFieldErrors, setLeadFieldErrors] = useState<Partial<Record<LeadField, string | undefined>>>({});
   const [messageEnabled, setMessageEnabled] = useState(false);
   const [leadLoading, setLeadLoading] = useState(false);
 
