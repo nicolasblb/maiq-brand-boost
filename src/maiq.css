@@ -539,13 +539,16 @@ body{margin:0;background:#0D2423;transition:background 320ms cubic-bezier(.16,1,
 .maiq-platform-showcase{margin-top:clamp(54px,8vh,86px)}
 .maiq-platform-tabs-viewport{overflow-x:auto;overflow-y:hidden;padding-bottom:10px;scrollbar-width:none}
 .maiq-platform-tabs-viewport::-webkit-scrollbar{display:none}
-.maiq-platform-tabs{position:relative;width:min(100%,780px);min-width:640px;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));padding-bottom:16px}
-.maiq-platform-tab{position:relative!important;width:100%;height:44px!important;padding:0 8px 12px!important;justify-content:center!important;border:0!important;border-radius:0!important;background:transparent!important;color:var(--p-muted)!important;font-size:15px!important;text-align:center;transition:color var(--dur-2) var(--ease-standard)!important}
-.maiq-platform-tab:hover,.maiq-platform-tab:focus-visible,.maiq-platform-tab[data-active="true"]{color:var(--p-text)!important}
+.maiq-platform-tabs{position:relative;width:min(100%,780px);min-width:640px;margin:0 auto;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));padding-bottom:16px}
+.maiq-platform-tab{position:relative!important;width:100%;height:44px!important;padding:0 8px 12px!important;justify-content:center!important;border:0!important;border-radius:6px 6px 0 0!important;background:transparent!important;color:var(--p-muted)!important;font-size:15px!important;font-weight:500!important;text-align:center;transition:color var(--dur-2) var(--ease-standard),background-color var(--dur-2) var(--ease-standard),font-weight var(--dur-2) var(--ease-standard),transform var(--dur-2) var(--ease-standard)!important}
+.maiq-platform-tab:hover,.maiq-platform-tab:focus-visible{background:var(--action-ghost-bg-hover)!important;color:var(--p-text)!important;font-weight:600!important}
+.maiq-platform-tab[data-active="true"]{background:color-mix(in oklab,var(--p-text) 11%,transparent)!important;color:var(--p-text)!important;font-weight:700!important;transform:translateY(-1px)}
 .maiq-platform-line{position:absolute;right:0;bottom:0;left:0;height:16px;overflow:visible;mask-image:linear-gradient(90deg,transparent 0,#000 3%,#000 97%,transparent 100%);-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 3%,#000 97%,transparent 100%)}
 .maiq-platform-line::before{content:"";position:absolute;right:0;top:7px;left:0;height:1px;background:var(--p-hair)}
 .maiq-platform-line-progress{position:absolute;top:6px;left:0;display:block;height:2px;background:var(--c-flow);box-shadow:0 0 5px var(--c-flow),0 0 12px var(--c-flow-core);mix-blend-mode:var(--c-flow-blend);will-change:width}
 .maiq-platform-line-progress[data-settling="true"]{transition:width 600ms var(--ease-out)}
+.maiq-platform-line-divider{position:absolute;z-index:2;top:4px;width:6px;height:6px;border:1px solid var(--p-hair-strong);border-radius:50%;background:var(--p-bg);transform:translateX(-50%);transition:background-color 180ms var(--ease-standard),border-color 180ms var(--ease-standard),box-shadow 180ms var(--ease-standard),transform 180ms var(--ease-standard)}
+.maiq-platform-line-divider[data-lit="true"]{border-color:var(--c-flow);background:var(--c-flow-core);box-shadow:0 0 5px var(--c-flow),0 0 11px var(--c-flow-core);transform:translateX(-50%) scale(1.12)}
 .maiq-platform-card{width:min(100%,1058px);height:min(46vh,529px);min-height:420px;margin:clamp(38px,5vh,58px) auto 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));overflow:hidden;border:1px solid var(--p-hair);border-radius:var(--radius-lg);background:var(--p-plat-veil)}
 .maiq-platform-media{position:relative;min-width:0;overflow:hidden;background:var(--p-bg-deep)}
 .maiq-platform-copy{display:flex;align-items:center;padding:clamp(28px,6%,52px);border-left:1px solid var(--p-hair)}
@@ -603,6 +606,6 @@ body{margin:0;background:#0D2423;transition:background 320ms cubic-bezier(.16,1,
   .maiq-platform-modal-nav{margin-top:18px}
 }
 @media (prefers-reduced-motion:reduce){
-  .maiq-platform-line-progress{transition:none!important}
+  .maiq-platform-line-progress,.maiq-platform-line-divider,.maiq-platform-tab{transition:none!important}
   .maiq-platform-placeholder,.maiq-platform-copy-inner,.maiq-platform-modal,.maiq-platform-modal-overlay{animation:none!important}
 }

@@ -1,6 +1,6 @@
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { ChevronLeft, ChevronRight, Maximize2, Minimize2, Pause, Play } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import MaiqButton from '@/components/maiq/MaiqButton';
 import VdrEmbed from '@/components/maiq/vdr/VdrEmbed';
@@ -67,11 +67,11 @@ function PlaybackButton({ playing, progress, onClick }: { playing: boolean; prog
   );
 }
 
-function MediaVisual({ index, playing, run, initialTime }: { index: number; playing: boolean; run: number; initialTime: number }) {
+function MediaVisual({ index, playing, run, initialTime, onProgress }: { index: number; playing: boolean; run: number; initialTime: number; onProgress?: (time: number, duration: number) => void }) {
   const feature = FEATURES[index];
   if (!feature) return null;
   if (feature.visual === 'vdr') {
-    return <VdrEmbed playing={playing} resetSignal={run} initialTime={initialTime} />;
+    return <VdrEmbed playing={playing} resetSignal={run} initialTime={initialTime} onProgress={onProgress} />;
   }
   if (feature.visual === 'circle') return <div className="maiq-platform-placeholder maiq-platform-placeholder-circle" data-playing={playing} />;
   if (feature.visual === 'diamond') return <div className="maiq-platform-placeholder maiq-platform-placeholder-diamond" data-playing={playing} />;
@@ -171,7 +171,7 @@ export default function PlatformShowcase() {
   }, [active, timerPaused]);
 
   useEffect(() => {
-    if (!mediaPlaying || progressRef.current >= 1) {
+    if (active === 3 || !mediaPlaying || progressRef.current >= 1) {
       mediaLastRef.current = null;
       return;
     }
@@ -202,6 +202,14 @@ export default function PlatformShowcase() {
     }
     setPlaying((value) => !value);
   };
+
+  const syncMediaProgress = useCallback((time: number, duration: number) => {
+    if (active !== 3 || duration <= 0) return;
+    const next = Math.min(1, Math.max(0, time / duration));
+    progressRef.current = next;
+    setProgress(next);
+    if (next >= 1) setPlaying(false);
+  }, [active]);
 
   const openModal = () => {
     const scope = rootRef.current?.closest('[data-maiq-scope]');
@@ -257,13 +265,21 @@ export default function PlatformShowcase() {
               style={{ width: `${(navProgress / FEATURES.length) * 100}%` }}
             >
             </span>
+            {FEATURES.slice(1).map((item, index) => (
+              <span
+                key={item.name}
+                className="maiq-platform-line-divider"
+                data-lit={navProgress >= index + 1}
+                style={{ left: `${((index + 1) / FEATURES.length) * 100}%` }}
+              />
+            ))}
           </span>
         </div>
       </div>
 
       <div className="maiq-platform-card">
         <div className="maiq-platform-media" onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
-          {!modalOpen ? <MediaVisual index={active} playing={mediaPlaying} run={run} initialTime={progress * FEATURE_DURATION} /> : null}
+          {!modalOpen ? <MediaVisual index={active} playing={mediaPlaying} run={run} initialTime={progress * FEATURE_DURATION} onProgress={syncMediaProgress} /> : null}
           {mediaControls(false)}
         </div>
         <div className="maiq-platform-copy" onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
@@ -282,7 +298,7 @@ export default function PlatformShowcase() {
             <DialogPrimitive.Title className="maiq-platform-modal-title">{feature.name}</DialogPrimitive.Title>
             <div className="maiq-platform-modal-layout">
               <div className="maiq-platform-modal-media">
-                {modalOpen ? <MediaVisual index={active} playing={mediaPlaying} run={run} initialTime={progress * FEATURE_DURATION} /> : null}
+                {modalOpen ? <MediaVisual index={active} playing={mediaPlaying} run={run} initialTime={progress * FEATURE_DURATION} onProgress={syncMediaProgress} /> : null}
                 {mediaControls(true)}
               </div>
               <div className="maiq-platform-modal-copy">

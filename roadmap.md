@@ -10,3 +10,5 @@
 - [x] Restaurar o cartão independente da Plataforma e implementar o temporizador contínuo cumulativo.
 - [x] Refinar alinhamento, fades e áreas de pausa da navegação da Plataforma.
 - [x] Corrigir e validar os temporizadores de mídia e de troca automática em 15 segundos.
+- [x] Centralizar a navegação, integrar divisórias luminosas e reforçar os estados das funcionalidades.
+- [x] Sincronizar o indicador circular com o progresso real da mídia, inclusive após pausar e retomar.
