@@ -110,6 +110,8 @@ export default function PlatformShowcase() {
 
   const selectFeature = (index: number) => {
     const normalized = (index + FEATURES.length) % FEATURES.length;
+    mediaLastRef.current = null;
+    navLastRef.current = null;
     restartMedia(normalized);
     segmentProgressRef.current = 0;
     setNavSettling(true);
@@ -228,12 +230,7 @@ export default function PlatformShowcase() {
   );
 
   return (
-    <div
-      ref={rootRef}
-      className="maiq-platform-showcase"
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-    >
+    <div ref={rootRef} className="maiq-platform-showcase">
       <div className="maiq-platform-tabs-viewport">
         <div className="maiq-platform-tabs" role="tablist" aria-label="Funcionalidades da plataforma">
           {FEATURES.map((item, index) => (
@@ -246,6 +243,8 @@ export default function PlatformShowcase() {
               aria-selected={active === index}
               className="maiq-platform-tab"
               data-active={active === index}
+              onMouseEnter={() => setHovered(true)}
+              onMouseLeave={() => setHovered(false)}
               onClick={() => selectFeature(index)}
             >
               <span>{item.name}</span>
@@ -257,18 +256,17 @@ export default function PlatformShowcase() {
               data-settling={navSettling}
               style={{ width: `${(navProgress / FEATURES.length) * 100}%` }}
             >
-              <span className="maiq-platform-line-core" />
             </span>
           </span>
         </div>
       </div>
 
       <div className="maiq-platform-card">
-        <div className="maiq-platform-media">
+        <div className="maiq-platform-media" onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
           {!modalOpen ? <MediaVisual index={active} playing={mediaPlaying} run={run} initialTime={progress * FEATURE_DURATION} /> : null}
           {mediaControls(false)}
         </div>
-        <div className="maiq-platform-copy">
+        <div className="maiq-platform-copy" onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
           <div key={active} className="maiq-platform-copy-inner">
             <p className="maiq-platform-feature-name">{feature.name}</p>
             <h3>{feature.title}</h3>
