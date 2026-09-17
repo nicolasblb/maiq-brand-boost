@@ -8,12 +8,13 @@ export interface VdrEmbedProps {
   accent?: string;
   showGhosts?: boolean;
   playing?: boolean;
+  time?: number | undefined;
   initialTime?: number;
   resetSignal?: number;
   onProgress?: ((time: number, duration: number) => void) | undefined;
 }
 
-export function VdrEmbed({ accent = '#91A398', showGhosts = true, playing = true, initialTime = 0, resetSignal = 0, onProgress }: VdrEmbedProps) {
+export function VdrEmbed({ accent = '#91A398', showGhosts = true, playing = true, time, initialTime = 0, resetSignal = 0 }: VdrEmbedProps) {
   const ref = useRef<HTMLDivElement | null>(null);
   const boxRef = useRef<HTMLDivElement | null>(null);
   const [visible, setVisible] = useState(false);
@@ -53,7 +54,7 @@ export function VdrEmbed({ accent = '#91A398', showGhosts = true, playing = true
         position: 'absolute', left: '50%', top: '50%', width: 1080, height: 1080,
         transformOrigin: 'center', transform: 'translate(-50%, -50%)',
       }}>
-        {visible ? <VdrScene accent={accent} showGhosts={showGhosts} playing={playing} initialTime={initialTime} resetSignal={resetSignal} onProgress={onProgress} /> : null}
+        {visible ? <VdrScene accent={accent} showGhosts={showGhosts} playing={playing} time={time} initialTime={initialTime} resetSignal={resetSignal} /> : null}
       </div>
     </div>
   );

@@ -12,3 +12,4 @@
 - [x] Corrigir e validar os temporizadores de mídia e de troca automática em 15 segundos.
 - [x] Centralizar a navegação, integrar divisórias luminosas e reforçar os estados das funcionalidades.
 - [x] Sincronizar o indicador circular com o progresso real da mídia, inclusive após pausar e retomar.
+- [x] Refinar a pílula ativa, preencher as divisórias e unificar o relógio fluido das cinco mídias.

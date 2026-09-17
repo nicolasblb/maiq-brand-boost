@@ -198,6 +198,8 @@ export interface UseCompositionOpts {
   loop?: boolean;
   autoplay?: boolean;
   playing?: boolean;
+  /** externally controlled playback time, in seconds */
+  time?: number | undefined;
   initialTime?: number;
   /** bump to seek back to 0 and resume playback */
   resetSignal?: number;
@@ -205,14 +207,15 @@ export interface UseCompositionOpts {
 
 export function useComposition(
   scenes: SceneEntry[],
-  { loop = true, autoplay = true, playing: controlledPlaying, initialTime = 0, resetSignal = 0 }: UseCompositionOpts = {}
+  { loop = true, autoplay = true, playing: controlledPlaying, time: controlledTime, initialTime = 0, resetSignal = 0 }: UseCompositionOpts = {}
 ): CompositionState {
   const derived = deriveSchedule(scenes);
   const duration = derived.total;
 
-  const [time, setTime] = useState(initialTime);
+  const [internalTime, setInternalTime] = useState(initialTime);
   const [internalPlaying, setInternalPlaying] = useState(autoplay);
   const playing = controlledPlaying ?? internalPlaying;
+  const time = controlledTime ?? internalTime;
 
   const rafRef = useRef<number | null>(null);
   const lastTsRef = useRef<number | null>(null);
@@ -222,12 +225,12 @@ export function useComposition(
     if (resetRef.current === resetSignal) return;
     resetRef.current = resetSignal;
     lastTsRef.current = null;
-    setTime(initialTime);
+    setInternalTime(initialTime);
     setInternalPlaying(autoplay);
   }, [autoplay, initialTime, resetSignal]);
 
   useEffect(() => {
-    if (!playing) {
+    if (controlledTime != null || !playing) {
       lastTsRef.current = null;
       return;
     }
@@ -235,7 +238,7 @@ export function useComposition(
       if (lastTsRef.current == null) lastTsRef.current = ts;
       const dt = (ts - lastTsRef.current) / 1000;
       lastTsRef.current = ts;
-      setTime((t) => {
+      setInternalTime((t) => {
         let next = t + dt;
         if (next >= duration) {
           if (loop) {
@@ -255,7 +258,7 @@ export function useComposition(
       rafRef.current = null;
       lastTsRef.current = null;
     };
-  }, [playing, duration, loop]);
+  }, [controlledTime, playing, duration, loop]);
 
   const T = warpTime(derived, time);
 
