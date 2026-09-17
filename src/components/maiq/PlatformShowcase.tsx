@@ -113,7 +113,7 @@ export default function PlatformShowcase() {
     restartMedia(normalized);
     segmentProgressRef.current = 0;
     setNavSettling(true);
-    setNavProgress(normalized);
+    window.requestAnimationFrame(() => setNavProgress(normalized));
   };
 
   useEffect(() => {
@@ -126,7 +126,8 @@ export default function PlatformShowcase() {
 
   useEffect(() => {
     if (!navSettling) return;
-    const timeout = window.setTimeout(() => setNavSettling(false), 620);
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const timeout = window.setTimeout(() => setNavSettling(false), reducedMotion ? 0 : 620);
     return () => window.clearTimeout(timeout);
   }, [navSettling, navProgress]);
 
