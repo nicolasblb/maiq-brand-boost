@@ -3,7 +3,9 @@ import { Link } from '@tanstack/react-router';
 import type { User } from '@supabase/supabase-js';
 import { Sun, Moon, TriangleAlert, ChevronDown } from 'lucide-react';
 import Ciclo from '@/components/sections/Ciclo';
-import Dominio from '@/components/sections/Dominio';
+// O Domínio removido da página institucional; componente e logos preservados
+// (src/components/sections/Dominio.tsx e src/assets/logo-*.asset.json) para a
+// futura página "Sobre nós > Domínios".
 import Faq from '@/components/sections/Faq';
 import AuthLeadDialogs from '@/components/AuthLeadDialogs';
 import PlatformShowcase from '@/components/maiq/PlatformShowcase';
@@ -87,7 +89,6 @@ const SECOES = [
   { id: 'fundacao', label: 'A Fundação' },
   { id: 'plataforma', label: 'A Plataforma' },
   { id: 'ciclo', label: 'O Ciclo' },
-  { id: 'dominio', label: 'O Domínio' },
   { id: 'faq', label: 'FAQ' },
 ];
 
@@ -1197,7 +1198,6 @@ export default function PaginaInstitucional() {
               </div>
             </div>
             <div ref={overlay3Ref} style={{ position: "relative", zIndex: "2", background: "var(--p-bg,#0D2423)", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "24px 24px 0 0", overflow: "clip", boxShadow: "var(--p-overlay-shadow,0 -30px 60px -18px rgba(4,16,16,.62))", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
-            <Dominio />
             <Faq onContact={() => setLeadOpen(true)} />
             <footer style={{ background: "var(--p-footer-bg,#0A1D1D)", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", padding: "64px 48px 32px", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
               <div style={{ maxWidth: "1200px", margin: "0 auto", display: "flex", justifyContent: "space-between", gap: "48px", flexWrap: "wrap" }}>

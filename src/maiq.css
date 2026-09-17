@@ -380,8 +380,17 @@ body{margin:0;background:#0D2423;transition:background 320ms cubic-bezier(.16,1,
   font-weight:var(--fw-semibold);
   line-height:1.04;
   letter-spacing:0;
-}
-.maiq-faq-contact{
+ }
+ .maiq-faq-sub{
+   margin:14px 0 0;
+   color:var(--p-muted);
+   font-family:var(--font-core);
+   font-size:17px;
+   line-height:1.6;
+   max-width:56ch;
+   text-wrap:pretty;
+ }
+ .maiq-faq-contact{
   margin-top:32px;
   background:var(--p-cta-bg)!important;
   color:var(--p-cta-fg)!important;
