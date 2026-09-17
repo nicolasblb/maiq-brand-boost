@@ -1,6 +1,6 @@
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { ChevronLeft, ChevronRight, Maximize2, Minimize2, Pause, Play } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import MaiqButton from '@/components/maiq/MaiqButton';
 import VdrEmbed from '@/components/maiq/vdr/VdrEmbed';
@@ -171,7 +171,7 @@ export default function PlatformShowcase() {
   }, [active, timerPaused]);
 
   useEffect(() => {
-    if (!mediaPlaying || progressRef.current >= 1) {
+    if (active === 3 || !mediaPlaying || progressRef.current >= 1) {
       mediaLastRef.current = null;
       return;
     }
@@ -203,13 +203,13 @@ export default function PlatformShowcase() {
     setPlaying((value) => !value);
   };
 
-  const syncMediaProgress = (time: number, duration: number) => {
+  const syncMediaProgress = useCallback((time: number, duration: number) => {
     if (active !== 3 || duration <= 0) return;
     const next = Math.min(1, Math.max(0, time / duration));
     progressRef.current = next;
     setProgress(next);
     if (next >= 1) setPlaying(false);
-  };
+  }, [active]);
 
   const openModal = () => {
     const scope = rootRef.current?.closest('[data-maiq-scope]');

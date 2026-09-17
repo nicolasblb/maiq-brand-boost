@@ -257,7 +257,7 @@ export interface VdrSceneProps {
   initialTime?: number;
   /** bump to seek back to the supplied initial time */
   resetSignal?: number;
-  onProgress?: (time: number, duration: number) => void;
+  onProgress?: ((time: number, duration: number) => void) | undefined;
 }
 
 export function VdrScene({ accent = C.mint, showGhosts = true, playing = true, initialTime = 0, resetSignal = 0, onProgress }: VdrSceneProps) {

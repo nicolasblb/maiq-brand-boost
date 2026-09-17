@@ -10,7 +10,7 @@ export interface VdrEmbedProps {
   playing?: boolean;
   initialTime?: number;
   resetSignal?: number;
-  onProgress?: (time: number, duration: number) => void;
+  onProgress?: ((time: number, duration: number) => void) | undefined;
 }
 
 export function VdrEmbed({ accent = '#91A398', showGhosts = true, playing = true, initialTime = 0, resetSignal = 0, onProgress }: VdrEmbedProps) {
