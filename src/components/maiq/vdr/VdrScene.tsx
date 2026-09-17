@@ -253,12 +253,20 @@ function Doc({ i, T, cue, accent, showGhosts }: DocProps) {
 export interface VdrSceneProps {
   accent?: string;
   showGhosts?: boolean;
-  /** bump to seek the loop back to 0 and resume playback */
+  playing?: boolean;
+  initialTime?: number;
+  /** bump to seek back to the supplied initial time */
   resetSignal?: number;
 }
 
-export function VdrScene({ accent = C.mint, showGhosts = true, resetSignal = 0 }: VdrSceneProps) {
-  const { T, CUES, authoredTotal } = useComposition(OM_SCENES, { loop: true, autoplay: true, resetSignal });
+export function VdrScene({ accent = C.mint, showGhosts = true, playing = true, initialTime = 0, resetSignal = 0 }: VdrSceneProps) {
+  const { T, CUES, authoredTotal } = useComposition(OM_SCENES, {
+    loop: false,
+    autoplay: true,
+    playing,
+    initialTime,
+    resetSignal,
+  });
   const AL = CUES['Alçadas']!, RA = CUES['Rastreabilidade']!, PR = CUES['Prontidão']!;
   const TT = authoredTotal;
 
