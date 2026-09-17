@@ -81,6 +81,7 @@ function MediaVisual({ index, playing, run, initialTime }: { index: number; play
 
 export default function PlatformShowcase() {
   const rootRef = useRef<HTMLDivElement | null>(null);
+  const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const [theme, setTheme] = useState<'noite' | 'claro'>('noite');
   const [active, setActive] = useState(0);
   const [hovered, setHovered] = useState(false);
@@ -89,18 +90,29 @@ export default function PlatformShowcase() {
   const [playing, setPlaying] = useState(true);
   const [progress, setProgress] = useState(0);
   const [run, setRun] = useState(0);
+  const [navProgress, setNavProgress] = useState(0);
+  const [navSettling, setNavSettling] = useState(false);
   const progressRef = useRef(0);
+  const segmentProgressRef = useRef(0);
   const lastRef = useRef<number | null>(null);
   const feature = FEATURES[active] ?? FEATURES[0];
   const timerPaused = hovered || !visible || modalOpen;
   const mediaPlaying = playing && visible;
 
-  const selectFeature = (index: number) => {
-    setActive((index + FEATURES.length) % FEATURES.length);
+  const restartMedia = (index: number) => {
+    setActive(index);
     progressRef.current = 0;
     setProgress(0);
     setPlaying(true);
     setRun((value) => value + 1);
+  };
+
+  const selectFeature = (index: number) => {
+    const normalized = (index + FEATURES.length) % FEATURES.length;
+    restartMedia(normalized);
+    segmentProgressRef.current = 0;
+    setNavSettling(true);
+    setNavProgress(normalized);
   };
 
   useEffect(() => {
@@ -110,6 +122,49 @@ export default function PlatformShowcase() {
     observer.observe(root);
     return () => observer.disconnect();
   }, []);
+
+  useEffect(() => {
+    if (!navSettling) return;
+    const timeout = window.setTimeout(() => setNavSettling(false), 620);
+    return () => window.clearTimeout(timeout);
+  }, [navSettling, navProgress]);
+
+  useEffect(() => {
+    tabRefs.current[active]?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+  }, [active]);
+
+  useEffect(() => {
+    if (timerPaused || navSettling) {
+      lastRef.current = null;
+      return;
+    }
+    let raf = 0;
+    const tick = (now: number) => {
+      if (lastRef.current == null) lastRef.current = now;
+      const elapsed = now - lastRef.current;
+      lastRef.current = now;
+      const nextSegmentProgress = Math.min(1, segmentProgressRef.current + elapsed / (FEATURE_DURATION * 1000));
+      segmentProgressRef.current = nextSegmentProgress;
+      setNavProgress(active + nextSegmentProgress);
+
+      if (nextSegmentProgress >= 1) {
+        segmentProgressRef.current = 0;
+        if (active === FEATURES.length - 1) {
+          restartMedia(0);
+          setNavProgress(FEATURES.length);
+          setNavSettling(true);
+          window.requestAnimationFrame(() => window.requestAnimationFrame(() => setNavProgress(0)));
+        } else {
+          restartMedia(active + 1);
+          setNavProgress(active + 1);
+        }
+        return;
+      }
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [active, navSettling, timerPaused]);
 
   useEffect(() => {
     if (!mediaPlaying || progressRef.current >= 1) {
@@ -182,6 +237,7 @@ export default function PlatformShowcase() {
           {FEATURES.map((item, index) => (
             <MaiqButton
               key={item.name}
+              ref={(node) => { tabRefs.current[index] = node; }}
               variant="ghost"
               size="sm"
               role="tab"
@@ -191,18 +247,17 @@ export default function PlatformShowcase() {
               onClick={() => selectFeature(index)}
             >
               <span>{item.name}</span>
-              <span className="maiq-platform-line" aria-hidden="true">
-                {active === index ? (
-                  <span
-                    key={`${active}-${run}`}
-                    className="maiq-platform-line-progress"
-                    data-paused={timerPaused}
-                    onAnimationEnd={() => selectFeature(active + 1)}
-                  />
-                ) : null}
-              </span>
             </MaiqButton>
           ))}
+          <span className="maiq-platform-line" aria-hidden="true">
+            <span
+              className="maiq-platform-line-progress"
+              data-settling={navSettling}
+              style={{ width: `${(navProgress / FEATURES.length) * 100}%` }}
+            >
+              <span className="maiq-platform-line-core" />
+            </span>
+          </span>
         </div>
       </div>
 

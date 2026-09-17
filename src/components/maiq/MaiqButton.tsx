@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { forwardRef, useState } from 'react';
 
 type Size = 'sm' | 'md' | 'lg';
 type Variant = 'primary' | 'secondary' | 'ghost' | 'accent';
@@ -57,7 +57,7 @@ type Props = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   fullWidth?: boolean;
 };
 
-export default function MaiqButton({
+const MaiqButton = forwardRef<HTMLButtonElement, Props>(function MaiqButton({
   variant = 'primary',
   size = 'md',
   fullWidth = false,
@@ -65,7 +65,7 @@ export default function MaiqButton({
   style,
   children,
   ...rest
-}: Props) {
+}: Props, ref) {
   const [hover, setHover] = useState(false);
   const [active, setActive] = useState(false);
   const merged: React.CSSProperties = {
@@ -80,6 +80,7 @@ export default function MaiqButton({
   };
   return (
     <button
+      ref={ref}
       type="button"
       disabled={disabled}
       style={merged}
@@ -92,4 +93,6 @@ export default function MaiqButton({
       {children}
     </button>
   );
-}
+});
+
+export default MaiqButton;
