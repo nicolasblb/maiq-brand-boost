@@ -15,3 +15,7 @@
 - [x] Refinar a pílula ativa, preencher as divisórias e unificar o relógio fluido das cinco mídias.
 - [x] Tornar as divisórias opacas e substituir os fundos animados por degradês verticais nos dois temas.
 - [x] Alinhar a tipografia e o botão do FAQ ao design Maiq e remover os textos introdutórios.
+- [x] Relembra o subtítulo do FAQ: "Respostas às perguntas frequentes sobre a atuação do Maiq".
+- [x] Remover a seção "O Domínio" da página institucional, preservando Dominio.tsx e as logos (logo-*.asset.json) para a futura página Sobre nós > Domínios.
+- [ ] Construir a nova seção/página "Sobre nós > Domínios" em outro formato (logos e componente guardados; aguardando definição do formato).
+- [ ] Decidir destino da animação neural arquivada (src/components/maiq/archived/plat-neural-animation.ts.disabled): retomar ou excluir.
