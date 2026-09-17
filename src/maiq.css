@@ -294,6 +294,64 @@ body{margin:0;background:#0D2423;transition:background 320ms cubic-bezier(.16,1,
 --p-band-fade:rgba(20,55,55,0);
 --p-cta-bg:#68462B;--p-cta-fg:#F1EBE0;--p-cta-bg-hover:#7A5334;--p-cta-bg-active:#543619;
 }
+.maiq-required-legend{
+  margin:0;
+  color:var(--p-muted);
+  font-size:12px;
+  line-height:1.4;
+}
+.maiq-required-legend span{color:var(--p-required,var(--state-attention))}
+.maiq-message-switch{
+  position:relative;
+  width:62px!important;
+  min-width:62px;
+  height:26px!important;
+  padding:2px!important;
+  gap:0!important;
+  overflow:hidden;
+  border:1px solid var(--p-hair)!important;
+  background:var(--p-chip-bg)!important;
+  color:var(--p-muted)!important;
+  font-size:11px!important;
+  line-height:1;
+}
+.maiq-message-switch>span:not(.maiq-message-switch-thumb){position:relative;z-index:1;width:50%;transition:color var(--dur-2) var(--ease-standard)}
+.maiq-message-switch-thumb{
+  position:absolute;
+  z-index:0;
+  top:2px;
+  left:2px;
+  width:27px;
+  height:20px;
+  border-radius:var(--radius-pill);
+  background:var(--p-cta-bg);
+  transform:translateX(0);
+  transition:transform var(--dur-3) var(--ease-out);
+}
+.maiq-message-switch[data-enabled="true"] .maiq-message-switch-thumb{transform:translateX(29px)}
+.maiq-message-switch[data-enabled="false"]>span:nth-of-type(2),
+.maiq-message-switch[data-enabled="true"]>span:nth-of-type(3){color:var(--p-cta-fg)}
+.maiq-message-reveal{
+  display:grid;
+  grid-template-rows:0fr;
+  opacity:0;
+  transform:translateY(-6px);
+  transition:grid-template-rows var(--dur-3) var(--ease-out),opacity var(--dur-2) var(--ease-standard),transform var(--dur-3) var(--ease-out);
+}
+.maiq-message-reveal>div{min-height:0;overflow:hidden}
+.maiq-message-reveal[data-visible="true"]{grid-template-rows:1fr;opacity:1;transform:translateY(0)}
+.maiq-message-textarea{
+  height:112px!important;
+  min-height:88px;
+  resize:vertical;
+  padding:12px 14px!important;
+  line-height:1.5;
+}
+.maiq-form-scroll{scrollbar-width:thin;scrollbar-color:var(--p-muted) var(--p-chip-bg)}
+.maiq-form-scroll::-webkit-scrollbar{width:8px;height:8px}
+.maiq-form-scroll::-webkit-scrollbar-track{background:var(--p-chip-bg);border-radius:var(--radius-pill)}
+.maiq-form-scroll::-webkit-scrollbar-thumb{background:var(--p-muted);border:2px solid var(--p-card);border-radius:var(--radius-pill)}
+@media (prefers-reduced-motion:reduce){.maiq-message-switch-thumb,.maiq-message-reveal{transition:none}}
 .maiq-model-pilares-bg{
   isolation:isolate;
   overflow:hidden;
