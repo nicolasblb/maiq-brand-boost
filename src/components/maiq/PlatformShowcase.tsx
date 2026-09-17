@@ -81,6 +81,7 @@ function MediaVisual({ index, playing, run, initialTime }: { index: number; play
 
 export default function PlatformShowcase() {
   const rootRef = useRef<HTMLDivElement | null>(null);
+  const [theme, setTheme] = useState<'noite' | 'claro'>('noite');
   const [active, setActive] = useState(0);
   const [hovered, setHovered] = useState(false);
   const [visible, setVisible] = useState(true);
@@ -144,6 +145,8 @@ export default function PlatformShowcase() {
   };
 
   const openModal = () => {
+    const scope = rootRef.current?.closest('[data-maiq-scope]');
+    setTheme(scope?.getAttribute('data-theme') === 'claro' ? 'claro' : 'noite');
     setModalOpen(true);
   };
 
@@ -220,7 +223,7 @@ export default function PlatformShowcase() {
       <DialogPrimitive.Root open={modalOpen} onOpenChange={(open) => { if (!open) closeModal(); }}>
         <DialogPrimitive.Portal>
           <DialogPrimitive.Overlay className="maiq-platform-modal-overlay" />
-          <DialogPrimitive.Content className="maiq-platform-modal" aria-describedby="maiq-platform-modal-description">
+          <DialogPrimitive.Content className="maiq-platform-modal" data-maiq-scope="" data-theme={theme === 'claro' ? 'claro' : undefined} aria-describedby="maiq-platform-modal-description">
             <DialogPrimitive.Title className="maiq-platform-modal-title">{feature.name}</DialogPrimitive.Title>
             <div className="maiq-platform-modal-layout">
               <div className="maiq-platform-modal-media">
