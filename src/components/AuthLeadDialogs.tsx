@@ -173,14 +173,18 @@ function TextInput({
   icon,
   error,
   trailingAction,
+  required,
   ...props
 }: InputHTMLAttributes<HTMLInputElement> & { id: string; label: string; icon: ReactNode; error?: boolean | undefined; trailingAction?: ReactNode }) {
   return (
     <div style={{ display: 'grid', gap: '8px' }}>
-      <label htmlFor={id} style={labelStyle}>{icon}{label}</label>
+      <label htmlFor={id} style={labelStyle}>
+        {icon}<span>{label}{required ? <span aria-hidden="true" style={{ color: 'var(--p-required,var(--state-attention,#A6822F))' }}> *</span> : null}</span>
+      </label>
       <div style={{ position: 'relative' }}>
         <input
           id={id}
+          required={required}
           aria-invalid={error || undefined}
           style={{ ...fieldStyle, paddingRight: trailingAction ? '52px' : '14px', borderColor: error ? 'var(--state-critical,#9E4A31)' : 'var(--p-hair,rgba(233,224,209,.14))', background: error ? 'color-mix(in srgb, var(--state-critical,#9E4A31) 13%, var(--p-chip-bg,transparent))' : 'var(--p-chip-bg,rgba(233,224,209,.04))' }}
           {...props}
@@ -191,13 +195,14 @@ function TextInput({
   );
 }
 
-function TextArea({ id, label, icon, error, ...props }: TextareaHTMLAttributes<HTMLTextAreaElement> & { id: string; label: string; icon: ReactNode; error?: boolean | undefined }) {
+function RequiredLegend() {
   return (
-    <div style={{ display: 'grid', gap: '8px' }}>
-      <label htmlFor={id} style={labelStyle}>{icon}{label}</label>
-      <textarea id={id} aria-invalid={error || undefined} style={{ ...fieldStyle, height: '112px', minHeight: '88px', resize: 'vertical', padding: '12px 14px', lineHeight: 1.5, borderColor: error ? 'var(--state-critical,#9E4A31)' : 'var(--p-hair,rgba(233,224,209,.14))' }} {...props} />
-    </div>
+    <p className="maiq-required-legend"><span aria-hidden="true">*</span> Campos sinalizados são obrigatórios.</p>
   );
+}
+
+function MessageArea({ error, ...props }: TextareaHTMLAttributes<HTMLTextAreaElement> & { error?: boolean | undefined }) {
+  return <textarea aria-label="Descreva como podemos ajudar" aria-invalid={error || undefined} className="maiq-message-textarea maiq-form-scroll" style={{ ...fieldStyle, borderColor: error ? 'var(--state-critical,#9E4A31)' : 'var(--p-hair,rgba(233,224,209,.14))' }} {...props} />;
 }
 
 export default function AuthLeadDialogs({
@@ -373,7 +378,8 @@ export default function AuthLeadDialogs({
               <p style={{ margin: 0 }}>Enviaremos um link seguro para o email cadastrado.</p>
             </DialogHeader>
             <div style={{ padding: '24px 28px 28px', display: 'grid', gap: '16px' }}>
-              <TextInput id="recover-email" label="Email" icon={<Mail size={16} />} type="email" autoComplete="email" value={authForm.email} onChange={(event) => setAuthForm((current) => ({ ...current, email: event.target.value }))} />
+              <RequiredLegend />
+              <TextInput id="recover-email" label="Email" icon={<Mail size={16} />} required type="email" autoComplete="email" value={authForm.email} onChange={(event) => setAuthForm((current) => ({ ...current, email: event.target.value }))} />
               {recoverSent ? <Message tone="success">Confira sua caixa de entrada para continuar.</Message> : null}
               {authError ? <Message tone="critical">{authError}</Message> : null}
               <MaiqButton type="submit" size="lg" variant="primary" fullWidth style={primaryButtonStyle} disabled={authLoading}>
@@ -390,8 +396,9 @@ export default function AuthLeadDialogs({
               <p style={{ margin: 0 }}>A área logada será liberada em breve para usuários autorizados.</p>
             </DialogHeader>
             <div style={{ padding: '24px 28px 28px', display: 'grid', gap: '16px' }}>
-              <TextInput id="login-email" label="Email" icon={<Mail size={16} />} error={authFieldErrors.email} type="email" autoComplete="email" value={authForm.email} onChange={(event) => { setAuthForm((current) => ({ ...current, email: event.target.value })); setAuthFieldErrors((current) => ({ ...current, email: false })); }} />
-              <TextInput id="login-password" label="Senha" icon={<LockKeyhole size={16} />} error={authFieldErrors.password} type={passwordVisible ? 'text' : 'password'} autoComplete="current-password" value={authForm.password} onChange={(event) => { setAuthForm((current) => ({ ...current, password: event.target.value })); setAuthFieldErrors((current) => ({ ...current, password: false })); }} trailingAction={<MaiqButton type="button" size="sm" variant="ghost" style={{ ...secondaryButtonStyle, width: '38px', padding: 0 }} aria-label={passwordVisible ? 'Ocultar senha' : 'Exibir senha'} title={passwordVisible ? 'Ocultar senha' : 'Exibir senha'} onClick={() => setPasswordVisible((current) => !current)}>{passwordVisible ? <EyeOff size={18} /> : <Eye size={18} />}</MaiqButton>} />
+              <RequiredLegend />
+              <TextInput id="login-email" label="Email" icon={<Mail size={16} />} required error={authFieldErrors.email} type="email" autoComplete="email" value={authForm.email} onChange={(event) => { setAuthForm((current) => ({ ...current, email: event.target.value })); setAuthFieldErrors((current) => ({ ...current, email: false })); }} />
+              <TextInput id="login-password" label="Senha" icon={<LockKeyhole size={16} />} required error={authFieldErrors.password} type={passwordVisible ? 'text' : 'password'} autoComplete="current-password" value={authForm.password} onChange={(event) => { setAuthForm((current) => ({ ...current, password: event.target.value })); setAuthFieldErrors((current) => ({ ...current, password: false })); }} trailingAction={<MaiqButton type="button" size="sm" variant="ghost" style={{ ...secondaryButtonStyle, width: '38px', padding: 0 }} aria-label={passwordVisible ? 'Ocultar senha' : 'Exibir senha'} title={passwordVisible ? 'Ocultar senha' : 'Exibir senha'} onClick={() => setPasswordVisible((current) => !current)}>{passwordVisible ? <EyeOff size={18} /> : <Eye size={18} />}</MaiqButton>} />
               {authError ? <Message tone="critical">{authError}</Message> : null}
               <MaiqButton type="submit" size="lg" variant="primary" fullWidth style={primaryButtonStyle} disabled={authLoading}>
                 {authLoading ? 'Entrando...' : 'Entrar'}
@@ -420,16 +427,24 @@ export default function AuthLeadDialogs({
         ) : (
           <form onSubmit={handleLeadSubmit} noValidate style={{ display: 'flex', flexDirection: 'column', maxHeight: 'min(86vh, 760px)' }}>
             <DialogHeader title="Fale Conosco" />
-            <div style={{ marginTop: '24px', padding: '0 28px', display: 'grid', gap: '16px', overflowY: 'auto', overscrollBehavior: 'contain' }}>
-              <TextInput id="lead-name" label="Nome" icon={<UserRound size={16} />} error={Boolean(leadFieldErrors.name)} type="text" autoComplete="name" value={leadForm.name} onChange={(event) => { setLeadForm((current) => ({ ...current, name: event.target.value })); setLeadFieldErrors((current) => ({ ...current, name: undefined })); }} />
-              <TextInput id="lead-email" label="Email" icon={<Mail size={16} />} error={Boolean(leadFieldErrors.email)} type="email" autoComplete="email" value={leadForm.email} onChange={(event) => { setLeadForm((current) => ({ ...current, email: event.target.value })); setLeadFieldErrors((current) => ({ ...current, email: undefined })); }} />
+            <div className="maiq-form-scroll" style={{ marginTop: '20px', padding: '0 28px', display: 'grid', gap: '16px', overflowY: 'auto', overscrollBehavior: 'contain' }}>
+              <RequiredLegend />
+              <TextInput id="lead-name" label="Nome" icon={<UserRound size={16} />} required error={Boolean(leadFieldErrors.name)} type="text" autoComplete="name" value={leadForm.name} onChange={(event) => { setLeadForm((current) => ({ ...current, name: event.target.value })); setLeadFieldErrors((current) => ({ ...current, name: undefined })); }} />
+              <TextInput id="lead-email" label="Email" icon={<Mail size={16} />} required error={Boolean(leadFieldErrors.email)} type="email" autoComplete="email" value={leadForm.email} onChange={(event) => { setLeadForm((current) => ({ ...current, email: event.target.value })); setLeadFieldErrors((current) => ({ ...current, email: undefined })); }} />
               <TextInput id="lead-phone" label="Telefone" icon={<Phone size={16} />} error={Boolean(leadFieldErrors.phone)} type="tel" autoComplete="tel" value={leadForm.phone ?? ''} onChange={(event) => { setLeadForm((current) => ({ ...current, phone: event.target.value })); setLeadFieldErrors((current) => ({ ...current, phone: undefined })); }} />
-              <TextInput id="lead-company" label="Empresa" icon={<Building2 size={16} />} error={Boolean(leadFieldErrors.company)} type="text" autoComplete="organization" value={leadForm.company} onChange={(event) => { setLeadForm((current) => ({ ...current, company: event.target.value })); setLeadFieldErrors((current) => ({ ...current, company: undefined })); }} />
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px' }}>
+              <TextInput id="lead-company" label="Empresa" icon={<Building2 size={16} />} required error={Boolean(leadFieldErrors.company)} type="text" autoComplete="organization" value={leadForm.company} onChange={(event) => { setLeadForm((current) => ({ ...current, company: event.target.value })); setLeadFieldErrors((current) => ({ ...current, company: undefined })); }} />
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
                 <span style={labelStyle}><MessageSquareText size={16} />Descreva como podemos ajudar</span>
-                <MaiqButton type="button" size="sm" variant={messageEnabled ? 'primary' : 'secondary'} style={messageEnabled ? { ...primaryButtonStyle, minWidth: '58px', padding: '0 14px' } : { minWidth: '58px', padding: '0 14px' }} role="switch" aria-checked={messageEnabled} onClick={() => setMessageEnabled((current) => !current)}>{messageEnabled ? 'on' : 'off'}</MaiqButton>
+                <MaiqButton type="button" size="sm" variant="ghost" className="maiq-message-switch" role="switch" aria-label="Exibir campo de mensagem" aria-checked={messageEnabled} data-enabled={messageEnabled} onClick={() => setMessageEnabled((current) => !current)}>
+                  <span className="maiq-message-switch-thumb" aria-hidden="true" />
+                  <span>off</span><span>on</span>
+                </MaiqButton>
               </div>
-              {messageEnabled ? <TextArea id="lead-message" label="Mensagem" icon={<MessageSquareText size={16} />} error={Boolean(leadFieldErrors.message)} maxLength={2000} value={leadForm.message ?? ''} onChange={(event) => { setLeadForm((current) => ({ ...current, message: event.target.value })); setLeadFieldErrors((current) => ({ ...current, message: undefined })); }} /> : null}
+              <div className="maiq-message-reveal" data-visible={messageEnabled} aria-hidden={!messageEnabled}>
+                <div>
+                  <MessageArea id="lead-message" disabled={!messageEnabled} error={Boolean(leadFieldErrors.message)} maxLength={2000} value={leadForm.message ?? ''} onChange={(event) => { setLeadForm((current) => ({ ...current, message: event.target.value })); setLeadFieldErrors((current) => ({ ...current, message: undefined })); }} />
+                </div>
+              </div>
               {leadError ? <Message tone="critical">{leadError}</Message> : null}
             </div>
             <div style={{ padding: '20px 28px 28px', flex: '0 0 auto' }}>
