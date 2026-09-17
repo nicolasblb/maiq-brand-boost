@@ -548,8 +548,8 @@ body{margin:0;background:#0D2423;transition:background 320ms cubic-bezier(.16,1,
 .maiq-platform-line::before{content:"";position:absolute;right:0;top:7px;left:0;height:1px;background:var(--p-hair)}
 .maiq-platform-line-progress{position:absolute;top:6px;left:0;display:block;height:2px;background:var(--c-flow);box-shadow:0 0 5px var(--c-flow),0 0 12px var(--c-flow-core);mix-blend-mode:var(--c-flow-blend);will-change:width}
 .maiq-platform-line-progress[data-settling="true"]{transition:width 600ms var(--ease-out)}
-.maiq-platform-line-divider{position:absolute;z-index:2;top:4px;width:6px;height:6px;border:1px solid var(--p-hair-strong);border-radius:50%;background:var(--p-hair-strong);transform:translateX(-50%);transition:background-color 180ms var(--ease-standard),border-color 180ms var(--ease-standard),box-shadow 180ms var(--ease-standard),transform 180ms var(--ease-standard)}
-.maiq-platform-line-divider[data-lit="true"]{border-color:var(--c-flow);background:var(--c-flow-core);box-shadow:0 0 5px var(--c-flow),0 0 11px var(--c-flow-core);transform:translateX(-50%) scale(1.12)}
+.maiq-platform-line-divider{position:absolute;z-index:2;top:4.5px;width:6px;height:6px;border:1px solid var(--p-hair-strong);border-radius:50%;background:var(--p-hair-strong);transform:translateX(-50%);transition:background-color 180ms var(--ease-standard),border-color 180ms var(--ease-standard),box-shadow 180ms var(--ease-standard),transform 180ms var(--ease-standard)}
+.maiq-platform-line-divider[data-lit="true"]{border-color:var(--c-flow);background:var(--c-flow);box-shadow:0 0 5px var(--c-flow),0 0 11px var(--c-flow-core);transform:translateX(-50%) scale(1.12)}
 .maiq-platform-card{width:min(100%,1058px);height:min(46vh,529px);min-height:420px;margin:clamp(38px,5vh,58px) auto 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));overflow:hidden;border:1px solid var(--p-hair);border-radius:var(--radius-lg);background:var(--p-plat-veil)}
 .maiq-platform-media{position:relative;min-width:0;overflow:hidden;background:var(--p-bg-deep)}
 .maiq-platform-copy{display:flex;align-items:center;padding:clamp(28px,6%,52px);border-left:1px solid var(--p-hair)}
