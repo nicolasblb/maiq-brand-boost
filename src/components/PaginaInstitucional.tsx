@@ -6,7 +6,7 @@ import Ciclo from '@/components/sections/Ciclo';
 import Dominio from '@/components/sections/Dominio';
 import Faq from '@/components/sections/Faq';
 import AuthLeadDialogs from '@/components/AuthLeadDialogs';
-import VdrEmbed from '@/components/maiq/vdr/VdrEmbed';
+import PlatformShowcase from '@/components/maiq/PlatformShowcase';
 import MaiqButton from '@/components/maiq/MaiqButton';
 import { supabase } from '@/integrations/supabase/client';
 import logoBranco from '@/assets/logo-maiq-branco.png';
@@ -219,10 +219,6 @@ export default function PaginaInstitucional() {
   const rClipRef = useRef<Any>(null);
   const lTextRef = useRef<Any>(null);
   const rTextRef = useRef<Any>(null);
-  const platInnerRef = useRef<Any>(null);
-  const platBgRef = useRef<Any>(null);
-  const platColRef = useRef<Any>(null);
-
   // estado mutável compartilhado entre os efeitos (equivalente aos campos da classe original)
   const S = useRef<Any>({}).current;
 
@@ -302,7 +298,6 @@ export default function PaginaInstitucional() {
   };
 
   const applyTheme = (next: 'noite' | 'claro') => {
-    if (S._netSync) requestAnimationFrame(() => { if (S._netSync) S._netSync(); });
     const scope = scopeRef.current;
     if (scope) {
       if (next === 'claro') scope.setAttribute('data-theme', 'claro');
@@ -371,8 +366,6 @@ export default function PaginaInstitucional() {
     applyTheme(initial as Any);
 
     setupOdometers();
-    setupPlataforma();
-    setupPlatNet();
     setupMarquee();
     S._paintLogo = setupLogoFlight();
     setupScroll();
@@ -384,17 +377,6 @@ export default function PaginaInstitucional() {
         window.removeEventListener('resize', S._odoResize);
       }
       if (S._pauseIO) S._pauseIO.disconnect();
-      if (S._netStop) S._netStop();
-      if (S._netIO) S._netIO.disconnect();
-      if (S._netResize) window.removeEventListener('resize', S._netResize);
-      if (S._platIO) S._platIO.disconnect();
-      if (S._platRings) S._platRings.forEach((r: Any) => { if (r) r.removeEventListener('animationend', S._platEnd); });
-      if (S._platHoverEls) S._platHoverEls.forEach((el: Any) => {
-        el.removeEventListener('mouseenter', S._platEnter);
-        el.removeEventListener('mouseleave', S._platLeave);
-      });
-      if (S._platAlign) window.removeEventListener('resize', S._platAlign);
-      if (S._platTabs) S._platTabs.forEach((b: Any, i: number) => b.removeEventListener('click', S._platTabClicks[i]));
       if (S._raf) cancelAnimationFrame(S._raf);
       if (S._remeasure) window.removeEventListener('resize', S._remeasure);
       if (S._measureDna) window.removeEventListener('resize', S._measureDna);

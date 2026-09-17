@@ -197,19 +197,22 @@ export interface CompositionState {
 export interface UseCompositionOpts {
   loop?: boolean;
   autoplay?: boolean;
+  playing?: boolean;
+  initialTime?: number;
   /** bump to seek back to 0 and resume playback */
   resetSignal?: number;
 }
 
 export function useComposition(
   scenes: SceneEntry[],
-  { loop = true, autoplay = true, resetSignal = 0 }: UseCompositionOpts = {}
+  { loop = true, autoplay = true, playing: controlledPlaying, initialTime = 0, resetSignal = 0 }: UseCompositionOpts = {}
 ): CompositionState {
   const derived = deriveSchedule(scenes);
   const duration = derived.total;
 
-  const [time, setTime] = useState(0);
-  const [playing, setPlaying] = useState(autoplay);
+  const [time, setTime] = useState(initialTime);
+  const [internalPlaying, setInternalPlaying] = useState(autoplay);
+  const playing = controlledPlaying ?? internalPlaying;
 
   const rafRef = useRef<number | null>(null);
   const lastTsRef = useRef<number | null>(null);
@@ -219,9 +222,9 @@ export function useComposition(
     if (resetRef.current === resetSignal) return;
     resetRef.current = resetSignal;
     lastTsRef.current = null;
-    setTime(0);
-    setPlaying(true);
-  }, [resetSignal]);
+    setTime(initialTime);
+    setInternalPlaying(autoplay);
+  }, [autoplay, initialTime, resetSignal]);
 
   useEffect(() => {
     if (!playing) {
@@ -239,7 +242,7 @@ export function useComposition(
             next = duration > 0 ? next % duration : 0;
           } else {
             next = duration;
-            setPlaying(false);
+            setInternalPlaying(false);
           }
         }
         return next;

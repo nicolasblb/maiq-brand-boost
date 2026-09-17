@@ -145,12 +145,10 @@ export default function PlatformShowcase() {
 
   const openModal = () => {
     setModalOpen(true);
-    setRun((value) => value + 1);
   };
 
   const closeModal = () => {
     setModalOpen(false);
-    setRun((value) => value + 1);
   };
 
   const mediaControls = (expanded: boolean) => (
@@ -179,9 +177,10 @@ export default function PlatformShowcase() {
       <div className="maiq-platform-tabs-viewport">
         <div className="maiq-platform-tabs" role="tablist" aria-label="Funcionalidades da plataforma">
           {FEATURES.map((item, index) => (
-            <button
+            <MaiqButton
               key={item.name}
-              type="button"
+              variant="ghost"
+              size="sm"
               role="tab"
               aria-selected={active === index}
               className="maiq-platform-tab"
@@ -199,7 +198,7 @@ export default function PlatformShowcase() {
                   />
                 ) : null}
               </span>
-            </button>
+            </MaiqButton>
           ))}
         </div>
       </div>

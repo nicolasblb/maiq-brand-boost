@@ -7,19 +7,15 @@ import { VdrScene } from './VdrScene';
 export interface VdrEmbedProps {
   accent?: string;
   showGhosts?: boolean;
+  playing?: boolean;
+  initialTime?: number;
+  resetSignal?: number;
 }
 
-export function VdrEmbed({ accent = '#91A398', showGhosts = true }: VdrEmbedProps) {
+export function VdrEmbed({ accent = '#91A398', showGhosts = true, playing = true, initialTime = 0, resetSignal = 0 }: VdrEmbedProps) {
   const ref = useRef<HTMLDivElement | null>(null);
   const boxRef = useRef<HTMLDivElement | null>(null);
-  const [run, setRun] = useState(0);
   const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const onRestart = () => setRun((n) => n + 1);
-    window.addEventListener('maiq-vdr-restart', onRestart);
-    return () => window.removeEventListener('maiq-vdr-restart', onRestart);
-  }, []);
 
   useEffect(() => {
     const root = ref.current, box = boxRef.current;
@@ -56,7 +52,7 @@ export function VdrEmbed({ accent = '#91A398', showGhosts = true }: VdrEmbedProp
         position: 'absolute', left: '50%', top: '50%', width: 1080, height: 1080,
         transformOrigin: 'center', transform: 'translate(-50%, -50%)',
       }}>
-        {visible ? <VdrScene accent={accent} showGhosts={showGhosts} resetSignal={run} /> : null}
+        {visible ? <VdrScene accent={accent} showGhosts={showGhosts} playing={playing} initialTime={initialTime} resetSignal={resetSignal} /> : null}
       </div>
     </div>
   );
