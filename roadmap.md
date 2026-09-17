@@ -8,5 +8,5 @@
 - [x] Trocar as pílulas da Plataforma por navegação textual com linha luminosa de 15 segundos.
 - [x] Adicionar reprodução única, progresso, ampliar/reduzir e navegação entre funcionalidades.
 - [x] Restaurar o cartão independente da Plataforma e implementar o temporizador contínuo cumulativo.
-- [ ] Refinar alinhamento, fades e áreas de pausa da navegação da Plataforma.
-- [ ] Corrigir e validar os temporizadores de mídia e de troca automática em 15 segundos.
+- [x] Refinar alinhamento, fades e áreas de pausa da navegação da Plataforma.
+- [x] Corrigir e validar os temporizadores de mídia e de troca automática em 15 segundos.
