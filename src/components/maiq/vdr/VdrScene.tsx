@@ -1,6 +1,6 @@
 // Ported from vdr-scene.jsx — "Maiq — Sala de Dados (VDR)" — 1:1, 15s,
 // continuous loop, no text.
-import type { CSSProperties, ReactElement } from 'react';
+import { useEffect, type CSSProperties, type ReactElement } from 'react';
 import {
   Scale,
   LineChart,
@@ -257,16 +257,20 @@ export interface VdrSceneProps {
   initialTime?: number;
   /** bump to seek back to the supplied initial time */
   resetSignal?: number;
+  onProgress?: (time: number, duration: number) => void;
 }
 
-export function VdrScene({ accent = C.mint, showGhosts = true, playing = true, initialTime = 0, resetSignal = 0 }: VdrSceneProps) {
-  const { T, CUES, authoredTotal } = useComposition(OM_SCENES, {
+export function VdrScene({ accent = C.mint, showGhosts = true, playing = true, initialTime = 0, resetSignal = 0, onProgress }: VdrSceneProps) {
+  const { T, CUES, authoredTotal, time, duration } = useComposition(OM_SCENES, {
     loop: false,
     autoplay: true,
     playing,
     initialTime,
     resetSignal,
   });
+  useEffect(() => {
+    onProgress?.(time, duration);
+  }, [duration, onProgress, time]);
   const AL = CUES['Alçadas']!, RA = CUES['Rastreabilidade']!, PR = CUES['Prontidão']!;
   const TT = authoredTotal;
 
