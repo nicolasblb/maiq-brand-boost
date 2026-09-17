@@ -392,10 +392,8 @@ export default function AuthLeadDialogs({
           </form>
         ) : (
           <form onSubmit={handleLogin} noValidate>
-            <DialogHeader title="Login">
-              <p style={{ margin: 0 }}>A área logada será liberada em breve para usuários autorizados.</p>
-            </DialogHeader>
-            <div style={{ padding: '24px 28px 28px', display: 'grid', gap: '16px' }}>
+            <DialogHeader title="Login" />
+            <div style={{ padding: '28px 28px 32px', display: 'grid', gap: '16px' }}>
               <RequiredLegend />
               <TextInput id="login-email" label="Email" icon={<Mail size={16} />} required error={authFieldErrors.email} type="email" autoComplete="email" value={authForm.email} onChange={(event) => { setAuthForm((current) => ({ ...current, email: event.target.value })); setAuthFieldErrors((current) => ({ ...current, email: false })); }} />
               <TextInput id="login-password" label="Senha" icon={<LockKeyhole size={16} />} required error={authFieldErrors.password} type={passwordVisible ? 'text' : 'password'} autoComplete="current-password" value={authForm.password} onChange={(event) => { setAuthForm((current) => ({ ...current, password: event.target.value })); setAuthFieldErrors((current) => ({ ...current, password: false })); }} trailingAction={<MaiqButton type="button" size="sm" variant="ghost" style={{ ...secondaryButtonStyle, width: '38px', padding: 0 }} aria-label={passwordVisible ? 'Ocultar senha' : 'Exibir senha'} title={passwordVisible ? 'Ocultar senha' : 'Exibir senha'} onClick={() => setPasswordVisible((current) => !current)}>{passwordVisible ? <EyeOff size={18} /> : <Eye size={18} />}</MaiqButton>} />
