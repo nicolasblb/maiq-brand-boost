@@ -138,7 +138,7 @@ export default function PlatformShowcase() {
   }, [active]);
 
   useEffect(() => {
-    if (timerPaused || navSettling) {
+    if (timerPaused) {
       navLastRef.current = null;
       return;
     }
@@ -168,7 +168,7 @@ export default function PlatformShowcase() {
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [active, navSettling, timerPaused]);
+  }, [active, timerPaused]);
 
   useEffect(() => {
     if (!mediaPlaying || progressRef.current >= 1) {

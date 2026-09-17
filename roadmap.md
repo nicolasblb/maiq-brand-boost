@@ -9,4 +9,4 @@
 - [x] Adicionar reprodução única, progresso, ampliar/reduzir e navegação entre funcionalidades.
 - [x] Restaurar o cartão independente da Plataforma e implementar o temporizador contínuo cumulativo.
 - [x] Refinar alinhamento, fades e áreas de pausa da navegação da Plataforma.
-- [ ] Corrigir e validar os temporizadores de mídia e de troca automática em 15 segundos.
+- [x] Corrigir e validar os temporizadores de mídia e de troca automática em 15 segundos.
