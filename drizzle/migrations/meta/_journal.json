@@ -15,6 +15,13 @@
       "when": 1789592190216,
       "tag": "0001_lock_leads_to_server_only",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1789611527436,
+      "tag": "0002_add_lead_message",
+      "breakpoints": true
     }
   ]
 }

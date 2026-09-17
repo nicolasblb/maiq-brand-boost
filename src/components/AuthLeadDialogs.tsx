@@ -1,8 +1,8 @@
-import { useEffect, useMemo, useState, type CSSProperties, type FormEvent, type InputHTMLAttributes, type ReactNode } from 'react';
+import { useEffect, useMemo, useState, type CSSProperties, type FormEvent, type InputHTMLAttributes, type ReactNode, type TextareaHTMLAttributes } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { useServerFn } from '@tanstack/react-start';
 import type { User } from '@supabase/supabase-js';
-import { AlertCircle, ArrowLeft, Building2, CheckCircle2, LockKeyhole, LogOut, Mail, Phone, UserRound } from 'lucide-react';
+import { AlertCircle, ArrowLeft, Building2, CheckCircle2, Eye, EyeOff, LockKeyhole, LogOut, Mail, MessageSquareText, Phone, UserRound } from 'lucide-react';
 import { toast } from 'sonner';
 
 import MaiqButton from '@/components/maiq/MaiqButton';
@@ -29,6 +29,8 @@ type AuthForm = {
 };
 
 type LeadForm = LeadInput;
+type AuthField = keyof AuthForm;
+type LeadField = 'name' | 'email' | 'phone' | 'company' | 'message';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE_RE = /^[+()\d\s.-]{8,40}$/;
@@ -36,7 +38,9 @@ const PHONE_RE = /^[+()\d\s.-]{8,40}$/;
 const fieldStyle: CSSProperties = {
   width: '100%',
   height: '46px',
-  border: '1px solid var(--p-hair,rgba(233,224,209,.14))',
+  borderWidth: '1px',
+  borderStyle: 'solid',
+  borderColor: 'var(--p-hair,rgba(233,224,209,.14))',
   borderRadius: 'var(--radius-md)',
   background: 'var(--p-chip-bg,rgba(233,224,209,.04))',
   color: 'var(--p-text,#E9E0D1)',
@@ -72,14 +76,16 @@ function normalizeEmail(value: string) {
   return value.trim().toLowerCase();
 }
 
-function validateLead(form: LeadForm) {
+function validateLead(form: LeadForm, messageEnabled: boolean) {
   const email = normalizeEmail(form.email);
   const phone = form.phone?.trim() ?? '';
-  if (form.name.trim().length < 2) return 'Informe seu nome.';
-  if (!EMAIL_RE.test(email)) return 'Informe um email válido.';
-  if (phone && !PHONE_RE.test(phone)) return 'Informe um telefone válido.';
-  if (form.company.trim().length < 2) return 'Informe sua empresa.';
-  return null;
+  const errors: Partial<Record<LeadField, string>> = {};
+  if (form.name.trim().length < 2) errors.name = 'Informe seu nome.';
+  if (!EMAIL_RE.test(email)) errors.email = 'Informe um email válido.';
+  if (phone && !PHONE_RE.test(phone)) errors.phone = 'Informe um telefone válido.';
+  if (form.company.trim().length < 2) errors.company = 'Informe sua empresa.';
+  if (messageEnabled && (form.message?.trim().length ?? 0) > 2000) errors.message = 'A mensagem deve ter até 2.000 caracteres.';
+  return errors;
 }
 
 function ModalFrame({
@@ -135,7 +141,7 @@ function ModalFrame({
         style={{
           width: 'min(100%, 520px)',
           maxHeight: 'min(86vh, 760px)',
-          overflow: 'auto',
+          overflow: 'hidden',
           border: '1px solid var(--p-hair,rgba(233,224,209,.14))',
           borderRadius: 'var(--radius-xl)',
           background: 'var(--p-card,#1B4442)',
@@ -149,13 +155,11 @@ function ModalFrame({
   );
 }
 
-function DialogHeader({ title, eyebrow, children }: { title: string; eyebrow: string; children?: ReactNode }) {
+function DialogHeader({ title, eyebrow, children }: { title: string; eyebrow?: string; children?: ReactNode }) {
   return (
     <div style={{ padding: '28px 28px 0' }}>
-      <p style={{ margin: 0, color: 'var(--p-muted,#91A398)', fontSize: '12px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '.12em' }}>
-        {eyebrow}
-      </p>
-      <h2 style={{ margin: '10px 0 0', color: 'var(--p-text,#E9E0D1)', fontSize: 'clamp(28px,4vw,38px)', lineHeight: 1.05, fontWeight: 500, letterSpacing: 0 }}>
+      {eyebrow ? <p style={{ margin: 0, color: 'var(--p-muted,#91A398)', fontSize: '12px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '.12em' }}>{eyebrow}</p> : null}
+      <h2 style={{ margin: eyebrow ? '10px 0 0' : 0, color: 'var(--p-text,#E9E0D1)', fontSize: 'clamp(28px,4vw,38px)', lineHeight: 1.05, fontWeight: 500, letterSpacing: 0 }}>
         {title}
       </h2>
       {children ? <div style={{ marginTop: '12px', color: 'var(--p-text-2,#B7C4BC)', fontSize: '15px', lineHeight: 1.55 }}>{children}</div> : null}
@@ -168,17 +172,31 @@ function TextInput({
   label,
   icon,
   error,
+  trailingAction,
   ...props
-}: InputHTMLAttributes<HTMLInputElement> & { id: string; label: string; icon: ReactNode; error?: boolean }) {
+}: InputHTMLAttributes<HTMLInputElement> & { id: string; label: string; icon: ReactNode; error?: boolean | undefined; trailingAction?: ReactNode }) {
   return (
-    <label htmlFor={id} style={{ display: 'grid', gap: '8px' }}>
-      <span style={labelStyle}>{icon}{label}</span>
-      <input
-        id={id}
-        style={{ ...fieldStyle, borderColor: error ? 'var(--state-critical,#9E4A31)' : 'var(--p-hair,rgba(233,224,209,.14))' }}
-        {...props}
-      />
-    </label>
+    <div style={{ display: 'grid', gap: '8px' }}>
+      <label htmlFor={id} style={labelStyle}>{icon}{label}</label>
+      <div style={{ position: 'relative' }}>
+        <input
+          id={id}
+          aria-invalid={error || undefined}
+          style={{ ...fieldStyle, paddingRight: trailingAction ? '52px' : '14px', borderColor: error ? 'var(--state-critical,#9E4A31)' : 'var(--p-hair,rgba(233,224,209,.14))', background: error ? 'color-mix(in srgb, var(--state-critical,#9E4A31) 13%, var(--p-chip-bg,transparent))' : 'var(--p-chip-bg,rgba(233,224,209,.04))' }}
+          {...props}
+        />
+        {trailingAction ? <div style={{ position: 'absolute', right: '4px', top: '50%', transform: 'translateY(-50%)' }}>{trailingAction}</div> : null}
+      </div>
+    </div>
+  );
+}
+
+function TextArea({ id, label, icon, error, ...props }: TextareaHTMLAttributes<HTMLTextAreaElement> & { id: string; label: string; icon: ReactNode; error?: boolean | undefined }) {
+  return (
+    <div style={{ display: 'grid', gap: '8px' }}>
+      <label htmlFor={id} style={labelStyle}>{icon}{label}</label>
+      <textarea id={id} aria-invalid={error || undefined} style={{ ...fieldStyle, height: '112px', minHeight: '88px', resize: 'vertical', padding: '12px 14px', lineHeight: 1.5, borderColor: error ? 'var(--state-critical,#9E4A31)' : 'var(--p-hair,rgba(233,224,209,.14))' }} {...props} />
+    </div>
   );
 }
 
@@ -196,11 +214,15 @@ export default function AuthLeadDialogs({
   const [authMode, setAuthMode] = useState<AuthMode>('login');
   const [authForm, setAuthForm] = useState<AuthForm>({ email: '', password: '' });
   const [authError, setAuthError] = useState<string | null>(null);
+  const [authFieldErrors, setAuthFieldErrors] = useState<Partial<Record<AuthField, boolean>>>({});
   const [authLoading, setAuthLoading] = useState(false);
+  const [passwordVisible, setPasswordVisible] = useState(false);
   const [recoverSent, setRecoverSent] = useState(false);
   const [leadMode, setLeadMode] = useState<LeadMode>('form');
-  const [leadForm, setLeadForm] = useState<LeadForm>({ name: '', email: '', phone: '', company: '' });
+  const [leadForm, setLeadForm] = useState<LeadForm>({ name: '', email: '', phone: '', company: '', message: '' });
   const [leadError, setLeadError] = useState<string | null>(null);
+  const [leadFieldErrors, setLeadFieldErrors] = useState<Partial<Record<LeadField, string | undefined>>>({});
+  const [messageEnabled, setMessageEnabled] = useState(false);
   const [leadLoading, setLeadLoading] = useState(false);
 
   const signedInEmail = useMemo(() => user?.email ?? '', [user?.email]);
@@ -209,6 +231,8 @@ export default function AuthLeadDialogs({
     if (authOpen) {
       setAuthMode(user ? 'account' : 'login');
       setAuthError(null);
+      setAuthFieldErrors({});
+      setPasswordVisible(false);
       setRecoverSent(false);
     }
   }, [authOpen, user]);
@@ -217,6 +241,8 @@ export default function AuthLeadDialogs({
     if (leadOpen) {
       setLeadMode('form');
       setLeadError(null);
+      setLeadFieldErrors({});
+      setMessageEnabled(false);
       setLeadForm((current) => ({ ...current, email: signedInEmail || current.email }));
     }
   }, [leadOpen, signedInEmail]);
@@ -224,20 +250,23 @@ export default function AuthLeadDialogs({
   const handleLogin = async (event: FormEvent) => {
     event.preventDefault();
     const email = normalizeEmail(authForm.email);
-    if (!EMAIL_RE.test(email)) {
-      setAuthError('Informe um email válido.');
-      return;
-    }
-    if (authForm.password.length < 6) {
-      setAuthError('Informe sua senha.');
+    const fieldErrors: Partial<Record<AuthField, boolean>> = {
+      email: !EMAIL_RE.test(email),
+      password: authForm.password.length < 6,
+    };
+    if (fieldErrors.email || fieldErrors.password) {
+      setAuthFieldErrors(fieldErrors);
+      setAuthError(fieldErrors.email && fieldErrors.password ? 'Revise o email e a senha destacados.' : fieldErrors.email ? 'Informe um email válido.' : 'Informe sua senha.');
       return;
     }
     setAuthLoading(true);
     setAuthError(null);
+    setAuthFieldErrors({});
     const { data, error } = await supabase.auth.signInWithPassword({ email, password: authForm.password });
     setAuthLoading(false);
     if (error) {
       setAuthError(error.message.includes('Invalid login credentials') ? 'Email ou senha incorretos.' : 'Não foi possível entrar agora.');
+      setAuthFieldErrors({ email: true, password: true });
       return;
     }
     onUserChange(data.user);
@@ -283,14 +312,16 @@ export default function AuthLeadDialogs({
 
   const handleLeadSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    const validationError = validateLead(leadForm);
-    if (validationError) {
-      setLeadError(validationError);
+    const validationErrors = validateLead(leadForm, messageEnabled);
+    if (Object.keys(validationErrors).length > 0) {
+      setLeadFieldErrors(validationErrors);
+      setLeadError('Revise os campos destacados antes de enviar.');
       return;
     }
 
     setLeadLoading(true);
     setLeadError(null);
+    setLeadFieldErrors({});
     const phone = leadForm.phone?.trim() ?? '';
     try {
       await submitLeadFn({
@@ -298,6 +329,7 @@ export default function AuthLeadDialogs({
           name: leadForm.name.trim(),
           email: normalizeEmail(leadForm.email),
           company: leadForm.company.trim(),
+          ...(messageEnabled && leadForm.message?.trim() ? { message: leadForm.message.trim() } : {}),
           ...(phone ? { phone } : {}),
         },
       });
@@ -312,6 +344,10 @@ export default function AuthLeadDialogs({
 
   const closeAuth = () => onAuthOpenChange(false);
   const closeLead = () => onLeadOpenChange(false);
+  const requestRegistration = () => {
+    onAuthOpenChange(false);
+    onLeadOpenChange(true);
+  };
 
   return (
     <>
@@ -350,19 +386,20 @@ export default function AuthLeadDialogs({
           </form>
         ) : (
           <form onSubmit={handleLogin} noValidate>
-            <DialogHeader eyebrow="Acesso" title="Entre na área Maiq.">
+            <DialogHeader title="Login">
               <p style={{ margin: 0 }}>A área logada será liberada em breve para usuários autorizados.</p>
             </DialogHeader>
             <div style={{ padding: '24px 28px 28px', display: 'grid', gap: '16px' }}>
-              <TextInput id="login-email" label="Email" icon={<Mail size={16} />} type="email" autoComplete="email" value={authForm.email} onChange={(event) => setAuthForm((current) => ({ ...current, email: event.target.value }))} />
-              <TextInput id="login-password" label="Senha" icon={<LockKeyhole size={16} />} type="password" autoComplete="current-password" value={authForm.password} onChange={(event) => setAuthForm((current) => ({ ...current, password: event.target.value }))} />
+              <TextInput id="login-email" label="Email" icon={<Mail size={16} />} error={authFieldErrors.email} type="email" autoComplete="email" value={authForm.email} onChange={(event) => { setAuthForm((current) => ({ ...current, email: event.target.value })); setAuthFieldErrors((current) => ({ ...current, email: false })); }} />
+              <TextInput id="login-password" label="Senha" icon={<LockKeyhole size={16} />} error={authFieldErrors.password} type={passwordVisible ? 'text' : 'password'} autoComplete="current-password" value={authForm.password} onChange={(event) => { setAuthForm((current) => ({ ...current, password: event.target.value })); setAuthFieldErrors((current) => ({ ...current, password: false })); }} trailingAction={<MaiqButton type="button" size="sm" variant="ghost" style={{ ...secondaryButtonStyle, width: '38px', padding: 0 }} aria-label={passwordVisible ? 'Ocultar senha' : 'Exibir senha'} title={passwordVisible ? 'Ocultar senha' : 'Exibir senha'} onClick={() => setPasswordVisible((current) => !current)}>{passwordVisible ? <EyeOff size={18} /> : <Eye size={18} />}</MaiqButton>} />
               {authError ? <Message tone="critical">{authError}</Message> : null}
               <MaiqButton type="submit" size="lg" variant="primary" fullWidth style={primaryButtonStyle} disabled={authLoading}>
                 {authLoading ? 'Entrando...' : 'Entrar'}
               </MaiqButton>
-              <MaiqButton type="button" size="md" variant="ghost" fullWidth style={secondaryButtonStyle} onClick={() => { setAuthMode('recover'); setAuthError(null); }}>
-                Esqueci minha senha
-              </MaiqButton>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2,minmax(0,1fr))', gap: '8px' }}>
+                <MaiqButton type="button" size="md" variant="ghost" fullWidth style={{ ...secondaryButtonStyle, padding: '0 8px', whiteSpace: 'normal' }} onClick={() => { setAuthMode('recover'); setAuthError(null); }}>Esqueci minha senha</MaiqButton>
+                <MaiqButton type="button" size="md" variant="ghost" fullWidth style={{ ...secondaryButtonStyle, padding: '0 8px', whiteSpace: 'normal' }} onClick={requestRegistration}>Solicitar cadastro</MaiqButton>
+              </div>
             </div>
           </form>
         )}
@@ -381,16 +418,21 @@ export default function AuthLeadDialogs({
             </div>
           </div>
         ) : (
-          <form onSubmit={handleLeadSubmit} noValidate>
-            <DialogHeader eyebrow="Contato" title="Converse com a Maiq.">
-              <p style={{ margin: 0 }}>Preencha seus dados para iniciarmos uma conversa sobre crescimento inorgânico.</p>
-            </DialogHeader>
-            <div style={{ padding: '24px 28px 28px', display: 'grid', gap: '16px' }}>
-              <TextInput id="lead-name" label="Nome" icon={<UserRound size={16} />} type="text" autoComplete="name" value={leadForm.name} onChange={(event) => setLeadForm((current) => ({ ...current, name: event.target.value }))} />
-              <TextInput id="lead-email" label="Email" icon={<Mail size={16} />} type="email" autoComplete="email" value={leadForm.email} onChange={(event) => setLeadForm((current) => ({ ...current, email: event.target.value }))} />
-              <TextInput id="lead-phone" label="Telefone" icon={<Phone size={16} />} type="tel" autoComplete="tel" value={leadForm.phone ?? ''} onChange={(event) => setLeadForm((current) => ({ ...current, phone: event.target.value }))} />
-              <TextInput id="lead-company" label="Empresa" icon={<Building2 size={16} />} type="text" autoComplete="organization" value={leadForm.company} onChange={(event) => setLeadForm((current) => ({ ...current, company: event.target.value }))} />
+          <form onSubmit={handleLeadSubmit} noValidate style={{ display: 'flex', flexDirection: 'column', maxHeight: 'min(86vh, 760px)' }}>
+            <DialogHeader title="Fale Conosco" />
+            <div style={{ marginTop: '24px', padding: '0 28px', display: 'grid', gap: '16px', overflowY: 'auto', overscrollBehavior: 'contain' }}>
+              <TextInput id="lead-name" label="Nome" icon={<UserRound size={16} />} error={Boolean(leadFieldErrors.name)} type="text" autoComplete="name" value={leadForm.name} onChange={(event) => { setLeadForm((current) => ({ ...current, name: event.target.value })); setLeadFieldErrors((current) => ({ ...current, name: undefined })); }} />
+              <TextInput id="lead-email" label="Email" icon={<Mail size={16} />} error={Boolean(leadFieldErrors.email)} type="email" autoComplete="email" value={leadForm.email} onChange={(event) => { setLeadForm((current) => ({ ...current, email: event.target.value })); setLeadFieldErrors((current) => ({ ...current, email: undefined })); }} />
+              <TextInput id="lead-phone" label="Telefone" icon={<Phone size={16} />} error={Boolean(leadFieldErrors.phone)} type="tel" autoComplete="tel" value={leadForm.phone ?? ''} onChange={(event) => { setLeadForm((current) => ({ ...current, phone: event.target.value })); setLeadFieldErrors((current) => ({ ...current, phone: undefined })); }} />
+              <TextInput id="lead-company" label="Empresa" icon={<Building2 size={16} />} error={Boolean(leadFieldErrors.company)} type="text" autoComplete="organization" value={leadForm.company} onChange={(event) => { setLeadForm((current) => ({ ...current, company: event.target.value })); setLeadFieldErrors((current) => ({ ...current, company: undefined })); }} />
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px' }}>
+                <span style={labelStyle}><MessageSquareText size={16} />Como podemos ajudar?</span>
+                <MaiqButton type="button" size="sm" variant={messageEnabled ? 'primary' : 'secondary'} style={messageEnabled ? { ...primaryButtonStyle, minWidth: '58px', padding: '0 14px' } : { minWidth: '58px', padding: '0 14px' }} role="switch" aria-checked={messageEnabled} onClick={() => setMessageEnabled((current) => !current)}>{messageEnabled ? 'on' : 'off'}</MaiqButton>
+              </div>
+              {messageEnabled ? <TextArea id="lead-message" label="Mensagem" icon={<MessageSquareText size={16} />} error={Boolean(leadFieldErrors.message)} maxLength={2000} value={leadForm.message ?? ''} onChange={(event) => { setLeadForm((current) => ({ ...current, message: event.target.value })); setLeadFieldErrors((current) => ({ ...current, message: undefined })); }} /> : null}
               {leadError ? <Message tone="critical">{leadError}</Message> : null}
+            </div>
+            <div style={{ padding: '20px 28px 28px', flex: '0 0 auto' }}>
               <MaiqButton type="submit" size="lg" variant="primary" fullWidth style={primaryButtonStyle} disabled={leadLoading}>
                 {leadLoading ? 'Registrando...' : 'Enviar contato'}
               </MaiqButton>
@@ -411,10 +453,10 @@ function Message({ tone, children }: { tone: 'success' | 'critical'; children: R
         display: 'flex',
         alignItems: 'flex-start',
         gap: '10px',
-        border: '1px solid var(--p-hair,rgba(233,224,209,.14))',
+        border: tone === 'critical' ? '1px solid var(--state-critical,#9E4A31)' : '1px solid var(--p-hair,rgba(233,224,209,.14))',
         borderRadius: 'var(--radius-md)',
-        background: 'var(--p-chip-bg,rgba(233,224,209,.04))',
-        color: tone === 'success' ? 'var(--state-positive,#4E8F6E)' : 'var(--state-critical,#9E4A31)',
+        background: tone === 'critical' ? 'color-mix(in srgb, var(--state-critical,#9E4A31) 22%, var(--p-card,#1B4442))' : 'var(--p-chip-bg,rgba(233,224,209,.04))',
+        color: tone === 'success' ? 'var(--state-positive,#4E8F6E)' : 'var(--p-text,#E9E0D1)',
         padding: '12px 14px',
         fontSize: '14px',
         lineHeight: 1.45,
