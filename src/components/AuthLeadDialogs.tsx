@@ -38,7 +38,9 @@ const PHONE_RE = /^[+()\d\s.-]{8,40}$/;
 const fieldStyle: CSSProperties = {
   width: '100%',
   height: '46px',
-  border: '1px solid var(--p-hair,rgba(233,224,209,.14))',
+  borderWidth: '1px',
+  borderStyle: 'solid',
+  borderColor: 'var(--p-hair,rgba(233,224,209,.14))',
   borderRadius: 'var(--radius-md)',
   background: 'var(--p-chip-bg,rgba(233,224,209,.04))',
   color: 'var(--p-text,#E9E0D1)',
