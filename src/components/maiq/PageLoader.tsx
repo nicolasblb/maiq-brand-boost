@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react';
 
+import logoBranco from '@/assets/logo-maiq-branco.png';
+import logoMadeira from '@/assets/logo-maiq-madeira.png';
+
 export default function PageLoader() {
   const [hiding, setHiding] = useState(false);
   const [done, setDone] = useState(false);
@@ -59,7 +62,10 @@ export default function PageLoader() {
   return (
     <div className="maiq-loader" data-hiding={hiding} aria-hidden="true">
       <div className="maiq-loader-hero">
-        <span className="maiq-loader-mark">MAIQ</span>
+        <span className="maiq-loader-mark">
+          <img className="maiq-loader-logo maiq-loader-logo-night" src={logoBranco} alt="" />
+          <img className="maiq-loader-logo maiq-loader-logo-day" src={logoMadeira} alt="" />
+        </span>
         <span className="maiq-loader-block maiq-loader-overline" />
         <span className="maiq-loader-block maiq-loader-line-1" />
         <span className="maiq-loader-block maiq-loader-line-2" />

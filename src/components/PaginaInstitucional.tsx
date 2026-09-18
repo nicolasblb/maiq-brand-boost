@@ -1166,7 +1166,7 @@ export default function PaginaInstitucional() {
         <Conviccao />
         </div>
       </div>
-      <div ref={overlay2WrapRef} style={{ position: "relative", zIndex: "1", background: "var(--p-bg,#0D2423)", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
+      <div ref={overlay2WrapRef} className="maiq-platform-transition" style={{ position: "relative", zIndex: "1", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
           <div ref={overlay2Ref} style={{ position: "relative", zIndex: "1", overflow: "clip", willChange: "transform" }}>
             <div ref={netWrapRef} style={{ position: "sticky", top: "0", zIndex: "0", overflow: "clip" }}>
               <div ref={netContentRef} data-maiq-net-content="" className="maiq-platform-ciclo-bg" style={{ position: "relative", zIndex: "1", willChange: "transform" }}>
