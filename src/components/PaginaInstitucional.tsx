@@ -1182,22 +1182,31 @@ export default function PaginaInstitucional() {
               <Ciclo />
               </div>
             </div>
-            <div ref={overlay3Ref} style={{ position: "relative", zIndex: "2", background: "var(--p-bg,#0D2423)", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "24px 24px 0 0", overflow: "clip", boxShadow: "var(--p-overlay-shadow,0 -30px 60px -18px rgba(4,16,16,.62))", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
+            <div ref={overlay3Ref} style={{ position: "relative", zIndex: "2", background: "var(--p-bg,#0D2423)", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "24px 24px 0 0", overflow: "clip", boxShadow: "var(--p-overlay-shadow,0 -30px 60px -18px rgba(4,16,16,.62))", transition: "background 320ms cubic-bezier(.16,1,.3,1)", display: "flex", flexDirection: "column", minHeight: "100svh" }}>
             <Faq onContact={() => setLeadOpen(true)} />
-            <footer style={{ background: "var(--p-footer-bg,#0A1D1D)", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", padding: "64px 48px 32px", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
-              <div style={{ maxWidth: "1200px", margin: "0 auto", display: "flex", justifyContent: "space-between", gap: "48px", flexWrap: "wrap" }}>
+            <footer className="maiq-footer" style={{ background: "var(--p-footer-bg,#0A1D1D)", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", padding: "56px 48px 28px", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
+              <div className="maiq-footer-top">
                 <div style={{ position: "relative", display: "inline-flex" }}>
                   <img src={logoBranco} alt="Maiq" style={{ height: "30px", width: "auto", display: "block" }} />
                   <img ref={logoFooterDayRef} src={logoMadeira} alt="" style={{ position: "absolute", left: "0", top: "0", height: "30px", width: "auto", display: "block", opacity: "0", transition: "opacity 320ms cubic-bezier(.16,1,.3,1)" }} />
                 </div>
-                <div style={{ fontSize: "14px", color: "var(--p-muted,#91A398)" }}>
-                  contato@maiq.app.br
-                </div>
+                <nav className="maiq-footer-cols" aria-label="Links do rodapé">
+                  <div className="maiq-footer-col">
+                    <p className="maiq-footer-col-title">Contato</p>
+                    <a className="maiq-footer-link" href="mailto:contato@maiq.app.br">contato@maiq.app.br</a>
+                  </div>
+                  <div className="maiq-footer-col">
+                    <p className="maiq-footer-col-title">Legal</p>
+                    <Link className="maiq-footer-link" to="/politica-de-privacidade">Política de privacidade</Link>
+                    <Link className="maiq-footer-link" to="/termos-de-uso">Termos de uso</Link>
+                  </div>
+                </nav>
               </div>
-              <div style={{ maxWidth: "1200px", margin: "48px auto 0", paddingTop: "24px", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", fontSize: "13px", color: "var(--p-muted,#91A398)" }}>
+              <div style={{ maxWidth: "1200px", margin: "40px auto 0", paddingTop: "22px", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", fontSize: "13px", color: "var(--p-muted,#91A398)" }}>
                 © 2026 Maiq. Todos os direitos reservados.
               </div>
             </footer>
+
             </div>
           </div>
         </div>
