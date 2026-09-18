@@ -97,8 +97,8 @@ export default function ConvictionScene() {
     const synchronize = () => {
       if (source) {
         source.pause();
-        target.currentTime = source.currentTime;
       }
+      target.currentTime = source?.currentTime ?? time;
       if (playing && visible) void target.play().catch(() => undefined);
     };
     if (target.readyState >= 1) synchronize();
