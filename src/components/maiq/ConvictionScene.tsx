@@ -130,16 +130,9 @@ export default function ConvictionScene() {
   };
 
   const toggle = () => {
-    const active = activeRef();
-    if (!active) return;
-    if (active.ended || active.currentTime >= DURATION - 0.05) {
-      active.currentTime = 0;
-      setTime(0);
-      setPlaying(true);
-      return;
-    }
     setPlaying((value) => !value);
   };
+
 
   const duration = activeRef()?.duration || DURATION;
 
