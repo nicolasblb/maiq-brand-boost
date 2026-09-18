@@ -661,28 +661,33 @@ export default function Ciclo() {
             <g data-c-fases="">
               <g data-c-phase="0">
                 <rect x="34" y="142" width="190" height="80" rx="10" fill="var(--c-lane-bg)" stroke="var(--c-lane-hair)" />
-                <text x="129" y="189" textAnchor="middle" fill="var(--c-lane-fg)" style={{ fontSize: 19, fontWeight: 500 }}>
+                <LaneSvgIcon name="target" x={50} y={172} />
+                <text x="82" y="189" textAnchor="start" fill="var(--c-lane-fg)" style={{ fontSize: 19, fontWeight: 500 }}>
                   Estratégia
                 </text>
               </g>
               <g data-c-phase="1">
                 <rect x="34" y="282" width="190" height="80" rx="10" fill="var(--c-lane-bg)" stroke="var(--c-lane-hair)" />
-                <text x="129" y="329" textAnchor="middle" fill="var(--c-lane-fg)" style={{ fontSize: 19, fontWeight: 500 }}>
+                <LaneSvgIcon name="search" x={50} y={312} />
+                <text x="82" y="329" textAnchor="start" fill="var(--c-lane-fg)" style={{ fontSize: 19, fontWeight: 500 }}>
                   Originação
                 </text>
               </g>
               <g data-c-phase="2">
                 <rect x="34" y="423" width="190" height="80" rx="10" fill="var(--c-lane-bg)" stroke="var(--c-lane-hair)" />
-                <text x="129" y="470" textAnchor="middle" fill="var(--c-lane-fg)" style={{ fontSize: 19, fontWeight: 500 }}>
+                <LaneSvgIcon name="cog" x={50} y={453} />
+                <text x="82" y="470" textAnchor="start" fill="var(--c-lane-fg)" style={{ fontSize: 19, fontWeight: 500 }}>
                   Execução
                 </text>
               </g>
               <g data-c-phase="3">
                 <rect x="34" y="563" width="190" height="80" rx="10" fill="var(--c-lane-bg)" stroke="var(--c-lane-hair)" />
-                <text x="129" y="610" textAnchor="middle" fill="var(--c-lane-fg)" style={{ fontSize: 19, fontWeight: 500 }}>
+                <LaneSvgIcon name="file-check" x={50} y={593} />
+                <text x="82" y="610" textAnchor="start" fill="var(--c-lane-fg)" style={{ fontSize: 19, fontWeight: 500 }}>
                   Efetivação
                 </text>
               </g>
+
             </g>
             <g data-c-phase="0">
               <g data-c-node="p1">
