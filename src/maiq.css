@@ -520,12 +520,15 @@ body{margin:0;background:#0D2423;transition:background 320ms cubic-bezier(.16,1,
   letter-spacing:0;
   text-wrap:pretty;
 }
-.maiq-conviction-player{
-  position:relative;
+.maiq-conviction-player-wrap{
   width:70%;
   margin-right:auto;
   margin-left:auto;
   margin-top:clamp(48px,7vh,80px);
+}
+.maiq-conviction-player{
+  position:relative;
+  width:100%;
   aspect-ratio:16/9;
   overflow:hidden;
   border:1px solid var(--p-hair-strong);
@@ -550,21 +553,28 @@ body{margin:0;background:#0D2423;transition:background 320ms cubic-bezier(.16,1,
   position:absolute;
   z-index:2;
   left:20px;
+  right:20px;
   bottom:20px;
   display:flex;
   align-items:center;
+  justify-content:space-between;
   gap:8px;
 }
+.maiq-conviction-controls-group{display:flex;align-items:center;gap:8px}
 .maiq-conviction-skip{gap:2px!important}
 .maiq-conviction-skip span{font-size:10px;font-weight:var(--fw-semibold);line-height:1}
+.maiq-conviction-modal{position:fixed;z-index:71;inset:clamp(18px,4vw,54px);max-width:1440px;max-height:calc(100vh - clamp(36px,8vw,108px));aspect-ratio:16/9;margin:auto;padding:0;overflow:hidden;border:1px solid var(--p-hair-strong);border-radius:var(--radius-lg);background:var(--p-bg-deep);box-shadow:var(--shadow-3);color:var(--p-text);animation:maiqPlatformModalIn 260ms var(--ease-out)}
+.maiq-conviction-modal-media{position:relative;width:100%;height:100%;overflow:hidden;background:var(--p-bg-deep)}
 @media (max-width:800px){
   .maiq-conviction{padding:96px 24px 72px}
   .maiq-conviction-copy h3{margin-top:22px;font-size:clamp(27px,8vw,36px)}
   .maiq-conviction-copy p{margin-top:20px;font-size:16px;line-height:1.58}
-  .maiq-conviction-player{width:70%;margin-top:44px;aspect-ratio:16/9;border-radius:var(--radius-md)}
-  .maiq-conviction-controls{left:12px;bottom:12px}
+  .maiq-conviction-player-wrap{width:70%;margin-top:44px}
+  .maiq-conviction-player{aspect-ratio:16/9;border-radius:var(--radius-md)}
+  .maiq-conviction-controls{right:12px;left:12px;bottom:12px}
+  .maiq-conviction-modal{inset:10px;max-height:calc(100vh - 20px);border-radius:var(--radius-md)}
 }
-@media (prefers-reduced-motion:reduce){.maiq-conviction-video{transition:none}}
+@media (prefers-reduced-motion:reduce){.maiq-conviction-video{transition:none}.maiq-conviction-modal{animation:none}}
 
 .maiq-model-pilares-bg{
   isolation:isolate;
