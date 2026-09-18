@@ -510,35 +510,19 @@ body{margin:0;background:#0D2423;transition:background 320ms cubic-bezier(.16,1,
   background:var(--p-bg-deep);
   box-shadow:var(--shadow-2);
 }
-.maiq-conviction-svg{display:block;width:100%;height:100%;font-family:var(--font-core);font-variant-numeric:tabular-nums}
-.maiq-conviction-svg text{fill:var(--p-muted);font-size:22px;font-weight:var(--fw-regular)}
-.maiq-conviction-bg{fill:var(--p-model-block-center)}
-.maiq-conviction-toggle>rect:first-child{fill:var(--p-chip-bg);stroke:var(--p-hair-strong);stroke-width:1.5}
-.maiq-conviction-toggle-pill{fill:var(--p-cta-bg);transition:fill var(--dur-3) var(--ease-out)}
-.maiq-conviction-toggle text{font-size:22px;text-anchor:middle;dominant-baseline:middle;fill:var(--p-muted)}
-.maiq-conviction-toggle text[data-active="true"]{fill:var(--p-cta-fg);font-weight:var(--fw-semibold)}
-.maiq-conviction-legend text{font-size:19px;dominant-baseline:middle}
-.maiq-conviction-legend .ghost,.maiq-conviction-panel .bar-ghost{fill:none;stroke:var(--p-muted);stroke-width:2;stroke-dasharray:4 5}
-.maiq-conviction-legend .base,.maiq-conviction-panel .bar-base,.maiq-conviction-panel .bar-organic{fill:var(--p-muted)}
-.maiq-conviction-legend .accent,.maiq-conviction-panel .bar-accent{fill:var(--highlight)}
-.maiq-conviction-panel>rect:first-child,.maiq-conviction-side>rect{fill:var(--p-card);stroke:var(--p-hair-strong);stroke-width:1}
-.maiq-conviction-panel>text{dominant-baseline:middle}
-.maiq-conviction-panel>text.active{fill:var(--p-text);font-weight:var(--fw-medium)}
-.maiq-conviction-panel line{stroke:var(--p-hair-strong);stroke-width:1}
-.maiq-conviction-panel .year-line{fill:var(--highlight);stroke:none}
-.maiq-conviction-panel .readiness{fill:color-mix(in oklab,var(--highlight) 18%,transparent);stroke:var(--highlight);stroke-width:1.5}
-.maiq-conviction-panel .readiness-label{fill:var(--p-text);font-weight:var(--fw-medium)}
-.maiq-conviction-panel .readiness-empty{fill:var(--p-muted)}
-.maiq-conviction-panel .accent-text,.maiq-conviction-panel .result{fill:var(--highlight);font-weight:var(--fw-medium)}
-.maiq-conviction-panel .result{font-size:38px}
-.maiq-conviction-side .side-title{fill:var(--p-text);font-size:24px;font-weight:var(--fw-medium)}
-.maiq-conviction-side .radar-ring{fill:none;stroke:var(--p-hair-strong);stroke-width:1}
-.maiq-conviction-side .radar-label{font-size:19px;dominant-baseline:middle}
-.maiq-conviction-side .radar-value{fill:color-mix(in oklab,var(--highlight) 20%,transparent);stroke:var(--highlight);stroke-width:2;stroke-linejoin:round}
-.maiq-conviction-side .milestone-icon{fill:color-mix(in oklab,var(--highlight) 16%,transparent)}
-.maiq-conviction-side .milestone-mark{fill:none;stroke:var(--highlight);stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
-.maiq-conviction-side .milestone-kicker{font-size:19px}
-.maiq-conviction-side .milestone-title{fill:var(--p-text);font-size:26px;font-weight:var(--fw-medium)}
+.maiq-conviction-video{
+  position:absolute;
+  inset:0;
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity var(--dur-3) var(--ease-out);
+}
+.maiq-conviction-video[data-active="true"]{opacity:1}
+
 .maiq-conviction-controls{
   position:absolute;
   z-index:2;
@@ -554,11 +538,11 @@ body{margin:0;background:#0D2423;transition:background 320ms cubic-bezier(.16,1,
   .maiq-conviction{padding:96px 24px 72px}
   .maiq-conviction-copy h3{margin-top:22px;font-size:clamp(27px,8vw,36px)}
   .maiq-conviction-copy p{margin-top:20px;font-size:16px;line-height:1.58}
-  .maiq-conviction-player{margin-top:44px;aspect-ratio:16/10;border-radius:var(--radius-md)}
-  .maiq-conviction-svg{width:160%;max-width:none;transform:translateX(-18.75%)}
+  .maiq-conviction-player{margin-top:44px;aspect-ratio:16/9;border-radius:var(--radius-md)}
   .maiq-conviction-controls{left:12px;bottom:12px}
 }
-@media (prefers-reduced-motion:reduce){.maiq-conviction-svg *{transition:none!important}}
+@media (prefers-reduced-motion:reduce){.maiq-conviction-video{transition:none}}
+
 .maiq-model-pilares-bg{
   isolation:isolate;
   overflow:hidden;

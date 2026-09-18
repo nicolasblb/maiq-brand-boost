@@ -15,7 +15,7 @@
 - [x] Refinar a pílula ativa, preencher as divisórias e unificar o relógio fluido das cinco mídias.
 - [x] Tornar as divisórias opacas e substituir os fundos animados por degradês verticais nos dois temas.
 - [x] Alinhar a tipografia e o botão do FAQ ao design Maiq e remover os textos introdutórios.
-- [x] Reconstruir “Os Pilares” como “Nossa Convicção” com a animação Valor na mesa, temas dia/noite e controles de reprodução.
+- [x] Reconstruir “Os Pilares” como “Nossa Convicção” — agora exibindo os vídeos originais “Valor na mesa” (claro/escuro, 20,5s) com play/pause, ±5s e troca de tema sem reiniciar.
 - [x] Restaurar o subtítulo do FAQ: "Respostas às perguntas frequentes sobre a atuação do Maiq".
 - [x] Remover a seção "O Domínio" da página institucional, preservando Dominio.tsx e as logos (logo-*.asset.json) para a futura página Sobre nós > Domínios.
 - [ ] Construir a nova seção/página "Sobre nós > Domínios" em outro formato (logos e componente guardados; aguardando definição do formato).
