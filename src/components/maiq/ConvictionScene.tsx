@@ -146,8 +146,8 @@ export default function ConvictionScene() {
         muted
         playsInline
         preload="auto"
+        loop
         aria-label="Animação Valor na mesa: comparação entre crescimento orgânico e crescimento com M&A"
-        onEnded={() => setPlaying(false)}
         onTimeUpdate={(event) => setTime(event.currentTarget.currentTime)}
       >
         <source src={videoEscuro.url} type="video/mp4" />
@@ -161,8 +161,8 @@ export default function ConvictionScene() {
         muted
         playsInline
         preload="auto"
+        loop
         aria-hidden="true"
-        onEnded={() => setPlaying(false)}
         onTimeUpdate={(event) => setTime(event.currentTarget.currentTime)}
       >
         <source src={videoClaro.url} type="video/mp4" />
