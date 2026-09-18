@@ -538,11 +538,11 @@ body{margin:0;background:#0D2423;transition:background 320ms cubic-bezier(.16,1,
   .maiq-conviction{padding:96px 24px 72px}
   .maiq-conviction-copy h3{margin-top:22px;font-size:clamp(27px,8vw,36px)}
   .maiq-conviction-copy p{margin-top:20px;font-size:16px;line-height:1.58}
-  .maiq-conviction-player{margin-top:44px;aspect-ratio:16/10;border-radius:var(--radius-md)}
-  .maiq-conviction-svg{width:160%;max-width:none;transform:translateX(-18.75%)}
+  .maiq-conviction-player{margin-top:44px;aspect-ratio:16/9;border-radius:var(--radius-md)}
   .maiq-conviction-controls{left:12px;bottom:12px}
 }
-@media (prefers-reduced-motion:reduce){.maiq-conviction-svg *{transition:none!important}}
+@media (prefers-reduced-motion:reduce){.maiq-conviction-video{transition:none}}
+
 .maiq-model-pilares-bg{
   isolation:isolate;
   overflow:hidden;
