@@ -64,7 +64,9 @@ export default function ConvictionScene() {
     return () => observer.disconnect();
   }, []);
 
-  // sincroniza o tempo entre as duas versões ao trocar de tema
+  // sincroniza o tempo entre as duas versões apenas quando o tema muda
+  const stateRef = useRef({ playing: false, visible: false });
+  stateRef.current = { playing, visible };
   useEffect(() => {
     const active = light ? lightRef.current : darkRef.current;
     const other = light ? darkRef.current : lightRef.current;
@@ -73,8 +75,9 @@ export default function ConvictionScene() {
       other.pause();
       if (Math.abs(other.currentTime - active.currentTime) > 0.05) active.currentTime = other.currentTime;
     }
-    if (playing && visible) void active.play().catch(() => undefined);
-  }, [light, playing, visible]);
+    if (stateRef.current.playing && stateRef.current.visible) void active.play().catch(() => undefined);
+  }, [light]);
+
 
   // visibilidade
   useEffect(() => {
