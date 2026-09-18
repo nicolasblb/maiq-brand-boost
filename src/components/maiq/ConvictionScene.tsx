@@ -6,6 +6,8 @@ import videoEscuro from '@/assets/valor-na-mesa-escuro.mp4.asset.json';
 import videoClaro from '@/assets/valor-na-mesa-claro.mp4.asset.json';
 import posterEscuro from '@/assets/valor-na-mesa-escuro-poster.jpg.asset.json';
 import posterClaro from '@/assets/valor-na-mesa-claro-poster.jpg.asset.json';
+import webmEscuro from '@/assets/valor-na-mesa-escuro.webm.asset.json';
+import webmClaro from '@/assets/valor-na-mesa-claro.webm.asset.json';
 
 const DURATION = 20.5;
 
@@ -144,7 +146,6 @@ export default function ConvictionScene() {
         ref={darkRef}
         className="maiq-conviction-video"
         data-active={!light}
-        src={videoEscuro.url}
         poster={posterEscuro.url}
         muted
         playsInline
@@ -152,12 +153,14 @@ export default function ConvictionScene() {
         aria-label="Animação Valor na mesa: comparação entre crescimento orgânico e crescimento com M&A"
         onEnded={() => setPlaying(false)}
         onTimeUpdate={(event) => setTime(event.currentTarget.currentTime)}
-      />
+      >
+        <source src={videoEscuro.url} type="video/mp4" />
+        <source src={webmEscuro.url} type="video/webm" />
+      </video>
       <video
         ref={lightRef}
         className="maiq-conviction-video"
         data-active={light}
-        src={videoClaro.url}
         poster={posterClaro.url}
         muted
         playsInline
@@ -165,7 +168,10 @@ export default function ConvictionScene() {
         aria-hidden="true"
         onEnded={() => setPlaying(false)}
         onTimeUpdate={(event) => setTime(event.currentTarget.currentTime)}
-      />
+      >
+        <source src={videoClaro.url} type="video/mp4" />
+        <source src={webmClaro.url} type="video/webm" />
+      </video>
       <div className="maiq-conviction-controls" aria-label="Controles da animação">
         <TimeButton direction="back" onClick={() => seek(-5)} />
         <PlaybackButton playing={playing && visible} value={Math.min(1, time / duration)} onClick={toggle} />
