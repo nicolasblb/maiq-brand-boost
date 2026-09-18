@@ -1,4 +1,57 @@
 import { useEffect, useRef } from 'react';
+import { Cog, FileCheck, Search, Target } from 'lucide-react';
+
+const LANES = [
+  { label: 'Estratégia', top: '9.90%', Icon: Target, icon: 'target' as const },
+  { label: 'Originação', top: '36.57%', Icon: Search, icon: 'search' as const },
+  { label: 'Execução', top: '63.43%', Icon: Cog, icon: 'cog' as const },
+  { label: 'Efetivação', top: '90.10%', Icon: FileCheck, icon: 'file-check' as const },
+];
+
+type LaneIconName = (typeof LANES)[number]['icon'];
+
+function LaneSvgIcon({ name, x, y }: { name: LaneIconName; x: number; y: number }) {
+  const scale = 20 / 24;
+  return (
+    <g
+      transform={`translate(${x},${y}) scale(${scale})`}
+      fill="none"
+      stroke="var(--c-lane-fg)"
+      strokeWidth={1.5}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      {name === 'target' && (
+        <>
+          <circle cx="12" cy="12" r="10" />
+          <circle cx="12" cy="12" r="6" />
+          <circle cx="12" cy="12" r="2" />
+        </>
+      )}
+      {name === 'search' && (
+        <>
+          <circle cx="11" cy="11" r="7" />
+          <path d="m21 21-4.3-4.3" />
+        </>
+      )}
+      {name === 'cog' && (
+        <>
+          <circle cx="12" cy="12" r="3" />
+          <circle cx="12" cy="12" r="8" />
+          <path d="M12 4V2M12 22v-2M4 12H2M22 12h-2M6.3 6.3 4.9 4.9M19.1 19.1l-1.4-1.4M17.7 6.3l1.4-1.4M4.9 19.1l1.4-1.4" />
+        </>
+      )}
+      {name === 'file-check' && (
+        <>
+          <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+          <path d="M14 2v5h5" />
+          <path d="m9 15 2 2 4-4" />
+        </>
+      )}
+    </g>
+  );
+}
+
 
 type Step = {
   id: string;
@@ -431,94 +484,38 @@ export default function Ciclo() {
                   'linear-gradient(180deg,transparent,var(--c-dot) 16%,var(--c-dot) 84%,transparent)',
               }}
             />
-            <div
-              style={{
-                position: 'absolute',
-                left: 8,
-                top: '9.90%',
-                transform: 'translateY(-50%)',
-                width: 186,
-                height: 80,
-                borderRadius: 10,
-                boxSizing: 'border-box',
-                background: 'var(--c-lane-bg)',
-                border: '1px solid var(--c-lane-hair)',
-                color: 'var(--c-lane-fg)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: 18,
-                fontWeight: 500,
-              }}
-            >
-              Estratégia
-            </div>
-            <div
-              style={{
-                position: 'absolute',
-                left: 8,
-                top: '36.57%',
-                transform: 'translateY(-50%)',
-                width: 186,
-                height: 80,
-                borderRadius: 10,
-                boxSizing: 'border-box',
-                background: 'var(--c-lane-bg)',
-                border: '1px solid var(--c-lane-hair)',
-                color: 'var(--c-lane-fg)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: 18,
-                fontWeight: 500,
-              }}
-            >
-              Originação
-            </div>
-            <div
-              style={{
-                position: 'absolute',
-                left: 8,
-                top: '63.43%',
-                transform: 'translateY(-50%)',
-                width: 186,
-                height: 80,
-                borderRadius: 10,
-                boxSizing: 'border-box',
-                background: 'var(--c-lane-bg)',
-                border: '1px solid var(--c-lane-hair)',
-                color: 'var(--c-lane-fg)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: 18,
-                fontWeight: 500,
-              }}
-            >
-              Execução
-            </div>
-            <div
-              style={{
-                position: 'absolute',
-                left: 8,
-                top: '90.10%',
-                transform: 'translateY(-50%)',
-                width: 186,
-                height: 80,
-                borderRadius: 10,
-                boxSizing: 'border-box',
-                background: 'var(--c-lane-bg)',
-                border: '1px solid var(--c-lane-hair)',
-                color: 'var(--c-lane-fg)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: 18,
-                fontWeight: 500,
-              }}
-            >
-              Efetivação
-            </div>
+            {LANES.map((lane) => {
+              const LaneIcon = lane.Icon;
+              return (
+                <div
+                  key={lane.label}
+                  style={{
+                    position: 'absolute',
+                    left: 8,
+                    top: lane.top,
+                    transform: 'translateY(-50%)',
+                    width: 186,
+                    height: 80,
+                    borderRadius: 10,
+                    boxSizing: 'border-box',
+                    background: 'var(--c-lane-bg)',
+                    border: '1px solid var(--c-lane-hair)',
+                    color: 'var(--c-lane-fg)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'flex-start',
+                    gap: 10,
+                    padding: '0 16px',
+                    fontSize: 18,
+                    fontWeight: 500,
+                  }}
+                >
+                  <LaneIcon size={20} strokeWidth={1.5} aria-hidden="true" style={{ flex: '0 0 auto' }} />
+                  <span>{lane.label}</span>
+                </div>
+              );
+            })}
+
           </div>
           <svg
             ref={cicloSvgRef}
@@ -664,28 +661,33 @@ export default function Ciclo() {
             <g data-c-fases="">
               <g data-c-phase="0">
                 <rect x="34" y="142" width="190" height="80" rx="10" fill="var(--c-lane-bg)" stroke="var(--c-lane-hair)" />
-                <text x="129" y="189" textAnchor="middle" fill="var(--c-lane-fg)" style={{ fontSize: 19, fontWeight: 500 }}>
+                <LaneSvgIcon name="target" x={50} y={172} />
+                <text x="82" y="189" textAnchor="start" fill="var(--c-lane-fg)" style={{ fontSize: 19, fontWeight: 500 }}>
                   Estratégia
                 </text>
               </g>
               <g data-c-phase="1">
                 <rect x="34" y="282" width="190" height="80" rx="10" fill="var(--c-lane-bg)" stroke="var(--c-lane-hair)" />
-                <text x="129" y="329" textAnchor="middle" fill="var(--c-lane-fg)" style={{ fontSize: 19, fontWeight: 500 }}>
+                <LaneSvgIcon name="search" x={50} y={312} />
+                <text x="82" y="329" textAnchor="start" fill="var(--c-lane-fg)" style={{ fontSize: 19, fontWeight: 500 }}>
                   Originação
                 </text>
               </g>
               <g data-c-phase="2">
                 <rect x="34" y="423" width="190" height="80" rx="10" fill="var(--c-lane-bg)" stroke="var(--c-lane-hair)" />
-                <text x="129" y="470" textAnchor="middle" fill="var(--c-lane-fg)" style={{ fontSize: 19, fontWeight: 500 }}>
+                <LaneSvgIcon name="cog" x={50} y={453} />
+                <text x="82" y="470" textAnchor="start" fill="var(--c-lane-fg)" style={{ fontSize: 19, fontWeight: 500 }}>
                   Execução
                 </text>
               </g>
               <g data-c-phase="3">
                 <rect x="34" y="563" width="190" height="80" rx="10" fill="var(--c-lane-bg)" stroke="var(--c-lane-hair)" />
-                <text x="129" y="610" textAnchor="middle" fill="var(--c-lane-fg)" style={{ fontSize: 19, fontWeight: 500 }}>
+                <LaneSvgIcon name="file-check" x={50} y={593} />
+                <text x="82" y="610" textAnchor="start" fill="var(--c-lane-fg)" style={{ fontSize: 19, fontWeight: 500 }}>
                   Efetivação
                 </text>
               </g>
+
             </g>
             <g data-c-phase="0">
               <g data-c-node="p1">

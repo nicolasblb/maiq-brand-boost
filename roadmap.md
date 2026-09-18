@@ -20,3 +20,8 @@
 - [x] Remover a seção "O Domínio" da página institucional, preservando Dominio.tsx e as logos (logo-*.asset.json) para a futura página Sobre nós > Domínios.
 - [ ] Construir a nova seção/página "Sobre nós > Domínios" em outro formato (logos e componente guardados; aguardando definição do formato).
 - [ ] Decidir destino da animação neural arquivada (src/components/maiq/archived/plat-neural-animation.ts.disabled): retomar ou excluir.
+- [x] Rodapé com colunas Contato e Legal + páginas /politica-de-privacidade e /termos-de-uso (textos definitivos pendentes).
+- [x] FAQ + rodapé ocupando a altura da tela, com espaçamento inferior reduzido.
+- [x] Ícones nas raias de "O Ciclo" (Estratégia, Originação, Execução, Efetivação).
+- [x] Vídeo de "Nossa Convicção": pausa no ponto atual, retoma dali e roda em loop.
+- [ ] Receber e publicar os textos definitivos da Política de Privacidade e dos Termos de Uso.

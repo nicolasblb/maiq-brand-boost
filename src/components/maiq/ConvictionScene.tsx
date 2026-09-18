@@ -64,7 +64,9 @@ export default function ConvictionScene() {
     return () => observer.disconnect();
   }, []);
 
-  // sincroniza o tempo entre as duas versões ao trocar de tema
+  // sincroniza o tempo entre as duas versões apenas quando o tema muda
+  const stateRef = useRef({ playing: false, visible: false });
+  stateRef.current = { playing, visible };
   useEffect(() => {
     const active = light ? lightRef.current : darkRef.current;
     const other = light ? darkRef.current : lightRef.current;
@@ -73,8 +75,9 @@ export default function ConvictionScene() {
       other.pause();
       if (Math.abs(other.currentTime - active.currentTime) > 0.05) active.currentTime = other.currentTime;
     }
-    if (playing && visible) void active.play().catch(() => undefined);
-  }, [light, playing, visible]);
+    if (stateRef.current.playing && stateRef.current.visible) void active.play().catch(() => undefined);
+  }, [light]);
+
 
   // visibilidade
   useEffect(() => {
@@ -127,16 +130,9 @@ export default function ConvictionScene() {
   };
 
   const toggle = () => {
-    const active = activeRef();
-    if (!active) return;
-    if (active.ended || active.currentTime >= DURATION - 0.05) {
-      active.currentTime = 0;
-      setTime(0);
-      setPlaying(true);
-      return;
-    }
     setPlaying((value) => !value);
   };
+
 
   const duration = activeRef()?.duration || DURATION;
 
@@ -150,8 +146,8 @@ export default function ConvictionScene() {
         muted
         playsInline
         preload="auto"
+        loop
         aria-label="Animação Valor na mesa: comparação entre crescimento orgânico e crescimento com M&A"
-        onEnded={() => setPlaying(false)}
         onTimeUpdate={(event) => setTime(event.currentTarget.currentTime)}
       >
         <source src={videoEscuro.url} type="video/mp4" />
@@ -165,8 +161,8 @@ export default function ConvictionScene() {
         muted
         playsInline
         preload="auto"
+        loop
         aria-hidden="true"
-        onEnded={() => setPlaying(false)}
         onTimeUpdate={(event) => setTime(event.currentTarget.currentTime)}
       >
         <source src={videoClaro.url} type="video/mp4" />
