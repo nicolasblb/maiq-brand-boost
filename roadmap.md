@@ -27,3 +27,4 @@
 - [ ] Receber e publicar os textos definitivos da Política de Privacidade e dos Termos de Uso.
 - [x] Restaurar a barra luminosa anterior, manter o avanço estável e remover o brilho frontal adicional.
 - [x] Corrigir o carregamento inicial com esqueleto visível e impedir a rolagem automática até “A Plataforma”.
+- [x] Refinar o carregamento com a logo, reduzir o vídeo da Convicção, restaurar os brilhos da Plataforma e corrigir a transição entre blocos.
