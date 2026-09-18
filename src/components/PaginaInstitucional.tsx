@@ -733,6 +733,7 @@ export default function PaginaInstitucional() {
 
   return (
     <div data-maiq-scope="" ref={scopeRef} style={{ fontFamily: "'Grandview','Barlow',Helvetica,Arial,sans-serif", background: "var(--p-bg,#0D2423)", color: "var(--p-text,#E9E0D1)", minHeight: "100vh", transition: "background 320ms cubic-bezier(.16,1,.3,1),color 320ms cubic-bezier(.16,1,.3,1)" }}>
+      <PageLoader />
       <AuthLeadDialogs
         theme={theme}
         authOpen={authOpen}
