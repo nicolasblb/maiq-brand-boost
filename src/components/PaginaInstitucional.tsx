@@ -8,6 +8,7 @@ import Conviccao from '@/components/sections/Conviccao';
 // (src/components/sections/Dominio.tsx e src/assets/logo-*.asset.json) para a
 // futura página "Sobre nós > Domínios".
 import Faq from '@/components/sections/Faq';
+import PageLoader from '@/components/maiq/PageLoader';
 import AuthLeadDialogs from '@/components/AuthLeadDialogs';
 import PlatformShowcase from '@/components/maiq/PlatformShowcase';
 import MaiqButton from '@/components/maiq/MaiqButton';
@@ -153,11 +154,11 @@ export default function PaginaInstitucional() {
 
   const goToSection = (id: string) => {
     if (id === 'topo') { window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
-    const el = document.querySelector('[data-maiq-sec="' + id + '"]') as HTMLElement | null;
+    const el = (document.querySelector('[data-maiq-sec="' + id + '"]') as HTMLElement | null)
+      ?? (document.getElementById(id) as HTMLElement | null);
     if (!el) return;
-    let off = 0, n: Any = el;
-    while (n) { off += n.offsetTop; n = n.offsetParent; }
-    window.scrollTo({ top: Math.max(0, off - 8), behavior: 'smooth' });
+    const top = el.getBoundingClientRect().top + window.scrollY;
+    window.scrollTo({ top: Math.max(0, top - 8), behavior: 'smooth' });
   };
 
 
@@ -732,6 +733,7 @@ export default function PaginaInstitucional() {
 
   return (
     <div data-maiq-scope="" ref={scopeRef} style={{ fontFamily: "'Grandview','Barlow',Helvetica,Arial,sans-serif", background: "var(--p-bg,#0D2423)", color: "var(--p-text,#E9E0D1)", minHeight: "100vh", transition: "background 320ms cubic-bezier(.16,1,.3,1),color 320ms cubic-bezier(.16,1,.3,1)" }}>
+      <PageLoader />
       <AuthLeadDialogs
         theme={theme}
         authOpen={authOpen}

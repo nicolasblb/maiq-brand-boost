@@ -254,7 +254,13 @@ export default function PlatformShowcase() {
             <span
               className="maiq-platform-line-progress"
               data-settling={navSettling}
-              style={{ width: `${(navProgress / FEATURES.length) * 100}%` }}
+              style={{ clipPath: `inset(0 ${100 - (navProgress / FEATURES.length) * 100}% 0 0)` }}
+            >
+            </span>
+            <span
+              className="maiq-platform-line-head"
+              data-settling={navSettling}
+              style={{ left: `${(navProgress / FEATURES.length) * 100}%` }}
             >
             </span>
             {FEATURES.slice(1).map((item, index) => (
