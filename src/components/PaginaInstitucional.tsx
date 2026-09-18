@@ -8,6 +8,7 @@ import Conviccao from '@/components/sections/Conviccao';
 // (src/components/sections/Dominio.tsx e src/assets/logo-*.asset.json) para a
 // futura página "Sobre nós > Domínios".
 import Faq from '@/components/sections/Faq';
+import PageLoader from '@/components/maiq/PageLoader';
 import AuthLeadDialogs from '@/components/AuthLeadDialogs';
 import PlatformShowcase from '@/components/maiq/PlatformShowcase';
 import MaiqButton from '@/components/maiq/MaiqButton';
