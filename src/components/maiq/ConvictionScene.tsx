@@ -55,6 +55,7 @@ export default function ConvictionScene() {
   const [time, setTime] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
   const startedRef = useRef(false);
+  const transferTimeRef = useRef(0);
 
   const activeRef = useCallback(() => {
     if (modalOpen) return light ? modalLightRef.current : modalDarkRef.current;
@@ -98,7 +99,7 @@ export default function ConvictionScene() {
       if (source) {
         source.pause();
       }
-      target.currentTime = source?.currentTime ?? time;
+      target.currentTime = source?.currentTime ?? transferTimeRef.current;
       if (playing && visible) void target.play().catch(() => undefined);
     };
     if (target.readyState >= 1) synchronize();
@@ -163,6 +164,11 @@ export default function ConvictionScene() {
     setPlaying((value) => !value);
   };
 
+  const setExpanded = (expanded: boolean) => {
+    transferTimeRef.current = activeRef()?.currentTime ?? time;
+    setModalOpen(expanded);
+  };
+
 
   const duration = activeRef()?.duration || DURATION;
 
@@ -217,7 +223,7 @@ export default function ConvictionScene() {
         className="maiq-media-icon-button"
         aria-label={expanded ? 'Reduzir vídeo' : 'Maximizar vídeo'}
         title={expanded ? 'Reduzir' : 'Maximizar'}
-        onClick={() => setModalOpen(!expanded)}
+        onClick={() => setExpanded(!expanded)}
       >
         {expanded ? <Minimize2 size={17} /> : <Maximize2 size={17} />}
       </MaiqButton>
@@ -231,7 +237,7 @@ export default function ConvictionScene() {
         {controls(false)}
       </div>
 
-      <DialogPrimitive.Root open={modalOpen} onOpenChange={setModalOpen}>
+      <DialogPrimitive.Root open={modalOpen} onOpenChange={setExpanded}>
         <DialogPrimitive.Portal>
           <DialogPrimitive.Overlay className="maiq-platform-modal-overlay" />
           <DialogPrimitive.Content className="maiq-conviction-modal" data-maiq-scope="" data-theme={light ? 'claro' : undefined}>
