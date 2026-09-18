@@ -1,8 +1,9 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from '@tanstack/react-router';
 import type { User } from '@supabase/supabase-js';
-import { Sun, Moon, TriangleAlert, ChevronDown } from 'lucide-react';
+import { Sun, Moon, ChevronDown } from 'lucide-react';
 import Ciclo from '@/components/sections/Ciclo';
+import Conviccao from '@/components/sections/Conviccao';
 // O Domínio removido da página institucional; componente e logos preservados
 // (src/components/sections/Dominio.tsx e src/assets/logo-*.asset.json) para a
 // futura página "Sobre nós > Domínios".
@@ -86,7 +87,7 @@ function parseStyleText(text: string): Record<string, string> {
 const SECOES = [
   { id: 'topo', label: 'Início' },
   { id: 'modelo', label: 'O Modelo' },
-  { id: 'fundacao', label: 'A Fundação' },
+  { id: 'fundacao', label: 'Nossa Convicção' },
   { id: 'plataforma', label: 'A Plataforma' },
   { id: 'ciclo', label: 'O Ciclo' },
   { id: 'faq', label: 'FAQ' },
@@ -1160,23 +1161,7 @@ export default function PaginaInstitucional() {
             </div>
           </div>
         </section>
-        <section data-maiq-sec="fundacao" aria-label="A Fundação" style={{ position: "relative", zIndex: "1", minHeight: "100vh", boxSizing: "border-box", display: "flex", alignItems: "stretch", padding: "clamp(104px,13vh,150px) 48px clamp(36px,4.5vh,64px)" }}>
-          <div style={{ width: "100%", maxWidth: "1200px", margin: "0 auto", display: "flex", flexDirection: "column", gap: "clamp(24px,3vh,44px)" }}>
-            <div>
-              <h2 style={{ fontFamily: "Inter,var(--font-core)", fontSize: "clamp(38px,4.2vw,58px)", lineHeight: "1.04", letterSpacing: "-.022em", fontWeight: "600", margin: "0" }}>
-                Os Pilares
-              </h2>
-              <p style={{ fontSize: "17px", lineHeight: "1.6", color: "var(--p-muted,#91A398)", margin: "14px 0 0", maxWidth: "56ch", textWrap: "pretty" }}>
-                Seção em construção.
-              </p>
-            </div>
-            <div style={{ flex: "1 1 auto", display: "flex", alignItems: "center", justifyContent: "center", padding: "clamp(24px,6vh,72px) 0" }}>
-              <div aria-hidden="true" style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "clamp(120px,14vw,168px)", height: "clamp(120px,14vw,168px)", borderRadius: "999px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", background: "var(--p-chip-bg,rgba(233,224,209,.04))", color: "var(--p-muted,#91A398)" }}>
-                <TriangleAlert strokeWidth={1.25} style={{ width: "52%", height: "52%" }} />
-              </div>
-            </div>
-          </div>
-        </section>
+        <Conviccao />
         </div>
       </div>
       <div ref={overlay2WrapRef} style={{ position: "relative", zIndex: "1", background: "var(--p-bg,#0D2423)", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
