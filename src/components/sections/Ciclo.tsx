@@ -1,4 +1,57 @@
 import { useEffect, useRef } from 'react';
+import { Cog, FileCheck, Search, Target } from 'lucide-react';
+
+const LANES = [
+  { label: 'Estratégia', top: '9.90%', Icon: Target, icon: 'target' as const },
+  { label: 'Originação', top: '36.57%', Icon: Search, icon: 'search' as const },
+  { label: 'Execução', top: '63.43%', Icon: Cog, icon: 'cog' as const },
+  { label: 'Efetivação', top: '90.10%', Icon: FileCheck, icon: 'file-check' as const },
+];
+
+type LaneIconName = (typeof LANES)[number]['icon'];
+
+function LaneSvgIcon({ name, x, y }: { name: LaneIconName; x: number; y: number }) {
+  const scale = 20 / 24;
+  return (
+    <g
+      transform={`translate(${x},${y}) scale(${scale})`}
+      fill="none"
+      stroke="var(--c-lane-fg)"
+      strokeWidth={1.5}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      {name === 'target' && (
+        <>
+          <circle cx="12" cy="12" r="10" />
+          <circle cx="12" cy="12" r="6" />
+          <circle cx="12" cy="12" r="2" />
+        </>
+      )}
+      {name === 'search' && (
+        <>
+          <circle cx="11" cy="11" r="7" />
+          <path d="m21 21-4.3-4.3" />
+        </>
+      )}
+      {name === 'cog' && (
+        <>
+          <circle cx="12" cy="12" r="3" />
+          <circle cx="12" cy="12" r="8" />
+          <path d="M12 4V2M12 22v-2M4 12H2M22 12h-2M6.3 6.3 4.9 4.9M19.1 19.1l-1.4-1.4M17.7 6.3l1.4-1.4M4.9 19.1l1.4-1.4" />
+        </>
+      )}
+      {name === 'file-check' && (
+        <>
+          <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+          <path d="M14 2v5h5" />
+          <path d="m9 15 2 2 4-4" />
+        </>
+      )}
+    </g>
+  );
+}
+
 
 type Step = {
   id: string;
