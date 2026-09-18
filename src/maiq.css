@@ -633,8 +633,6 @@ body{margin:0;background:#0D2423;transition:background 320ms cubic-bezier(.16,1,
 .maiq-platform-line::before{content:"";position:absolute;right:0;top:7px;left:0;height:1px;background:var(--p-hair)}
 .maiq-platform-line-progress{position:absolute;top:6px;right:0;left:0;display:block;height:2px;background:var(--c-flow);box-shadow:0 0 5px var(--c-flow),0 0 12px var(--c-flow-core);mix-blend-mode:var(--c-flow-blend);will-change:clip-path;transform:translateZ(0)}
 .maiq-platform-line-progress[data-settling="true"]{transition:clip-path 600ms var(--ease-out)}
-.maiq-platform-line-head{position:absolute;z-index:3;top:8px;left:0;width:56px;height:2px;background:linear-gradient(90deg,var(--c-flow) 0%,color-mix(in srgb,var(--c-flow) 55%,transparent) 45%,transparent 100%);box-shadow:0 0 10px var(--c-flow-core),0 0 22px var(--c-flow-core);mix-blend-mode:var(--c-flow-blend);opacity:.9;transform:translate(0,-50%);transform-origin:left center;pointer-events:none;will-change:left}
-.maiq-platform-line-head[data-settling="true"]{transition:left 600ms var(--ease-out)}
 .maiq-platform-line-divider{position:absolute;z-index:2;top:50%;width:6px;height:6px;border:1px solid var(--p-divider-solid);border-radius:50%;background:var(--p-divider-solid);transform:translate(-50%,-50%);transition:background-color 180ms var(--ease-standard),border-color 180ms var(--ease-standard),box-shadow 180ms var(--ease-standard),transform 180ms var(--ease-standard)}
 .maiq-platform-line-divider[data-lit="true"]{border-color:var(--c-flow);background:var(--c-flow);box-shadow:0 0 5px var(--c-flow),0 0 11px var(--c-flow-core);transform:translate(-50%,-50%) scale(1.12)}
 .maiq-platform-card{width:min(100%,1058px);height:min(46vh,529px);min-height:420px;margin:clamp(38px,5vh,58px) auto 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));overflow:hidden;border:1px solid var(--p-hair);border-radius:var(--radius-lg);background:var(--p-plat-veil)}
@@ -697,3 +695,22 @@ body{margin:0;background:#0D2423;transition:background 320ms cubic-bezier(.16,1,
   .maiq-platform-line-progress,.maiq-platform-line-divider,.maiq-platform-tab{transition:none!important}
   .maiq-platform-placeholder,.maiq-platform-copy-inner,.maiq-platform-modal,.maiq-platform-modal-overlay{animation:none!important}
 }
+
+/* Carregamento inicial — cobre a composição até fontes e recursos da primeira tela estarem prontos. */
+.maiq-loader{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;background:var(--p-hero-bg,#143737);opacity:1;visibility:visible;transition:opacity 520ms var(--ease-standard),visibility 520ms var(--ease-standard)}
+.maiq-loader[data-hiding="true"]{opacity:0;visibility:hidden;pointer-events:none}
+.maiq-loader-hero{width:min(760px,calc(100% - 96px));margin-left:max(48px,calc((100vw - 1200px)/2));display:flex;flex-direction:column;align-items:flex-start}
+.maiq-loader-mark{margin-bottom:clamp(46px,8vh,82px);color:var(--p-text,#E9E0D1);font-family:var(--font-core,'Barlow',sans-serif);font-size:clamp(28px,3.4vw,44px);font-weight:600;line-height:1;letter-spacing:0;animation:maiqLoaderBreathe 1.5s ease-in-out infinite}
+.maiq-loader-block{display:block;overflow:hidden;border-radius:4px;background:color-mix(in oklab,var(--p-text,#E9E0D1) 13%,transparent);position:relative}
+.maiq-loader-block::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 0%,color-mix(in oklab,var(--p-text,#E9E0D1) 20%,transparent) 48%,transparent 100%);transform:translateX(-110%);animation:maiqLoaderSweep 1.35s ease-in-out infinite}
+.maiq-loader-overline{width:112px;height:10px;margin-bottom:24px}
+.maiq-loader-line-1{width:min(680px,92%);height:clamp(34px,5.2vw,62px);margin-bottom:12px}
+.maiq-loader-line-2{width:min(520px,74%);height:clamp(34px,5.2vw,62px);margin-bottom:30px}
+.maiq-loader-body{width:min(560px,80%);height:15px;margin-bottom:42px}
+.maiq-loader-actions{display:flex;gap:12px}
+.maiq-loader-cta{width:152px;height:46px;border-radius:999px}
+.maiq-loader-cta-ghost{width:118px;background:transparent;border:1px solid var(--p-hair-strong)}
+@keyframes maiqLoaderSweep{to{transform:translateX(110%)}}
+@keyframes maiqLoaderBreathe{0%,100%{opacity:.56}50%{opacity:1}}
+@media(max-width:640px){.maiq-loader-hero{width:calc(100% - 40px);margin-left:20px}.maiq-loader-line-1{width:100%}.maiq-loader-line-2{width:78%}.maiq-loader-body{width:88%}.maiq-loader-actions{width:100%}.maiq-loader-cta{flex:1;width:auto}}
+@media(prefers-reduced-motion:reduce){.maiq-loader-mark,.maiq-loader-block::after{animation:none}}

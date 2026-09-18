@@ -25,3 +25,5 @@
 - [x] Ícones nas raias de "O Ciclo" (Estratégia, Originação, Execução, Efetivação).
 - [x] Vídeo de "Nossa Convicção": pausa no ponto atual, retoma dali e roda em loop.
 - [ ] Receber e publicar os textos definitivos da Política de Privacidade e dos Termos de Uso.
+- [x] Restaurar a barra luminosa anterior, manter o avanço estável e remover o brilho frontal adicional.
+- [x] Corrigir o carregamento inicial com esqueleto visível e impedir a rolagem automática até “A Plataforma”.

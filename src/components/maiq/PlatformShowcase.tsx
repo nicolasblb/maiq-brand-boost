@@ -81,6 +81,7 @@ function MediaVisual({ index, playing, run, time }: { index: number; playing: bo
 
 export default function PlatformShowcase() {
   const rootRef = useRef<HTMLDivElement | null>(null);
+  const tabsViewportRef = useRef<HTMLDivElement | null>(null);
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const [theme, setTheme] = useState<'noite' | 'claro'>('noite');
   const [active, setActive] = useState(0);
@@ -134,7 +135,11 @@ export default function PlatformShowcase() {
   }, [navSettling, navProgress]);
 
   useEffect(() => {
-    tabRefs.current[active]?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+    const viewport = tabsViewportRef.current;
+    const tab = tabRefs.current[active];
+    if (!viewport || !tab || viewport.scrollWidth <= viewport.clientWidth) return;
+    const left = tab.offsetLeft - (viewport.clientWidth - tab.offsetWidth) / 2;
+    viewport.scrollTo({ left: Math.max(0, left), behavior: 'smooth' });
   }, [active]);
 
   useEffect(() => {
@@ -231,7 +236,7 @@ export default function PlatformShowcase() {
 
   return (
     <div ref={rootRef} className="maiq-platform-showcase">
-      <div className="maiq-platform-tabs-viewport">
+      <div ref={tabsViewportRef} className="maiq-platform-tabs-viewport">
         <div className="maiq-platform-tabs" role="tablist" aria-label="Funcionalidades da plataforma">
           {FEATURES.map((item, index) => (
             <MaiqButton
@@ -255,12 +260,6 @@ export default function PlatformShowcase() {
               className="maiq-platform-line-progress"
               data-settling={navSettling}
               style={{ clipPath: `inset(0 ${100 - (navProgress / FEATURES.length) * 100}% 0 0)` }}
-            >
-            </span>
-            <span
-              className="maiq-platform-line-head"
-              data-settling={navSettling}
-              style={{ left: `${(navProgress / FEATURES.length) * 100}%` }}
             >
             </span>
             {FEATURES.slice(1).map((item, index) => (

@@ -5,29 +5,52 @@ export default function PageLoader() {
   const [done, setDone] = useState(false);
 
   useEffect(() => {
-    let hideTimer = 0;
+    let minimumTimer = 0;
+    let safetyTimer = 0;
     let removeTimer = 0;
+    let cancelled = false;
+    const previousOverflow = document.documentElement.style.overflow;
+    const previousRestoration = window.history.scrollRestoration;
 
-    const start = () => {
-      hideTimer = window.setTimeout(() => {
-        setHiding(true);
-        removeTimer = window.setTimeout(() => setDone(true), 480);
-      }, 220);
+    document.documentElement.style.overflow = 'hidden';
+    window.history.scrollRestoration = 'manual';
+    if (!window.location.hash) window.scrollTo(0, 0);
+
+    const finish = () => {
+      if (cancelled) return;
+      setHiding(true);
+      document.documentElement.style.overflow = previousOverflow;
+      removeTimer = window.setTimeout(() => setDone(true), 520);
     };
 
-    if (document.readyState === 'complete') {
-      start();
-    } else {
-      window.addEventListener('load', start, { once: true });
-    }
+    const waitForFirstView = async () => {
+      const minimum = new Promise<void>((resolve) => {
+        minimumTimer = window.setTimeout(resolve, 850);
+      });
+      const pageReady = document.readyState === 'complete'
+        ? Promise.resolve()
+        : new Promise<void>((resolve) => window.addEventListener('load', () => resolve(), { once: true }));
+      const fontsReady = document.fonts?.ready ?? Promise.resolve();
+      await Promise.all([minimum, pageReady, fontsReady]);
+      finish();
+    };
 
-    const safety = window.setTimeout(start, 6000);
+    void waitForFirstView();
+    safetyTimer = window.setTimeout(() => {
+      if (!cancelled) {
+        setHiding(true);
+        document.documentElement.style.overflow = previousOverflow;
+        removeTimer = window.setTimeout(() => setDone(true), 520);
+      }
+    }, 5000);
 
     return () => {
-      window.removeEventListener('load', start);
-      window.clearTimeout(hideTimer);
+      cancelled = true;
+      document.documentElement.style.overflow = previousOverflow;
+      window.history.scrollRestoration = previousRestoration;
+      window.clearTimeout(minimumTimer);
+      window.clearTimeout(safetyTimer);
       window.clearTimeout(removeTimer);
-      window.clearTimeout(safety);
     };
   }, []);
 
@@ -36,7 +59,7 @@ export default function PageLoader() {
   return (
     <div className="maiq-loader" data-hiding={hiding} aria-hidden="true">
       <div className="maiq-loader-hero">
-        <span className="maiq-loader-block maiq-loader-mark" />
+        <span className="maiq-loader-mark">MAIQ</span>
         <span className="maiq-loader-block maiq-loader-overline" />
         <span className="maiq-loader-block maiq-loader-line-1" />
         <span className="maiq-loader-block maiq-loader-line-2" />
