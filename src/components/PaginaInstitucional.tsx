@@ -153,11 +153,11 @@ export default function PaginaInstitucional() {
 
   const goToSection = (id: string) => {
     if (id === 'topo') { window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
-    const el = document.querySelector('[data-maiq-sec="' + id + '"]') as HTMLElement | null;
+    const el = (document.querySelector('[data-maiq-sec="' + id + '"]') as HTMLElement | null)
+      ?? (document.getElementById(id) as HTMLElement | null);
     if (!el) return;
-    let off = 0, n: Any = el;
-    while (n) { off += n.offsetTop; n = n.offsetParent; }
-    window.scrollTo({ top: Math.max(0, off - 8), behavior: 'smooth' });
+    const top = el.getBoundingClientRect().top + window.scrollY;
+    window.scrollTo({ top: Math.max(0, top - 8), behavior: 'smooth' });
   };
 
 
