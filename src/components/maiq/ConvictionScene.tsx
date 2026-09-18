@@ -56,6 +56,7 @@ export default function ConvictionScene() {
   const [modalOpen, setModalOpen] = useState(false);
   const startedRef = useRef(false);
   const transferTimeRef = useRef(0);
+  const previousThemeRef = useRef(light);
 
   const activeRef = useCallback(() => {
     if (modalOpen) return light ? modalLightRef.current : modalDarkRef.current;
@@ -76,6 +77,8 @@ export default function ConvictionScene() {
   const stateRef = useRef({ playing: false, visible: false });
   stateRef.current = { playing, visible };
   useEffect(() => {
+    if (previousThemeRef.current === light) return;
+    previousThemeRef.current = light;
     const active = activeRef();
     const other = modalOpen
       ? (light ? modalDarkRef.current : modalLightRef.current)
