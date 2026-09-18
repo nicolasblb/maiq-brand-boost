@@ -431,94 +431,38 @@ export default function Ciclo() {
                   'linear-gradient(180deg,transparent,var(--c-dot) 16%,var(--c-dot) 84%,transparent)',
               }}
             />
-            <div
-              style={{
-                position: 'absolute',
-                left: 8,
-                top: '9.90%',
-                transform: 'translateY(-50%)',
-                width: 186,
-                height: 80,
-                borderRadius: 10,
-                boxSizing: 'border-box',
-                background: 'var(--c-lane-bg)',
-                border: '1px solid var(--c-lane-hair)',
-                color: 'var(--c-lane-fg)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: 18,
-                fontWeight: 500,
-              }}
-            >
-              Estratégia
-            </div>
-            <div
-              style={{
-                position: 'absolute',
-                left: 8,
-                top: '36.57%',
-                transform: 'translateY(-50%)',
-                width: 186,
-                height: 80,
-                borderRadius: 10,
-                boxSizing: 'border-box',
-                background: 'var(--c-lane-bg)',
-                border: '1px solid var(--c-lane-hair)',
-                color: 'var(--c-lane-fg)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: 18,
-                fontWeight: 500,
-              }}
-            >
-              Originação
-            </div>
-            <div
-              style={{
-                position: 'absolute',
-                left: 8,
-                top: '63.43%',
-                transform: 'translateY(-50%)',
-                width: 186,
-                height: 80,
-                borderRadius: 10,
-                boxSizing: 'border-box',
-                background: 'var(--c-lane-bg)',
-                border: '1px solid var(--c-lane-hair)',
-                color: 'var(--c-lane-fg)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: 18,
-                fontWeight: 500,
-              }}
-            >
-              Execução
-            </div>
-            <div
-              style={{
-                position: 'absolute',
-                left: 8,
-                top: '90.10%',
-                transform: 'translateY(-50%)',
-                width: 186,
-                height: 80,
-                borderRadius: 10,
-                boxSizing: 'border-box',
-                background: 'var(--c-lane-bg)',
-                border: '1px solid var(--c-lane-hair)',
-                color: 'var(--c-lane-fg)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: 18,
-                fontWeight: 500,
-              }}
-            >
-              Efetivação
-            </div>
+            {LANES.map((lane) => {
+              const LaneIcon = lane.Icon;
+              return (
+                <div
+                  key={lane.label}
+                  style={{
+                    position: 'absolute',
+                    left: 8,
+                    top: lane.top,
+                    transform: 'translateY(-50%)',
+                    width: 186,
+                    height: 80,
+                    borderRadius: 10,
+                    boxSizing: 'border-box',
+                    background: 'var(--c-lane-bg)',
+                    border: '1px solid var(--c-lane-hair)',
+                    color: 'var(--c-lane-fg)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'flex-start',
+                    gap: 10,
+                    padding: '0 16px',
+                    fontSize: 18,
+                    fontWeight: 500,
+                  }}
+                >
+                  <LaneIcon size={20} strokeWidth={1.5} aria-hidden="true" style={{ flex: '0 0 auto' }} />
+                  <span>{lane.label}</span>
+                </div>
+              );
+            })}
+
           </div>
           <svg
             ref={cicloSvgRef}
