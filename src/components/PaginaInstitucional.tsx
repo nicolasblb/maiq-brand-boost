@@ -87,10 +87,10 @@ function parseStyleText(text: string): Record<string, string> {
 
 const SECOES = [
   { id: 'topo', label: 'Início' },
-  { id: 'modelo', label: 'O Modelo' },
+  { id: 'modelo', label: 'Nosso Modelo' },
   { id: 'fundacao', label: 'Nossa Convicção' },
   { id: 'plataforma', label: 'Nossa Plataforma' },
-  { id: 'ciclo', label: 'O Ciclo' },
+  { id: 'ciclo', label: 'O M&A' },
   { id: 'dominios', label: 'Os Domínios' },
   { id: 'faq', label: 'FAQ' },
 ];
@@ -159,7 +159,8 @@ export default function PaginaInstitucional() {
       ?? (document.getElementById(id) as HTMLElement | null);
     if (!el) return;
     const top = el.getBoundingClientRect().top + window.scrollY;
-    window.scrollTo({ top: Math.max(0, top - 8), behavior: 'smooth' });
+    const menuClearance = window.innerWidth <= 1040 ? 128 : 112;
+    window.scrollTo({ top: Math.max(0, top - menuClearance), behavior: 'smooth' });
   };
 
 
@@ -376,18 +377,16 @@ export default function PaginaInstitucional() {
     setTheme(initial as Any);
     applyTheme(initial as Any);
 
-    setupOdometers();
     setupMarquee();
     S._paintLogo = setupLogoFlight();
     setupScroll();
     setupOffscreenPause();
+    setupOdometers();
     setupDna();
 
     return () => {
-      if (S._paintOdos) {
-        window.removeEventListener('scroll', S._paintOdos);
-        window.removeEventListener('resize', S._odoResize);
-      }
+      if (S._odoIO) S._odoIO.disconnect();
+      if (S._odos) S._odos.forEach((o: Any) => { if (o.raf) cancelAnimationFrame(o.raf); });
       if (S._pauseIO) S._pauseIO.disconnect();
       if (S._raf) cancelAnimationFrame(S._raf);
       if (S._remeasure) window.removeEventListener('resize', S._remeasure);
@@ -459,43 +458,41 @@ export default function PaginaInstitucional() {
         strips.push(col);
       }
       if (suffix) el.appendChild(suffix);
-      const sec = el.closest('section') || el.parentElement;
       const finals = raw.split('').map(Number);
-      return { el, sec, off: 0, finals, strips, digits, target, p: 0 };
+      return { el, finals, strips, digits, target, p: 0 };
     });
-    // as posições só mudam em resize: medir a cada scroll causava recálculo de layout
-    const measureOdos = () => {
-      S._odos.forEach((o: Any) => {
-        let n = o.sec, off = 0;
-        while (n) { off += n.offsetTop; n = n.offsetParent; }
-        o.off = off;
+    const paintOdo = (o: Any, p: number) => {
+      if (Math.abs(p - o.p) < 0.001 && o.painted) return;
+      o.p = p; o.painted = true;
+      const e = p * p * (3 - 2 * p);
+      for (let i = 0; i < o.digits; i++) {
+        const pos = o.finals[i] * e;
+        o.strips[i].style.transform = 'translate3d(0,' + (-pos * 100 / 12).toFixed(4) + '%,0)';
+      }
+    };
+    const animateOdo = (o: Any) => {
+      if (o.started) return;
+      o.started = true;
+      const startedAt = performance.now();
+      const tick = (now: number) => {
+        const p = Math.min(1, (now - startedAt) / 1100);
+        paintOdo(o, p);
+        if (p < 1) o.raf = requestAnimationFrame(tick);
+      };
+      o.raf = requestAnimationFrame(tick);
+    };
+    S._odoIO = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const odo = S._odos.find((item: Any) => item.el === entry.target);
+        if (odo) animateOdo(odo);
+        S._odoIO.unobserve(entry.target);
       });
-    };
-    const paintOdos = () => {
-      const vh = window.innerHeight;
-      const band = vh * 0.2;
-      S._odos.forEach((o: Any) => {
-        const topV = o.off - window.scrollY;
-        const p = Math.min(1, Math.max(0, (band - topV) / band));
-        if (Math.abs(p - o.p) < 0.001 && o.painted) return;
-        o.p = p; o.painted = true;
-        const e = p * p * (3 - 2 * p);
-        for (let i = 0; i < o.digits; i++) {
-          const pos = o.finals[i] * e;
-          o.strips[i].style.transform = 'translate3d(0,' + (-pos * 100 / 12).toFixed(4) + '%,0)';
-        }
-      });
-    };
-    let odoRaf = 0 as Any;
-    S._paintOdos = () => {
-      if (odoRaf) return;
-      odoRaf = requestAnimationFrame(() => { odoRaf = 0; paintOdos(); });
-    };
-    S._odoResize = () => { measureOdos(); paintOdos(); };
-    measureOdos();
-    paintOdos();
-    window.addEventListener('scroll', S._paintOdos, { passive: true });
-    window.addEventListener('resize', S._odoResize);
+    }, { threshold: 0.35 });
+    S._odos.forEach((o: Any) => {
+      paintOdo(o, 0);
+      S._odoIO.observe(o.el);
+    });
   }
 
   // a logo nasce grande no hero e viaja até o slot do header
@@ -1196,7 +1193,7 @@ export default function PaginaInstitucional() {
           </div>
         </div>
         <div ref={overlay2Ref} className="maiq-cycle-domains-overlay">
-          <div className="maiq-platform-ciclo-bg">
+          <div className="maiq-model-pilares-bg">
             <Ciclo />
             <DominiosPlaceholder />
           </div>
