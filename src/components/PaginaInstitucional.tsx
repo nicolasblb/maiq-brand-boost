@@ -234,8 +234,13 @@ export default function PaginaInstitucional() {
   const setDnaDot = (el: Any, active: boolean, delay: number) => {
     const dot = el.querySelector('[data-maiq-dot]');
     if (!dot) return;
-    dot.style.transition = `opacity 320ms ${DNA_EASE} ${delay}ms`;
+    // Mesma linguagem luminosa dos divisórios da barra da Plataforma.
+    dot.style.transition = `opacity 320ms ${DNA_EASE} ${delay}ms, background-color 320ms ${DNA_EASE} ${delay}ms, box-shadow 320ms ${DNA_EASE} ${delay}ms`;
     dot.style.opacity = active ? '1' : '0';
+    dot.style.background = active ? 'var(--c-flow,#91A398)' : 'var(--p-text,#E9E0D1)';
+    dot.style.boxShadow = active
+      ? '0 0 4px 2px color-mix(in oklab,var(--c-flow) 72%,transparent),0 0 12px 5px color-mix(in oklab,var(--c-flow-core) 34%,transparent)'
+      : 'none';
   };
 
   const setDnaRow = (el: Any, i: number, side: string, active: boolean) => {
@@ -248,8 +253,8 @@ export default function PaginaInstitucional() {
     // traço vertical nas laterais da linha durante o hover.
     el.style.transition = `margin ${DNA_DUR}ms ${DNA_EASE} ${delay}ms, width ${DNA_DUR}ms ${DNA_EASE} ${delay}ms, border-color 320ms ${DNA_EASE} ${delay}ms`;
     el.style.boxShadow = 'none';
-    if (active && g) {
-      if (i === 0) {
+    if (active) {
+      if (i === 0 && g) {
         el.style[marginProp] = -g.rail + 'px';
         el.style.width = (cfg.width + cfg.inset + g.rail) + 'px';
       }
@@ -284,6 +289,7 @@ export default function PaginaInstitucional() {
 
   const handleDnaMove = (e: React.MouseEvent) => {
     if (!dnaRowRef.current) return;
+    if (!S._dnaGeom && S._measureDna) S._measureDna();
     const rect = dnaRowRef.current.getBoundingClientRect();
     const rel = (e.clientX - rect.left) / rect.width;
     const side = rel < 0.5 ? 'left' : 'right';
@@ -370,6 +376,7 @@ export default function PaginaInstitucional() {
     S._paintLogo = setupLogoFlight();
     setupScroll();
     setupOffscreenPause();
+    setupDna();
 
     return () => {
       if (S._paintOdos) {
@@ -654,6 +661,38 @@ export default function PaginaInstitucional() {
     S._remeasure = () => rows.forEach(measure);
     window.addEventListener('resize', S._remeasure);
 
+    S._speed = 1;
+    S._target = 1;
+    if (wrap) {
+      S._enter = () => { S._target = 0; };
+      S._leave = () => { S._target = 1; };
+      wrap.addEventListener('mouseenter', S._enter);
+      wrap.addEventListener('mouseleave', S._leave);
+      S._wrap = wrap;
+    }
+
+    let last = performance.now();
+    const tick = (now: number) => {
+      const dt = Math.min((now - last) / 1000, 0.05);
+      last = now;
+      S._speed += (S._target - S._speed) * Math.min(dt / 0.32, 1);
+      rows.forEach((r) => {
+        if (!Number.isFinite(r.span) || r.span <= 0) return;
+        r.x += r.dir * r.px * S._speed * dt;
+        if (r.x <= -r.span) r.x += r.span;
+        if (r.x >= 0) r.x -= r.span;
+        r.el.style.transform = 'translate3d(' + r.x.toFixed(2) + 'px,0,0)';
+      });
+      S._raf = requestAnimationFrame(tick);
+    };
+    if (!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+      S._raf = requestAnimationFrame(tick);
+    }
+  }
+
+  // Geometria das linhas de hover do "Nosso modelo" (máscara arredondada,
+  // deslocamento lateral e posição dos círculos luminosos).
+  function setupDna() {
     S._measureDna = () => {
       const venn = vennBoxRef.current;
       if (!venn) return;
@@ -697,34 +736,6 @@ export default function PaginaInstitucional() {
     };
     S._measureDna();
     window.addEventListener('resize', S._measureDna);
-
-    S._speed = 1;
-    S._target = 1;
-    if (wrap) {
-      S._enter = () => { S._target = 0; };
-      S._leave = () => { S._target = 1; };
-      wrap.addEventListener('mouseenter', S._enter);
-      wrap.addEventListener('mouseleave', S._leave);
-      S._wrap = wrap;
-    }
-
-    let last = performance.now();
-    const tick = (now: number) => {
-      const dt = Math.min((now - last) / 1000, 0.05);
-      last = now;
-      S._speed += (S._target - S._speed) * Math.min(dt / 0.32, 1);
-      rows.forEach((r) => {
-        if (!Number.isFinite(r.span) || r.span <= 0) return;
-        r.x += r.dir * r.px * S._speed * dt;
-        if (r.x <= -r.span) r.x += r.span;
-        if (r.x >= 0) r.x -= r.span;
-        r.el.style.transform = 'translate3d(' + r.x.toFixed(2) + 'px,0,0)';
-      });
-      S._raf = requestAnimationFrame(tick);
-    };
-    if (!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) {
-      S._raf = requestAnimationFrame(tick);
-    }
   }
 
   void refs; void iconSunRef; void iconMoonRef; void lRailRef; void rRailRef; void netWrapRef; void overlayRef;
@@ -997,7 +1008,8 @@ export default function PaginaInstitucional() {
                 Nosso modelo
               </h2>
               <p style={{ fontSize: "17px", lineHeight: "1.6", color: "var(--p-muted,#91A398)", margin: "14px auto 0", maxWidth: "56ch", textWrap: "pretty" }}>
-                Convergência entre método e tecnologia,&nbsp;
+                Convergência entre método e tecnologia,
+                <br />
                 potencializada por experiência e ampla rede construída.
               </p>
             </div>

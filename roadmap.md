@@ -29,3 +29,6 @@
 - [x] Corrigir o carregamento inicial com esqueleto visível e impedir a rolagem automática até “A Plataforma”.
 - [x] Refinar o carregamento com a logo, reduzir o vídeo da Convicção, restaurar os brilhos da Plataforma e corrigir a transição entre blocos.
 - [x] Atualizar os vídeos da Convicção, adicionar ampliar/reduzir e corrigir o corte da logo do menu em telas menores.
+- [x] Brilho nos círculos do hover do Nosso modelo (estilo divisórios da Plataforma) + correção da geometria que não era medida (setupDna)
+- [x] Quebras de linha nos sub-headers: Nosso modelo (antes de "potencializada") e Nossa Convicção (após "orgânica")
+- [x] Texto da Convicção em 3 parágrafos com contêiner e fio lateral
