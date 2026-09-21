@@ -318,9 +318,7 @@ export default function PlatformShowcase() {
               <div className="maiq-platform-modal-copy">
                 <p className="maiq-platform-feature-name">{feature.name}</p>
                 <h3>{feature.title}</h3>
-                <DialogPrimitive.Description asChild>
-                  <FeaturePoints points={feature.points} />
-                </DialogPrimitive.Description>
+                <FeaturePoints points={feature.points} />
                 <div className="maiq-platform-modal-nav">
                   <MaiqButton variant="ghost" size="sm" aria-label="Funcionalidade anterior" title="Anterior" className="maiq-platform-icon-nav" onClick={() => selectFeature(active - 1)}><ChevronLeft size={20} /></MaiqButton>
                   <span>{active + 1} / {FEATURES.length}</span>
