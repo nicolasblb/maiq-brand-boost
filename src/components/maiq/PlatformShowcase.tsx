@@ -247,7 +247,7 @@ export default function PlatformShowcase() {
               role="tab"
               aria-selected={active === index}
               className="maiq-platform-tab"
-              data-active={active === index}
+              data-keep-size={item.name === 'M&AI' || item.name.startsWith('QUARPX') ? "true" : undefined}
               onMouseEnter={() => setHovered(true)}
               onMouseLeave={() => setHovered(false)}
               onClick={() => selectFeature(index)}
