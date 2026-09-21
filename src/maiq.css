@@ -724,6 +724,7 @@ body{margin:0;background:#0D2423;transition:background 320ms cubic-bezier(.16,1,
   .maiq-platform-modal-layout{grid-template-columns:1fr;grid-template-rows:minmax(0,1.25fr) auto}
   .maiq-platform-modal-copy{padding:28px;border-top:1px solid var(--p-hair);border-left:0}
   .maiq-platform-modal-copy [data-radix-dialog-description]{max-width:none}
+  .maiq-platform-modal-copy .maiq-platform-points{max-width:none}
   .maiq-platform-modal-nav{margin-top:24px}
 }
 @media (max-width:600px){

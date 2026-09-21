@@ -1170,11 +1170,11 @@ export default function PaginaInstitucional() {
               <div ref={netContentRef} data-maiq-net-content="" className="maiq-platform-ciclo-bg" style={{ position: "relative", zIndex: "1", willChange: "transform" }}>
 
 
-              <section data-maiq-sec="plataforma" aria-label="A Plataforma" className="maiq-platform-section">
+              <section data-maiq-sec="plataforma" aria-label="Nossa Plataforma" className="maiq-platform-section">
                 <div className="maiq-platform-section-inner">
                   <div className="maiq-platform-heading">
-                    <h2>A Plataforma</h2>
-                    <p>Disponibilizamos funcionalidades que potencializam seus recursos, unindo metodologia, gestão e inovação tecnológica.</p>
+                    <h2>Nossa Plataforma</h2>
+                    <p>Funcionalidades específicas a serviço do M&A</p>
                   </div>
                   <PlatformShowcase />
                 </div>
