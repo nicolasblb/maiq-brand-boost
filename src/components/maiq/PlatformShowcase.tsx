@@ -48,9 +48,9 @@ const FEATURES = [
   },
 ] as const;
 
-function FeaturePoints({ points }: { points: readonly string[] }) {
+function FeaturePoints({ points, id }: { points: readonly string[]; id?: string }) {
   return (
-    <ul className="maiq-platform-points">
+    <ul className="maiq-platform-points" id={id}>
       {points.map((point) => (
         <li key={point}>{point}</li>
       ))}
@@ -318,7 +318,7 @@ export default function PlatformShowcase() {
               <div className="maiq-platform-modal-copy">
                 <p className="maiq-platform-feature-name">{feature.name}</p>
                 <h3>{feature.title}</h3>
-                <FeaturePoints points={feature.points} />
+                <FeaturePoints points={feature.points} id="maiq-platform-modal-description" />
                 <div className="maiq-platform-modal-nav">
                   <MaiqButton variant="ghost" size="sm" aria-label="Funcionalidade anterior" title="Anterior" className="maiq-platform-icon-nav" onClick={() => selectFeature(active - 1)}><ChevronLeft size={20} /></MaiqButton>
                   <span>{active + 1} / {FEATURES.length}</span>
