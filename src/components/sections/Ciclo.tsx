@@ -2,10 +2,10 @@ import { useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight, Cog, FileCheck, Search, Target } from 'lucide-react';
 
 const LANES = [
-  { label: 'Estratégia', top: '9.90%', Icon: Target, icon: 'target' as const, labelX: 68 },
-  { label: 'Originação', top: '36.57%', Icon: Search, icon: 'search' as const, labelX: 65 },
-  { label: 'Execução', top: '63.43%', Icon: Cog, icon: 'cog' as const, labelX: 71 },
-  { label: 'Efetivação', top: '90.10%', Icon: FileCheck, icon: 'file-check' as const, labelX: 68 },
+  { label: 'Estratégia', top: '9.90%', Icon: Target, icon: 'target' as const },
+  { label: 'Originação', top: '36.57%', Icon: Search, icon: 'search' as const },
+  { label: 'Execução', top: '63.43%', Icon: Cog, icon: 'cog' as const },
+  { label: 'Efetivação', top: '90.10%', Icon: FileCheck, icon: 'file-check' as const },
 ];
 
 type LaneIconName = (typeof LANES)[number]['icon'];
@@ -685,26 +685,26 @@ export default function Ciclo() {
             </g>
             <g data-c-fases="">
               <g data-c-phase="0">
-                <LaneSvgIcon name="target" x={68} y={172} />
-                <text x={100} y="189" textAnchor="start" fill="var(--c-lane-fg)" style={{ fontSize: 19, fontWeight: 500 }}>
+                <LaneSvgIcon name="target" x={72} y={172} />
+                <text x={104} y="189" textAnchor="start" fill="var(--c-lane-fg)" style={{ fontSize: 19, fontWeight: 500 }}>
                   Estratégia
                 </text>
               </g>
               <g data-c-phase="1">
-                <LaneSvgIcon name="search" x={65} y={312} />
-                <text x={97} y="329" textAnchor="start" fill="var(--c-lane-fg)" style={{ fontSize: 19, fontWeight: 500 }}>
+                <LaneSvgIcon name="search" x={67} y={312} />
+                <text x={99} y="329" textAnchor="start" fill="var(--c-lane-fg)" style={{ fontSize: 19, fontWeight: 500 }}>
                   Originação
                 </text>
               </g>
               <g data-c-phase="2">
-                <LaneSvgIcon name="cog" x={71} y={453} />
-                <text x={103} y="470" textAnchor="start" fill="var(--c-lane-fg)" style={{ fontSize: 19, fontWeight: 500 }}>
+                <LaneSvgIcon name="cog" x={76} y={453} />
+                <text x={108} y="470" textAnchor="start" fill="var(--c-lane-fg)" style={{ fontSize: 19, fontWeight: 500 }}>
                   Execução
                 </text>
               </g>
               <g data-c-phase="3">
-                <LaneSvgIcon name="file-check" x={68} y={593} />
-                <text x={100} y="610" textAnchor="start" fill="var(--c-lane-fg)" style={{ fontSize: 19, fontWeight: 500 }}>
+                <LaneSvgIcon name="file-check" x={70} y={593} />
+                <text x={102} y="610" textAnchor="start" fill="var(--c-lane-fg)" style={{ fontSize: 19, fontWeight: 500 }}>
                   Efetivação
                 </text>
               </g>
