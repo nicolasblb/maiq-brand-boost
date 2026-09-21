@@ -18,7 +18,7 @@
 - [x] Reconstruir “Os Pilares” como “Nossa Convicção” — agora exibindo os vídeos originais “Valor na mesa” (claro/escuro, 20,5s) com play/pause, ±5s e troca de tema sem reiniciar.
 - [x] Restaurar o subtítulo do FAQ: "Respostas às perguntas frequentes sobre a atuação do Maiq".
 - [x] Remover a seção "O Domínio" da página institucional, preservando Dominio.tsx e as logos (logo-*.asset.json) para a futura página Sobre nós > Domínios.
-- [ ] Construir a nova seção/página "Sobre nós > Domínios" em outro formato (logos e componente guardados; aguardando definição do formato).
+- [x] Construir a seção “Nosso Time” com subtítulo e carrossel das empresas onde os especialistas tiveram experiência.
 - [ ] Decidir destino da animação neural arquivada (src/components/maiq/archived/plat-neural-animation.ts.disabled): retomar ou excluir.
 - [x] Rodapé com colunas Contato e Legal + páginas /politica-de-privacidade e /termos-de-uso (textos definitivos pendentes).
 - [x] FAQ + rodapé ocupando a altura da tela, com espaçamento inferior reduzido.
