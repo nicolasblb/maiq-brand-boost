@@ -905,7 +905,7 @@ export default function PaginaInstitucional() {
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "clamp(30px,5vh,72px)", width: "100%" }}>
             <div style={{ width: "clamp(120px,18vw,260px)", height: "1px", background: "linear-gradient(90deg,transparent 0%,var(--p-hair,rgba(233,224,209,.14)) 18%,var(--p-hair,rgba(233,224,209,.14)) 82%,transparent 100%)" }}>
             </div>
-            <p style={{ fontSize: "17px", lineHeight: "1.75", color: "var(--p-text-2,#B7C4BC)", margin: "0", maxWidth: "min(1080px,94%)", textWrap: "balance" }}>
+            <p className="maiq-hero-subhead" style={{ color: "var(--p-text-2,#B7C4BC)", margin: "0", maxWidth: "min(1080px,94%)", textWrap: "balance" }}>
               Combinamos método e tecnologia para sistematizar o processo de M&A
             </p>
           </div>
@@ -998,8 +998,7 @@ export default function PaginaInstitucional() {
               <div className="maiq-platform-heading">
                 <h2>Nossa Plataforma</h2>
                 <p className="maiq-section-subhead">
-                  Funcionalidades específicas<span className="maiq-subhead-space"> </span>
-                  <br className="maiq-subhead-break-compact" />
+                  Funcionalidades específicas<span className="maiq-subhead-break maiq-subhead-break-platform" aria-hidden="true" />
                   a serviço do M&amp;A
                 </p>
               </div>
@@ -1017,8 +1016,7 @@ export default function PaginaInstitucional() {
                 Nosso modelo
               </h2>
               <p className="maiq-section-subhead" style={{ color: "var(--p-muted,#91A398)", margin: "14px auto 0", textWrap: "pretty" }}>
-                Convergência entre método e tecnologia,<span className="maiq-subhead-space"> </span>
-                <br className="maiq-subhead-break-compact" />
+                Convergência entre método e tecnologia,<span className="maiq-subhead-break maiq-subhead-break-model" aria-hidden="true" />
                 potencializada por experiência e ampla rede construída.
               </p>
             </div>
