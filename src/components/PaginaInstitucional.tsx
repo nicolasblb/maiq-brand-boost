@@ -234,8 +234,13 @@ export default function PaginaInstitucional() {
   const setDnaDot = (el: Any, active: boolean, delay: number) => {
     const dot = el.querySelector('[data-maiq-dot]');
     if (!dot) return;
-    dot.style.transition = `opacity 320ms ${DNA_EASE} ${delay}ms`;
+    // Mesma linguagem luminosa dos divisórios da barra da Plataforma.
+    dot.style.transition = `opacity 320ms ${DNA_EASE} ${delay}ms, background-color 320ms ${DNA_EASE} ${delay}ms, box-shadow 320ms ${DNA_EASE} ${delay}ms`;
     dot.style.opacity = active ? '1' : '0';
+    dot.style.background = active ? 'var(--c-flow,#91A398)' : 'var(--p-text,#E9E0D1)';
+    dot.style.boxShadow = active
+      ? '0 0 4px 2px color-mix(in oklab,var(--c-flow) 72%,transparent),0 0 12px 5px color-mix(in oklab,var(--c-flow-core) 34%,transparent)'
+      : 'none';
   };
 
   const setDnaRow = (el: Any, i: number, side: string, active: boolean) => {
@@ -997,7 +1002,8 @@ export default function PaginaInstitucional() {
                 Nosso modelo
               </h2>
               <p style={{ fontSize: "17px", lineHeight: "1.6", color: "var(--p-muted,#91A398)", margin: "14px auto 0", maxWidth: "56ch", textWrap: "pretty" }}>
-                Convergência entre método e tecnologia,&nbsp;
+                Convergência entre método e tecnologia,
+                <br />
                 potencializada por experiência e ampla rede construída.
               </p>
             </div>
