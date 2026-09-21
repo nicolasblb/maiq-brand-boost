@@ -253,8 +253,8 @@ export default function PaginaInstitucional() {
     // traço vertical nas laterais da linha durante o hover.
     el.style.transition = `margin ${DNA_DUR}ms ${DNA_EASE} ${delay}ms, width ${DNA_DUR}ms ${DNA_EASE} ${delay}ms, border-color 320ms ${DNA_EASE} ${delay}ms`;
     el.style.boxShadow = 'none';
-    if (active && g) {
-      if (i === 0) {
+    if (active) {
+      if (i === 0 && g) {
         el.style[marginProp] = -g.rail + 'px';
         el.style.width = (cfg.width + cfg.inset + g.rail) + 'px';
       }
@@ -289,6 +289,7 @@ export default function PaginaInstitucional() {
 
   const handleDnaMove = (e: React.MouseEvent) => {
     if (!dnaRowRef.current) return;
+    if (!S._dnaGeom && S._measureDna) S._measureDna();
     const rect = dnaRowRef.current.getBoundingClientRect();
     const rel = (e.clientX - rect.left) / rect.width;
     const side = rel < 0.5 ? 'left' : 'right';
