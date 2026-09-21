@@ -349,7 +349,7 @@ export default function Ciclo() {
       dragging = true;
       dragStartX = event.clientX;
       dragStartScroll = sc.scrollLeft;
-      sc.dataset.dragging = 'true';
+      sc.dataset['dragging'] = 'true';
       sc.setPointerCapture(event.pointerId);
     };
     const onPointerMove = (event: PointerEvent) => {
@@ -358,7 +358,7 @@ export default function Ciclo() {
     };
     const onPointerUp = (event: PointerEvent) => {
       dragging = false;
-      delete sc.dataset.dragging;
+      delete sc.dataset['dragging'];
       if (sc.hasPointerCapture(event.pointerId)) sc.releasePointerCapture(event.pointerId);
     };
     const onScrollKeyDown = (event: KeyboardEvent) => {
