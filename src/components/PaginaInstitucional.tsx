@@ -559,9 +559,9 @@ export default function PaginaInstitucional() {
       queued = false;
       const vh = window.innerHeight;
       const p = Math.min(1, Math.max(0, window.scrollY / (vh * 0.85)));
-      const ease = p * p * (3 - 2 * p);
-      el.style.transform = 'translate3d(0,' + (-52 * ease).toFixed(2) + 'px,0) scale(' + (1 - 0.03 * ease).toFixed(4) + ')';
-      el.style.opacity = (1 - 0.72 * ease).toFixed(3);
+      // Conteúdo do hero permanece estático enquanto a primeira seção o cobre;
+      // apenas a animação da logo acompanha o scroll.
+      void p;
       if (S._paintLogo) {
         S._paintLogo(Math.min(1, Math.max(0, (window.scrollY - vh * 0.6) / (vh * 0.3))));
       }
@@ -901,88 +901,88 @@ export default function PaginaInstitucional() {
         </div>
         <div ref={heroContentRef} style={{ position: "relative", maxWidth: "1200px", margin: "0 auto", width: "100%", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap: "clamp(30px,5vh,72px)", willChange: "transform,opacity" }}>
           <h1 style={{ fontFamily: "Inter, var(--font-core)", fontSize: "clamp(40px, 4.6vw, 68px)", lineHeight: "1.06", letterSpacing: "-.022em", fontWeight: "600", margin: "0", maxWidth: "30ch", color: "var(--p-h1,#E9E0D1)", textWrap: "balance" }}>
-            O Hub de Fusões e Aquisições para Médias Empresas
+            O hub de Fusões e Aquisições para Médias Empresas
           </h1>
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "clamp(30px,5vh,72px)", width: "100%" }}>
             <div style={{ width: "clamp(120px,18vw,260px)", height: "1px", background: "linear-gradient(90deg,transparent 0%,var(--p-hair,rgba(233,224,209,.14)) 18%,var(--p-hair,rgba(233,224,209,.14)) 82%,transparent 100%)" }}>
             </div>
             <p style={{ fontSize: "17px", lineHeight: "1.75", color: "var(--p-text-2,#B7C4BC)", margin: "0", maxWidth: "min(1080px,94%)", textWrap: "balance" }}>
-              Transformamos a capacidade de crescimento das médias empresas, combinando método, tecnologia e conhecimento multidisciplinar. Sistematizamos a expansão inorgânica do seu negócio.
+              Combinamos método e tecnologia para sistematizar o processo de M&A
             </p>
           </div>
         </div>
         <div style={{ position: "relative", margin: "clamp(30px,5vh,72px) auto 0", display: "flex", flexDirection: "column", alignItems: "center", gap: "clamp(30px,5vh,72px)" }}>
           <div style={{ width: "68px", height: "1px", background: "linear-gradient(90deg,transparent 0%,var(--p-hair,rgba(233,224,209,.14)) 22%,var(--p-hair,rgba(233,224,209,.14)) 78%,transparent 100%)" }}>
           </div>
-          <div style={{ fontSize: "12px", letterSpacing: ".14em", textTransform: "uppercase", fontWeight: "500", color: "var(--p-muted,#91A398)" }}>
-            COMO AJUDAMOS CLIENTES E PARCEIROS
+          <div style={{ fontSize: "12px", letterSpacing: ".14em", fontWeight: "500", color: "var(--p-muted,#91A398)" }}>
+            Como ajudamos nossos clientes e parceiros
           </div>
         </div>
-        <div ref={marqueeRef} style={{ position: "relative", margin: "clamp(18px,2.6vh,32px) auto 0", width: "70%", display: "flex", flexDirection: "column", gap: "14px", maskImage: "linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%)", WebkitMaskImage: "linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%)" }}>
+        <div ref={marqueeRef} style={{ position: "relative", margin: "clamp(16px,2.2vh,28px) auto 0", width: "80%", display: "flex", flexDirection: "column", gap: "10px", maskImage: "linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%)", WebkitMaskImage: "linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%)" }}>
           <div style={{ overflow: "hidden" }}>
-            <div ref={rowARef} style={{ display: "flex", gap: "14px", width: "max-content", willChange: "transform" }}>
-              <div style={{ display: "flex", alignItems: "center", height: "46px", padding: "0 24px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
+            <div ref={rowARef} style={{ display: "flex", gap: "10px", width: "max-content", willChange: "transform" }}>
+              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
                 Venda de empresa
               </div>
-              <div style={{ display: "flex", alignItems: "center", height: "46px", padding: "0 24px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
+              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
                 Aquisição de concorrente
               </div>
-              <div style={{ display: "flex", alignItems: "center", height: "46px", padding: "0 24px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
+              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
                 Captação de recursos
               </div>
-              <div style={{ display: "flex", alignItems: "center", height: "46px", padding: "0 24px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
+              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
                 Atração de investidores
               </div>
-              <div style={{ display: "flex", alignItems: "center", height: "46px", padding: "0 24px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
+              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
                 Coordenação de M&A
               </div>
-              <div style={{ display: "flex", alignItems: "center", height: "46px", padding: "0 24px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
+              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
                 Venda de empresa
               </div>
-              <div style={{ display: "flex", alignItems: "center", height: "46px", padding: "0 24px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
+              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
                 Aquisição de concorrente
               </div>
-              <div style={{ display: "flex", alignItems: "center", height: "46px", padding: "0 24px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
+              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
                 Captação de recursos
               </div>
-              <div style={{ display: "flex", alignItems: "center", height: "46px", padding: "0 24px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
+              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
                 Atração de investidores
               </div>
-              <div style={{ display: "flex", alignItems: "center", height: "46px", padding: "0 24px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
+              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
                 Coordenação de M&A
               </div>
             </div>
           </div>
           <div style={{ overflow: "hidden" }}>
-            <div ref={rowBRef} style={{ display: "flex", gap: "14px", width: "max-content", willChange: "transform" }}>
-              <div style={{ display: "flex", alignItems: "center", height: "46px", padding: "0 24px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
+            <div ref={rowBRef} style={{ display: "flex", gap: "10px", width: "max-content", willChange: "transform" }}>
+              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
                 Avaliação de empresas — valuation
               </div>
-              <div style={{ display: "flex", alignItems: "center", height: "46px", padding: "0 24px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
+              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
                 Fairness Opinion
               </div>
-              <div style={{ display: "flex", alignItems: "center", height: "46px", padding: "0 24px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
+              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
                 Estruturação de dívida
               </div>
-              <div style={{ display: "flex", alignItems: "center", height: "46px", padding: "0 24px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
+              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
                 Joint ventures
               </div>
-              <div style={{ display: "flex", alignItems: "center", height: "46px", padding: "0 24px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
+              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
                 Consolidação de mercado
               </div>
-              <div style={{ display: "flex", alignItems: "center", height: "46px", padding: "0 24px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
+              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
                 Avaliação de empresas — valuation
               </div>
-              <div style={{ display: "flex", alignItems: "center", height: "46px", padding: "0 24px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
+              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
                 Fairness Opinion
               </div>
-              <div style={{ display: "flex", alignItems: "center", height: "46px", padding: "0 24px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
+              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
                 Estruturação de dívida
               </div>
-              <div style={{ display: "flex", alignItems: "center", height: "46px", padding: "0 24px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
+              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
                 Joint ventures
               </div>
-              <div style={{ display: "flex", alignItems: "center", height: "46px", padding: "0 24px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
+              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
                 Consolidação de mercado
               </div>
             </div>
