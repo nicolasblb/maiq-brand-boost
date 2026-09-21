@@ -376,11 +376,11 @@ export default function PaginaInstitucional() {
     setTheme(initial as Any);
     applyTheme(initial as Any);
 
-    setupOdometers();
     setupMarquee();
     S._paintLogo = setupLogoFlight();
     setupScroll();
     setupOffscreenPause();
+    setupOdometers();
     setupDna();
 
     return () => {
@@ -464,13 +464,13 @@ export default function PaginaInstitucional() {
       if (Math.abs(p - o.p) < 0.001 && o.painted) return;
       o.p = p; o.painted = true;
       const e = p * p * (3 - 2 * p);
-      for (let i = 0; i < o.digits; i++) {
-        const pos = o.finals[i] * e;
-        o.strips[i].style.transform = 'translate3d(0,' + (-pos * 100 / 12).toFixed(4) + '%,0)';
-      }
+    const measureOdos = () => {
+      S._odos.forEach((o: Any) => {
+        if (!o.sec) return;
+        const rect = o.sec.getBoundingClientRect();
+        o.off = rect.top + window.scrollY;
+      });
     };
-    const animateOdo = (o: Any) => {
-      if (o.started) return;
       o.started = true;
       const startedAt = performance.now();
       const tick = (now: number) => {
