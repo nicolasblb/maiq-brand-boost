@@ -300,7 +300,7 @@ export default function PlatformShowcase() {
         <div className="maiq-platform-copy" onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
           <div key={active} className="maiq-platform-copy-inner">
             <h3>{feature.title}</h3>
-            <p>{feature.description}</p>
+            <FeaturePoints points={feature.points} />
           </div>
         </div>
       </div>
@@ -318,7 +318,9 @@ export default function PlatformShowcase() {
               <div className="maiq-platform-modal-copy">
                 <p className="maiq-platform-feature-name">{feature.name}</p>
                 <h3>{feature.title}</h3>
-                <DialogPrimitive.Description id="maiq-platform-modal-description">{feature.description}</DialogPrimitive.Description>
+                <DialogPrimitive.Description asChild>
+                  <FeaturePoints points={feature.points} />
+                </DialogPrimitive.Description>
                 <div className="maiq-platform-modal-nav">
                   <MaiqButton variant="ghost" size="sm" aria-label="Funcionalidade anterior" title="Anterior" className="maiq-platform-icon-nav" onClick={() => selectFeature(active - 1)}><ChevronLeft size={20} /></MaiqButton>
                   <span>{active + 1} / {FEATURES.length}</span>
