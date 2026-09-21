@@ -478,9 +478,9 @@ export default function Ciclo() {
               textWrap: 'pretty' as any,
             }}
           >
-            É a partir da conclusão da transação que começa o trabalho
+            Para aumentar as chances de sucesso, o M&amp;A deve ser uma disciplina contínua,
             <br />
-            de integração e captura de sinergias
+            parte permanente da estratégia de uma empresa.
           </p>
         </div>
         <div
