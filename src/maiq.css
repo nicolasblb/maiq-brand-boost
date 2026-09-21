@@ -689,7 +689,6 @@ body{margin:0;background:#0D2423;transition:background 320ms cubic-bezier(.16,1,
 
 /* Plataforma — navegação linear e mídia controlada */
 .maiq-platform-section{position:relative;z-index:1;scroll-margin-top:132px;padding:clamp(136px,17vh,176px) 48px clamp(96px,12vh,140px)}
-  scroll-margin-top:132px;
 .maiq-platform-section-inner{width:100%;max-width:1200px;margin:0 auto}
 .maiq-platform-heading{display:flex;flex-direction:column;align-items:center;text-align:center}
 .maiq-platform-heading h2{margin:0;color:var(--p-text);font-family:var(--font-core);font-size:clamp(38px,4.2vw,58px);font-weight:600;line-height:1.04;letter-spacing:0}
@@ -745,8 +744,7 @@ body{margin:0;background:#0D2423;transition:background 320ms cubic-bezier(.16,1,
 @keyframes maiqPlatformFade{from{opacity:0}to{opacity:1}}
 @keyframes maiqPlatformModalIn{from{opacity:0;transform:scale(.98)}to{opacity:1;transform:scale(1)}}
 @media (max-width:1023px){
-  .maiq-platform-section{padding:96px 24px}
-  scroll-margin-top:132px;
+  .maiq-platform-section{padding:132px 24px 96px}
   .maiq-platform-card{height:auto;min-height:0;grid-template-columns:1fr}
   .maiq-platform-media{aspect-ratio:1/1}
   .maiq-platform-copy{min-height:290px;border-top:1px solid var(--p-hair);border-left:0}
@@ -758,7 +756,6 @@ body{margin:0;background:#0D2423;transition:background 320ms cubic-bezier(.16,1,
 }
 @media (max-width:600px){
   .maiq-platform-section{padding-right:20px;padding-left:20px}
-  scroll-margin-top:132px;
   .maiq-platform-showcase{margin-top:42px}
   .maiq-platform-tabs{width:640px;min-width:640px}
   .maiq-platform-card{margin-top:34px;border-radius:var(--radius-lg)}
