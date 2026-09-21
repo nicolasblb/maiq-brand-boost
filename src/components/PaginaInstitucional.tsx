@@ -376,6 +376,7 @@ export default function PaginaInstitucional() {
     S._paintLogo = setupLogoFlight();
     setupScroll();
     setupOffscreenPause();
+    setupDna();
 
     return () => {
       if (S._paintOdos) {
@@ -687,6 +688,54 @@ export default function PaginaInstitucional() {
     if (!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) {
       S._raf = requestAnimationFrame(tick);
     }
+  }
+
+  // Geometria das linhas de hover do "Nosso modelo" (máscara arredondada,
+  // deslocamento lateral e posição dos círculos luminosos).
+  function setupDna() {
+    S._measureDna = () => {
+      const venn = vennBoxRef.current;
+      if (!venn) return;
+      const vr = venn.getBoundingClientRect();
+      if (!vr.width) return;
+      const scale = vr.width / 836;
+      const arcAt = (y: number) => { const dy = y - 180; return 180 - Math.sqrt(Math.max(0, 32400 - dy * dy)); };
+      const geom: Any = {};
+      const side = (name: string, col: Any, clip: Any, textEl: Any, spanEl: Any, rowEls: Any[], capX: number) => {
+        if (!col || !clip || !spanEl) return;
+        const cr = col.getBoundingClientRect();
+        if (!cr.width) return;
+        const cx = (vr.left - cr.left) + capX * scale;
+        const cy = (vr.top - cr.top) + 180 * scale;
+        const mask = `radial-gradient(circle ${180 * scale}px at ${cx}px ${cy}px, rgba(0,0,0,0) 99.6%, #000 100%)`;
+        col.style.webkitMaskImage = mask;
+        col.style.maskImage = mask;
+        const base = Math.round(spanEl.getBoundingClientRect().top - vr.top);
+        clip.style.marginTop = base + 'px';
+        const pEl = textEl && textEl.querySelector('p');
+        if (pEl && pEl.firstChild && pEl.firstChild.length) {
+          const rg = document.createRange();
+          rg.setStart(pEl.firstChild, 0);
+          rg.setEnd(pEl.firstChild, Math.min(8, pEl.firstChild.length));
+          const delta = rg.getBoundingClientRect().top - spanEl.getBoundingClientRect().top;
+          if (delta) clip.style.marginTop = Math.round(base - delta) + 'px';
+        }
+        const g = {
+          tuck: Math.ceil(cr.width),
+          rail: Math.round((name === 'left' ? (vr.left - cr.left) : (cr.right - vr.right)) / scale),
+          arc: rowEls.map((el) => el ? Math.round(arcAt((el.getBoundingClientRect().top - vr.top) / scale)) : 0),
+        };
+        geom[name] = g;
+        if (S._dnaSide !== name && textEl) textEl.style.transform = `translateX(${(g.rail + DNA_ROW_CFG[0]!.inset) * (name === 'left' ? 1 : -1)}px)`;
+      };
+      side('left', lColRef.current, lClipRef.current, lTextRef.current, scoreTextRef.current,
+        [scoreRowRef.current, lRow1Ref.current, lRow3Ref.current], 180);
+      side('right', rColRef.current, rClipRef.current, rTextRef.current, chatTextRef.current,
+        [chatRowRef.current, rRow1Ref.current, rRow2Ref.current], 656);
+      S._dnaGeom = geom;
+    };
+    S._measureDna();
+    window.addEventListener('resize', S._measureDna);
   }
 
   void refs; void iconSunRef; void iconMoonRef; void lRailRef; void rRailRef; void netWrapRef; void overlayRef;
