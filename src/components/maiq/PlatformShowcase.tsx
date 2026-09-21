@@ -9,36 +9,54 @@ const FEATURE_DURATION = 15;
 
 const FEATURES = [
   {
-    name: 'M&AI',
-    title: 'O chat para o próximo passo',
-    description: 'Converse com uma IA treinada profundamente em frameworks e métodos para atender a sua necessidade. Escolha o tema, suas referências e você estará pronto para iniciar um debate que mudará o rumo da sua empresa.',
+    name: 'IA para M&A',
+    title: 'Agentes e Assistentes de IA para M&A',
+    points: [
+      'Integração com os melhores LLMs do mercado',
+      'Assistente de IA treinada especificamente para Fusões e Aquisições',
+      'Agregação de diversas tecnologias para contexto mais acurado',
+    ],
     visual: 'circle',
   },
   {
-    name: 'QUARPX®',
-    title: 'Onde estamos na jornada do M&A?',
-    description: 'Avalie a prontidão da sua empresa para uma transação de M&A bem sucedida. Acompanhe a evolução de cada competência por um painel intuitivo e monitore as ações priorizadas em cada estágio.',
-    visual: 'diamond',
-  },
-  {
-    name: 'Teses',
-    title: 'Construindo oportunidades',
-    description: 'Elabore suas teses e planeje o crescimento inorgânico da sua empresa de forma assistida, organizada e segura. Explore as possibilidades do seu setor e garanta a melhor estratégia para o futuro.',
+    name: 'Teses de Investimento',
+    title: 'Explore suas Teses de Investimento',
+    points: [
+      'Desenhe seus objetivos de M&A e conecte com a estratégia do seu negócio',
+      'Crie múltiplos cenários: possíveis compradores, investidores ou concorrentes para aquisição',
+    ],
     visual: 'rings',
   },
   {
-    name: 'Diligência',
-    title: 'Segurança e organização em poucos cliques',
-    description: 'Tenha controle sobre sua documentação durante todo o processo de Due Diligence. Centralize e compartilhe todos os documentos com acessos controlados, rastreabilidade e controle de versões.',
-    visual: 'vdr',
+    name: 'Etapas do M&A',
+    title: 'Acompanhe as etapas do M&A',
+    points: [
+      'Funcionalidades específicas para apoiar da negociação até o estágio de integração',
+      'Ferramenta de análise de documentos',
+      'Gerador de apresentações com uso de IA',
+    ],
+    visual: 'diamond',
   },
   {
-    name: 'Conteúdo',
-    title: 'Conhecimento como alma da transação',
-    description: 'Mergulhe no universo de M&A com nossos conteúdos. Trazemos reflexões, cases, aspectos técnicos, notícias e outros temas para permitir que você esteja cada vez mais preparado para o próximo passo.',
-    visual: 'hexagon',
+    name: 'Virtual Data Room',
+    title: 'Compartilhamento de arquivos',
+    points: [
+      'Segurança para dividir e acessar arquivos',
+      'Rastreabilidade, controle e auditoria de todos os documentos compartilhados',
+    ],
+    visual: 'vdr',
   },
 ] as const;
+
+function FeaturePoints({ points }: { points: readonly string[] }) {
+  return (
+    <ul className="maiq-platform-points">
+      {points.map((point) => (
+        <li key={point}>{point}</li>
+      ))}
+    </ul>
+  );
+}
 
 function PlaybackButton({ playing, progress, onClick }: { playing: boolean; progress: number; onClick: () => void }) {
   const radius = 18;
@@ -76,7 +94,7 @@ function MediaVisual({ index, playing, run, time }: { index: number; playing: bo
   if (feature.visual === 'circle') return <div className="maiq-platform-placeholder maiq-platform-placeholder-circle" data-playing={playing} />;
   if (feature.visual === 'diamond') return <div className="maiq-platform-placeholder maiq-platform-placeholder-diamond" data-playing={playing} />;
   if (feature.visual === 'rings') return <div className="maiq-platform-placeholder maiq-platform-placeholder-rings" data-playing={playing}><i /><i /><i /></div>;
-  return <div className="maiq-platform-placeholder maiq-platform-placeholder-hexagon" data-playing={playing} />;
+  return <div className="maiq-platform-placeholder maiq-platform-placeholder-circle" data-playing={playing} />;
 }
 
 export default function PlatformShowcase() {
