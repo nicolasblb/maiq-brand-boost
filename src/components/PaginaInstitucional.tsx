@@ -241,7 +241,10 @@ export default function PaginaInstitucional() {
     const dot = el.querySelector('[data-maiq-dot]');
     if (!dot) return;
     // Mesma linguagem luminosa dos divisórios da barra da Plataforma.
-    dot.style.transition = `opacity 320ms ${DNA_EASE} ${delay}ms, background-color 320ms ${DNA_EASE} ${delay}ms, box-shadow 320ms ${DNA_EASE} ${delay}ms`;
+    // O ponto reage imediatamente; a linha mantém o movimento escalonado.
+    dot.style.transition = `opacity 180ms ${DNA_EASE}, background-color 180ms ${DNA_EASE}, box-shadow 180ms ${DNA_EASE}`;
+    dot.style.zIndex = '3';
+    dot.style.transform = 'translateZ(0)';
     dot.style.opacity = active ? '1' : '0';
     dot.style.background = active ? 'var(--c-flow,#91A398)' : 'var(--p-text,#E9E0D1)';
     dot.style.boxShadow = active
