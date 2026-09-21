@@ -685,26 +685,26 @@ export default function Ciclo() {
             </g>
             <g data-c-fases="">
               <g data-c-phase="0">
-                <LaneSvgIcon name="target" x={LANES[0].labelX} y={172} />
-                <text x={LANES[0].labelX + 32} y="189" textAnchor="start" fill="var(--c-lane-fg)" style={{ fontSize: 19, fontWeight: 500 }}>
+                <LaneSvgIcon name="target" x={68} y={172} />
+                <text x={100} y="189" textAnchor="start" fill="var(--c-lane-fg)" style={{ fontSize: 19, fontWeight: 500 }}>
                   Estratégia
                 </text>
               </g>
               <g data-c-phase="1">
-                <LaneSvgIcon name="search" x={LANES[1].labelX} y={312} />
-                <text x={LANES[1].labelX + 32} y="329" textAnchor="start" fill="var(--c-lane-fg)" style={{ fontSize: 19, fontWeight: 500 }}>
+                <LaneSvgIcon name="search" x={65} y={312} />
+                <text x={97} y="329" textAnchor="start" fill="var(--c-lane-fg)" style={{ fontSize: 19, fontWeight: 500 }}>
                   Originação
                 </text>
               </g>
               <g data-c-phase="2">
-                <LaneSvgIcon name="cog" x={LANES[2].labelX} y={453} />
-                <text x={LANES[2].labelX + 32} y="470" textAnchor="start" fill="var(--c-lane-fg)" style={{ fontSize: 19, fontWeight: 500 }}>
+                <LaneSvgIcon name="cog" x={71} y={453} />
+                <text x={103} y="470" textAnchor="start" fill="var(--c-lane-fg)" style={{ fontSize: 19, fontWeight: 500 }}>
                   Execução
                 </text>
               </g>
               <g data-c-phase="3">
-                <LaneSvgIcon name="file-check" x={LANES[3].labelX} y={593} />
-                <text x={LANES[3].labelX + 32} y="610" textAnchor="start" fill="var(--c-lane-fg)" style={{ fontSize: 19, fontWeight: 500 }}>
+                <LaneSvgIcon name="file-check" x={68} y={593} />
+                <text x={100} y="610" textAnchor="start" fill="var(--c-lane-fg)" style={{ fontSize: 19, fontWeight: 500 }}>
                   Efetivação
                 </text>
               </g>
