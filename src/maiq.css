@@ -482,6 +482,12 @@ body{margin:0;background:#0D2423;transition:background 320ms cubic-bezier(.16,1,
   .maiq-footer-cols{width:100%;justify-content:space-between;gap:32px}
 }
 
+.maiq-conviction{
+  position:relative;
+  z-index:1;
+  padding:clamp(104px,13vh,150px) 48px clamp(72px,9vh,112px);
+}
+.maiq-conviction-inner{width:100%;max-width:1200px;margin:0 auto}
 .maiq-conviction-head{
   display:flex;
   flex-direction:column;
