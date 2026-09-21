@@ -1,10 +1,11 @@
 import { useEffect, useRef } from 'react';
+import { Cog, FileCheck, Search, Target } from 'lucide-react';
 
 const LANES = [
-  { label: 'Estratégia', icon: 'target' as const },
-  { label: 'Originação', icon: 'search' as const },
-  { label: 'Execução', icon: 'cog' as const },
-  { label: 'Efetivação', icon: 'file-check' as const },
+  { label: 'Estratégia', top: '9.90%', Icon: Target, icon: 'target' as const },
+  { label: 'Originação', top: '36.57%', Icon: Search, icon: 'search' as const },
+  { label: 'Execução', top: '63.43%', Icon: Cog, icon: 'cog' as const },
+  { label: 'Efetivação', top: '90.10%', Icon: FileCheck, icon: 'file-check' as const },
 ];
 
 type LaneIconName = (typeof LANES)[number]['icon'];
@@ -79,6 +80,9 @@ export default function Ciclo() {
   const cicloRef = useRef<HTMLElement | null>(null);
   const cicloScrollRef = useRef<HTMLDivElement | null>(null);
   const cicloSvgRef = useRef<SVGSVGElement | null>(null);
+  const cicloFasesRef = useRef<HTMLDivElement | null>(null);
+  const cicloProgressRef = useRef<HTMLDivElement | null>(null);
+  const cicloProgressThumbRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const sec = cicloRef.current;
@@ -288,8 +292,24 @@ export default function Ciclo() {
     // Piso de legibilidade: quando o diagrama completo não cabe, ele mantém
     // sua escala mínima e passa a rolar horizontalmente sem recortar as raias.
     const MIN_FULL = 1071;
+    const MIN_CROP = 890;
     const AR = 525 / 1400;
+    const ARC = 525 / 1163;
+    const updateProgress = () => {
+      const progress = cicloProgressRef.current;
+      const thumb = cicloProgressThumbRef.current;
+      if (!progress || !thumb) return;
+      const maxScroll = sc.scrollWidth - sc.clientWidth;
+      const visibleRatio = Math.min(1, sc.clientWidth / sc.scrollWidth);
+      const thumbWidth = Math.max(34, progress.clientWidth * visibleRatio);
+      const travel = Math.max(0, progress.clientWidth - thumbWidth);
+      const ratio = maxScroll > 0 ? sc.scrollLeft / maxScroll : 0;
+      thumb.style.width = thumbWidth + 'px';
+      thumb.style.transform = `translateX(${travel * ratio}px)`;
+      progress.style.display = maxScroll > 1 ? 'block' : 'none';
+    };
     const layout = () => {
+      const fases = cicloFasesRef.current;
       const PAD = 32;
       const availW = Math.max(240, (sc.clientWidth || sec.clientWidth - 96) - PAD);
       const availH =
@@ -307,20 +327,55 @@ export default function Ciclo() {
         svg.style.width = fitW + 'px';
         svg.style.height = h + 'px';
         sc.style.minHeight = '0px';
+        if (fasesG) fasesG.style.display = '';
+        if (fases) fases.style.display = 'none';
       } else {
-        const w = MIN_FULL;
-        const h = Math.round(w * AR);
-        svg.setAttribute('viewBox', '0 130 1400 525');
+        const w = Math.max(MIN_CROP, Math.min(Math.max(1, availW - 202), Math.round(availH / ARC)));
+        const h = Math.round(w * ARC);
+        svg.setAttribute('viewBox', '237 130 1163 525');
         sc.style.overflowX = 'auto';
         sc.style.justifyContent = 'flex-start';
         svg.style.flex = '0 0 auto';
         svg.style.width = w + 'px';
         svg.style.height = h + 'px';
         sc.style.minHeight = '0px';
+        if (fasesG) fasesG.style.display = 'none';
+        if (fases) {
+          fases.style.display = 'block';
+          fases.style.height = h + 'px';
+        }
       }
+      window.requestAnimationFrame(updateProgress);
     };
     layout();
     window.addEventListener('resize', layout);
+    sc.addEventListener('scroll', updateProgress, { passive: true });
+
+    const progress = cicloProgressRef.current;
+    let dragging = false;
+    const seek = (clientX: number) => {
+      if (!progress) return;
+      const rect = progress.getBoundingClientRect();
+      const ratio = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+      sc.scrollLeft = ratio * (sc.scrollWidth - sc.clientWidth);
+    };
+    const onPointerDown = (event: PointerEvent) => {
+      if (!progress) return;
+      dragging = true;
+      progress.setPointerCapture(event.pointerId);
+      seek(event.clientX);
+    };
+    const onPointerMove = (event: PointerEvent) => {
+      if (dragging) seek(event.clientX);
+    };
+    const onPointerUp = (event: PointerEvent) => {
+      dragging = false;
+      if (progress?.hasPointerCapture(event.pointerId)) progress.releasePointerCapture(event.pointerId);
+    };
+    progress?.addEventListener('pointerdown', onPointerDown);
+    progress?.addEventListener('pointermove', onPointerMove);
+    progress?.addEventListener('pointerup', onPointerUp);
+    progress?.addEventListener('pointercancel', onPointerUp);
 
     let cicloIO: IntersectionObserver | null = null;
     if ('IntersectionObserver' in window) {
@@ -359,6 +414,11 @@ export default function Ciclo() {
     return () => {
       if (cicloRaf) cancelAnimationFrame(cicloRaf);
       window.removeEventListener('resize', layout);
+      sc.removeEventListener('scroll', updateProgress);
+      progress?.removeEventListener('pointerdown', onPointerDown);
+      progress?.removeEventListener('pointermove', onPointerMove);
+      progress?.removeEventListener('pointerup', onPointerUp);
+      progress?.removeEventListener('pointercancel', onPointerUp);
       window.removeEventListener('scroll', probe);
       window.removeEventListener('resize', probe);
       if (cicloIO) cicloIO.disconnect();
@@ -404,7 +464,9 @@ export default function Ciclo() {
               margin: 0,
             }}
           >
-            O M&amp;A não termina na assinatura de um contrato
+            O M&amp;A não termina na assinatura
+            <br />
+            de um contrato
           </h2>
           <p
             style={{
@@ -416,7 +478,9 @@ export default function Ciclo() {
               textWrap: 'pretty' as any,
             }}
           >
-            É a partir da conclusão da transação que começa o trabalho de integração e captura de sinergias
+            É a partir da conclusão da transação que começa o trabalho
+            <br />
+            de integração e captura de sinergias
           </p>
         </div>
         <div
@@ -440,6 +504,22 @@ export default function Ciclo() {
             background: 'var(--c-frame-bg)',
           }}
         >
+          <div
+            ref={cicloFasesRef}
+            aria-hidden="true"
+            className="maiq-cycle-lanes"
+          >
+            {LANES.map((lane, index) => {
+              const LaneIcon = lane.Icon;
+              return (
+                <div key={lane.label} className="maiq-cycle-lane" style={{ top: lane.top }}>
+                  <LaneIcon size={20} strokeWidth={1.5} aria-hidden="true" />
+                  <span>{lane.label}</span>
+                  {index < LANES.length - 1 ? <span className="maiq-cycle-lane-dots" /> : null}
+                </div>
+              );
+            })}
+          </div>
           <svg
             ref={cicloSvgRef}
             viewBox="0 130 1400 525"
@@ -489,11 +569,15 @@ export default function Ciclo() {
               </radialGradient>
             </defs>
             <g data-c-sep="" aria-hidden="true" fill="none" strokeWidth="1.3" strokeDasharray="2.6 9" strokeLinecap="round">
+              <path d="M34,252 H224" stroke="url(#maiqCHFadeA)" />
+              <path d="M34,392.5 H224" stroke="url(#maiqCHFadeA)" />
+              <path d="M34,533 H224" stroke="url(#maiqCHFadeA)" />
               <path d="M252,252 H1392" stroke="url(#maiqCHFadeA)" />
               <path d="M252,392.5 H1392" stroke="url(#maiqCHFadeA)" />
               <path d="M252,533 H930" stroke="url(#maiqCHFadeB)" />
               <path d="M1140,533 H1392" stroke="url(#maiqCHFadeC)" />
             </g>
+            <path aria-hidden="true" d="M237,142 V643" stroke="url(#maiqCVFade)" strokeWidth="1" fill="none" />
             <g data-c-lines="" fill="none" stroke="var(--c-line)" strokeWidth="1.5" strokeLinecap="round">
               <path data-c-seg="" d="M374.5,216 V288" />
               <path data-c-seg="" d="M374.5,356 V429" />
@@ -685,6 +769,17 @@ export default function Ciclo() {
               </g>
             </g>
           </svg>
+          <div
+            ref={cicloProgressRef}
+            className="maiq-cycle-progress"
+            role="slider"
+            aria-label="Posição horizontal do fluxo"
+            aria-valuemin={0}
+            aria-valuemax={100}
+            tabIndex={0}
+          >
+            <div ref={cicloProgressThumbRef} className="maiq-cycle-progress-thumb" />
+          </div>
         </div>
       </div>
     </section>
