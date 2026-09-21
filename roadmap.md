@@ -36,3 +36,4 @@
 - [x] "A Plataforma" vira "Nossa Plataforma" com header/sub-header centralizados
 - [x] Funcionalidades reduzidas a 4 (IA para M&A, Teses de Investimento, Etapas do M&A, Virtual Data Room) com tópicos em lista no cartão e no modal
 - [x] Centralizar o cabeçalho de “O Ciclo”, simplificar as raias, ampliar os pontilhados e habilitar rolagem horizontal limpa em telas menores.
+- [x] Refinar “O Ciclo” com quebras de título, divisórias com fade e indicador arrastável de progresso horizontal.
