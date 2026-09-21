@@ -2,10 +2,10 @@ import { useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight, Cog, FileCheck, Search, Target } from 'lucide-react';
 
 const LANES = [
-  { label: 'Estratégia', top: '9.90%', Icon: Target, icon: 'target' as const },
-  { label: 'Originação', top: '36.57%', Icon: Search, icon: 'search' as const },
-  { label: 'Execução', top: '63.43%', Icon: Cog, icon: 'cog' as const },
-  { label: 'Efetivação', top: '90.10%', Icon: FileCheck, icon: 'file-check' as const },
+  { label: 'Estratégia', top: '9.90%', Icon: Target, icon: 'target' as const, labelX: 68 },
+  { label: 'Originação', top: '36.57%', Icon: Search, icon: 'search' as const, labelX: 65 },
+  { label: 'Execução', top: '63.43%', Icon: Cog, icon: 'cog' as const, labelX: 71 },
+  { label: 'Efetivação', top: '90.10%', Icon: FileCheck, icon: 'file-check' as const, labelX: 68 },
 ];
 
 type LaneIconName = (typeof LANES)[number]['icon'];
@@ -464,9 +464,7 @@ export default function Ciclo() {
               margin: 0,
             }}
           >
-            O M&amp;A não termina na assinatura
-            <br />
-            de um contrato
+            Nossa Perspectiva
           </h2>
           <p
             style={{
@@ -478,9 +476,7 @@ export default function Ciclo() {
               textWrap: 'pretty' as any,
             }}
           >
-            Para aumentar as chances de sucesso, o M&amp;A deve ser uma disciplina contínua,
-            <br />
-            parte permanente da estratégia de uma empresa.
+            Prontidão é chave. Entendemos M&amp;A como disciplina contínua de gestão, pois o processo não termina na assinatura de um contrato.
           </p>
         </div>
         <div
@@ -689,26 +685,26 @@ export default function Ciclo() {
             </g>
             <g data-c-fases="">
               <g data-c-phase="0">
-                <LaneSvgIcon name="target" x={49} y={172} />
-                <text x="81" y="189" textAnchor="start" fill="var(--c-lane-fg)" style={{ fontSize: 19, fontWeight: 500 }}>
+                <LaneSvgIcon name="target" x={LANES[0].labelX} y={172} />
+                <text x={LANES[0].labelX + 32} y="189" textAnchor="start" fill="var(--c-lane-fg)" style={{ fontSize: 19, fontWeight: 500 }}>
                   Estratégia
                 </text>
               </g>
               <g data-c-phase="1">
-                <LaneSvgIcon name="search" x={49} y={312} />
-                <text x="81" y="329" textAnchor="start" fill="var(--c-lane-fg)" style={{ fontSize: 19, fontWeight: 500 }}>
+                <LaneSvgIcon name="search" x={LANES[1].labelX} y={312} />
+                <text x={LANES[1].labelX + 32} y="329" textAnchor="start" fill="var(--c-lane-fg)" style={{ fontSize: 19, fontWeight: 500 }}>
                   Originação
                 </text>
               </g>
               <g data-c-phase="2">
-                <LaneSvgIcon name="cog" x={49} y={453} />
-                <text x="81" y="470" textAnchor="start" fill="var(--c-lane-fg)" style={{ fontSize: 19, fontWeight: 500 }}>
+                <LaneSvgIcon name="cog" x={LANES[2].labelX} y={453} />
+                <text x={LANES[2].labelX + 32} y="470" textAnchor="start" fill="var(--c-lane-fg)" style={{ fontSize: 19, fontWeight: 500 }}>
                   Execução
                 </text>
               </g>
               <g data-c-phase="3">
-                <LaneSvgIcon name="file-check" x={49} y={593} />
-                <text x="81" y="610" textAnchor="start" fill="var(--c-lane-fg)" style={{ fontSize: 19, fontWeight: 500 }}>
+                <LaneSvgIcon name="file-check" x={LANES[3].labelX} y={593} />
+                <text x={LANES[3].labelX + 32} y="610" textAnchor="start" fill="var(--c-lane-fg)" style={{ fontSize: 19, fontWeight: 500 }}>
                   Efetivação
                 </text>
               </g>
