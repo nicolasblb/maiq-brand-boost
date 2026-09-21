@@ -7,8 +7,7 @@ export default function Conviccao() {
         <header className="maiq-conviction-head">
           <h2 id="conviccao-title">Nossa Convicção</h2>
           <h3 className="maiq-section-subhead">
-            A empresa que só cresce de forma orgânica<span className="maiq-subhead-space"> </span>
-            <br className="maiq-subhead-break-compact" />
+            A empresa que só cresce de forma orgânica<span className="maiq-subhead-break maiq-subhead-break-conviction" aria-hidden="true" />
             pode estar limitando o próprio futuro.
           </h3>
         </header>

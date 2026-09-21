@@ -513,16 +513,30 @@ body{margin:0;background:#0D2423;transition:background 320ms cubic-bezier(.16,1,
 }
 .maiq-section-subhead{
   font-family:var(--font-core);
-  font-size:clamp(23px,2.52vw,35px);
+  font-size:clamp(15.2px,1.68vw,23px);
   font-weight:var(--fw-regular);
   line-height:1.24;
   letter-spacing:0;
 }
-.maiq-subhead-break-compact{display:none}
-.maiq-subhead-space{display:inline}
-@media (max-width:900px){
-  .maiq-subhead-break-compact{display:block}
-  .maiq-subhead-space{display:none}
+.maiq-hero-subhead{
+  font-family:var(--font-core);
+  font-size:clamp(24px,2.76vw,41px);
+  font-weight:var(--fw-regular);
+  line-height:1.24;
+  letter-spacing:0;
+}
+.maiq-subhead-break::before{content:" "}
+@media (max-width:820px){
+  .maiq-subhead-break-model,.maiq-subhead-break-perspective{display:block}
+  .maiq-subhead-break-model::before,.maiq-subhead-break-perspective::before{content:none}
+}
+@media (max-width:700px){
+  .maiq-subhead-break-conviction{display:block}
+  .maiq-subhead-break-conviction::before{content:none}
+}
+@media (max-width:560px){
+  .maiq-subhead-break-platform{display:block}
+  .maiq-subhead-break-platform::before{content:none}
 }
 .maiq-conviction-body{
   display:flex;

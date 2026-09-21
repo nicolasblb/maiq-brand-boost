@@ -476,8 +476,7 @@ export default function Ciclo() {
           >
             Prontidão é chave.
             <br />
-            Entendemos M&amp;A como disciplina contínua de gestão,<span className="maiq-subhead-space"> </span>
-            <br className="maiq-subhead-break-compact" />
+            Entendemos M&amp;A como disciplina contínua de gestão,<span className="maiq-subhead-break maiq-subhead-break-perspective" aria-hidden="true" />
             pois o processo não termina na assinatura de um contrato.
           </p>
         </div>
