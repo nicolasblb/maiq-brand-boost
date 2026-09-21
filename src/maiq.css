@@ -513,7 +513,7 @@ body{margin:0;background:#0D2423;transition:background 320ms cubic-bezier(.16,1,
 }
 .maiq-section-subhead{
   font-family:var(--font-core);
-  font-size:clamp(17px,1.68vw,23px);
+  font-size:clamp(15.2px,1.68vw,23px);
   font-weight:var(--fw-regular);
   line-height:1.24;
   letter-spacing:0;
