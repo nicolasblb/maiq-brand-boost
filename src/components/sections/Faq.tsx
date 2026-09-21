@@ -44,7 +44,11 @@ export default function Faq({ onContact }: FaqProps) {
       <div className="maiq-faq-inner">
         <div className="maiq-faq-intro">
           <h2 id={`${sectionId}-title`}>FAQ</h2>
-          <p className="maiq-faq-sub">Respostas às perguntas frequentes sobre a atuação do Maiq</p>
+          <p className="maiq-faq-sub maiq-section-subhead">
+            Respostas às perguntas frequentes
+            <br />
+            sobre a atuação do Maiq
+          </p>
           <MaiqButton type="button" variant="primary" size="md" className="maiq-faq-contact" onClick={onContact}>
             Fale conosco
             <span aria-hidden="true">→</span>

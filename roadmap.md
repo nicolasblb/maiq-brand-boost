@@ -43,3 +43,4 @@
 - [x] Manter Plataforma e FAQ abaixo do menu e padronizar quinas, contorno e sombra dos blocos sobrepostos.
 - [x] Restaurar o ponto luminoso da linha “Integrações” e atualizar o sub-header de “O M&A”.
 - [x] Renomear “O M&A” para “Nossa Perspectiva” e centralizar os rótulos das raias com seus pontilhados.
+- [x] Tornar os sub-headers responsivos e ajustar suas quebras de linha por seção.

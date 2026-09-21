@@ -997,7 +997,11 @@ export default function PaginaInstitucional() {
             <div className="maiq-platform-section-inner">
               <div className="maiq-platform-heading">
                 <h2>Nossa Plataforma</h2>
-                <p>Funcionalidades específicas a serviço do M&amp;A</p>
+                <p className="maiq-section-subhead">
+                  Funcionalidades específicas<span className="maiq-subhead-space"> </span>
+                  <br className="maiq-subhead-break-compact" />
+                  a serviço do M&amp;A
+                </p>
               </div>
               <PlatformShowcase />
             </div>
@@ -1012,9 +1016,9 @@ export default function PaginaInstitucional() {
               <h2 data-maiq-modelo-h2="" style={{ fontFamily: "Inter,var(--font-core)", fontSize: "clamp(38px,4.2vw,58px)", lineHeight: "1.04", letterSpacing: "-.022em", fontWeight: "600", margin: "0" }}>
                 Nosso modelo
               </h2>
-              <p style={{ fontSize: "17px", lineHeight: "1.6", color: "var(--p-muted,#91A398)", margin: "14px auto 0", maxWidth: "56ch", textWrap: "pretty" }}>
-                Convergência entre método e tecnologia,
-                <br />
+              <p className="maiq-section-subhead" style={{ color: "var(--p-muted,#91A398)", margin: "14px auto 0", textWrap: "pretty" }}>
+                Convergência entre método e tecnologia,<span className="maiq-subhead-space"> </span>
+                <br className="maiq-subhead-break-compact" />
                 potencializada por experiência e ampla rede construída.
               </p>
             </div>

@@ -387,9 +387,7 @@ body{margin:0;background:#0D2423;transition:background 320ms cubic-bezier(.16,1,
    margin:14px 0 0;
    color:var(--p-muted);
    font-family:var(--font-core);
-   font-size:17px;
-   line-height:1.6;
-   max-width:56ch;
+   max-width:none;
    text-wrap:pretty;
  }
  .maiq-faq-contact{
@@ -505,15 +503,26 @@ body{margin:0;background:#0D2423;transition:background 320ms cubic-bezier(.16,1,
   letter-spacing:-.022em;
 }
 .maiq-conviction-head h3{
-  max-width:56ch;
+  max-width:none;
   margin:14px 0 0;
   color:var(--p-muted);
   font-family:var(--font-core);
-  font-size:17px;
   font-weight:var(--fw-regular);
-  line-height:1.6;
   letter-spacing:0;
   text-wrap:pretty;
+}
+.maiq-section-subhead{
+  font-family:var(--font-core);
+  font-size:clamp(23px,2.52vw,35px);
+  font-weight:var(--fw-regular);
+  line-height:1.24;
+  letter-spacing:0;
+}
+.maiq-subhead-break-compact{display:none}
+.maiq-subhead-space{display:inline}
+@media (max-width:900px){
+  .maiq-subhead-break-compact{display:block}
+  .maiq-subhead-space{display:none}
 }
 .maiq-conviction-body{
   display:flex;
@@ -692,7 +701,7 @@ body{margin:0;background:#0D2423;transition:background 320ms cubic-bezier(.16,1,
 .maiq-platform-section-inner{width:100%;max-width:1200px;margin:0 auto}
 .maiq-platform-heading{display:flex;flex-direction:column;align-items:center;text-align:center}
 .maiq-platform-heading h2{margin:0;color:var(--p-text);font-family:var(--font-core);font-size:clamp(38px,4.2vw,58px);font-weight:600;line-height:1.04;letter-spacing:0}
-.maiq-platform-heading>p{max-width:56ch;margin:14px auto 0;color:var(--p-muted);font-size:17px;line-height:1.6;text-wrap:pretty}
+.maiq-platform-heading>p{max-width:none;margin:14px auto 0;color:var(--p-muted);text-wrap:pretty}
 .maiq-platform-showcase{margin-top:clamp(54px,8vh,86px)}
 .maiq-platform-tabs-viewport{overflow-x:auto;overflow-y:hidden;padding-bottom:10px;scrollbar-width:none}
 .maiq-platform-tabs-viewport::-webkit-scrollbar{display:none}
