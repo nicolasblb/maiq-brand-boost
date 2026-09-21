@@ -997,7 +997,8 @@ export default function PaginaInstitucional() {
                 Nosso modelo
               </h2>
               <p style={{ fontSize: "17px", lineHeight: "1.6", color: "var(--p-muted,#91A398)", margin: "14px auto 0", maxWidth: "56ch", textWrap: "pretty" }}>
-                Convergência entre método e tecnologia, potencializada por experiência e ampla rede construída.
+                Convergência entre método e tecnologia,&nbsp;
+                potencializada por experiência e ampla rede construída.
               </p>
             </div>
             <div ref={dnaRowRef} onMouseMove={handleDnaMove} onMouseLeave={handleDnaLeave} style={{ width: "100vw", marginLeft: "calc(50% - 50vw)", padding: "0 clamp(24px,4vw,48px)", boxSizing: "border-box", display: "flex", alignItems: "flex-start", justifyContent: "center", gap: "0" }}>
