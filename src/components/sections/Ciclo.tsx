@@ -307,6 +307,7 @@ export default function Ciclo() {
       thumb.style.width = thumbWidth + 'px';
       thumb.style.transform = `translateX(${travel * ratio}px)`;
       progress.style.display = maxScroll > 1 ? 'block' : 'none';
+      progress.setAttribute('aria-valuenow', String(Math.round(ratio * 100)));
     };
     const layout = () => {
       const fases = cicloFasesRef.current;
@@ -372,10 +373,19 @@ export default function Ciclo() {
       dragging = false;
       if (progress?.hasPointerCapture(event.pointerId)) progress.releasePointerCapture(event.pointerId);
     };
+    const onProgressKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight' && event.key !== 'Home' && event.key !== 'End') return;
+      event.preventDefault();
+      const maxScroll = sc.scrollWidth - sc.clientWidth;
+      if (event.key === 'Home') sc.scrollTo({ left: 0, behavior: 'smooth' });
+      else if (event.key === 'End') sc.scrollTo({ left: maxScroll, behavior: 'smooth' });
+      else sc.scrollBy({ left: event.key === 'ArrowRight' ? 120 : -120, behavior: 'smooth' });
+    };
     progress?.addEventListener('pointerdown', onPointerDown);
     progress?.addEventListener('pointermove', onPointerMove);
     progress?.addEventListener('pointerup', onPointerUp);
     progress?.addEventListener('pointercancel', onPointerUp);
+    progress?.addEventListener('keydown', onProgressKeyDown);
 
     let cicloIO: IntersectionObserver | null = null;
     if ('IntersectionObserver' in window) {
@@ -419,6 +429,7 @@ export default function Ciclo() {
       progress?.removeEventListener('pointermove', onPointerMove);
       progress?.removeEventListener('pointerup', onPointerUp);
       progress?.removeEventListener('pointercancel', onPointerUp);
+      progress?.removeEventListener('keydown', onProgressKeyDown);
       window.removeEventListener('scroll', probe);
       window.removeEventListener('resize', probe);
       if (cicloIO) cicloIO.disconnect();
@@ -552,6 +563,12 @@ export default function Ciclo() {
                 <stop offset=".91" stopColor="var(--c-sep)" stopOpacity="1" />
                 <stop offset="1" stopColor="var(--c-sep)" stopOpacity="0" />
               </linearGradient>
+              <linearGradient id="maiqCHFadeLabels" gradientUnits="userSpaceOnUse" x1="34" y1="0" x2="224" y2="0">
+                <stop offset="0" stopColor="var(--c-sep)" stopOpacity="0" />
+                <stop offset=".12" stopColor="var(--c-sep)" stopOpacity="1" />
+                <stop offset=".88" stopColor="var(--c-sep)" stopOpacity="1" />
+                <stop offset="1" stopColor="var(--c-sep)" stopOpacity="0" />
+              </linearGradient>
               <radialGradient id="maiqCGlow">
                 <stop offset="0" stopColor="var(--c-flow)" stopOpacity=".72" />
                 <stop offset=".10" stopColor="var(--c-flow)" stopOpacity=".5" />
@@ -569,9 +586,9 @@ export default function Ciclo() {
               </radialGradient>
             </defs>
             <g data-c-sep="" aria-hidden="true" fill="none" strokeWidth="1.3" strokeDasharray="2.6 9" strokeLinecap="round">
-              <path d="M34,252 H224" stroke="url(#maiqCHFadeA)" />
-              <path d="M34,392.5 H224" stroke="url(#maiqCHFadeA)" />
-              <path d="M34,533 H224" stroke="url(#maiqCHFadeA)" />
+              <path d="M34,252 H224" stroke="url(#maiqCHFadeLabels)" />
+              <path d="M34,392.5 H224" stroke="url(#maiqCHFadeLabels)" />
+              <path d="M34,533 H224" stroke="url(#maiqCHFadeLabels)" />
               <path d="M252,252 H1392" stroke="url(#maiqCHFadeA)" />
               <path d="M252,392.5 H1392" stroke="url(#maiqCHFadeA)" />
               <path d="M252,533 H930" stroke="url(#maiqCHFadeB)" />
