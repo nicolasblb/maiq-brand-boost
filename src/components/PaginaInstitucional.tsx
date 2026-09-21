@@ -159,7 +159,7 @@ export default function PaginaInstitucional() {
       ?? (document.getElementById(id) as HTMLElement | null);
     if (!el) return;
     const top = el.getBoundingClientRect().top + window.scrollY;
-    const menuClearance = window.innerWidth <= 1040 ? 128 : 112;
+    const menuClearance = window.innerWidth <= 1040 ? 140 : 132;
     window.scrollTo({ top: Math.max(0, top - menuClearance), behavior: 'smooth' });
   };
 
@@ -552,7 +552,9 @@ export default function PaginaInstitucional() {
     const net = netWrapRef.current;
     if (net) {
       S._fitNet = () => {
-        net.style.top = Math.min(0, window.innerHeight - net.offsetHeight) + 'px';
+        // Anchor from the top: bottom alignment hid the heading beneath the
+        // floating navigation whenever this section exceeded the viewport.
+        net.style.top = '0px';
         const primary = overlayRef.current;
         const hold = platformHoldRef.current;
         if (primary) primary.style.marginTop = `${-net.offsetHeight}px`;
@@ -569,7 +571,8 @@ export default function PaginaInstitucional() {
     const final = finalWrapRef.current;
     if (final) {
       S._fitFinal = () => {
-        final.style.top = Math.min(0, window.innerHeight - final.offsetHeight) + 'px';
+        // FAQ follows the same top-anchored reveal rule as Plataforma.
+        final.style.top = '0px';
         const middle = overlay2Ref.current;
         const hold = finalHoldRef.current;
         if (middle) middle.style.marginTop = `${-final.offsetHeight}px`;

@@ -40,3 +40,4 @@
 - [x] Alinhar os pontilhados de “O Ciclo”, trocar o indicador por arraste direto e recortar o fluxo na divisória das raias.
 - [x] Exibir a mão do fluxo apenas quando houver corte horizontal e reorganizar Convicção, Plataforma, Ciclo, Domínios e FAQ em camadas sucessivas de revelação.
 - [x] Restaurar os números animados do Modelo, corrigir os recuos sob o menu, unificar o fundo de Ciclo/Domínios e revisar os destinos de Home.
+- [x] Manter Plataforma e FAQ abaixo do menu e padronizar quinas, contorno e sombra dos blocos sobrepostos.
