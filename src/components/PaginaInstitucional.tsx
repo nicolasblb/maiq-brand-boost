@@ -28,7 +28,6 @@ const DNA_ROW_CFG = [
   { inset: 25, width: 251 },
   { inset: 31, width: 246 },
   { inset: 52, width: 233 },
-  { inset: 93, width: 213 },
 ];
 const DNA_EASE = 'cubic-bezier(.33,0,.2,1)';
 const DNA_DUR = 560;
@@ -209,11 +208,9 @@ export default function PaginaInstitucional() {
   const chatRowRef = useRef<Any>(null);
   const chatTextRef = useRef<Any>(null);
   const lRow1Ref = useRef<Any>(null);
-  const lRow2Ref = useRef<Any>(null);
   const lRow3Ref = useRef<Any>(null);
   const rRow1Ref = useRef<Any>(null);
   const rRow2Ref = useRef<Any>(null);
-  const rRow3Ref = useRef<Any>(null);
   const lRailRef = useRef<Any>(null);
   const rRailRef = useRef<Any>(null);
   const lColRef = useRef<Any>(null);
@@ -229,8 +226,8 @@ export default function PaginaInstitucional() {
 
   const refs = {
     scopeRef, logoDayRef, logoFooterDayRef, flyLogoDayRef, thumbRef, segSunRef, segMoonRef,
-    dnaRowRef, vennBoxRef, scoreRowRef, chatRowRef, lRow1Ref, lRow2Ref, lRow3Ref,
-    rRow1Ref, rRow2Ref, rRow3Ref, lColRef, rColRef, lClipRef, rClipRef, lTextRef, rTextRef,
+    dnaRowRef, vennBoxRef, scoreRowRef, chatRowRef, lRow1Ref, lRow3Ref,
+    rRow1Ref, rRow2Ref, lColRef, rColRef, lClipRef, rClipRef, lTextRef, rTextRef,
     scoreTextRef, chatTextRef,
   };
 
@@ -274,8 +271,8 @@ export default function PaginaInstitucional() {
     const text = isLeft ? lTextRef.current : rTextRef.current;
     const g = S._dnaGeom && S._dnaGeom[side];
     const rows = isLeft
-      ? [scoreRowRef.current, lRow1Ref.current, lRow2Ref.current, lRow3Ref.current]
-      : [chatRowRef.current, rRow1Ref.current, rRow2Ref.current, rRow3Ref.current];
+      ? [scoreRowRef.current, lRow1Ref.current, lRow3Ref.current]
+      : [chatRowRef.current, rRow1Ref.current, rRow2Ref.current];
     if (text) {
       const travel = g ? (g.rail + DNA_ROW_CFG[0]!.inset) : 312;
       text.style.opacity = active ? '1' : '0';
@@ -693,9 +690,9 @@ export default function PaginaInstitucional() {
         if (S._dnaSide !== name && textEl) textEl.style.transform = `translateX(${(g.rail + DNA_ROW_CFG[0]!.inset) * (name === 'left' ? 1 : -1)}px)`;
       };
       side('left', lColRef.current, lClipRef.current, lTextRef.current, scoreTextRef.current,
-        [scoreRowRef.current, lRow1Ref.current, lRow2Ref.current, lRow3Ref.current], 180);
+        [scoreRowRef.current, lRow1Ref.current, lRow3Ref.current], 180);
       side('right', rColRef.current, rClipRef.current, rTextRef.current, chatTextRef.current,
-        [chatRowRef.current, rRow1Ref.current, rRow2Ref.current, rRow3Ref.current], 656);
+        [chatRowRef.current, rRow1Ref.current, rRow2Ref.current], 656);
       S._dnaGeom = geom;
     };
     S._measureDna();
@@ -995,12 +992,12 @@ export default function PaginaInstitucional() {
         <div className="maiq-model-pilares-bg" style={{ position: "relative", zIndex: "2", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
         <section data-maiq-sec="modelo" aria-label="Nosso modelo" style={{ position: "relative", zIndex: "1", minHeight: "100vh", boxSizing: "border-box", display: "flex", alignItems: "center", padding: "clamp(104px,13vh,150px) 48px clamp(36px,4.5vh,64px)" }}>
           <div style={{ width: "100%", maxWidth: "1200px", margin: "0 auto", display: "flex", flexDirection: "column", gap: "clamp(24px,3vh,44px)" }}>
-            <div>
+            <div style={{ textAlign: "center" }}>
               <h2 data-maiq-modelo-h2="" style={{ fontFamily: "Inter,var(--font-core)", fontSize: "clamp(38px,4.2vw,58px)", lineHeight: "1.04", letterSpacing: "-.022em", fontWeight: "600", margin: "0" }}>
                 Nosso modelo
               </h2>
-              <p style={{ fontSize: "17px", lineHeight: "1.6", color: "var(--p-muted,#91A398)", margin: "14px 0 0", maxWidth: "56ch", textWrap: "pretty" }}>
-                Não nos diferenciamos pela formação em finanças, tampouco pela digitalização convencional de processos.
+              <p style={{ fontSize: "17px", lineHeight: "1.6", color: "var(--p-muted,#91A398)", margin: "14px auto 0", maxWidth: "56ch", textWrap: "pretty" }}>
+                Convergência entre método e tecnologia, potencializada por experiência e ampla rede construída.
               </p>
             </div>
             <div ref={dnaRowRef} onMouseMove={handleDnaMove} onMouseLeave={handleDnaLeave} style={{ width: "100vw", marginLeft: "calc(50% - 50vw)", padding: "0 clamp(24px,4vw,48px)", boxSizing: "border-box", display: "flex", alignItems: "flex-start", justifyContent: "center", gap: "0" }}>
@@ -1059,13 +1056,8 @@ export default function PaginaInstitucional() {
                       <div data-maiq-dot="" style={{ position: "absolute", top: "-3.7px", left: "-4.2px", width: "8.4px", height: "8.4px", borderRadius: "999px", background: "var(--p-text,#E9E0D1)", opacity: "0", pointerEvents: "none" }}>
                       </div>
                     </div>
-                    <div ref={lRow2Ref} style={{ position: "relative", marginLeft: "52px", width: "233px", padding: "13px 0", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", fontSize: "14px", color: "var(--p-text-2,#B7C4BC)", textAlign: "right" }}>
-                      10 dimensões avaliadas
-                      <div data-maiq-dot="" style={{ position: "absolute", top: "-3.7px", left: "-4.2px", width: "8.4px", height: "8.4px", borderRadius: "999px", background: "var(--p-text,#E9E0D1)", opacity: "0", pointerEvents: "none" }}>
-                      </div>
-                    </div>
-                    <div ref={lRow3Ref} style={{ position: "relative", marginLeft: "93px", width: "213px", padding: "13px 0", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", fontSize: "14px", color: "var(--p-text-2,#B7C4BC)", textAlign: "right" }}>
-                      Playbook de integração
+                    <div ref={lRow3Ref} style={{ position: "relative", marginLeft: "52px", width: "233px", padding: "13px 0", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", fontSize: "14px", color: "var(--p-text-2,#B7C4BC)", textAlign: "right" }}>
+                      Playbooks por etapa
                       <div data-maiq-dot="" style={{ position: "absolute", top: "-3.7px", left: "-4.2px", width: "8.4px", height: "8.4px", borderRadius: "999px", background: "var(--p-text,#E9E0D1)", opacity: "0", pointerEvents: "none" }}>
                       </div>
                     </div>
@@ -1086,23 +1078,18 @@ export default function PaginaInstitucional() {
                   <div style={{ marginTop: "24px", alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-end" }}>
                     <div ref={chatRowRef} style={{ position: "relative", marginRight: "25px", width: "251px", padding: "13px 0", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", fontSize: "14px", color: "var(--p-text-2,#B7C4BC)", textAlign: "left" }}>
                       <span ref={chatTextRef}>
-                        Chat especialista
+                        Plataforma de dados
                       </span>
                       <div data-maiq-dot="" style={{ position: "absolute", top: "-3.7px", right: "-4.2px", width: "8.4px", height: "8.4px", borderRadius: "999px", background: "var(--p-text,#E9E0D1)", opacity: "0", pointerEvents: "none" }}>
                       </div>
                     </div>
                     <div ref={rRow1Ref} style={{ position: "relative", marginRight: "31px", width: "246px", padding: "13px 0", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", fontSize: "14px", color: "var(--p-text-2,#B7C4BC)", textAlign: "left" }}>
-                      Gestão à vista
+                      Chat e agentes de IA
                       <div data-maiq-dot="" style={{ position: "absolute", top: "-3.7px", right: "-4.2px", width: "8.4px", height: "8.4px", borderRadius: "999px", background: "var(--p-text,#E9E0D1)", opacity: "0", pointerEvents: "none" }}>
                       </div>
                     </div>
                     <div ref={rRow2Ref} style={{ position: "relative", marginRight: "52px", width: "233px", padding: "13px 0", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", fontSize: "14px", color: "var(--p-text-2,#B7C4BC)", textAlign: "left" }}>
-                      Análise holística
-                      <div data-maiq-dot="" style={{ position: "absolute", top: "-3.7px", right: "-4.2px", width: "8.4px", height: "8.4px", borderRadius: "999px", background: "var(--p-text,#E9E0D1)", opacity: "0", pointerEvents: "none" }}>
-                      </div>
-                    </div>
-                    <div ref={rRow3Ref} style={{ position: "relative", marginRight: "93px", width: "213px", padding: "13px 0", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", fontSize: "14px", color: "var(--p-text-2,#B7C4BC)", textAlign: "left" }}>
-                      Monitoramento contínuo
+                      Análise integral de contexto
                       <div data-maiq-dot="" style={{ position: "absolute", top: "-3.7px", right: "-4.2px", width: "8.4px", height: "8.4px", borderRadius: "999px", background: "var(--p-text,#E9E0D1)", opacity: "0", pointerEvents: "none" }}>
                       </div>
                     </div>
@@ -1130,35 +1117,32 @@ export default function PaginaInstitucional() {
             <div style={{ display: "grid", gridTemplateColumns: "repeat(3,minmax(0,1fr))", gap: "clamp(24px,4vw,56px)" }}>
               <div style={{ display: "flex", flexDirection: "column", gap: "13px" }}>
                 <div style={{ fontSize: "clamp(38px,4.2vw,58px)", lineHeight: "1", fontWeight: "600", letterSpacing: "-.022em", fontVariantNumeric: "tabular-nums" }} data-maiq-odo="">
-                  R$ 291
-                  <span style={{ fontSize: ".54em", fontWeight: "600", letterSpacing: "-.01em", marginLeft: ".03em" }}>
-                    M
-                  </span>
+                  32
                 </div>
                 <div style={{ height: "3px", background: "var(--p-mark-1,#91A398)" }}>
                 </div>
                 <div style={{ fontSize: "12px", letterSpacing: ".14em", textTransform: "uppercase", fontWeight: "500", color: "var(--p-muted,#91A398)" }}>
-                  em deals assessorados
+                  Investidores na nossa rede
                 </div>
               </div>
               <div style={{ display: "flex", flexDirection: "column", gap: "13px" }}>
                 <div style={{ fontSize: "clamp(38px,4.2vw,58px)", lineHeight: "1", fontWeight: "600", letterSpacing: "-.022em", fontVariantNumeric: "tabular-nums" }} data-maiq-odo="">
-                  08
+                  R$ 291
                 </div>
                 <div style={{ height: "3px", background: "var(--p-mark-2,#33605A)" }}>
                 </div>
                 <div style={{ fontSize: "12px", letterSpacing: ".14em", textTransform: "uppercase", fontWeight: "500", color: "var(--p-muted,#91A398)" }}>
-                  conexões diretas com investidores
+                  Milhões em transações realizadas
                 </div>
               </div>
               <div style={{ display: "flex", flexDirection: "column", gap: "13px" }}>
                 <div style={{ fontSize: "clamp(38px,4.2vw,58px)", lineHeight: "1", fontWeight: "600", letterSpacing: "-.022em", fontVariantNumeric: "tabular-nums" }} data-maiq-odo="">
-                  12
+                  16
                 </div>
                 <div style={{ height: "3px", background: "var(--p-hair,rgba(233,224,209,.14))" }}>
                 </div>
                 <div style={{ fontSize: "12px", letterSpacing: ".14em", textTransform: "uppercase", fontWeight: "500", color: "var(--p-muted,#91A398)" }}>
-                  parceiros de negócio
+                  Parceiros em nosso ecossistema
                 </div>
               </div>
             </div>
