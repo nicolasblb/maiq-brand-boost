@@ -4,6 +4,7 @@ import type { User } from '@supabase/supabase-js';
 import { Sun, Moon, ChevronDown } from 'lucide-react';
 import Ciclo from '@/components/sections/Ciclo';
 import Conviccao from '@/components/sections/Conviccao';
+import DominiosPlaceholder from '@/components/sections/DominiosPlaceholder';
 // O Domínio removido da página institucional; componente e logos preservados
 // (src/components/sections/Dominio.tsx e src/assets/logo-*.asset.json) para a
 // futura página "Sobre nós > Domínios".
@@ -88,8 +89,9 @@ const SECOES = [
   { id: 'topo', label: 'Início' },
   { id: 'modelo', label: 'O Modelo' },
   { id: 'fundacao', label: 'Nossa Convicção' },
-  { id: 'plataforma', label: 'A Plataforma' },
+  { id: 'plataforma', label: 'Nossa Plataforma' },
   { id: 'ciclo', label: 'O Ciclo' },
+  { id: 'dominios', label: 'Os Domínios' },
   { id: 'faq', label: 'FAQ' },
 ];
 
@@ -181,6 +183,9 @@ export default function PaginaInstitucional() {
   const overlay2WrapRef = useRef<Any>(null);
   const overlay3Ref = useRef<Any>(null);
   const netContentRef = useRef<Any>(null);
+  const platformHoldRef = useRef<Any>(null);
+  const finalWrapRef = useRef<Any>(null);
+  const finalHoldRef = useRef<Any>(null);
 
   useEffect(() => {
     let mounted = true;
@@ -388,11 +393,11 @@ export default function PaginaInstitucional() {
       if (S._remeasure) window.removeEventListener('resize', S._remeasure);
       if (S._measureDna) window.removeEventListener('resize', S._measureDna);
       if (S._onScroll) { window.removeEventListener('scroll', S._onScroll); window.removeEventListener('resize', S._onScroll); }
-      if (S._measureOv2) window.removeEventListener('resize', S._measureOv2);
       if (S._logoMode) window.removeEventListener('resize', S._logoMode);
       if (S._logoLoad) window.removeEventListener('load', S._logoLoad);
       if (S._fitHero) window.removeEventListener('resize', S._fitHero);
       if (S._fitNet) window.removeEventListener('resize', S._fitNet);
+      if (S._fitFinal) window.removeEventListener('resize', S._fitFinal);
 
       if (S._wrap) {
         S._wrap.removeEventListener('mouseenter', S._enter);
@@ -544,17 +549,38 @@ export default function PaginaInstitucional() {
       window.addEventListener('resize', S._fitHero);
     }
 
-    // Plataforma + Ciclo ficam presos quando totalmente exibidos; a próxima seção passa por cima
+    // A Plataforma fica parada ao fundo enquanto os blocos anterior e seguinte
+    // passam por cima. A margem negativa sobrepõe a primeira seção sem reservar
+    // duas vezes a altura da camada fixa.
     const net = netWrapRef.current;
     if (net) {
       S._fitNet = () => {
         net.style.top = Math.min(0, window.innerHeight - net.offsetHeight) + 'px';
+        const primary = overlayRef.current;
+        const hold = platformHoldRef.current;
+        if (primary) primary.style.marginTop = `${-net.offsetHeight}px`;
+        if (hold) hold.style.height = `${net.offsetHeight}px`;
       };
       S._fitNet();
       window.addEventListener('resize', S._fitNet);
     }
 
 
+
+    // FAQ + rodapé formam a camada final parada. O bloco Ciclo + Domínios
+    // ocupa a mesma posição visual e, ao sair, revela essa camada.
+    const final = finalWrapRef.current;
+    if (final) {
+      S._fitFinal = () => {
+        final.style.top = Math.min(0, window.innerHeight - final.offsetHeight) + 'px';
+        const middle = overlay2Ref.current;
+        const hold = finalHoldRef.current;
+        if (middle) middle.style.marginTop = `${-final.offsetHeight}px`;
+        if (hold) hold.style.height = `${final.offsetHeight}px`;
+      };
+      S._fitFinal();
+      window.addEventListener('resize', S._fitFinal);
+    }
 
     const el = heroContentRef.current;
     if (!el || (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
@@ -580,45 +606,7 @@ export default function PaginaInstitucional() {
         }
       }
     };
-    S._measureOv2 = () => {
-      const wrap = overlay2WrapRef.current, ov2 = overlay2Ref.current, next = overlay3Ref.current;
-      if (!wrap || !ov2 || !next) return;
-      const vh = window.innerHeight;
-      S._ov2Top = ov2.getBoundingClientRect().top + window.scrollY;
-      S._netEntryStart = S._ov2Top - vh;
-      S._netEntryEnd = S._ov2Top;
-      S._netExitEnd = next.getBoundingClientRect().top + window.scrollY;
-      S._netExitStart = S._netExitEnd - vh;
-      S._netBlockStart = S._netEntryStart;
-      S._netBlockEnd = S._netExitEnd;
-    };
-    S._measureOv2();
-    window.addEventListener('resize', S._measureOv2);
-    // a seção anterior "sai de cima" e revela a Plataforma, que fica presa ao topo
-    S._paintOv2 = () => {
-      const ov2 = overlay2Ref.current, wrap = overlay2WrapRef.current;
-      const content = netContentRef.current;
-      if (!ov2 || !wrap || S._ov2Top == null) return;
-      const vh = window.innerHeight;
-      ov2.style.transform = 'translate3d(0,0,0)';
-      if (content) {
-        // Os marcos são absolutos para a geometria não mudar quando o bloco
-        // alterna entre fluxo normal e posição fixa durante a sobreposição.
-        const reveal = Math.max(0, Math.min(1, (window.scrollY - S._netEntryStart) / Math.max(1, S._netEntryEnd - S._netEntryStart)));
-        const conceal = Math.max(0, Math.min(1, (window.scrollY - S._netExitStart) / Math.max(1, S._netExitEnd - S._netExitStart)));
-        // Entrada: v(t) = 0.2 + 0.8t. Saída: v(t) = 1 - 0.8t.
-        // As integrais geram percursos simétricos de 0.6 viewport, mantendo
-        // posição e velocidade contínuas nos encontros com o trecho central.
-        // O elemento parte já dentro da faixa revelada: sua posição visual
-        // percorre 0.6 viewport enquanto a velocidade cresce de 0.2x a 1x.
-        const entryOffset = vh * (-0.4 + 0.8 * reveal - 0.4 * reveal * reveal);
-        const exitOffset = vh * (conceal - 0.4 * conceal * conceal);
-        const offset = entryOffset - exitOffset;
-        content.style.transform = `translate3d(0,${offset.toFixed(2)}px,0)`;
-      }
-    };
     S._onScroll = () => {
-      S._paintOv2();
       if (S._netPar) S._netPar();
       if (queued) return;
       queued = true;
@@ -626,7 +614,6 @@ export default function PaginaInstitucional() {
     };
     window.addEventListener('scroll', S._onScroll, { passive: true });
     window.addEventListener('resize', S._onScroll);
-    S._paintOv2();
     paint();
   }
 
@@ -738,7 +725,7 @@ export default function PaginaInstitucional() {
     window.addEventListener('resize', S._measureDna);
   }
 
-  void refs; void iconSunRef; void iconMoonRef; void lRailRef; void rRailRef; void netWrapRef; void overlayRef;
+  void refs; void iconSunRef; void iconMoonRef; void lRailRef; void rRailRef; void overlay2WrapRef; void overlay3Ref; void netContentRef;
 
   return (
     <div data-maiq-scope="" ref={scopeRef} style={{ fontFamily: "'Grandview','Barlow',Helvetica,Arial,sans-serif", background: "var(--p-bg,#0D2423)", color: "var(--p-text,#E9E0D1)", minHeight: "100vh", transition: "background 320ms cubic-bezier(.16,1,.3,1),color 320ms cubic-bezier(.16,1,.3,1)" }}>
@@ -799,6 +786,7 @@ export default function PaginaInstitucional() {
               { key: 'dominios', label: 'Domínios' },
               { key: 'marca', label: 'Marca' },
             ]}
+            onSelect={(key) => { if (key === 'dominios') goToSection('dominios'); }}
           />
           <span style={{ cursor: "pointer", transition: "color 200ms cubic-bezier(.2,0,0,1)" }} data-hover-style="color:var(--p-text,#E9E0D1)">
             Insights
@@ -999,7 +987,21 @@ export default function PaginaInstitucional() {
           </div>
         </div>
       </section>
-      <div ref={overlayRef} style={{ position: "relative", zIndex: "2", background: "var(--p-bg,#0D2423)", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderBottom: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "24px", overflow: "clip", boxShadow: "var(--p-overlay-shadow,0 -30px 60px -18px rgba(4,16,16,.62)), 0 30px 60px -18px rgba(4,16,16,.62)", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
+      <div className="maiq-scroll-stack">
+      <div ref={netWrapRef} className="maiq-platform-base">
+        <div ref={netContentRef} data-maiq-net-content="" className="maiq-platform-ciclo-bg">
+          <section data-maiq-sec="plataforma" aria-label="Nossa Plataforma" className="maiq-platform-section">
+            <div className="maiq-platform-section-inner">
+              <div className="maiq-platform-heading">
+                <h2>Nossa Plataforma</h2>
+                <p>Funcionalidades específicas a serviço do M&amp;A</p>
+              </div>
+              <PlatformShowcase />
+            </div>
+          </section>
+        </div>
+      </div>
+      <div ref={overlayRef} className="maiq-primary-overlay">
         <div className="maiq-model-pilares-bg" style={{ position: "relative", zIndex: "2", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
         <section data-maiq-sec="modelo" aria-label="Nosso modelo" style={{ position: "relative", zIndex: "1", minHeight: "100vh", boxSizing: "border-box", display: "flex", alignItems: "center", padding: "clamp(104px,13vh,150px) 48px clamp(36px,4.5vh,64px)" }}>
           <div style={{ width: "100%", maxWidth: "1200px", margin: "0 auto", display: "flex", flexDirection: "column", gap: "clamp(24px,3vh,44px)" }}>
@@ -1164,25 +1166,10 @@ export default function PaginaInstitucional() {
         <Conviccao />
         </div>
       </div>
-      <div ref={overlay2WrapRef} className="maiq-platform-transition" style={{ position: "relative", zIndex: "1", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
-          <div ref={overlay2Ref} style={{ position: "relative", zIndex: "1", overflow: "clip", willChange: "transform" }}>
-            <div ref={netWrapRef} style={{ position: "sticky", top: "0", zIndex: "0", overflow: "clip" }}>
-              <div ref={netContentRef} data-maiq-net-content="" className="maiq-platform-ciclo-bg" style={{ position: "relative", zIndex: "1", willChange: "transform" }}>
-
-
-              <section data-maiq-sec="plataforma" aria-label="Nossa Plataforma" className="maiq-platform-section">
-                <div className="maiq-platform-section-inner">
-                  <div className="maiq-platform-heading">
-                    <h2>Nossa Plataforma</h2>
-                    <p>Funcionalidades específicas a serviço do M&A</p>
-                  </div>
-                  <PlatformShowcase />
-                </div>
-              </section>
-              <Ciclo />
-              </div>
-            </div>
-            <div ref={overlay3Ref} style={{ position: "relative", zIndex: "2", background: "var(--p-bg,#0D2423)", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "24px 24px 0 0", overflow: "clip", boxShadow: "var(--p-overlay-shadow,0 -30px 60px -18px rgba(4,16,16,.62))", transition: "background 320ms cubic-bezier(.16,1,.3,1)", display: "flex", flexDirection: "column", minHeight: "100svh" }}>
+      <div ref={platformHoldRef} className="maiq-platform-hold" aria-hidden="true" />
+      <div className="maiq-final-reveal-stage">
+        <div ref={finalWrapRef} className="maiq-final-base">
+          <div ref={overlay3Ref} className="maiq-final-content">
             <Faq onContact={() => setLeadOpen(true)} />
             <footer className="maiq-footer" style={{ background: "var(--p-footer-bg,#0A1D1D)", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", padding: "56px 48px 28px", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
               <div className="maiq-footer-top">
@@ -1206,10 +1193,17 @@ export default function PaginaInstitucional() {
                 © 2026 Maiq. Todos os direitos reservados.
               </div>
             </footer>
-
-            </div>
           </div>
         </div>
+        <div ref={overlay2Ref} className="maiq-cycle-domains-overlay">
+          <div className="maiq-platform-ciclo-bg">
+            <Ciclo />
+            <DominiosPlaceholder />
+          </div>
+        </div>
+        <div ref={finalHoldRef} className="maiq-final-hold" aria-hidden="true" />
+      </div>
+      </div>
       </div>
 
 
