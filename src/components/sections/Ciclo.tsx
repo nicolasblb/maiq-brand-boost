@@ -1,11 +1,10 @@
 import { useEffect, useRef } from 'react';
-import { Cog, FileCheck, Search, Target } from 'lucide-react';
 
 const LANES = [
-  { label: 'Estratégia', top: '9.90%', Icon: Target, icon: 'target' as const },
-  { label: 'Originação', top: '36.57%', Icon: Search, icon: 'search' as const },
-  { label: 'Execução', top: '63.43%', Icon: Cog, icon: 'cog' as const },
-  { label: 'Efetivação', top: '90.10%', Icon: FileCheck, icon: 'file-check' as const },
+  { label: 'Estratégia', icon: 'target' as const },
+  { label: 'Originação', icon: 'search' as const },
+  { label: 'Execução', icon: 'cog' as const },
+  { label: 'Efetivação', icon: 'file-check' as const },
 ];
 
 type LaneIconName = (typeof LANES)[number]['icon'];
@@ -80,8 +79,6 @@ export default function Ciclo() {
   const cicloRef = useRef<HTMLElement | null>(null);
   const cicloScrollRef = useRef<HTMLDivElement | null>(null);
   const cicloSvgRef = useRef<SVGSVGElement | null>(null);
-  const cicloFasesRef = useRef<HTMLDivElement | null>(null);
-  const cicloFadeRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const sec = cicloRef.current;
@@ -288,17 +285,11 @@ export default function Ciclo() {
       );
     };
 
-    // piso de legibilidade: os rótulos são 17px no viewBox e nunca renderizam
-    // abaixo de ~13px. Se a largura disponível não sustenta isso, o diagrama
-    // deixa de encolher: recorta a coluna de Fases (que volta fixa em HTML) e
-    // passa a rolar horizontalmente. A altura acompanha a proporção.
+    // Piso de legibilidade: quando o diagrama completo não cabe, ele mantém
+    // sua escala mínima e passa a rolar horizontalmente sem recortar as raias.
     const MIN_FULL = 1071;
-    const MIN_CROP = 890;
     const AR = 525 / 1400;
-    const ARC = 525 / 1163;
     const layout = () => {
-      const fases = cicloFasesRef.current;
-      const fade = cicloFadeRef.current;
       const PAD = 32;
       const availW = Math.max(240, (sc.clientWidth || sec.clientWidth - 96) - PAD);
       const availH =
@@ -316,25 +307,16 @@ export default function Ciclo() {
         svg.style.width = fitW + 'px';
         svg.style.height = h + 'px';
         sc.style.minHeight = '0px';
-        if (fasesG) fasesG.style.display = '';
-        if (fases) fases.style.display = 'none';
-        if (fade) fade.style.display = 'none';
       } else {
-        const w = Math.max(MIN_CROP, Math.min(availW - 230, Math.round(availH / ARC)));
-        const h = Math.round(w * ARC);
-        svg.setAttribute('viewBox', '237 130 1163 525');
+        const w = MIN_FULL;
+        const h = Math.round(w * AR);
+        svg.setAttribute('viewBox', '0 130 1400 525');
         sc.style.overflowX = 'auto';
         sc.style.justifyContent = 'flex-start';
         svg.style.flex = '0 0 auto';
         svg.style.width = w + 'px';
         svg.style.height = h + 'px';
         sc.style.minHeight = '0px';
-        if (fasesG) fasesG.style.display = 'none';
-        if (fases) {
-          fases.style.display = 'block';
-          fases.style.height = h + 'px';
-        }
-        if (fade) fade.style.display = w + 230 > availW ? 'block' : 'none';
       }
     };
     layout();
@@ -411,7 +393,7 @@ export default function Ciclo() {
           gap: 'clamp(28px,4.5vh,52px)',
         }}
       >
-        <div>
+        <div style={{ textAlign: 'center' }}>
           <h2
             style={{
               fontFamily: 'Inter,var(--font-core)',
@@ -422,20 +404,19 @@ export default function Ciclo() {
               margin: 0,
             }}
           >
-            O Ciclo
+            O M&amp;A não termina na assinatura de um contrato
           </h2>
           <p
             style={{
               fontSize: 17,
               lineHeight: 1.6,
               color: 'var(--p-muted,#91A398)',
-              margin: '14px 0 0',
+              margin: '14px auto 0',
               maxWidth: '62ch',
               textWrap: 'pretty' as any,
             }}
           >
-            O deal de sucesso não nasce nas negociações e tampouco se limita à assinatura de um contrato. O M&A é
-            um ciclo contínuo que fomenta oportunidades.
+            É a partir da conclusão da transação que começa o trabalho de integração e captura de sinergias
           </p>
         </div>
         <div
@@ -459,64 +440,6 @@ export default function Ciclo() {
             background: 'var(--c-frame-bg)',
           }}
         >
-          <div
-            ref={cicloFasesRef}
-            aria-hidden="true"
-            style={{
-              display: 'none',
-              position: 'sticky',
-              left: 0,
-              flex: '0 0 auto',
-              width: 230,
-              alignSelf: 'center',
-              zIndex: 2,
-              background: 'linear-gradient(var(--c-frame-bg),var(--c-frame-bg)),var(--p-bg,#0D2423)',
-            }}
-          >
-            <div
-              style={{
-                position: 'absolute',
-                right: 0,
-                top: '2%',
-                bottom: '2%',
-                width: 1,
-                background:
-                  'linear-gradient(180deg,transparent,var(--c-dot) 16%,var(--c-dot) 84%,transparent)',
-              }}
-            />
-            {LANES.map((lane) => {
-              const LaneIcon = lane.Icon;
-              return (
-                <div
-                  key={lane.label}
-                  style={{
-                    position: 'absolute',
-                    left: 8,
-                    top: lane.top,
-                    transform: 'translateY(-50%)',
-                    width: 186,
-                    height: 80,
-                    borderRadius: 10,
-                    boxSizing: 'border-box',
-                    background: 'var(--c-lane-bg)',
-                    border: '1px solid var(--c-lane-hair)',
-                    color: 'var(--c-lane-fg)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'flex-start',
-                    gap: 10,
-                    padding: '0 16px',
-                    fontSize: 18,
-                    fontWeight: 500,
-                  }}
-                >
-                  <LaneIcon size={20} strokeWidth={1.5} aria-hidden="true" style={{ flex: '0 0 auto' }} />
-                  <span>{lane.label}</span>
-                </div>
-              );
-            })}
-
-          </div>
           <svg
             ref={cicloSvgRef}
             viewBox="0 130 1400 525"
@@ -565,13 +488,12 @@ export default function Ciclo() {
                 <stop offset="1" stopColor="var(--c-flow-core)" stopOpacity="0" />
               </radialGradient>
             </defs>
-            <g data-c-sep="" aria-hidden="true" fill="none" strokeWidth="1" strokeDasharray="2 9">
+            <g data-c-sep="" aria-hidden="true" fill="none" strokeWidth="1.3" strokeDasharray="2.6 9" strokeLinecap="round">
               <path d="M252,252 H1392" stroke="url(#maiqCHFadeA)" />
               <path d="M252,392.5 H1392" stroke="url(#maiqCHFadeA)" />
               <path d="M252,533 H930" stroke="url(#maiqCHFadeB)" />
               <path d="M1140,533 H1392" stroke="url(#maiqCHFadeC)" />
             </g>
-            <path aria-hidden="true" d="M237,142 V643" stroke="url(#maiqCVFade)" strokeWidth="1" fill="none" />
             <g data-c-lines="" fill="none" stroke="var(--c-line)" strokeWidth="1.5" strokeLinecap="round">
               <path data-c-seg="" d="M374.5,216 V288" />
               <path data-c-seg="" d="M374.5,356 V429" />
@@ -660,30 +582,26 @@ export default function Ciclo() {
             </g>
             <g data-c-fases="">
               <g data-c-phase="0">
-                <rect x="34" y="142" width="190" height="80" rx="10" fill="var(--c-lane-bg)" stroke="var(--c-lane-hair)" />
-                <LaneSvgIcon name="target" x={50} y={172} />
-                <text x="82" y="189" textAnchor="start" fill="var(--c-lane-fg)" style={{ fontSize: 19, fontWeight: 500 }}>
+                <LaneSvgIcon name="target" x={49} y={172} />
+                <text x="81" y="189" textAnchor="start" fill="var(--c-lane-fg)" style={{ fontSize: 19, fontWeight: 500 }}>
                   Estratégia
                 </text>
               </g>
               <g data-c-phase="1">
-                <rect x="34" y="282" width="190" height="80" rx="10" fill="var(--c-lane-bg)" stroke="var(--c-lane-hair)" />
-                <LaneSvgIcon name="search" x={50} y={312} />
-                <text x="82" y="329" textAnchor="start" fill="var(--c-lane-fg)" style={{ fontSize: 19, fontWeight: 500 }}>
+                <LaneSvgIcon name="search" x={49} y={312} />
+                <text x="81" y="329" textAnchor="start" fill="var(--c-lane-fg)" style={{ fontSize: 19, fontWeight: 500 }}>
                   Originação
                 </text>
               </g>
               <g data-c-phase="2">
-                <rect x="34" y="423" width="190" height="80" rx="10" fill="var(--c-lane-bg)" stroke="var(--c-lane-hair)" />
-                <LaneSvgIcon name="cog" x={50} y={453} />
-                <text x="82" y="470" textAnchor="start" fill="var(--c-lane-fg)" style={{ fontSize: 19, fontWeight: 500 }}>
+                <LaneSvgIcon name="cog" x={49} y={453} />
+                <text x="81" y="470" textAnchor="start" fill="var(--c-lane-fg)" style={{ fontSize: 19, fontWeight: 500 }}>
                   Execução
                 </text>
               </g>
               <g data-c-phase="3">
-                <rect x="34" y="563" width="190" height="80" rx="10" fill="var(--c-lane-bg)" stroke="var(--c-lane-hair)" />
-                <LaneSvgIcon name="file-check" x={50} y={593} />
-                <text x="82" y="610" textAnchor="start" fill="var(--c-lane-fg)" style={{ fontSize: 19, fontWeight: 500 }}>
+                <LaneSvgIcon name="file-check" x={49} y={593} />
+                <text x="81" y="610" textAnchor="start" fill="var(--c-lane-fg)" style={{ fontSize: 19, fontWeight: 500 }}>
                   Efetivação
                 </text>
               </g>
@@ -767,22 +685,6 @@ export default function Ciclo() {
               </g>
             </g>
           </svg>
-          <div
-            ref={cicloFadeRef}
-            aria-hidden="true"
-            style={{
-              display: 'none',
-              position: 'absolute',
-              right: 1,
-              top: 1,
-              bottom: 1,
-              width: 64,
-              borderRadius: '0 15px 15px 0',
-              pointerEvents: 'none',
-              zIndex: 3,
-              background: 'linear-gradient(90deg,var(--p-fade,rgba(20,55,55,0)),var(--p-bg,#0D2423))',
-            }}
-          />
         </div>
       </div>
     </section>
