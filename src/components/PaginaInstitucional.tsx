@@ -159,7 +159,8 @@ export default function PaginaInstitucional() {
       ?? (document.getElementById(id) as HTMLElement | null);
     if (!el) return;
     const top = el.getBoundingClientRect().top + window.scrollY;
-    window.scrollTo({ top: Math.max(0, top - 8), behavior: 'smooth' });
+    const menuClearance = window.innerWidth <= 1040 ? 128 : 112;
+    window.scrollTo({ top: Math.max(0, top - menuClearance), behavior: 'smooth' });
   };
 
 
