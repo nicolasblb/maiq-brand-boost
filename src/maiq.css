@@ -639,8 +639,7 @@ body{margin:0;background:#0D2423;transition:background 320ms cubic-bezier(.16,1,
 .maiq-platform-tabs-viewport{overflow-x:auto;overflow-y:hidden;padding-bottom:10px;scrollbar-width:none}
 .maiq-platform-tabs-viewport::-webkit-scrollbar{display:none}
 .maiq-platform-tabs{position:relative;width:min(100%,780px);min-width:640px;margin:0 auto;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));padding-bottom:16px}
-.maiq-platform-tab{position:relative!important;width:100%;height:44px!important;padding:0 8px 12px!important;justify-content:center!important;border:0!important;border-radius:0!important;background:transparent!important;color:var(--p-muted)!important;font-size:18px!important;font-weight:500!important;text-align:center;transition:color var(--dur-2) var(--ease-standard)!important}
-.maiq-platform-tab[data-keep-size]{font-size:15px!important}
+.maiq-platform-tab{position:relative!important;width:100%;height:44px!important;padding:0 8px 12px!important;justify-content:center!important;border:0!important;border-radius:0!important;background:transparent!important;color:var(--p-muted)!important;font-size:15px!important;font-weight:500!important;text-align:center;transition:color var(--dur-2) var(--ease-standard)!important}
 .maiq-platform-tab>span{display:inline-flex;min-height:28px;padding:4px 12px;align-items:center;justify-content:center;border-radius:999px;background:transparent;transition:background-color var(--dur-2) var(--ease-standard),color var(--dur-2) var(--ease-standard)}
 .maiq-platform-tab:hover>span,.maiq-platform-tab:focus-visible>span{background:var(--action-ghost-bg-hover);color:var(--p-text)}
 .maiq-platform-tab[data-active="true"]>span{background:color-mix(in oklab,var(--p-text) 11%,transparent);color:var(--p-text)}
