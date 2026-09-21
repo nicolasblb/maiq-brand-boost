@@ -39,3 +39,4 @@
 - [x] Refinar “O Ciclo” com quebras de título, divisórias com fade e indicador arrastável de progresso horizontal.
 - [x] Alinhar os pontilhados de “O Ciclo”, trocar o indicador por arraste direto e recortar o fluxo na divisória das raias.
 - [x] Exibir a mão do fluxo apenas quando houver corte horizontal e reorganizar Convicção, Plataforma, Ciclo, Domínios e FAQ em camadas sucessivas de revelação.
+- [x] Restaurar os números animados do Modelo, corrigir os recuos sob o menu, unificar o fundo de Ciclo/Domínios e revisar os destinos de Home.
