@@ -38,3 +38,4 @@
 - [x] Centralizar o cabeçalho de “O Ciclo”, simplificar as raias, ampliar os pontilhados e habilitar rolagem horizontal limpa em telas menores.
 - [x] Refinar “O Ciclo” com quebras de título, divisórias com fade e indicador arrastável de progresso horizontal.
 - [x] Alinhar os pontilhados de “O Ciclo”, trocar o indicador por arraste direto e recortar o fluxo na divisória das raias.
+- [x] Exibir a mão do fluxo apenas quando houver corte horizontal e reorganizar Convicção, Plataforma, Ciclo, Domínios e FAQ em camadas sucessivas de revelação.

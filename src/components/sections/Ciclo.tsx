@@ -298,7 +298,9 @@ export default function Ciclo() {
       const hint = cicloDragHintRef.current;
       if (!hint) return;
       const maxScroll = sc.scrollWidth - sc.clientWidth;
-      hint.style.display = maxScroll > 1 ? 'flex' : 'none';
+      const isScrollable = maxScroll > 1;
+      hint.style.display = isScrollable ? 'flex' : 'none';
+      sc.dataset['scrollable'] = isScrollable ? 'true' : 'false';
     };
     const layout = () => {
       const fases = cicloFasesRef.current;
@@ -345,7 +347,7 @@ export default function Ciclo() {
     let dragStartX = 0;
     let dragStartScroll = 0;
     const onPointerDown = (event: PointerEvent) => {
-      if (sc.scrollWidth <= sc.clientWidth || event.button !== 0) return;
+      if (sc.dataset['scrollable'] !== 'true' || event.button !== 0) return;
       dragging = true;
       dragStartX = event.clientX;
       dragStartScroll = sc.scrollLeft;
