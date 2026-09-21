@@ -1036,7 +1036,7 @@ export default function PaginaInstitucional() {
                         ®
                       </sup>
                     </div>
-                    <div style={{ fontSize: "13px", fontWeight: "500", marginTop: "8px" }}>
+                    <div style={{ fontSize: "15.6px", fontWeight: "500", marginTop: "8px" }}>
                       Metodologia proprietária
                     </div>
                     <div style={{ fontSize: "13px", fontStyle: "italic", color: "var(--p-muted,#91A398)", marginTop: "2px" }}>
@@ -1044,19 +1044,19 @@ export default function PaginaInstitucional() {
                     </div>
                   </div>
                   <div style={{ marginTop: "24px", alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
-                    <div ref={scoreRowRef} style={{ position: "relative", marginLeft: "25px", width: "251px", padding: "13px 0", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", fontSize: "14px", color: "var(--p-text-2,#B7C4BC)", textAlign: "right", transitionDelay: "0ms" }}>
+                    <div ref={scoreRowRef} style={{ position: "relative", marginLeft: "25px", width: "251px", padding: "13px 0", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", fontSize: "16.8px", color: "var(--p-text-2,#B7C4BC)", textAlign: "right", transitionDelay: "0ms" }}>
                       <span ref={scoreTextRef}>
                         Score de prontidão
                       </span>
                       <div data-maiq-dot="" style={{ position: "absolute", top: "-3.7px", left: "-4.2px", width: "8.4px", height: "8.4px", borderRadius: "999px", background: "var(--p-text,#E9E0D1)", opacity: "0", pointerEvents: "none" }}>
                       </div>
                     </div>
-                    <div ref={lRow1Ref} style={{ position: "relative", marginLeft: "31px", width: "246px", padding: "13px 0", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", fontSize: "14px", color: "var(--p-text-2,#B7C4BC)", textAlign: "right" }}>
+                    <div ref={lRow1Ref} style={{ position: "relative", marginLeft: "31px", width: "246px", padding: "13px 0", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", fontSize: "16.8px", color: "var(--p-text-2,#B7C4BC)", textAlign: "right" }}>
                       Roadmap de evolução
                       <div data-maiq-dot="" style={{ position: "absolute", top: "-3.7px", left: "-4.2px", width: "8.4px", height: "8.4px", borderRadius: "999px", background: "var(--p-text,#E9E0D1)", opacity: "0", pointerEvents: "none" }}>
                       </div>
                     </div>
-                    <div ref={lRow3Ref} style={{ position: "relative", marginLeft: "52px", width: "233px", padding: "13px 0", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", fontSize: "14px", color: "var(--p-text-2,#B7C4BC)", textAlign: "right" }}>
+                    <div ref={lRow3Ref} style={{ position: "relative", marginLeft: "52px", width: "233px", padding: "13px 0", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", fontSize: "16.8px", color: "var(--p-text-2,#B7C4BC)", textAlign: "right" }}>
                       Playbooks por etapa
                       <div data-maiq-dot="" style={{ position: "absolute", top: "-3.7px", left: "-4.2px", width: "8.4px", height: "8.4px", borderRadius: "999px", background: "var(--p-text,#E9E0D1)", opacity: "0", pointerEvents: "none" }}>
                       </div>
@@ -1068,7 +1068,7 @@ export default function PaginaInstitucional() {
                     <div style={{ fontSize: "26px", lineHeight: "1.1", fontWeight: "600", letterSpacing: "-.012em" }}>
                       M&AI
                     </div>
-                    <div style={{ fontSize: "13px", fontWeight: "500", marginTop: "8px" }}>
+                    <div style={{ fontSize: "15.6px", fontWeight: "500", marginTop: "8px" }}>
                       Arquitetura tecnológica
                     </div>
                     <div style={{ fontSize: "13px", fontStyle: "italic", color: "var(--p-muted,#91A398)", marginTop: "2px" }}>
@@ -1076,19 +1076,19 @@ export default function PaginaInstitucional() {
                     </div>
                   </div>
                   <div style={{ marginTop: "24px", alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-end" }}>
-                    <div ref={chatRowRef} style={{ position: "relative", marginRight: "25px", width: "251px", padding: "13px 0", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", fontSize: "14px", color: "var(--p-text-2,#B7C4BC)", textAlign: "left" }}>
+                    <div ref={chatRowRef} style={{ position: "relative", marginRight: "25px", width: "251px", padding: "13px 0", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", fontSize: "16.8px", color: "var(--p-text-2,#B7C4BC)", textAlign: "left" }}>
                       <span ref={chatTextRef}>
                         Plataforma de dados
                       </span>
                       <div data-maiq-dot="" style={{ position: "absolute", top: "-3.7px", right: "-4.2px", width: "8.4px", height: "8.4px", borderRadius: "999px", background: "var(--p-text,#E9E0D1)", opacity: "0", pointerEvents: "none" }}>
                       </div>
                     </div>
-                    <div ref={rRow1Ref} style={{ position: "relative", marginRight: "31px", width: "246px", padding: "13px 0", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", fontSize: "14px", color: "var(--p-text-2,#B7C4BC)", textAlign: "left" }}>
+                    <div ref={rRow1Ref} style={{ position: "relative", marginRight: "31px", width: "246px", padding: "13px 0", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", fontSize: "16.8px", color: "var(--p-text-2,#B7C4BC)", textAlign: "left" }}>
                       Chat e agentes de IA
                       <div data-maiq-dot="" style={{ position: "absolute", top: "-3.7px", right: "-4.2px", width: "8.4px", height: "8.4px", borderRadius: "999px", background: "var(--p-text,#E9E0D1)", opacity: "0", pointerEvents: "none" }}>
                       </div>
                     </div>
-                    <div ref={rRow2Ref} style={{ position: "relative", marginRight: "52px", width: "233px", padding: "13px 0", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", fontSize: "14px", color: "var(--p-text-2,#B7C4BC)", textAlign: "left" }}>
+                    <div ref={rRow2Ref} style={{ position: "relative", marginRight: "52px", width: "233px", padding: "13px 0", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", fontSize: "16.8px", color: "var(--p-text-2,#B7C4BC)", textAlign: "left" }}>
                       Análise integral de contexto
                       <div data-maiq-dot="" style={{ position: "absolute", top: "-3.7px", right: "-4.2px", width: "8.4px", height: "8.4px", borderRadius: "999px", background: "var(--p-text,#E9E0D1)", opacity: "0", pointerEvents: "none" }}>
                       </div>
