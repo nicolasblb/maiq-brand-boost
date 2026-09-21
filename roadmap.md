@@ -32,3 +32,6 @@
 - [x] Brilho nos círculos do hover do Nosso modelo (estilo divisórios da Plataforma) + correção da geometria que não era medida (setupDna)
 - [x] Quebras de linha nos sub-headers: Nosso modelo (antes de "potencializada") e Nossa Convicção (após "orgânica")
 - [x] Texto da Convicção em 3 parágrafos com contêiner e fio lateral
+- [x] Fade nas extremidades do fio lateral do texto da Convicção
+- [x] "A Plataforma" vira "Nossa Plataforma" com header/sub-header centralizados
+- [x] Funcionalidades reduzidas a 4 (IA para M&A, Teses de Investimento, Etapas do M&A, Virtual Data Room) com tópicos em lista no cartão e no modal
