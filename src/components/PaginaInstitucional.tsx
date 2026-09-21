@@ -1104,7 +1104,7 @@ export default function PaginaInstitucional() {
                       </div>
                     </div>
                     <div ref={rRow2Ref} style={{ position: "relative", marginRight: "52px", width: "233px", padding: "13px 0", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", fontSize: "16.8px", color: "var(--p-text-2,#B7C4BC)", textAlign: "left" }}>
-                      Análise integral de contexto
+                      Integrações
                       <div data-maiq-dot="" style={{ position: "absolute", top: "-3.7px", right: "-4.2px", width: "8.4px", height: "8.4px", borderRadius: "999px", background: "var(--p-text,#E9E0D1)", opacity: "0", pointerEvents: "none" }}>
                       </div>
                     </div>
