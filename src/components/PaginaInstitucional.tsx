@@ -1121,7 +1121,7 @@ export default function PaginaInstitucional() {
                 </div>
                 <div style={{ height: "3px", background: "var(--p-mark-1,#91A398)" }}>
                 </div>
-                <div style={{ fontSize: "12px", letterSpacing: ".14em", textTransform: "uppercase", fontWeight: "500", color: "var(--p-muted,#91A398)" }}>
+                <div style={{ fontSize: "12px", letterSpacing: ".14em", fontWeight: "500", color: "var(--p-muted,#91A398)" }}>
                   Investidores na nossa rede
                 </div>
               </div>
@@ -1131,7 +1131,7 @@ export default function PaginaInstitucional() {
                 </div>
                 <div style={{ height: "3px", background: "var(--p-mark-2,#33605A)" }}>
                 </div>
-                <div style={{ fontSize: "12px", letterSpacing: ".14em", textTransform: "uppercase", fontWeight: "500", color: "var(--p-muted,#91A398)" }}>
+                <div style={{ fontSize: "12px", letterSpacing: ".14em", fontWeight: "500", color: "var(--p-muted,#91A398)" }}>
                   Milhões em transações realizadas
                 </div>
               </div>
@@ -1141,7 +1141,7 @@ export default function PaginaInstitucional() {
                 </div>
                 <div style={{ height: "3px", background: "var(--p-hair,rgba(233,224,209,.14))" }}>
                 </div>
-                <div style={{ fontSize: "12px", letterSpacing: ".14em", textTransform: "uppercase", fontWeight: "500", color: "var(--p-muted,#91A398)" }}>
+                <div style={{ fontSize: "12px", letterSpacing: ".14em", fontWeight: "500", color: "var(--p-muted,#91A398)" }}>
                   Parceiros em nosso ecossistema
                 </div>
               </div>
