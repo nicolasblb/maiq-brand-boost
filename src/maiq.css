@@ -657,7 +657,7 @@ body{margin:0;background:#0D2423;transition:background 320ms cubic-bezier(.16,1,
 .maiq-cycle-lane{position:absolute;left:12px;width:166px;height:52px;transform:translateY(-50%);display:flex;align-items:center;gap:10px;font-size:18px;font-weight:500}
 .maiq-cycle-lane>svg{flex:0 0 auto}
 .maiq-cycle-lane-dots{position:absolute;top:calc(100% + 44px);left:0;width:166px;height:2px;background:repeating-linear-gradient(90deg,var(--c-sep) 0 2.6px,transparent 2.6px 11.6px);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
-.maiq-cycle-progress{display:none;position:sticky;left:50%;bottom:8px;flex:0 0 auto;width:112px;height:14px;margin-left:-56px;align-self:flex-end;z-index:4;cursor:ew-resize;touch-action:none}
+.maiq-cycle-progress{display:none;position:absolute;left:calc(50% - 56px);bottom:8px;width:112px;height:14px;z-index:4;cursor:ew-resize;touch-action:none;will-change:transform}
 .maiq-cycle-progress::before{content:"";position:absolute;left:0;right:0;top:6px;height:2px;border-radius:999px;background:var(--p-hair-strong)}
 .maiq-cycle-progress-thumb{position:absolute;top:5px;left:0;height:4px;min-width:34px;border-radius:999px;background:var(--c-flow-core);box-shadow:0 0 8px color-mix(in oklab,var(--c-flow) 56%,transparent);will-change:transform}
 .maiq-cycle-progress:focus-visible{outline:1px solid var(--c-flow-core);outline-offset:4px;border-radius:999px}

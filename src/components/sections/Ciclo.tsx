@@ -306,6 +306,7 @@ export default function Ciclo() {
       const ratio = maxScroll > 0 ? sc.scrollLeft / maxScroll : 0;
       thumb.style.width = thumbWidth + 'px';
       thumb.style.transform = `translateX(${travel * ratio}px)`;
+      progress.style.transform = `translateX(${sc.scrollLeft}px)`;
       progress.style.display = maxScroll > 1 ? 'block' : 'none';
       progress.setAttribute('aria-valuenow', String(Math.round(ratio * 100)));
     };
