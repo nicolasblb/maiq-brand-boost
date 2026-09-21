@@ -517,7 +517,7 @@ export default function Ciclo() {
                 <path d="M34,533 H224" />
               </g>
             </svg>
-            {LANES.map((lane, index) => {
+            {LANES.map((lane) => {
               const LaneIcon = lane.Icon;
               return (
                 <div key={lane.label} className="maiq-cycle-lane" style={{ top: lane.top }}>
