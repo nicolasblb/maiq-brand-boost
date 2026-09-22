@@ -20,13 +20,13 @@ import { OM_SCENES } from './scenes';
 const C = {
   deep: '#143937',
   deeper: '#0F2A2A',
-  sand: '#EAD9CC',
+  sand: '#FFFFFF',
   bot: '#308984',
   mint: '#9FD6D2',
   wood: '#68462B',
 };
 const FONT = 'Barlow, "Helvetica Neue", Helvetica, Arial, sans-serif';
-const sand = (a: number) => `rgba(234,217,204,${a})`;
+const sand = (a: number) => `rgba(255,255,255,${a})`;
 const mint = (a: number) => `rgba(159,214,210,${a})`;
 
 const OUT = Easing.easeOutCubic;

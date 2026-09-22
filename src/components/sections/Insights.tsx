@@ -196,7 +196,7 @@ export default function Insights() {
           <span
             className="maiq-nav-item"
             style={{ cursor: 'pointer', transition: 'color 200ms cubic-bezier(.2,0,0,1)' }}
-            data-hover-style="color:var(--p-text,#EAD9CC)"
+            data-hover-style="color:var(--p-hover-text,#FFFFFF)"
             onClick={() => goHomeSection('dominios')}
             role="button"
             tabIndex={0}
@@ -208,7 +208,7 @@ export default function Insights() {
             to="/insights"
             className="maiq-nav-item"
             style={{ cursor: 'pointer', color: 'inherit', textDecoration: 'none', transition: 'color 200ms cubic-bezier(.2,0,0,1)' }}
-            data-hover-style="color:var(--p-text,#EAD9CC)"
+            data-hover-style="color:var(--p-hover-text,#FFFFFF)"
           >
             Insights
           </Link>
