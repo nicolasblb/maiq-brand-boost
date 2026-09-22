@@ -52,3 +52,6 @@
 - [x] Logo Banco ABC: segunda logo "ABC PERSONAL" removida; apenas a logo quadrada, reenquadrada (`logo-abc-brasil.png`)
 - [x] Logo Thomson Reuters: fundo fantasma (alpha 12) removido (`logo-thomson-reuters-clean.png`); texto maior (42px desktop / 35px mobile)
 - [x] Janela do carrossel reduzida em 25% (`.maiq-team-marquee` width 75%)
+- [x] Uniformizar o menu entre Home e Insights, remover Planos e corrigir os estados de hover.
+- [x] Corrigir a quina superior do bloco Nossa Perspectiva + Nosso Time.
+- [x] Substituir a Thomson Reuters pela nova marca horizontal enviada.

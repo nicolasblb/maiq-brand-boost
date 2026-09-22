@@ -4,7 +4,7 @@ import logoBradesco from '@/assets/logo-bradesco.png.asset.json';
 import logoDeloitte from '@/assets/logo-deloitte.png.asset.json';
 import logoFalconi from '@/assets/logo-falconi.png.asset.json';
 import logoPwc from '@/assets/logo-pwc.png.asset.json';
-import logoThomsonReuters from '@/assets/logo-thomson-reuters-clean.png';
+import logoThomsonReuters from '@/assets/thomson-reuters-logo.png.asset.json';
 
 const COMPANIES = [
   { name: 'Falconi', src: logoFalconi.url },
@@ -12,7 +12,7 @@ const COMPANIES = [
   { name: 'PwC', src: logoPwc.url },
   { name: 'Bradesco', src: logoBradesco.url },
   { name: 'Banco ABC', src: logoAbcBrasil },
-  { name: 'Thomson Reuters', src: logoThomsonReuters, wide: true },
+  { name: 'Thomson Reuters', src: logoThomsonReuters.url, wide: true },
 ];
 
 function LogoGroup({ duplicate = false }: { duplicate?: boolean }) {
