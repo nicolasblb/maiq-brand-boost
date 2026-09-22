@@ -1,6 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from '@tanstack/react-router';
 import { Moon, Sun } from 'lucide-react';
+
+declare module '@tanstack/react-router' {
+  interface HistoryState {
+    secao?: string;
+  }
+}
+
 import type { User } from '@supabase/supabase-js';
 
 import AuthLeadDialogs from '@/components/AuthLeadDialogs';
