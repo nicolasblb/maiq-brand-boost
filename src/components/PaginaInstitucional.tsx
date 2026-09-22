@@ -1009,11 +1009,11 @@ export default function PaginaInstitucional() {
       </div>
       <div ref={overlayRef} className="maiq-primary-overlay">
         <div className="maiq-model-pilares-bg" style={{ position: "relative", zIndex: "2", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
-        <section data-maiq-sec="modelo" aria-label="Nosso modelo" style={{ position: "relative", zIndex: "1", minHeight: "100vh", boxSizing: "border-box", display: "flex", alignItems: "center", padding: "clamp(104px,13vh,150px) 48px clamp(36px,4.5vh,64px)" }}>
+        <section data-maiq-sec="modelo" aria-label="Nosso Modelo" style={{ position: "relative", zIndex: "1", minHeight: "100vh", boxSizing: "border-box", display: "flex", alignItems: "center", padding: "clamp(104px,13vh,150px) 48px clamp(36px,4.5vh,64px)" }}>
           <div style={{ width: "100%", maxWidth: "1200px", margin: "0 auto", display: "flex", flexDirection: "column", gap: "clamp(24px,3vh,44px)" }}>
             <div style={{ textAlign: "center" }}>
               <h2 data-maiq-modelo-h2="" style={{ fontFamily: "Inter,var(--font-core)", fontSize: "clamp(38px,4.2vw,58px)", lineHeight: "1.04", letterSpacing: "-.022em", fontWeight: "600", margin: "0" }}>
-                Nosso modelo
+                Nosso Modelo
               </h2>
               <p className="maiq-section-subhead" style={{ color: "var(--p-muted,#91A398)", margin: "14px auto 0", textWrap: "pretty" }}>
                 Convergência entre método e tecnologia,<span className="maiq-subhead-break maiq-subhead-break-model" aria-hidden="true" />

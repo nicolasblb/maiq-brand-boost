@@ -45,3 +45,4 @@
 - [x] Renomear “O M&A” para “Nossa Perspectiva” e centralizar os rótulos das raias com seus pontilhados.
 - [x] Tornar os sub-headers responsivos e ajustar suas quebras de linha por seção.
 - [x] Recalibrar os sub-headers para 40%, manter o Hero em 60% e estabilizar as quebras condicionais.
+- [x] Corrigir “Nosso Modelo” e reequilibrar verticalmente as seções “Nossa Plataforma” e “Nosso Time”.
