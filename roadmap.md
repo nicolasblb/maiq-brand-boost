@@ -49,6 +49,6 @@
 - [x] Refinar sub-headers e contornos com a nova paleta, simplificar “Sobre nós” e compactar “Nosso Time” como faixa.
 
 ## Nosso Time — carrossel de logos (22/09)
-- [ ] Logo Banco ABC: remover a segunda logo "ABC PERSONAL" à direita; manter apenas a logo quadrada e reenquadrar
-- [ ] Logo Thomson Reuters: remover o fundo e redimensionar para fonte proporcional às demais
-- [ ] Reduzir a janela de exibição do carrossel em 25% horizontalmente
+- [x] Logo Banco ABC: segunda logo "ABC PERSONAL" removida; apenas a logo quadrada, reenquadrada (`logo-abc-brasil.png`)
+- [x] Logo Thomson Reuters: fundo fantasma (alpha 12) removido (`logo-thomson-reuters-clean.png`); texto maior (42px desktop / 35px mobile)
+- [x] Janela do carrossel reduzida em 25% (`.maiq-team-marquee` width 75%)
