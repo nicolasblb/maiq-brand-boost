@@ -187,7 +187,7 @@ export default function Insights() {
             <img src={logoMadeira} alt="" aria-hidden="true" style={{ position: 'absolute', left: 0, top: 0, height: '22px', width: 'auto', display: 'block', objectFit: 'contain', opacity: dia ? 1 : 0, transition: 'opacity 320ms cubic-bezier(.16,1,.3,1)' }} />
           </Link>
         </div>
-        <nav style={{ display: 'flex', alignItems: 'center', gap: '28px', marginRight: '28px', fontSize: '14px', fontWeight: 500, color: 'var(--p-muted,#9FD6D2)' }}>
+        <nav className="maiq-insights-nav" style={{ display: 'flex', alignItems: 'center', gap: '28px', marginRight: '28px', fontSize: '14px', fontWeight: 500, color: 'var(--p-muted,#9FD6D2)' }}>
           <NavDropdown
             label="Home"
             items={SECOES.map((s) => ({ key: s.id, label: s.label }))}
@@ -200,7 +200,7 @@ export default function Insights() {
           >
             Insights
           </Link>
-          <span style={{ cursor: 'pointer', transition: 'color 200ms cubic-bezier(.2,0,0,1)' }} data-hover-style="color:var(--p-text,#EAD9CC)">
+          <span className="maiq-insights-nav-planos" style={{ cursor: 'pointer', transition: 'color 200ms cubic-bezier(.2,0,0,1)' }} data-hover-style="color:var(--p-text,#EAD9CC)">
             Planos
           </span>
         </nav>
