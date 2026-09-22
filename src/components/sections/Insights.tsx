@@ -127,7 +127,7 @@ export default function Insights() {
         onUserChange={setUser}
       />
 
-      <div style={{ position: 'fixed', top: '30px', right: '32px', zIndex: 51, display: 'flex' }}>
+      <div className="maiq-insights-toggle" style={{ position: 'fixed', top: '30px', right: '32px', zIndex: 51, display: 'flex' }}>
         <div
           onClick={toggleTheme}
           onMouseEnter={() => setTipOpen(true)}
