@@ -46,18 +46,11 @@
 }
 
 /* --- tokens/fonts.css --- */
-/* Grandview is the Maiq brand typeface (commercial, URW) — the brand book, p. 22.
-   No font file was supplied, so there is no @font-face rule here yet and the stack falls
-   back to the system grotesque. Upload the licensed Grandview webfonts and add:
-
-   @font-face{font-family:"Grandview";src:url("../assets/fonts/Grandview.woff2") format("woff2");font-weight:400;font-display:swap}
-
-   Closest available stand-in, if a hosted approximation is ever wanted (low-contrast
-   DIN-derived grotesque, normal widths): Barlow —
-   @import url("https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap"); */
+/* Barlow is the Maiq brand typeface (Google Fonts, carregada no <head> da rota raiz).
+   Peso de referência: Medium 500. */
 
 [data-maiq-scope]{
-  --font-core:"Grandview","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --font-core:"Barlow","Helvetica Neue",Helvetica,Arial,sans-serif;
   --font-display:var(--font-core);
   --font-body:var(--font-core);
   --font-mono:ui-monospace,"SFMono-Regular","Menlo","Consolas",monospace;
