@@ -826,3 +826,24 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 @keyframes maiqLoaderBreathe{0%,100%{opacity:.56}50%{opacity:1}}
 @media(max-width:640px){.maiq-loader-hero{width:calc(100% - 40px);margin-left:20px}.maiq-loader-line-1{width:100%}.maiq-loader-line-2{width:78%}.maiq-loader-body{width:88%}.maiq-loader-actions{width:100%}.maiq-loader-cta{flex:1;width:auto}}
 @media(prefers-reduced-motion:reduce){.maiq-loader-mark,.maiq-loader-block::after{animation:none}}
+
+/* ============ Insights (Artigos Autorais) ============ */
+.maiq-insights-main{max-width:1080px;margin:0 auto;padding:clamp(140px,18vh,200px) clamp(24px,5vw,48px) clamp(80px,12vh,140px)}
+.maiq-insights-head{text-align:center}
+.maiq-insights-head h2{margin:0;color:var(--p-text);font-family:var(--font-core);font-size:clamp(38px,4.2vw,58px);font-weight:600;line-height:1.04;letter-spacing:0}
+.maiq-insights-head .maiq-section-subhead{max-width:none;margin:12px auto 0}
+.maiq-insights-list{margin-top:clamp(30px,4.5vh,48px);display:flex;flex-direction:column}
+.maiq-insight-row{display:grid;grid-template-columns:64px 1fr auto;align-items:center;gap:clamp(16px,2.4vw,28px);padding:clamp(16px,2.6vh,22px) clamp(14px,2vw,22px);border-bottom:1px solid var(--p-hair,rgba(234,217,204,.14));text-decoration:none;color:var(--p-text);transition:background 200ms cubic-bezier(.2,0,0,1),color 200ms cubic-bezier(.2,0,0,1)}
+.maiq-insight-row:first-child{border-top:1px solid var(--p-hair,rgba(234,217,204,.14))}
+.maiq-insight-row:nth-child(odd){background:var(--p-chip-bg,rgba(234,217,204,.04))}
+.maiq-insight-row:hover{background:rgba(234,217,204,.09)}
+[data-maiq-scope][data-theme="claro"] .maiq-insight-row:hover{background:rgba(52,35,22,.06)}
+.maiq-insight-icon{display:flex;align-items:center;justify-content:center;width:40px;height:40px;border:1px solid var(--p-hair,rgba(234,217,204,.14));border-radius:12px;color:var(--p-subhead);transition:color 200ms cubic-bezier(.2,0,0,1),border-color 200ms cubic-bezier(.2,0,0,1)}
+.maiq-insight-row:hover .maiq-insight-icon{color:var(--p-text);border-color:var(--p-hair-strong,rgba(234,217,204,.32))}
+.maiq-insight-title{font-family:var(--font-core);font-size:clamp(16px,1.5vw,20px);font-weight:500;line-height:1.35}
+.maiq-insight-date{color:var(--p-subhead);font-family:var(--font-core);font-size:14px;font-weight:500;letter-spacing:.02em;white-space:nowrap;font-variant-numeric:tabular-nums}
+@media(max-width:640px){
+  .maiq-insight-row{grid-template-columns:44px 1fr;row-gap:6px;padding:16px 12px}
+  .maiq-insight-icon{width:32px;height:32px;border-radius:10px}
+  .maiq-insight-date{grid-column:2}
+}
