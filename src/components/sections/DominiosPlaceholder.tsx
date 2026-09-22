@@ -59,7 +59,7 @@ export default function DominiosPlaceholder() {
         <header className="maiq-team-heading">
           <h2 id="dominios-title">Nosso Time</h2>
           <p className="maiq-section-subhead">
-            Empresas que nossos especialistas tiveram experiência
+            Empresas que nossos especialistas<span className="maiq-team-subhead-break" aria-hidden="true" />tiveram experiência
           </p>
         </header>
 
