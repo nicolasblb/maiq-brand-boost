@@ -842,6 +842,7 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 .maiq-insight-row:hover .maiq-insight-icon{color:var(--p-text);border-color:var(--p-hair-strong,rgba(234,217,204,.32))}
 .maiq-insight-title{font-family:var(--font-core);font-size:clamp(16px,1.5vw,20px);font-weight:500;line-height:1.35}
 .maiq-insight-date{color:var(--p-subhead);font-family:var(--font-core);font-size:14px;font-weight:500;letter-spacing:.02em;white-space:nowrap;font-variant-numeric:tabular-nums}
+.maiq-insights-cta-lead{display:flex;align-items:center}
 @media(max-width:640px){
   .maiq-insight-row{grid-template-columns:44px 1fr;row-gap:6px;padding:16px 12px}
   .maiq-insight-icon{width:32px;height:32px;border-radius:10px}
@@ -855,4 +856,3 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 @media(max-width:430px){
   .maiq-insights-cta-div,.maiq-insights-cta-lead{display:none}
 }
-.maiq-insights-cta-lead{display:flex;align-items:center}
