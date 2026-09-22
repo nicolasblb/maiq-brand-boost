@@ -57,4 +57,4 @@
 - [x] Substituir a Thomson Reuters pela nova marca horizontal enviada.
 - [x] Restaurar a animação dos números na base de “Nosso Modelo”.
 - [x] Fixar FAQ + rodapé em uma tela e adicionar rolagem local às perguntas.
-- [ ] Restaurar o odômetro do Nosso Modelo por dígito, reversível e orientado pela posição da seção na tela.
+- [x] Restaurar o odômetro do Nosso Modelo por dígito, reversível e orientado pela posição da seção na tela.
