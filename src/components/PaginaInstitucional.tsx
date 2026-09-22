@@ -437,7 +437,7 @@ export default function PaginaInstitucional() {
       const raw = Math.min(1, Math.max(0, (start - rect.top) / (start - finish)));
       const progress = reduceMotion ? (raw > 0 ? 1 : 0) : raw * raw * (3 - 2 * raw);
       digits.forEach((digit) => {
-        const stop = Number(digit.dataset.maiqOdoStop || 0);
+        const stop = Number(digit.dataset['maiqOdoStop'] || 0);
         digit.style.setProperty('--maiq-odo-step', String(stop * progress));
       });
       section.style.setProperty('--maiq-odo-progress', progress.toFixed(4));
