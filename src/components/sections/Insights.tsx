@@ -213,15 +213,17 @@ export default function Insights() {
           >
             {user ? 'Conta' : 'Entrar'}
           </MaiqButton>
-          <div style={{ width: '1px', height: '20px', background: 'var(--p-cta-fg,#143937)', opacity: 0.2 }} />
-          <MaiqButton
-            size="md"
-            variant="ghost"
-            onClick={() => setLeadOpen(true)}
-            style={ctaButtonStyle}
-          >
-            Fale Conosco
-          </MaiqButton>
+          <div className="maiq-insights-cta-div" style={{ width: '1px', height: '20px', background: 'var(--p-cta-fg,#143937)', opacity: 0.2 }} />
+          <span className="maiq-insights-cta-lead">
+            <MaiqButton
+              size="md"
+              variant="ghost"
+              onClick={() => setLeadOpen(true)}
+              style={ctaButtonStyle}
+            >
+              Fale Conosco
+            </MaiqButton>
+          </span>
         </div>
       </header>
 
