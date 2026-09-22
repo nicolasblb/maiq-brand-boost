@@ -28,8 +28,8 @@ export default function NavDropdown(props: NavDropdownProps) {
         tabIndex={0}
         aria-expanded={open}
         aria-haspopup="menu"
-        style={{ display: "inline-flex", alignItems: "center", gap: "6px", cursor: "pointer", color: open ? "var(--p-text,#EAD9CC)" : "inherit", transition: "color 200ms cubic-bezier(.2,0,0,1)" }}
-        data-hover-style="color:var(--p-text,#EAD9CC)"
+        style={{ display: "inline-flex", alignItems: "center", gap: "6px", cursor: "pointer", color: open ? "var(--p-hover-text,#FFFFFF)" : "inherit", transition: "color 200ms cubic-bezier(.2,0,0,1)" }}
+        data-hover-style="color:var(--p-hover-text,#FFFFFF)"
       >
         {props.label}
         <ChevronDown
