@@ -22,8 +22,8 @@ const SECOES = [
   { id: 'modelo', label: 'Nosso Modelo' },
   { id: 'fundacao', label: 'Nossa Convicção' },
   { id: 'plataforma', label: 'Nossa Plataforma' },
-  { id: 'ciclo', label: 'O M&A' },
-  { id: 'dominios', label: 'Os Domínios' },
+  { id: 'ciclo', label: 'Nossa Perspectiva' },
+  { id: 'dominios', label: 'Nosso Time' },
   { id: 'faq', label: 'FAQ' },
 ];
 
@@ -193,16 +193,25 @@ export default function Insights() {
             items={SECOES.map((s) => ({ key: s.id, label: s.label }))}
             onSelect={goHomeSection}
           />
+          <span
+            className="maiq-nav-item"
+            style={{ cursor: 'pointer', transition: 'color 200ms cubic-bezier(.2,0,0,1)' }}
+            data-hover-style="color:var(--p-text,#EAD9CC)"
+            onClick={() => goHomeSection('dominios')}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); goHomeSection('dominios'); } }}
+          >
+            Sobre nós
+          </span>
           <Link
             to="/insights"
-            style={{ cursor: 'pointer', color: 'var(--p-text,#EAD9CC)', textDecoration: 'none', transition: 'color 200ms cubic-bezier(.2,0,0,1)' }}
-            data-hover-style="color:var(--p-muted,#9FD6D2)"
+            className="maiq-nav-item"
+            style={{ cursor: 'pointer', color: 'inherit', textDecoration: 'none', transition: 'color 200ms cubic-bezier(.2,0,0,1)' }}
+            data-hover-style="color:var(--p-text,#EAD9CC)"
           >
             Insights
           </Link>
-          <span className="maiq-insights-nav-planos" style={{ cursor: 'pointer', transition: 'color 200ms cubic-bezier(.2,0,0,1)' }} data-hover-style="color:var(--p-text,#EAD9CC)">
-            Planos
-          </span>
         </nav>
         <div style={{ display: 'flex', alignItems: 'center', height: '44px', padding: '4px', border: '1px solid var(--p-hair,rgba(234,217,204,.14))', borderRadius: '999px', background: 'var(--p-cta-bg,#EAD9CC)', color: 'var(--p-cta-fg,#143937)' }}>
           <MaiqButton
