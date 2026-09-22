@@ -163,6 +163,7 @@ export default function Insights() {
       </div>
 
       <header
+        className="maiq-insights-header"
         style={{
           position: 'fixed', top: '20px', left: '50%', transform: 'translateX(-50%)', zIndex: 50,
           display: 'flex', alignItems: 'center', gap: '0', height: '64px', padding: '0 10px 0 26px',
