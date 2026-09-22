@@ -731,7 +731,7 @@ export default function PaginaInstitucional() {
   void refs; void iconSunRef; void iconMoonRef; void lRailRef; void rRailRef; void overlay2WrapRef; void overlay3Ref; void netContentRef;
 
   return (
-    <div data-maiq-scope="" ref={scopeRef} style={{ fontFamily: "'Grandview','Barlow',Helvetica,Arial,sans-serif", background: "var(--p-bg,#0F2B2A)", color: "var(--p-text,#EAD9CC)", minHeight: "100vh", transition: "background 320ms cubic-bezier(.16,1,.3,1),color 320ms cubic-bezier(.16,1,.3,1)" }}>
+    <div data-maiq-scope="" ref={scopeRef} style={{ fontFamily: "'Barlow',Helvetica,Arial,sans-serif", background: "var(--p-bg,#0F2B2A)", color: "var(--p-text,#EAD9CC)", minHeight: "100vh", transition: "background 320ms cubic-bezier(.16,1,.3,1),color 320ms cubic-bezier(.16,1,.3,1)" }}>
       <PageLoader />
       <AuthLeadDialogs
         theme={theme}

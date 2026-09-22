@@ -25,7 +25,7 @@ const C = {
   mint: '#9FD6D2',
   wood: '#68462B',
 };
-const FONT = 'Grandview, "Helvetica Neue", Helvetica, Arial, sans-serif';
+const FONT = 'Barlow, "Helvetica Neue", Helvetica, Arial, sans-serif';
 const sand = (a: number) => `rgba(234,217,204,${a})`;
 const mint = (a: number) => `rgba(159,214,210,${a})`;
 
