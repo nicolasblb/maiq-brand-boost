@@ -42,12 +42,12 @@ export default function NavDropdown(props: NavDropdownProps) {
           {props.items.map((it) => (
             <span
               key={it.key}
+              className="maiq-nav-dropdown-item"
               role="menuitem"
               tabIndex={0}
               onClick={() => { setOpen(false); props.onSelect?.(it.key); }}
               onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setOpen(false); props.onSelect?.(it.key); } }}
               style={{ padding: "9px 12px", borderRadius: "10px", cursor: "pointer", whiteSpace: "nowrap", transition: "color 200ms cubic-bezier(.2,0,0,1),background 200ms cubic-bezier(.2,0,0,1)" }}
-              data-hover-style="color:var(--p-text,#EAD9CC);background:var(--p-chip-bg,rgba(234,217,204,.06))"
             >
               {it.label}
             </span>

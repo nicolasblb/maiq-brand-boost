@@ -58,3 +58,4 @@
 - [x] Restaurar a animação dos números na base de “Nosso Modelo”.
 - [x] Fixar FAQ + rodapé em uma tela e adicionar rolagem local às perguntas.
 - [x] Restaurar o odômetro do Nosso Modelo por dígito, reversível e orientado pela posição da seção na tela.
+- [x] Destacar as subopções de Home, alinhar seus destinos ao topo e concluir o odômetro quando Nosso Modelo alcança o topo.

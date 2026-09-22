@@ -136,9 +136,18 @@ export default function PaginaInstitucional() {
     const el = (document.querySelector('[data-maiq-sec="' + id + '"]') as HTMLElement | null)
       ?? (document.getElementById(id) as HTMLElement | null);
     if (!el) return;
-    const top = el.getBoundingClientRect().top + window.scrollY;
-    const menuClearance = window.innerWidth <= 1040 ? 140 : 132;
-    window.scrollTo({ top: Math.max(0, top - menuClearance), behavior: 'smooth' });
+    let top = el.getBoundingClientRect().top + window.scrollY;
+    // Plataforma e FAQ são bases sticky de seus respectivos blocos. Seus
+    // elementos ficam visualmente no topo em uma faixa inteira de scroll;
+    // os holds marcam o ponto em que cada base deve ser mostrada por completo.
+    if (id === 'plataforma' && platformHoldRef.current) {
+      top = platformHoldRef.current.getBoundingClientRect().top + window.scrollY;
+    } else if (id === 'faq' && finalHoldRef.current) {
+      top = finalHoldRef.current.getBoundingClientRect().top + window.scrollY;
+    }
+    // Cada seção já reserva internamente o espaço do cabeçalho. Alinhar a
+    // borda da seção ao topo mantém todo o conteúdo dentro da viewport.
+    window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
   };
 
   // Volta de outra página (ex.: Insights) com destino a uma seção da home
@@ -431,10 +440,11 @@ export default function PaginaInstitucional() {
     const paintOdos = () => {
       queued = false;
       const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
-      const rect = row.getBoundingClientRect();
-      const start = viewportHeight * 0.94;
-      const finish = viewportHeight * 0.56;
-      const raw = Math.min(1, Math.max(0, (start - rect.top) / (start - finish)));
+      const rect = section.getBoundingClientRect();
+      // A rolagem começa quando a seção entra pela base e termina exatamente
+      // quando sua borda superior alcança o topo da tela. O mesmo cálculo em
+      // sentido contrário torna o movimento totalmente reversível.
+      const raw = Math.min(1, Math.max(0, (viewportHeight - rect.top) / viewportHeight));
       const progress = reduceMotion ? (raw > 0 ? 1 : 0) : raw * raw * (3 - 2 * raw);
       digits.forEach((digit) => {
         const stop = Number(digit.dataset['maiqOdoStop'] || 0);
