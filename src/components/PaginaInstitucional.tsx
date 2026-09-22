@@ -136,7 +136,15 @@ export default function PaginaInstitucional() {
     const el = (document.querySelector('[data-maiq-sec="' + id + '"]') as HTMLElement | null)
       ?? (document.getElementById(id) as HTMLElement | null);
     if (!el) return;
-    const top = el.getBoundingClientRect().top + window.scrollY;
+    let top = el.getBoundingClientRect().top + window.scrollY;
+    // Plataforma e FAQ são bases sticky de seus respectivos blocos. Seus
+    // elementos ficam visualmente no topo em uma faixa inteira de scroll;
+    // os holds marcam o ponto em que cada base deve ser mostrada por completo.
+    if (id === 'plataforma' && platformHoldRef.current) {
+      top = platformHoldRef.current.getBoundingClientRect().top + window.scrollY;
+    } else if (id === 'faq' && finalHoldRef.current) {
+      top = finalHoldRef.current.getBoundingClientRect().top + window.scrollY;
+    }
     // Cada seção já reserva internamente o espaço do cabeçalho. Alinhar a
     // borda da seção ao topo mantém todo o conteúdo dentro da viewport.
     window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
