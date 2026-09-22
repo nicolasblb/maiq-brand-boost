@@ -657,7 +657,6 @@ body{margin:0;background:#0D2423;transition:background 320ms cubic-bezier(.16,1,
 .maiq-dominios-placeholder h2{margin:0;color:var(--p-text);font-family:var(--font-core);font-size:clamp(38px,4.2vw,58px);font-weight:600;line-height:1.04;letter-spacing:0}
 .maiq-team-heading{margin:0 auto clamp(38px,6vh,64px)}
 .maiq-team-heading p{max-width:none;margin:14px auto 0;color:var(--p-muted);white-space:nowrap}
-.maiq-team-subhead-break::before{content:" "}
 .maiq-team-marquee{position:relative;width:100%;overflow:hidden;mask-image:linear-gradient(90deg,transparent 0%,black 8%,black 92%,transparent 100%);-webkit-mask-image:linear-gradient(90deg,transparent 0%,black 8%,black 92%,transparent 100%)}
 .maiq-team-logo-track{display:flex;width:max-content;will-change:transform;animation:maiqTeamMarquee 25s linear infinite;animation-play-state:paused}
 .maiq-team-logo-track[data-active="true"]{animation-play-state:running}
@@ -668,7 +667,7 @@ body{margin:0;background:#0D2423;transition:background 320ms cubic-bezier(.16,1,
 [data-theme="claro"] .maiq-team-logo img{filter:none}
 @keyframes maiqTeamMarquee{to{transform:translate3d(-50%,0,0)}}
 @media(max-width:800px){.maiq-dominios-placeholder{padding:clamp(56px,8vh,72px) 24px}.maiq-team-heading{margin-bottom:40px}.maiq-team-logo{width:152px;padding:0 22px}.maiq-team-logo img{max-height:27px}}
-@media(max-width:700px){.maiq-team-subhead-break{display:block}.maiq-team-subhead-break::before{content:none}}
+@media(max-width:700px){.maiq-team-subhead-break{display:block}}
 @media(prefers-reduced-motion:reduce){.maiq-team-logo-track{animation:none;transform:none}.maiq-team-marquee{overflow-x:auto;scrollbar-width:none}.maiq-team-marquee::-webkit-scrollbar{display:none}}
 @media (prefers-reduced-motion:reduce){
   .maiq-model-pilares-bg::before,.maiq-model-pilares-bg::after{animation:none}
