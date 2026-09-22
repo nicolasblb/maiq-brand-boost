@@ -745,6 +745,7 @@ export default function PaginaInstitucional() {
             onSelect={goToSection}
           />
           <span
+            className="maiq-nav-item"
             style={{ cursor: "pointer", transition: "color 200ms cubic-bezier(.2,0,0,1)" }}
             data-hover-style="color:var(--p-text,#EAD9CC)"
             onClick={() => goToSection('dominios')}
@@ -756,6 +757,7 @@ export default function PaginaInstitucional() {
           </span>
           <Link
             to="/insights"
+            className="maiq-nav-item"
             style={{ cursor: "pointer", textDecoration: "none", transition: "color 200ms cubic-bezier(.2,0,0,1)" }}
             data-hover-style="color:var(--p-text,#EAD9CC)"
           >

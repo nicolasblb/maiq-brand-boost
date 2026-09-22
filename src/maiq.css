@@ -642,8 +642,8 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 .maiq-platform-base{position:sticky;z-index:0;overflow:clip}
 .maiq-primary-overlay{position:relative;z-index:2;overflow:clip;border:1px solid var(--p-hair);border-radius:24px;background:var(--p-bg);box-shadow:var(--p-overlay-shadow),0 30px 60px -18px color-mix(in oklab,var(--p-bg-deep) 72%,transparent);transition:background var(--dur-3) var(--ease-out)}
 .maiq-platform-hold{position:relative;z-index:0;pointer-events:none}
-.maiq-final-reveal-stage{position:relative;z-index:3;overflow:clip;border-radius:24px 24px 0 0;background:var(--p-bg)}
-.maiq-final-base{position:sticky;z-index:0;overflow:clip;border-radius:24px 24px 0 0}
+.maiq-final-reveal-stage{position:relative;z-index:3;overflow:clip;clip-path:inset(0 round 24px 24px 0 0)}
+.maiq-final-base{position:sticky;z-index:0;overflow:clip}
 .maiq-final-content{display:flex;min-height:100svh;flex-direction:column;background:var(--p-bg)}
 .maiq-cycle-domains-overlay{position:relative;z-index:2;overflow:clip;border:1px solid var(--p-hair);border-radius:24px;background:var(--p-bg);box-shadow:var(--p-overlay-shadow),0 30px 60px -18px color-mix(in oklab,var(--p-bg-deep) 72%,transparent);transition:background var(--dur-3) var(--ease-out)}
 .maiq-final-hold{position:relative;z-index:0;pointer-events:none}
@@ -831,6 +831,8 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 @media(prefers-reduced-motion:reduce){.maiq-loader-mark,.maiq-loader-block::after{animation:none}}
 
 /* ============ Insights (Artigos Autorais) ============ */
+.maiq-nav-item{color:inherit !important}
+.maiq-nav-item:hover,.maiq-nav-item:focus-visible{color:var(--p-text,#EAD9CC) !important}
 .maiq-insights-main{max-width:1080px;margin:0 auto;padding:clamp(140px,18vh,200px) clamp(24px,5vw,48px) clamp(80px,12vh,140px)}
 .maiq-insights-head{text-align:center}
 .maiq-insights-head h2{margin:0;color:var(--p-text);font-family:var(--font-core);font-size:clamp(38px,4.2vw,58px);font-weight:600;line-height:1.04;letter-spacing:0}
@@ -853,11 +855,11 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
   .maiq-insights-header{padding:0 8px 0 14px;height:56px;max-width:calc(100vw - 16px)}
   .maiq-insights-header > div:first-child{margin-right:12px !important}
   .maiq-insights-nav{gap:14px !important;margin-right:12px !important}
-  .maiq-insights-nav-about{display:none}
   .maiq-insights-toggle{top:92px !important;right:12px !important}
 }
 @media(max-width:430px){
-  .maiq-insights-cta-div,.maiq-insights-cta-lead{display:none}
+  .maiq-insights-header>div:last-child{display:none !important}
+  .maiq-insights-nav{margin-right:0 !important}
 }
 @media(max-width:360px){
   .maiq-insights-header{padding:0 4px 0 10px !important}
