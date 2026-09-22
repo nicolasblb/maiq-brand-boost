@@ -747,9 +747,13 @@ export default function PaginaInstitucional() {
           <span style={{ cursor: "default" }}>
             Sobre nós
           </span>
-          <span style={{ cursor: "pointer", transition: "color 200ms cubic-bezier(.2,0,0,1)" }} data-hover-style="color:var(--p-text,#EAD9CC)">
+          <Link
+            to="/insights"
+            style={{ cursor: "pointer", textDecoration: "none", transition: "color 200ms cubic-bezier(.2,0,0,1)" }}
+            data-hover-style="color:var(--p-text,#EAD9CC)"
+          >
             Insights
-          </span>
+          </Link>
           <span style={{ cursor: "pointer", transition: "color 200ms cubic-bezier(.2,0,0,1)" }} data-hover-style="color:var(--p-text,#EAD9CC)">
             Planos
           </span>
