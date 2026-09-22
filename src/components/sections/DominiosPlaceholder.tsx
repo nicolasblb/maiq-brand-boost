@@ -12,7 +12,7 @@ const COMPANIES = [
   { name: 'PwC', src: logoPwc.url },
   { name: 'Bradesco', src: logoBradesco.url },
   { name: 'Banco ABC', src: logoAbcBrasil },
-  { name: 'Thomson Reuters', src: logoThomsonReuters.url, wide: true },
+  { name: 'Thomson Reuters', src: logoThomsonReuters, wide: true },
 ];
 
 function LogoGroup({ duplicate = false }: { duplicate?: boolean }) {
