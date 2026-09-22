@@ -40,10 +40,10 @@ const fieldStyle: CSSProperties = {
   height: '46px',
   borderWidth: '1px',
   borderStyle: 'solid',
-  borderColor: 'var(--p-hair,rgba(233,224,209,.14))',
+  borderColor: 'var(--p-hair,rgba(234,217,204,.14))',
   borderRadius: 'var(--radius-md)',
-  background: 'var(--p-chip-bg,rgba(233,224,209,.04))',
-  color: 'var(--p-text,#E9E0D1)',
+  background: 'var(--p-chip-bg,rgba(234,217,204,.04))',
+  color: 'var(--p-text,#EAD9CC)',
   font: 'inherit',
   outline: 'none',
   padding: '0 14px',
@@ -54,22 +54,22 @@ const labelStyle: CSSProperties = {
   display: 'flex',
   alignItems: 'center',
   gap: '8px',
-  color: 'var(--p-text-2,#B7C4BC)',
+  color: 'var(--p-text-2,#AFE3E0)',
   fontSize: '13px',
   fontWeight: 500,
 };
 
 const secondaryButtonStyle = {
-  '--action-ghost-fg': 'var(--p-text-2,#B7C4BC)',
-  '--action-ghost-bg-hover': 'var(--p-chip-bg-strong,rgba(233,224,209,.13))',
-  color: 'var(--p-text-2,#B7C4BC)',
+  '--action-ghost-fg': 'var(--p-text-2,#AFE3E0)',
+  '--action-ghost-bg-hover': 'var(--p-chip-bg-strong,rgba(234,217,204,.13))',
+  color: 'var(--p-text-2,#AFE3E0)',
 } as CSSProperties;
 
 const primaryButtonStyle = {
-  '--action-primary-bg': 'var(--p-cta-bg,#E9E0D1)',
-  '--action-primary-fg': 'var(--p-cta-fg,#143737)',
-  '--action-primary-bg-hover': 'var(--p-cta-bg-hover,#F1EBE0)',
-  '--action-primary-bg-active': 'var(--p-cta-bg-active,#DCD0BC)',
+  '--action-primary-bg': 'var(--p-cta-bg,#EAD9CC)',
+  '--action-primary-fg': 'var(--p-cta-fg,#143937)',
+  '--action-primary-bg-hover': 'var(--p-cta-bg-hover,#F3E7DE)',
+  '--action-primary-bg-active': 'var(--p-cta-bg-active,#DEC7B2)',
 } as CSSProperties;
 
 function normalizeEmail(value: string) {
@@ -128,7 +128,7 @@ function ModalFrame({
         alignItems: 'center',
         justifyContent: 'center',
         padding: '24px',
-        background: 'var(--p-modal-scrim,rgba(4,16,16,.68))',
+        background: 'var(--p-modal-scrim,rgba(5,18,17,.68))',
         backdropFilter: 'blur(10px)',
         WebkitBackdropFilter: 'blur(10px)',
       }}
@@ -142,10 +142,10 @@ function ModalFrame({
           width: 'min(100%, 520px)',
           maxHeight: 'min(86vh, 760px)',
           overflow: 'hidden',
-          border: '1px solid var(--p-hair,rgba(233,224,209,.14))',
+          border: '1px solid var(--p-hair,rgba(234,217,204,.14))',
           borderRadius: 'var(--radius-xl)',
-          background: 'var(--p-card,#1B4442)',
-          color: 'var(--p-text,#E9E0D1)',
+          background: 'var(--p-card,#1F5956)',
+          color: 'var(--p-text,#EAD9CC)',
           boxShadow: 'var(--shadow-3)',
         }}
       >
@@ -158,11 +158,11 @@ function ModalFrame({
 function DialogHeader({ title, eyebrow, children }: { title: string; eyebrow?: string; children?: ReactNode }) {
   return (
     <div style={{ padding: '28px 28px 0' }}>
-      {eyebrow ? <p style={{ margin: 0, color: 'var(--p-muted,#91A398)', fontSize: '12px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '.12em' }}>{eyebrow}</p> : null}
-      <h2 style={{ margin: eyebrow ? '10px 0 0' : 0, color: 'var(--p-text,#E9E0D1)', fontSize: 'clamp(28px,4vw,38px)', lineHeight: 1.05, fontWeight: 500, letterSpacing: 0 }}>
+      {eyebrow ? <p style={{ margin: 0, color: 'var(--p-muted,#9FD6D2)', fontSize: '12px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '.12em' }}>{eyebrow}</p> : null}
+      <h2 style={{ margin: eyebrow ? '10px 0 0' : 0, color: 'var(--p-text,#EAD9CC)', fontSize: 'clamp(28px,4vw,38px)', lineHeight: 1.05, fontWeight: 500, letterSpacing: 0 }}>
         {title}
       </h2>
-      {children ? <div style={{ marginTop: '12px', color: 'var(--p-text-2,#B7C4BC)', fontSize: '15px', lineHeight: 1.55 }}>{children}</div> : null}
+      {children ? <div style={{ marginTop: '12px', color: 'var(--p-text-2,#AFE3E0)', fontSize: '15px', lineHeight: 1.55 }}>{children}</div> : null}
     </div>
   );
 }
@@ -186,7 +186,7 @@ function TextInput({
           id={id}
           required={required}
           aria-invalid={error || undefined}
-          style={{ ...fieldStyle, paddingRight: trailingAction ? '52px' : '14px', borderColor: error ? 'var(--state-critical,#9E4A31)' : 'var(--p-hair,rgba(233,224,209,.14))', background: error ? 'color-mix(in srgb, var(--state-critical,#9E4A31) 13%, var(--p-chip-bg,transparent))' : 'var(--p-chip-bg,rgba(233,224,209,.04))' }}
+          style={{ ...fieldStyle, paddingRight: trailingAction ? '52px' : '14px', borderColor: error ? 'var(--state-critical,#9E4A31)' : 'var(--p-hair,rgba(234,217,204,.14))', background: error ? 'color-mix(in srgb, var(--state-critical,#9E4A31) 13%, var(--p-chip-bg,transparent))' : 'var(--p-chip-bg,rgba(234,217,204,.04))' }}
           {...props}
         />
         {trailingAction ? <div style={{ position: 'absolute', right: '4px', top: '50%', transform: 'translateY(-50%)' }}>{trailingAction}</div> : null}
@@ -202,7 +202,7 @@ function RequiredLegend() {
 }
 
 function MessageArea({ error, ...props }: TextareaHTMLAttributes<HTMLTextAreaElement> & { error?: boolean | undefined }) {
-  return <textarea aria-label="Descreva como podemos ajudar" aria-invalid={error || undefined} className="maiq-message-textarea maiq-form-scroll" style={{ ...fieldStyle, borderColor: error ? 'var(--state-critical,#9E4A31)' : 'var(--p-hair,rgba(233,224,209,.14))' }} {...props} />;
+  return <textarea aria-label="Descreva como podemos ajudar" aria-invalid={error || undefined} className="maiq-message-textarea maiq-form-scroll" style={{ ...fieldStyle, borderColor: error ? 'var(--state-critical,#9E4A31)' : 'var(--p-hair,rgba(234,217,204,.14))' }} {...props} />;
 }
 
 export default function AuthLeadDialogs({
@@ -466,10 +466,10 @@ function Message({ tone, children }: { tone: 'success' | 'critical'; children: R
         display: 'flex',
         alignItems: 'flex-start',
         gap: '10px',
-        border: tone === 'critical' ? '1px solid var(--state-critical,#9E4A31)' : '1px solid var(--p-hair,rgba(233,224,209,.14))',
+        border: tone === 'critical' ? '1px solid var(--state-critical,#9E4A31)' : '1px solid var(--p-hair,rgba(234,217,204,.14))',
         borderRadius: 'var(--radius-md)',
-        background: tone === 'critical' ? 'color-mix(in srgb, var(--state-critical,#9E4A31) 22%, var(--p-card,#1B4442))' : 'var(--p-chip-bg,rgba(233,224,209,.04))',
-        color: tone === 'success' ? 'var(--state-positive,#4E8F6E)' : 'var(--p-text,#E9E0D1)',
+        background: tone === 'critical' ? 'color-mix(in srgb, var(--state-critical,#9E4A31) 22%, var(--p-card,#1F5956))' : 'var(--p-chip-bg,rgba(234,217,204,.04))',
+        color: tone === 'success' ? 'var(--state-positive,#4E8F6E)' : 'var(--p-text,#EAD9CC)',
         padding: '12px 14px',
         fontSize: '14px',
         lineHeight: 1.45,
