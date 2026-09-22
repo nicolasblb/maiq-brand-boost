@@ -488,6 +488,13 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 .maiq-footer-link:hover,.maiq-footer-link:focus-visible{color:var(--p-text)}
 @media (max-width:640px){
   .maiq-footer-cols{width:100%;justify-content:space-between;gap:32px}
+  .maiq-final-content .maiq-footer{padding:26px 24px 16px!important}
+  .maiq-final-content .maiq-footer-top{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:start;gap:24px}
+  .maiq-final-content .maiq-footer-cols{width:auto;justify-content:end;gap:24px}
+  .maiq-final-content .maiq-footer-col{gap:6px}
+  .maiq-final-content .maiq-footer-col-title{font-size:11px}
+  .maiq-final-content .maiq-footer-link{font-size:12px}
+  .maiq-final-content .maiq-footer-top+div{margin-top:22px!important;padding-top:14px!important;font-size:11px!important}
 }
 
 .maiq-conviction{
