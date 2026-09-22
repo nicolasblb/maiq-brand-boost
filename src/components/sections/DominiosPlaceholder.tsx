@@ -1,25 +1,25 @@
 import { useEffect, useRef, useState } from 'react';
-import logoAbc from '@/assets/logo-abc.png.asset.json';
+import logoAbcBrasil from '@/assets/logo-abc-brasil.png';
 import logoBradesco from '@/assets/logo-bradesco.png.asset.json';
 import logoDeloitte from '@/assets/logo-deloitte.png.asset.json';
 import logoFalconi from '@/assets/logo-falconi.png.asset.json';
 import logoPwc from '@/assets/logo-pwc.png.asset.json';
-import logoThomsonReuters from '@/assets/logo-thomson-reuters.png.asset.json';
+import logoThomsonReuters from '@/assets/logo-thomson-reuters-clean.png';
 
 const COMPANIES = [
   { name: 'Falconi', src: logoFalconi.url },
   { name: 'Deloitte', src: logoDeloitte.url },
   { name: 'PwC', src: logoPwc.url },
   { name: 'Bradesco', src: logoBradesco.url },
-  { name: 'Banco ABC', src: logoAbc.url },
-  { name: 'Thomson Reuters', src: logoThomsonReuters.url },
+  { name: 'Banco ABC', src: logoAbcBrasil },
+  { name: 'Thomson Reuters', src: logoThomsonReuters, wide: true },
 ];
 
 function LogoGroup({ duplicate = false }: { duplicate?: boolean }) {
   return (
     <div className="maiq-team-logo-group" aria-hidden={duplicate || undefined}>
       {COMPANIES.map((company) => (
-        <div className="maiq-team-logo" key={company.name}>
+        <div className={`maiq-team-logo${company.wide ? ' maiq-team-logo--tr' : ''}`} key={company.name}>
           <img
             src={company.src}
             alt={duplicate ? '' : company.name}

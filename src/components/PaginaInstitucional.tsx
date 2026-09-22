@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { Link } from '@tanstack/react-router';
+import { Link, useRouterState } from '@tanstack/react-router';
 import type { User } from '@supabase/supabase-js';
-import { Sun, Moon, ChevronDown } from 'lucide-react';
+import { Sun, Moon } from 'lucide-react';
 import Ciclo from '@/components/sections/Ciclo';
 import Conviccao from '@/components/sections/Conviccao';
 import DominiosPlaceholder from '@/components/sections/DominiosPlaceholder';
@@ -13,6 +13,7 @@ import PageLoader from '@/components/maiq/PageLoader';
 import AuthLeadDialogs from '@/components/AuthLeadDialogs';
 import PlatformShowcase from '@/components/maiq/PlatformShowcase';
 import MaiqButton from '@/components/maiq/MaiqButton';
+import NavDropdown from '@/components/maiq/NavDropdown';
 import { supabase } from '@/integrations/supabase/client';
 import logoBranco from '@/assets/logo-maiq-branco.png';
 import logoMadeira from '@/assets/logo-maiq-madeira.png';
@@ -95,57 +96,6 @@ const SECOES = [
   { id: 'faq', label: 'FAQ' },
 ];
 
-function NavDropdown(props: { label: string; items: { key: string; label: string }[]; onSelect?: (key: string) => void }) {
-  const [open, setOpen] = useState(false);
-  const closeTimer = useRef<Any>(null);
-  const cancelClose = () => { if (closeTimer.current) { clearTimeout(closeTimer.current); closeTimer.current = null; } };
-  const scheduleClose = () => { cancelClose(); closeTimer.current = setTimeout(() => setOpen(false), 160); };
-  useEffect(() => () => { if (closeTimer.current) clearTimeout(closeTimer.current); }, []);
-  const menuStyle: React.CSSProperties = { position: "absolute", top: "34px", left: "-14px", minWidth: "212px", padding: "8px", border: "1px solid var(--p-hair,rgba(234,217,204,.14))", borderRadius: "16px", background: "var(--p-card,#1F5956)", backdropFilter: "blur(18px)", WebkitBackdropFilter: "blur(18px)", boxShadow: "var(--p-header-shadow,0 10px 40px rgba(6,22,21,.35))", display: "flex", flexDirection: "column", gap: "2px" };
-  return (
-    <span
-      style={{ position: "relative", display: "inline-flex" }}
-      onMouseEnter={() => { cancelClose(); setOpen(true); }}
-      onMouseLeave={scheduleClose}
-      onFocus={() => { cancelClose(); setOpen(true); }}
-      onBlur={(e) => { if (!e.currentTarget.contains(e.relatedTarget as Node)) scheduleClose(); }}
-      onKeyDown={(e) => { if (e.key === 'Escape') setOpen(false); }}
-    >
-      <span
-        role="button"
-        tabIndex={0}
-        aria-expanded={open}
-        aria-haspopup="menu"
-        style={{ display: "inline-flex", alignItems: "center", gap: "6px", cursor: "pointer", color: open ? "var(--p-text,#EAD9CC)" : "inherit", transition: "color 200ms cubic-bezier(.2,0,0,1)" }}
-        data-hover-style="color:var(--p-text,#EAD9CC)"
-      >
-        {props.label}
-        <ChevronDown
-          strokeWidth={2}
-          style={{ width: 15, height: 15, transform: open ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 220ms cubic-bezier(.16,1,.3,1)" }}
-        />
-      </span>
-      {open ? (
-        <div role="menu" style={menuStyle}>
-          {props.items.map((it) => (
-            <span
-              key={it.key}
-              role="menuitem"
-              tabIndex={0}
-              onClick={() => { setOpen(false); props.onSelect?.(it.key); }}
-              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setOpen(false); props.onSelect?.(it.key); } }}
-              style={{ padding: "9px 12px", borderRadius: "10px", cursor: "pointer", whiteSpace: "nowrap", transition: "color 200ms cubic-bezier(.2,0,0,1),background 200ms cubic-bezier(.2,0,0,1)" }}
-              data-hover-style="color:var(--p-text,#EAD9CC);background:var(--p-chip-bg,rgba(234,217,204,.06))"
-            >
-              {it.label}
-            </span>
-          ))}
-        </div>
-      ) : null}
-    </span>
-  );
-}
-
 export default function PaginaInstitucional() {
   const [theme, setTheme] = useState<'noite' | 'claro'>('noite');
   const [authOpen, setAuthOpen] = useState(false);
@@ -162,6 +112,17 @@ export default function PaginaInstitucional() {
     const menuClearance = window.innerWidth <= 1040 ? 140 : 132;
     window.scrollTo({ top: Math.max(0, top - menuClearance), behavior: 'smooth' });
   };
+
+  // Volta de outra página (ex.: Insights) com destino a uma seção da home
+  const navState = useRouterState({ select: (s) => s.location.state as { secao?: string } | null });
+  useEffect(() => {
+    if (!navState?.secao) return;
+    const timer = setTimeout(() => goToSection(navState.secao as string), 650);
+    return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+
 
 
   const scopeRef = useRef<Any>(null);
@@ -786,9 +747,13 @@ export default function PaginaInstitucional() {
           <span style={{ cursor: "default" }}>
             Sobre nós
           </span>
-          <span style={{ cursor: "pointer", transition: "color 200ms cubic-bezier(.2,0,0,1)" }} data-hover-style="color:var(--p-text,#EAD9CC)">
+          <Link
+            to="/insights"
+            style={{ cursor: "pointer", textDecoration: "none", transition: "color 200ms cubic-bezier(.2,0,0,1)" }}
+            data-hover-style="color:var(--p-text,#EAD9CC)"
+          >
             Insights
-          </span>
+          </Link>
           <span style={{ cursor: "pointer", transition: "color 200ms cubic-bezier(.2,0,0,1)" }} data-hover-style="color:var(--p-text,#EAD9CC)">
             Planos
           </span>

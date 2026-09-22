@@ -47,3 +47,8 @@
 - [x] Recalibrar os sub-headers para 40%, manter o Hero em 60% e estabilizar as quebras condicionais.
 - [x] Corrigir “Nosso Modelo” e reequilibrar verticalmente as seções “Nossa Plataforma” e “Nosso Time”.
 - [x] Refinar sub-headers e contornos com a nova paleta, simplificar “Sobre nós” e compactar “Nosso Time” como faixa.
+
+## Nosso Time — carrossel de logos (22/09)
+- [x] Logo Banco ABC: segunda logo "ABC PERSONAL" removida; apenas a logo quadrada, reenquadrada (`logo-abc-brasil.png`)
+- [x] Logo Thomson Reuters: fundo fantasma (alpha 12) removido (`logo-thomson-reuters-clean.png`); texto maior (42px desktop / 35px mobile)
+- [x] Janela do carrossel reduzida em 25% (`.maiq-team-marquee` width 75%)
