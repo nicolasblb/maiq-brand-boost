@@ -542,7 +542,7 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
   letter-spacing:0;
 }
 .maiq-hero-subhead{
-  color:var(--p-subhead)!important;
+  color:var(--p-hero-text)!important;
   font-family:var(--font-core);
   font-size:clamp(24px,2.76vw,41px);
   font-weight:var(--fw-regular);
