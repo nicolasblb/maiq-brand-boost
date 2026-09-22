@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { Link } from '@tanstack/react-router';
+import { Link, useRouterState } from '@tanstack/react-router';
 import type { User } from '@supabase/supabase-js';
-import { Sun, Moon, ChevronDown } from 'lucide-react';
+import { Sun, Moon } from 'lucide-react';
 import Ciclo from '@/components/sections/Ciclo';
 import Conviccao from '@/components/sections/Conviccao';
 import DominiosPlaceholder from '@/components/sections/DominiosPlaceholder';
