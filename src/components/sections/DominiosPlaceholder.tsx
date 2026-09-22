@@ -4,7 +4,7 @@ import logoBradesco from '@/assets/logo-bradesco.png.asset.json';
 import logoDeloitte from '@/assets/logo-deloitte.png.asset.json';
 import logoFalconi from '@/assets/logo-falconi.png.asset.json';
 import logoPwc from '@/assets/logo-pwc.png.asset.json';
-import logoThomsonReuters from '@/assets/logo-thomson-reuters.png.asset.json';
+import logoThomsonReuters from '@/assets/logo-thomson-reuters-clean.png';
 
 const COMPANIES = [
   { name: 'Falconi', src: logoFalconi.url },
