@@ -505,7 +505,7 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
   text-wrap:pretty;
 }
 .maiq-section-subhead{
-  color:var(--p-subhead);
+  color:var(--p-subhead)!important;
   font-family:var(--font-core);
   font-size:clamp(15.2px,1.68vw,23px);
   font-weight:var(--fw-regular);
@@ -513,7 +513,7 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
   letter-spacing:0;
 }
 .maiq-hero-subhead{
-  color:var(--p-subhead);
+  color:var(--p-subhead)!important;
   font-family:var(--font-core);
   font-size:clamp(24px,2.76vw,41px);
   font-weight:var(--fw-regular);
