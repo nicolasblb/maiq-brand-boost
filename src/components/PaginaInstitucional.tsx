@@ -34,6 +34,34 @@ const DNA_ROW_CFG = [
 const DNA_EASE = 'cubic-bezier(.33,0,.2,1)';
 const DNA_DUR = 560;
 
+function OdometerValue({ value, prefix = '' }: { value: number; prefix?: string }) {
+  const digits = String(value).split('');
+  return (
+    <span className="maiq-odometer" data-maiq-odo="" aria-label={`${prefix}${value.toLocaleString('pt-BR')}`}>
+      {prefix ? <span className="maiq-odometer-prefix" aria-hidden="true">{prefix}</span> : null}
+      <span className="maiq-odometer-digits" aria-hidden="true">
+        {digits.map((digit, index) => {
+          const target = Number(digit);
+          const turns = digits.length - index + 1;
+          const sequence = Array.from({ length: turns * 10 + target + 1 }, (_, step) => step % 10);
+          return (
+            <span
+              className="maiq-odometer-digit"
+              data-maiq-odo-digit=""
+              data-maiq-odo-stop={String(sequence.length - 1)}
+              key={`${digit}-${index}`}
+            >
+              <span className="maiq-odometer-strip">
+                {sequence.map((number, step) => <span key={step}>{number}</span>)}
+              </span>
+            </span>
+          );
+        })}
+      </span>
+    </span>
+  );
+}
+
 function buildHelix() {
   const N = 26, STEP = 0.52, A = 78;
   const lanes: React.ReactNode[] = [];
@@ -390,65 +418,39 @@ export default function PaginaInstitucional() {
     S._pauseIO = io;
   }
 
-  // Odômetro: números da seção "O Modelo" rolam de zero ao valor real
+  // Odômetro: cada casa decimal acompanha a posição da seção na tela.
   function setupOdometers() {
     const scope = scopeRef.current;
     if (!scope) return;
-    const els: Any[] = Array.prototype.slice.call(scope.querySelectorAll('[data-maiq-odo]'));
-    if (!els.length) return;
-    S._odos = els.map((el) => {
-      const initial = (el.dataset.maiqOdoLabel || el.textContent || '').trim();
-      const raw = initial.replace(/[^0-9]/g, '');
-      const target = Number(el.dataset.maiqOdoTarget || raw) || 0;
-      const prefix = el.dataset.maiqOdoPrefix ?? initial.slice(0, initial.search(/[0-9]/));
-      el.dataset.maiqOdoLabel = initial;
-      el.dataset.maiqOdoTarget = String(target);
-      el.dataset.maiqOdoPrefix = prefix;
-      return { el, prefix, target, p: 0 };
-    });
-    const paintOdo = (o: Any, p: number) => {
-      if (Math.abs(p - o.p) < 0.001 && o.painted) return;
-      o.p = p; o.painted = true;
-      const e = p * p * (3 - 2 * p);
-      o.el.textContent = `${o.prefix}${Math.round(o.target * e).toLocaleString('pt-BR')}`;
-    };
-    const animateOdo = (o: Any) => {
-      if (o.started) return;
-      o.started = true;
-      paintOdo(o, 0);
-      const startedAt = performance.now();
-      const tick = (now: number) => {
-        const p = Math.min(1, (now - startedAt) / 1100);
-        paintOdo(o, p);
-        if (p < 1) o.raf = requestAnimationFrame(tick);
-      };
-      o.raf = requestAnimationFrame(tick);
-    };
-    const startVisibleOdos = () => {
+    const section = scope.querySelector('[data-maiq-sec="modelo"]') as HTMLElement | null;
+    const row = scope.querySelector('[data-maiq-odo-row]') as HTMLElement | null;
+    const digits = Array.from(scope.querySelectorAll('[data-maiq-odo-digit]')) as HTMLElement[];
+    if (!section || !row || !digits.length) return;
+    const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    let queued = false;
+    const paintOdos = () => {
+      queued = false;
       const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
-      S._odos.forEach((o: Any) => {
-        if (o.started) return;
-        const rect = o.el.getBoundingClientRect();
-        if (rect.bottom > 0 && rect.top < viewportHeight) animateOdo(o);
+      const rect = row.getBoundingClientRect();
+      const start = viewportHeight * 0.94;
+      const finish = viewportHeight * 0.56;
+      const raw = Math.min(1, Math.max(0, (start - rect.top) / (start - finish)));
+      const progress = reduceMotion ? (raw > 0 ? 1 : 0) : raw * raw * (3 - 2 * raw);
+      digits.forEach((digit) => {
+        const stop = Number(digit.dataset.maiqOdoStop || 0);
+        digit.style.setProperty('--maiq-odo-step', String(stop * progress));
       });
+      section.style.setProperty('--maiq-odo-progress', progress.toFixed(4));
     };
-    S._checkOdos = startVisibleOdos;
-    if ('IntersectionObserver' in window) {
-      S._odoIO = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          const odo = S._odos.find((item: Any) => item.el === entry.target);
-          if (odo) animateOdo(odo);
-          S._odoIO.unobserve(entry.target);
-        });
-      }, { threshold: 0.05 });
-    }
-    S._odos.forEach((o: Any) => {
-      S._odoIO?.observe(o.el);
-    });
-    window.addEventListener('scroll', startVisibleOdos, { passive: true });
-    window.addEventListener('resize', startVisibleOdos);
-    requestAnimationFrame(startVisibleOdos);
+    const requestPaint = () => {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(paintOdos);
+    };
+    S._checkOdos = requestPaint;
+    window.addEventListener('scroll', requestPaint, { passive: true });
+    window.addEventListener('resize', requestPaint);
+    requestAnimationFrame(paintOdos);
   }
 
   // a logo nasce grande no hero e viaja até o slot do header
@@ -1092,10 +1094,10 @@ export default function PaginaInstitucional() {
               <img src={toolPerplexity} alt="Perplexity" loading="lazy" decoding="async" style={{ height: "24px", width: "auto", display: "block", opacity: ".42", filter: "var(--p-tool-filter,brightness(0) invert(1))", transition: "opacity 200ms cubic-bezier(.2,0,0,1)" }} data-hover-style="opacity:.9" />
               <img src={toolN8n} alt="n8n" loading="lazy" decoding="async" style={{ height: "24px", width: "auto", display: "block", opacity: ".42", filter: "var(--p-tool-filter,brightness(0) invert(1))", transition: "opacity 200ms cubic-bezier(.2,0,0,1)" }} data-hover-style="opacity:.9" />
             </div>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(3,minmax(0,1fr))", gap: "clamp(24px,4vw,56px)" }}>
+              <div data-maiq-odo-row="" style={{ display: "grid", gridTemplateColumns: "repeat(3,minmax(0,1fr))", gap: "clamp(24px,4vw,56px)" }}>
               <div style={{ display: "flex", flexDirection: "column", gap: "13px" }}>
-                <div style={{ fontSize: "clamp(38px,4.2vw,58px)", lineHeight: "1", fontWeight: "600", letterSpacing: "-.022em", fontVariantNumeric: "tabular-nums" }} data-maiq-odo="">
-                  32
+                <div style={{ fontSize: "clamp(38px,4.2vw,58px)", lineHeight: "1", fontWeight: "600", letterSpacing: "-.022em", fontVariantNumeric: "tabular-nums" }}>
+                  <OdometerValue value={32} />
                 </div>
                 <div style={{ height: "3px", background: "var(--p-mark-1,#9FD6D2)" }}>
                 </div>
@@ -1104,8 +1106,8 @@ export default function PaginaInstitucional() {
                 </div>
               </div>
               <div style={{ display: "flex", flexDirection: "column", gap: "13px" }}>
-                <div style={{ fontSize: "clamp(38px,4.2vw,58px)", lineHeight: "1", fontWeight: "600", letterSpacing: "-.022em", fontVariantNumeric: "tabular-nums" }} data-maiq-odo="">
-                  R$ 291
+                <div style={{ fontSize: "clamp(38px,4.2vw,58px)", lineHeight: "1", fontWeight: "600", letterSpacing: "-.022em", fontVariantNumeric: "tabular-nums" }}>
+                  <OdometerValue value={291} prefix="R$ " />
                 </div>
                 <div style={{ height: "3px", background: "var(--p-mark-2,#308984)" }}>
                 </div>
@@ -1114,8 +1116,8 @@ export default function PaginaInstitucional() {
                 </div>
               </div>
               <div style={{ display: "flex", flexDirection: "column", gap: "13px" }}>
-                <div style={{ fontSize: "clamp(38px,4.2vw,58px)", lineHeight: "1", fontWeight: "600", letterSpacing: "-.022em", fontVariantNumeric: "tabular-nums" }} data-maiq-odo="">
-                  16
+                <div style={{ fontSize: "clamp(38px,4.2vw,58px)", lineHeight: "1", fontWeight: "600", letterSpacing: "-.022em", fontVariantNumeric: "tabular-nums" }}>
+                  <OdometerValue value={16} />
                 </div>
                 <div style={{ height: "3px", background: "var(--p-hair,rgba(234,217,204,.14))" }}>
                 </div>
