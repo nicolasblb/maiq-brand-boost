@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as InsightsRouteImport } from './routes/insights'
 import { Route as PoliticaDePrivacidadeRouteImport } from './routes/politica-de-privacidade'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as TermosDeUsoRouteImport } from './routes/termos-de-uso'
@@ -17,6 +18,11 @@ import { Route as TermosDeUsoRouteImport } from './routes/termos-de-uso'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InsightsRoute = InsightsRouteImport.update({
+  id: '/insights',
+  path: '/insights',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PoliticaDePrivacidadeRoute = PoliticaDePrivacidadeRouteImport.update({
@@ -37,12 +43,14 @@ const TermosDeUsoRoute = TermosDeUsoRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/insights': typeof InsightsRoute
   '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
   '/reset-password': typeof ResetPasswordRoute
   '/termos-de-uso': typeof TermosDeUsoRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/insights': typeof InsightsRoute
   '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
   '/reset-password': typeof ResetPasswordRoute
   '/termos-de-uso': typeof TermosDeUsoRoute
@@ -50,6 +58,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/insights': typeof InsightsRoute
   '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
   '/reset-password': typeof ResetPasswordRoute
   '/termos-de-uso': typeof TermosDeUsoRoute
@@ -57,12 +66,22 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/politica-de-privacidade' | '/reset-password' | '/termos-de-uso'
+    | '/'
+    | '/insights'
+    | '/politica-de-privacidade'
+    | '/reset-password'
+    | '/termos-de-uso'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/politica-de-privacidade' | '/reset-password' | '/termos-de-uso'
+  to:
+    | '/'
+    | '/insights'
+    | '/politica-de-privacidade'
+    | '/reset-password'
+    | '/termos-de-uso'
   id:
     | '__root__'
     | '/'
+    | '/insights'
     | '/politica-de-privacidade'
     | '/reset-password'
     | '/termos-de-uso'
@@ -70,6 +89,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  InsightsRoute: typeof InsightsRoute
   PoliticaDePrivacidadeRoute: typeof PoliticaDePrivacidadeRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   TermosDeUsoRoute: typeof TermosDeUsoRoute
@@ -82,6 +102,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/insights': {
+      id: '/insights'
+      path: '/insights'
+      fullPath: '/insights'
+      preLoaderRoute: typeof InsightsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/politica-de-privacidade': {
@@ -110,6 +137,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  InsightsRoute: InsightsRoute,
   PoliticaDePrivacidadeRoute: PoliticaDePrivacidadeRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   TermosDeUsoRoute: TermosDeUsoRoute,
