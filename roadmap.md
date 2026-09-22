@@ -55,3 +55,5 @@
 - [x] Uniformizar o menu entre Home e Insights, remover Planos e corrigir os estados de hover.
 - [x] Corrigir a quina superior do bloco Nossa Perspectiva + Nosso Time.
 - [x] Substituir a Thomson Reuters pela nova marca horizontal enviada.
+- [x] Restaurar a animação dos números na base de “Nosso Modelo”.
+- [x] Fixar FAQ + rodapé em uma tela e adicionar rolagem local às perguntas.

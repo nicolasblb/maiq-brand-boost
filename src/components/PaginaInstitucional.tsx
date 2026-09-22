@@ -351,6 +351,10 @@ export default function PaginaInstitucional() {
     return () => {
       if (S._odoIO) S._odoIO.disconnect();
       if (S._odos) S._odos.forEach((o: Any) => { if (o.raf) cancelAnimationFrame(o.raf); });
+      if (S._checkOdos) {
+        window.removeEventListener('scroll', S._checkOdos);
+        window.removeEventListener('resize', S._checkOdos);
+      }
       if (S._pauseIO) S._pauseIO.disconnect();
       if (S._raf) cancelAnimationFrame(S._raf);
       if (S._remeasure) window.removeEventListener('resize', S._remeasure);
@@ -393,50 +397,25 @@ export default function PaginaInstitucional() {
     const els: Any[] = Array.prototype.slice.call(scope.querySelectorAll('[data-maiq-odo]'));
     if (!els.length) return;
     S._odos = els.map((el) => {
-      const raw = (el.textContent || '').replace(/[^0-9]/g, '');
-      const digits = raw.length;
-      const target = parseInt(raw, 10) || 0;
-      const suffix = el.querySelector('span');
-      const prefixTxt = (el.firstChild && el.firstChild.nodeType === 3)
-        ? el.firstChild.textContent.replace(/[0-9].*$/, '') : '';
-      el.textContent = '';
-      if (prefixTxt) {
-        const p = document.createElement('span');
-        p.textContent = prefixTxt;
-        el.appendChild(p);
-      }
-      const strips: Any[] = [];
-      for (let i = 0; i < digits; i++) {
-        const box = document.createElement('span');
-        box.style.cssText = 'display:inline-block;width:1ch;height:1em;overflow:hidden;vertical-align:bottom;line-height:1';
-        const col = document.createElement('span');
-        col.style.cssText = 'display:block;will-change:transform';
-        for (let d = 0; d < 12; d++) {
-          const g = document.createElement('span');
-          g.style.cssText = 'display:block;height:1em;line-height:1';
-          g.textContent = String(d % 10);
-          col.appendChild(g);
-        }
-        box.appendChild(col);
-        el.appendChild(box);
-        strips.push(col);
-      }
-      if (suffix) el.appendChild(suffix);
-      const finals = raw.split('').map(Number);
-      return { el, finals, strips, digits, target, p: 0 };
+      const initial = (el.dataset.maiqOdoLabel || el.textContent || '').trim();
+      const raw = initial.replace(/[^0-9]/g, '');
+      const target = Number(el.dataset.maiqOdoTarget || raw) || 0;
+      const prefix = el.dataset.maiqOdoPrefix ?? initial.slice(0, initial.search(/[0-9]/));
+      el.dataset.maiqOdoLabel = initial;
+      el.dataset.maiqOdoTarget = String(target);
+      el.dataset.maiqOdoPrefix = prefix;
+      return { el, prefix, target, p: 0 };
     });
     const paintOdo = (o: Any, p: number) => {
       if (Math.abs(p - o.p) < 0.001 && o.painted) return;
       o.p = p; o.painted = true;
       const e = p * p * (3 - 2 * p);
-      for (let i = 0; i < o.digits; i++) {
-        const pos = o.finals[i] * e;
-        o.strips[i].style.transform = 'translate3d(0,' + (-pos * 100 / 12).toFixed(4) + '%,0)';
-      }
+      o.el.textContent = `${o.prefix}${Math.round(o.target * e).toLocaleString('pt-BR')}`;
     };
     const animateOdo = (o: Any) => {
       if (o.started) return;
       o.started = true;
+      paintOdo(o, 0);
       const startedAt = performance.now();
       const tick = (now: number) => {
         const p = Math.min(1, (now - startedAt) / 1100);
@@ -445,18 +424,31 @@ export default function PaginaInstitucional() {
       };
       o.raf = requestAnimationFrame(tick);
     };
-    S._odoIO = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        const odo = S._odos.find((item: Any) => item.el === entry.target);
-        if (odo) animateOdo(odo);
-        S._odoIO.unobserve(entry.target);
+    const startVisibleOdos = () => {
+      const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+      S._odos.forEach((o: Any) => {
+        if (o.started) return;
+        const rect = o.el.getBoundingClientRect();
+        if (rect.bottom > 0 && rect.top < viewportHeight) animateOdo(o);
       });
-    }, { threshold: 0.35 });
+    };
+    S._checkOdos = startVisibleOdos;
+    if ('IntersectionObserver' in window) {
+      S._odoIO = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const odo = S._odos.find((item: Any) => item.el === entry.target);
+          if (odo) animateOdo(odo);
+          S._odoIO.unobserve(entry.target);
+        });
+      }, { threshold: 0.05 });
+    }
     S._odos.forEach((o: Any) => {
-      paintOdo(o, 0);
-      S._odoIO.observe(o.el);
+      S._odoIO?.observe(o.el);
     });
+    window.addEventListener('scroll', startVisibleOdos, { passive: true });
+    window.addEventListener('resize', startVisibleOdos);
+    requestAnimationFrame(startVisibleOdos);
   }
 
   // a logo nasce grande no hero e viaja até o slot do header
@@ -1142,7 +1134,7 @@ export default function PaginaInstitucional() {
         <div ref={finalWrapRef} className="maiq-final-base">
           <div ref={overlay3Ref} className="maiq-final-content">
             <Faq onContact={() => setLeadOpen(true)} />
-            <footer className="maiq-footer" style={{ background: "var(--p-footer-bg,#09201F)", borderTop: "1px solid var(--p-hair,rgba(234,217,204,.14))", padding: "56px 48px 28px", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
+            <footer className="maiq-footer" style={{ background: "var(--p-footer-bg,#09201F)", borderTop: "1px solid var(--p-hair,rgba(234,217,204,.14))", padding: "56px 48px 28px", flexShrink: 0, transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
               <div className="maiq-footer-top">
                 <div style={{ position: "relative", display: "inline-flex" }}>
                   <img src={logoBranco} alt="Maiq" style={{ height: "30px", width: "auto", display: "block" }} />
