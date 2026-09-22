@@ -469,7 +469,7 @@ export default function Ciclo() {
           <p
             className="maiq-section-subhead"
             style={{
-              color: 'var(--p-muted,#91A398)',
+              color: 'var(--p-muted,#9FD6D2)',
               margin: '14px auto 0',
               textWrap: 'pretty' as any,
             }}
@@ -491,7 +491,7 @@ export default function Ciclo() {
             overflow: 'hidden',
             boxSizing: 'border-box',
             padding: 16,
-            border: '1px solid var(--p-hair,rgba(233,224,209,.14))',
+            border: '1px solid var(--p-hair,rgba(234,217,204,.14))',
             borderRadius: 16,
             background: 'var(--c-frame-bg)',
           }}

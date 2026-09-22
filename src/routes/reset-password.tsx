@@ -28,19 +28,19 @@ export const Route = createFileRoute('/reset-password')({
 });
 
 const primaryButtonStyle = {
-  '--action-primary-bg': 'var(--p-cta-bg,#E9E0D1)',
-  '--action-primary-fg': 'var(--p-cta-fg,#143737)',
-  '--action-primary-bg-hover': 'var(--p-cta-bg-hover,#F1EBE0)',
-  '--action-primary-bg-active': 'var(--p-cta-bg-active,#DCD0BC)',
+  '--action-primary-bg': 'var(--p-cta-bg,#EAD9CC)',
+  '--action-primary-fg': 'var(--p-cta-fg,#143937)',
+  '--action-primary-bg-hover': 'var(--p-cta-bg-hover,#F3E7DE)',
+  '--action-primary-bg-active': 'var(--p-cta-bg-active,#DEC7B2)',
 } as CSSProperties;
 
 const fieldStyle: CSSProperties = {
   width: '100%',
   height: '46px',
-  border: '1px solid var(--p-hair,rgba(233,224,209,.14))',
+  border: '1px solid var(--p-hair,rgba(234,217,204,.14))',
   borderRadius: 'var(--radius-md)',
-  background: 'var(--p-chip-bg,rgba(233,224,209,.04))',
-  color: 'var(--p-text,#E9E0D1)',
+  background: 'var(--p-chip-bg,rgba(234,217,204,.04))',
+  color: 'var(--p-text,#EAD9CC)',
   font: 'inherit',
   outline: 'none',
   padding: '0 14px',
@@ -95,11 +95,11 @@ function ResetPasswordPage() {
   };
 
   return (
-    <main data-maiq-scope="" style={{ minHeight: '100vh', display: 'grid', placeItems: 'center', padding: '32px', background: 'var(--p-bg,#0D2423)', color: 'var(--p-text,#E9E0D1)', fontFamily: 'var(--font-core)' }}>
-      <section style={{ width: 'min(100%, 520px)', border: '1px solid var(--p-hair,rgba(233,224,209,.14))', borderRadius: 'var(--radius-xl)', background: 'var(--p-card,#1B4442)', boxShadow: 'var(--shadow-3)', padding: '30px' }}>
-        <p style={{ margin: 0, color: 'var(--p-muted,#91A398)', fontSize: '12px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '.12em' }}>Segurança</p>
+    <main data-maiq-scope="" style={{ minHeight: '100vh', display: 'grid', placeItems: 'center', padding: '32px', background: 'var(--p-bg,#0F2B2A)', color: 'var(--p-text,#EAD9CC)', fontFamily: 'var(--font-core)' }}>
+      <section style={{ width: 'min(100%, 520px)', border: '1px solid var(--p-hair,rgba(234,217,204,.14))', borderRadius: 'var(--radius-xl)', background: 'var(--p-card,#1F5956)', boxShadow: 'var(--shadow-3)', padding: '30px' }}>
+        <p style={{ margin: 0, color: 'var(--p-muted,#9FD6D2)', fontSize: '12px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '.12em' }}>Segurança</p>
         <h1 style={{ margin: '10px 0 12px', fontSize: 'clamp(30px,5vw,42px)', lineHeight: 1.05, fontWeight: 500, letterSpacing: 0 }}>Redefinir senha</h1>
-        <p style={{ margin: 0, color: 'var(--p-text-2,#B7C4BC)', fontSize: '15px', lineHeight: 1.55 }}>Crie uma nova senha para continuar acessando a Maiq.</p>
+        <p style={{ margin: 0, color: 'var(--p-text-2,#AFE3E0)', fontSize: '15px', lineHeight: 1.55 }}>Crie uma nova senha para continuar acessando a Maiq.</p>
 
         {invalid ? (
           <div style={{ marginTop: '24px' }}>
@@ -118,11 +118,11 @@ function ResetPasswordPage() {
         ) : (
           <form onSubmit={handleSubmit} noValidate style={{ marginTop: '24px', display: 'grid', gap: '16px', opacity: ready ? 1 : 0.6 }}>
             <label htmlFor="new-password" style={{ display: 'grid', gap: '8px' }}>
-              <span style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--p-text-2,#B7C4BC)', fontSize: '13px', fontWeight: 500 }}><LockKeyhole size={16} /> Nova senha</span>
+              <span style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--p-text-2,#AFE3E0)', fontSize: '13px', fontWeight: 500 }}><LockKeyhole size={16} /> Nova senha</span>
               <input id="new-password" type="password" autoComplete="new-password" value={password} onChange={(event) => setPassword(event.target.value)} style={fieldStyle} disabled={!ready || loading} />
             </label>
             <label htmlFor="confirm-password" style={{ display: 'grid', gap: '8px' }}>
-              <span style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--p-text-2,#B7C4BC)', fontSize: '13px', fontWeight: 500 }}><LockKeyhole size={16} /> Confirmar senha</span>
+              <span style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--p-text-2,#AFE3E0)', fontSize: '13px', fontWeight: 500 }}><LockKeyhole size={16} /> Confirmar senha</span>
               <input id="confirm-password" type="password" autoComplete="new-password" value={confirmPassword} onChange={(event) => setConfirmPassword(event.target.value)} style={fieldStyle} disabled={!ready || loading} />
             </label>
             {error ? <Message tone="critical">{error}</Message> : null}
@@ -139,7 +139,7 @@ function ResetPasswordPage() {
 function Message({ tone, children }: { tone: 'success' | 'critical'; children: ReactNode }) {
   const Icon = tone === 'success' ? CheckCircle2 : AlertCircle;
   return (
-    <div role={tone === 'critical' ? 'alert' : 'status'} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', border: '1px solid var(--p-hair,rgba(233,224,209,.14))', borderRadius: 'var(--radius-md)', background: 'var(--p-chip-bg,rgba(233,224,209,.04))', color: tone === 'success' ? 'var(--state-positive,#4E8F6E)' : 'var(--state-critical,#9E4A31)', padding: '12px 14px', fontSize: '14px', lineHeight: 1.45 }}>
+    <div role={tone === 'critical' ? 'alert' : 'status'} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', border: '1px solid var(--p-hair,rgba(234,217,204,.14))', borderRadius: 'var(--radius-md)', background: 'var(--p-chip-bg,rgba(234,217,204,.04))', color: tone === 'success' ? 'var(--state-positive,#4E8F6E)' : 'var(--state-critical,#9E4A31)', padding: '12px 14px', fontSize: '14px', lineHeight: 1.45 }}>
       <Icon size={17} style={{ marginTop: '1px', flex: '0 0 auto' }} />
       <span>{children}</span>
     </div>

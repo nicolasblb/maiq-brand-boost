@@ -12,8 +12,8 @@ export default function LegalPage({ title, updatedAt, children }: LegalPageProps
       data-maiq-scope=""
       style={{
         minHeight: '100vh',
-        background: 'var(--p-bg,#0D2423)',
-        color: 'var(--p-text,#E9E0D1)',
+        background: 'var(--p-bg,#0F2B2A)',
+        color: 'var(--p-text,#EAD9CC)',
         fontFamily: 'var(--font-core)',
         padding: 'clamp(64px,10vh,120px) clamp(24px,5vw,48px)',
       }}
@@ -31,7 +31,7 @@ export default function LegalPage({ title, updatedAt, children }: LegalPageProps
           {title}
         </h1>
         {updatedAt ? (
-          <p style={{ marginTop: 12, color: 'var(--p-muted,#91A398)', fontSize: 15 }}>
+          <p style={{ marginTop: 12, color: 'var(--p-muted,#9FD6D2)', fontSize: 15 }}>
             Última atualização: {updatedAt}
           </p>
         ) : null}

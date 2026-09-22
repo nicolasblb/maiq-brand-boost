@@ -18,16 +18,16 @@ import { Easing, animate, interpolate, useComposition } from './engine';
 import { OM_SCENES } from './scenes';
 
 const C = {
-  deep: '#143737',
+  deep: '#143937',
   deeper: '#0F2A2A',
-  sand: '#E9E0D1',
-  bot: '#33605A',
-  mint: '#91A398',
+  sand: '#EAD9CC',
+  bot: '#308984',
+  mint: '#9FD6D2',
   wood: '#68462B',
 };
 const FONT = 'Grandview, "Helvetica Neue", Helvetica, Arial, sans-serif';
-const sand = (a: number) => `rgba(233,224,209,${a})`;
-const mint = (a: number) => `rgba(145,163,152,${a})`;
+const sand = (a: number) => `rgba(234,217,204,${a})`;
+const mint = (a: number) => `rgba(159,214,210,${a})`;
 
 const OUT = Easing.easeOutCubic;
 const IO = Easing.easeInOutCubic;
@@ -215,7 +215,7 @@ function Doc({ i, T, cue, accent, showGhosts }: DocProps) {
       <div style={{
         position: 'absolute', left: x, top: y, width: DW, height: DH, boxSizing: 'border-box',
         border, borderRadius: 10,
-        background: resolved > 0.02 ? `rgba(51,96,90,${0.26 * resolved})` : sand(0.04),
+        background: resolved > 0.02 ? `rgba(48,137,132,${0.26 * resolved})` : sand(0.04),
         transform: `rotate(${rot}deg)`, opacity: p * dim, padding: '13px 14px 0',
         zIndex: isCenter ? 4 : 2,
       }}>
@@ -295,7 +295,7 @@ export function VdrScene({ accent = C.mint, showGhosts = true, playing = true, t
     <div style={{ position: 'absolute', inset: 0, background: C.deep, fontFamily: FONT, overflow: 'hidden' }}>
       <div style={{
         position: 'absolute', inset: 0, opacity: 0.7,
-        background: 'radial-gradient(72% 58% at 50% 46%, rgba(51,96,90,0.5) 0%, rgba(51,96,90,0.14) 48%, rgba(20,55,55,0) 78%)',
+        background: 'radial-gradient(72% 58% at 50% 46%, rgba(48,137,132,0.5) 0%, rgba(48,137,132,0.14) 48%, rgba(20,57,55,0) 78%)',
       }} />
 
       <div style={{

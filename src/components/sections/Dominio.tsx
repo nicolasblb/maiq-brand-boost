@@ -46,8 +46,8 @@ function FounderCard({ person, index }: { person: typeof FOUNDERS[0]; index: num
           position: 'relative',
           aspectRatio: '3 / 4',
           borderRadius: 'var(--radius-xl,24px)',
-          border: '1px solid var(--p-hair,rgba(233,224,209,.14))',
-          background: 'var(--p-chip-bg,rgba(233,224,209,.04))',
+          border: '1px solid var(--p-hair,rgba(234,217,204,.14))',
+          background: 'var(--p-chip-bg,rgba(234,217,204,.04))',
           overflow: 'hidden',
         }}
       >
@@ -69,8 +69,8 @@ function FounderCard({ person, index }: { person: typeof FOUNDERS[0]; index: num
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              background: 'linear-gradient(135deg,var(--p-surface-inset,#102D2D),var(--p-surface-card,#19403E))',
-              color: 'var(--p-muted,#91A398)',
+              background: 'linear-gradient(135deg,var(--p-surface-inset,#113331),var(--p-surface-card,#1C5250))',
+              color: 'var(--p-muted,#9FD6D2)',
               fontSize: 'clamp(40px,5vw,64px)',
               fontWeight: 600,
               letterSpacing: '-.02em',
@@ -87,7 +87,7 @@ function FounderCard({ person, index }: { person: typeof FOUNDERS[0]; index: num
             fontSize: 'var(--fs-h4,20px)',
             lineHeight: 1.3,
             fontWeight: 600,
-            color: 'var(--p-text,#E9E0D1)',
+            color: 'var(--p-text,#EAD9CC)',
           }}
         >
           {person.name}
@@ -98,7 +98,7 @@ function FounderCard({ person, index }: { person: typeof FOUNDERS[0]; index: num
             fontSize: 'var(--fs-caption,13px)',
             letterSpacing: '.08em',
             textTransform: 'uppercase',
-            color: 'var(--p-muted,#91A398)',
+            color: 'var(--p-muted,#9FD6D2)',
             marginTop: '4px',
           }}
         >
@@ -141,7 +141,7 @@ function PartnerLogo({ partner }: { partner: typeof PARTNERS[0] }) {
             fontWeight: 500,
             letterSpacing: '.06em',
             textTransform: 'uppercase',
-            color: 'var(--p-muted,#91A398)',
+            color: 'var(--p-muted,#9FD6D2)',
             whiteSpace: 'nowrap',
           }}
         >
@@ -290,7 +290,7 @@ export default function Dominio() {
             style={{
               fontSize: '17px',
               lineHeight: 1.6,
-              color: 'var(--p-muted,#91A398)',
+              color: 'var(--p-muted,#9FD6D2)',
               margin: '14px 0 0',
               maxWidth: '56ch',
               textWrap: 'pretty',
@@ -339,14 +339,14 @@ export default function Dominio() {
                   lineHeight: 1.18,
                   letterSpacing: '-.018em',
                   fontWeight: 500,
-                  color: 'var(--p-text,#E9E0D1)',
+                  color: 'var(--p-text,#EAD9CC)',
                   textWrap: 'pretty',
                 }}
               >
                 <span
                   style={{
                     display: 'inline-block',
-                    color: 'var(--p-mark-1,#91A398)',
+                    color: 'var(--p-mark-1,#9FD6D2)',
                     fontSize: '1.15em',
                     lineHeight: 0.6,
                     marginRight: '0.12em',
@@ -359,7 +359,7 @@ export default function Dominio() {
                 <span
                   style={{
                     display: 'inline-block',
-                    color: 'var(--p-mark-1,#91A398)',
+                    color: 'var(--p-mark-1,#9FD6D2)',
                     fontSize: '1.15em',
                     lineHeight: 0.6,
                     marginLeft: '0.08em',
@@ -374,7 +374,7 @@ export default function Dominio() {
                   height: '1px',
                   width: '100%',
                   margin: 'clamp(24px,3.5vh,40px) 0',
-                  background: 'linear-gradient(90deg, transparent 0%, var(--p-hair,rgba(233,224,209,.14)) 20%, var(--p-hair,rgba(233,224,209,.14)) 80%, transparent 100%)',
+                  background: 'linear-gradient(90deg, transparent 0%, var(--p-hair,rgba(234,217,204,.14)) 20%, var(--p-hair,rgba(234,217,204,.14)) 80%, transparent 100%)',
                   opacity: 0.65,
                 }}
                 aria-hidden="true"
@@ -388,7 +388,7 @@ export default function Dominio() {
                   letterSpacing: '.14em',
                   textTransform: 'uppercase',
                   fontWeight: 500,
-                  color: 'var(--p-muted,#91A398)',
+                  color: 'var(--p-muted,#9FD6D2)',
                   marginBottom: 'clamp(24px,3.5vh,40px)',
                   textAlign: 'center',
                 }}

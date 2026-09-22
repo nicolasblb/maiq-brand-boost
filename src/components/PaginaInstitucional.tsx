@@ -42,7 +42,7 @@ function buildHelix() {
     const rung = React.createElement('div', {
       'data-maiq-anim': '', style: {
         position: 'absolute', top: 'calc(50% - .75px)', left: 'calc(50% - ' + A + 'px)',
-        height: '1.5px', width: (A * 2) + 'px', background: 'var(--p-helix,rgba(145,163,152,.6))',
+        height: '1.5px', width: (A * 2) + 'px', background: 'var(--p-helix,rgba(159,214,210,.6))',
         transformOrigin: '50% 50%', animation: 'maiqRung 4.5s cubic-bezier(.4,0,.6,1) infinite',
         animationDelay: d.toFixed(3) + 's', willChange: 'transform,opacity',
       },
@@ -51,7 +51,7 @@ function buildHelix() {
       key, 'data-maiq-anim': '', style: {
         position: 'absolute', top: 'calc(50% - 3px)', left: 'calc(50% - 3px)',
         width: '6px', height: '6px', borderRadius: '50%',
-        background: 'var(--p-helix-hi,rgba(233,224,209,.92))',
+        background: 'var(--p-helix-hi,rgba(234,217,204,.92))',
         animation: 'maiqStrand 9s cubic-bezier(.4,0,.6,1) infinite',
         animationDelay: (d - off * 2.5).toFixed(3) + 's', willChange: 'transform,opacity',
       },
@@ -101,7 +101,7 @@ function NavDropdown(props: { label: string; items: { key: string; label: string
   const cancelClose = () => { if (closeTimer.current) { clearTimeout(closeTimer.current); closeTimer.current = null; } };
   const scheduleClose = () => { cancelClose(); closeTimer.current = setTimeout(() => setOpen(false), 160); };
   useEffect(() => () => { if (closeTimer.current) clearTimeout(closeTimer.current); }, []);
-  const menuStyle: React.CSSProperties = { position: "absolute", top: "34px", left: "-14px", minWidth: "212px", padding: "8px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "16px", background: "var(--p-card,#1B4442)", backdropFilter: "blur(18px)", WebkitBackdropFilter: "blur(18px)", boxShadow: "var(--p-header-shadow,0 10px 40px rgba(6,20,20,.35))", display: "flex", flexDirection: "column", gap: "2px" };
+  const menuStyle: React.CSSProperties = { position: "absolute", top: "34px", left: "-14px", minWidth: "212px", padding: "8px", border: "1px solid var(--p-hair,rgba(234,217,204,.14))", borderRadius: "16px", background: "var(--p-card,#1F5956)", backdropFilter: "blur(18px)", WebkitBackdropFilter: "blur(18px)", boxShadow: "var(--p-header-shadow,0 10px 40px rgba(6,22,21,.35))", display: "flex", flexDirection: "column", gap: "2px" };
   return (
     <span
       style={{ position: "relative", display: "inline-flex" }}
@@ -116,8 +116,8 @@ function NavDropdown(props: { label: string; items: { key: string; label: string
         tabIndex={0}
         aria-expanded={open}
         aria-haspopup="menu"
-        style={{ display: "inline-flex", alignItems: "center", gap: "6px", cursor: "pointer", color: open ? "var(--p-text,#E9E0D1)" : "inherit", transition: "color 200ms cubic-bezier(.2,0,0,1)" }}
-        data-hover-style="color:var(--p-text,#E9E0D1)"
+        style={{ display: "inline-flex", alignItems: "center", gap: "6px", cursor: "pointer", color: open ? "var(--p-text,#EAD9CC)" : "inherit", transition: "color 200ms cubic-bezier(.2,0,0,1)" }}
+        data-hover-style="color:var(--p-text,#EAD9CC)"
       >
         {props.label}
         <ChevronDown
@@ -135,7 +135,7 @@ function NavDropdown(props: { label: string; items: { key: string; label: string
               onClick={() => { setOpen(false); props.onSelect?.(it.key); }}
               onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setOpen(false); props.onSelect?.(it.key); } }}
               style={{ padding: "9px 12px", borderRadius: "10px", cursor: "pointer", whiteSpace: "nowrap", transition: "color 200ms cubic-bezier(.2,0,0,1),background 200ms cubic-bezier(.2,0,0,1)" }}
-              data-hover-style="color:var(--p-text,#E9E0D1);background:var(--p-chip-bg,rgba(233,224,209,.06))"
+              data-hover-style="color:var(--p-text,#EAD9CC);background:var(--p-chip-bg,rgba(234,217,204,.06))"
             >
               {it.label}
             </span>
@@ -246,7 +246,7 @@ export default function PaginaInstitucional() {
     dot.style.zIndex = '3';
     dot.style.transform = 'translateZ(0)';
     dot.style.opacity = active ? '1' : '0';
-    dot.style.background = active ? 'var(--c-flow,#91A398)' : 'var(--p-text,#E9E0D1)';
+    dot.style.background = active ? 'var(--c-flow,#9FD6D2)' : 'var(--p-text,#EAD9CC)';
     dot.style.boxShadow = active
       ? '0 0 4px 2px color-mix(in oklab,var(--c-flow) 72%,transparent),0 0 12px 5px color-mix(in oklab,var(--c-flow-core) 34%,transparent)'
       : 'none';
@@ -267,14 +267,14 @@ export default function PaginaInstitucional() {
         el.style[marginProp] = -g.rail + 'px';
         el.style.width = (cfg.width + cfg.inset + g.rail) + 'px';
       }
-      el.style.borderTopColor = 'var(--p-hair-strong,rgba(233,224,209,.32))';
+      el.style.borderTopColor = 'var(--p-hair-strong,rgba(234,217,204,.32))';
       setDnaDot(el, true, delay);
     } else {
       if (i === 0) {
         el.style[marginProp] = cfg.inset + 'px';
         el.style.width = cfg.width + 'px';
       }
-      el.style.borderTopColor = 'var(--p-hair,rgba(233,224,209,.14))';
+      el.style.borderTopColor = 'var(--p-hair,rgba(234,217,204,.14))';
       setDnaDot(el, false, delay);
     }
 
@@ -318,7 +318,7 @@ export default function PaginaInstitucional() {
       if (next === 'claro') scope.setAttribute('data-theme', 'claro');
       else scope.removeAttribute('data-theme');
     }
-    document.body.style.background = next === 'claro' ? '#EDE6D9' : '#0D2423';
+    document.body.style.background = next === 'claro' ? '#EEE0D4' : '#0F2B2A';
     [logoDayRef, logoFooterDayRef, flyLogoDayRef].forEach((r) => {
       if (r.current) r.current.style.opacity = next === 'claro' ? '1' : '0';
     });
@@ -731,7 +731,7 @@ export default function PaginaInstitucional() {
   void refs; void iconSunRef; void iconMoonRef; void lRailRef; void rRailRef; void overlay2WrapRef; void overlay3Ref; void netContentRef;
 
   return (
-    <div data-maiq-scope="" ref={scopeRef} style={{ fontFamily: "'Grandview','Barlow',Helvetica,Arial,sans-serif", background: "var(--p-bg,#0D2423)", color: "var(--p-text,#E9E0D1)", minHeight: "100vh", transition: "background 320ms cubic-bezier(.16,1,.3,1),color 320ms cubic-bezier(.16,1,.3,1)" }}>
+    <div data-maiq-scope="" ref={scopeRef} style={{ fontFamily: "'Grandview','Barlow',Helvetica,Arial,sans-serif", background: "var(--p-bg,#0F2B2A)", color: "var(--p-text,#EAD9CC)", minHeight: "100vh", transition: "background 320ms cubic-bezier(.16,1,.3,1),color 320ms cubic-bezier(.16,1,.3,1)" }}>
       <PageLoader />
       <AuthLeadDialogs
         theme={theme}
@@ -743,25 +743,25 @@ export default function PaginaInstitucional() {
         onUserChange={setUser}
       />
       <div data-maiq-toggle="" style={{ position: "fixed", top: "30px", right: "32px", zIndex: "51", display: "flex" }}>
-        <div onClick={toggleTheme} onMouseEnter={showTip} onMouseLeave={hideTip} style={{ position: "relative", display: "flex", alignItems: "center", height: "44px", padding: "5px", borderWidth: "1px", borderStyle: "solid", borderColor: "var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-header-bg,rgba(20,55,55,.72))", backdropFilter: "blur(18px)", WebkitBackdropFilter: "blur(18px)", boxShadow: "var(--p-header-shadow,0 10px 40px rgba(6,20,20,.35))", cursor: "pointer", transition: "border-color 200ms cubic-bezier(.2,0,0,1),background 320ms cubic-bezier(.16,1,.3,1)" }} data-hover-style="border-color:var(--p-hair-strong,rgba(233,224,209,.32))">
-          <div ref={thumbRef} style={{ position: "absolute", top: "5px", left: "5px", width: "34px", height: "34px", borderRadius: "999px", background: "var(--p-toggle-thumb,rgba(233,224,209,.14))", transition: "transform 320ms cubic-bezier(.16,1,.3,1),background 320ms cubic-bezier(.16,1,.3,1)" }}>
+        <div onClick={toggleTheme} onMouseEnter={showTip} onMouseLeave={hideTip} style={{ position: "relative", display: "flex", alignItems: "center", height: "44px", padding: "5px", borderWidth: "1px", borderStyle: "solid", borderColor: "var(--p-hair,rgba(234,217,204,.14))", borderRadius: "999px", background: "var(--p-header-bg,rgba(20,57,55,.72))", backdropFilter: "blur(18px)", WebkitBackdropFilter: "blur(18px)", boxShadow: "var(--p-header-shadow,0 10px 40px rgba(6,22,21,.35))", cursor: "pointer", transition: "border-color 200ms cubic-bezier(.2,0,0,1),background 320ms cubic-bezier(.16,1,.3,1)" }} data-hover-style="border-color:var(--p-hair-strong,rgba(234,217,204,.32))">
+          <div ref={thumbRef} style={{ position: "absolute", top: "5px", left: "5px", width: "34px", height: "34px", borderRadius: "999px", background: "var(--p-toggle-thumb,rgba(234,217,204,.14))", transition: "transform 320ms cubic-bezier(.16,1,.3,1),background 320ms cubic-bezier(.16,1,.3,1)" }}>
           </div>
-          <div ref={segSunRef} style={{ position: "relative", display: "flex", alignItems: "center", justifyContent: "center", width: "34px", height: "34px", color: "var(--p-muted,#91A398)", transition: "color 320ms cubic-bezier(.16,1,.3,1)" }}>
+          <div ref={segSunRef} style={{ position: "relative", display: "flex", alignItems: "center", justifyContent: "center", width: "34px", height: "34px", color: "var(--p-muted,#9FD6D2)", transition: "color 320ms cubic-bezier(.16,1,.3,1)" }}>
             <Sun style={{ display: "block", width: 18, height: 18 }} strokeWidth={1.9} />
           </div>
           <div style={{ position: "relative", display: "flex", alignItems: "center", justifyContent: "center", width: "8px", height: "34px" }}>
-            <div style={{ width: "1.5px", height: "17px", background: "var(--p-hair-strong,rgba(233,224,209,.32))" }}>
+            <div style={{ width: "1.5px", height: "17px", background: "var(--p-hair-strong,rgba(234,217,204,.32))" }}>
             </div>
           </div>
-          <div ref={segMoonRef} style={{ position: "relative", display: "flex", alignItems: "center", justifyContent: "center", width: "34px", height: "34px", color: "var(--p-muted,#91A398)", transition: "color 320ms cubic-bezier(.16,1,.3,1)" }}>
+          <div ref={segMoonRef} style={{ position: "relative", display: "flex", alignItems: "center", justifyContent: "center", width: "34px", height: "34px", color: "var(--p-muted,#9FD6D2)", transition: "color 320ms cubic-bezier(.16,1,.3,1)" }}>
             <Moon style={{ display: "block", width: 17, height: 17 }} strokeWidth={1.9} />
           </div>
         </div>
-        <div ref={tipRef} style={{ position: "absolute", top: "54px", right: "0", padding: "7px 12px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "6px", background: "var(--p-card,#1B4442)", color: "var(--p-text,#E9E0D1)", fontSize: "12px", fontWeight: "500", whiteSpace: "nowrap", opacity: "0", pointerEvents: "none", transition: "opacity 200ms cubic-bezier(.2,0,0,1)" }}>
+        <div ref={tipRef} style={{ position: "absolute", top: "54px", right: "0", padding: "7px 12px", border: "1px solid var(--p-hair,rgba(234,217,204,.14))", borderRadius: "6px", background: "var(--p-card,#1F5956)", color: "var(--p-text,#EAD9CC)", fontSize: "12px", fontWeight: "500", whiteSpace: "nowrap", opacity: "0", pointerEvents: "none", transition: "opacity 200ms cubic-bezier(.2,0,0,1)" }}>
           {tipLabel}
         </div>
       </div>
-      <header style={{ position: "fixed", top: "20px", left: "50%", transform: "translateX(-50%)", zIndex: "50", display: "flex", alignItems: "center", gap: "0", height: "64px", padding: "0 10px 0 26px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-header-bg,rgba(20,55,55,.72))", backdropFilter: "blur(18px)", WebkitBackdropFilter: "blur(18px)", boxShadow: "var(--p-header-shadow,0 10px 40px rgba(6,20,20,.35))", transition: "background 320ms cubic-bezier(.16,1,.3,1),border-color 320ms cubic-bezier(.16,1,.3,1)" }}>
+      <header style={{ position: "fixed", top: "20px", left: "50%", transform: "translateX(-50%)", zIndex: "50", display: "flex", alignItems: "center", gap: "0", height: "64px", padding: "0 10px 0 26px", border: "1px solid var(--p-hair,rgba(234,217,204,.14))", borderRadius: "999px", background: "var(--p-header-bg,rgba(20,57,55,.72))", backdropFilter: "blur(18px)", WebkitBackdropFilter: "blur(18px)", boxShadow: "var(--p-header-shadow,0 10px 40px rgba(6,22,21,.35))", transition: "background 320ms cubic-bezier(.16,1,.3,1),border-color 320ms cubic-bezier(.16,1,.3,1)" }}>
         <div ref={headerSlotRef} style={{ position: "relative", display: "flex", alignItems: "center", height: "24px", width: "0", marginRight: "0", overflow: "hidden" }}>
           <div ref={headerLogoRef} style={{ position: "relative", display: "flex", flex: "none", opacity: "0" }}>
             <Link
@@ -777,7 +777,7 @@ export default function PaginaInstitucional() {
             </Link>
           </div>
         </div>
-        <nav style={{ display: "flex", alignItems: "center", gap: "28px", marginRight: "28px", fontSize: "14px", fontWeight: "500", color: "var(--p-muted,#91A398)" }}>
+        <nav style={{ display: "flex", alignItems: "center", gap: "28px", marginRight: "28px", fontSize: "14px", fontWeight: "500", color: "var(--p-muted,#9FD6D2)" }}>
           <NavDropdown
             label="Home"
             items={SECOES.map((s) => ({ key: s.id, label: s.label }))}
@@ -791,28 +791,28 @@ export default function PaginaInstitucional() {
             ]}
             onSelect={(key) => { if (key === 'dominios') goToSection('dominios'); }}
           />
-          <span style={{ cursor: "pointer", transition: "color 200ms cubic-bezier(.2,0,0,1)" }} data-hover-style="color:var(--p-text,#E9E0D1)">
+          <span style={{ cursor: "pointer", transition: "color 200ms cubic-bezier(.2,0,0,1)" }} data-hover-style="color:var(--p-text,#EAD9CC)">
             Insights
           </span>
-          <span style={{ cursor: "pointer", transition: "color 200ms cubic-bezier(.2,0,0,1)" }} data-hover-style="color:var(--p-text,#E9E0D1)">
+          <span style={{ cursor: "pointer", transition: "color 200ms cubic-bezier(.2,0,0,1)" }} data-hover-style="color:var(--p-text,#EAD9CC)">
             Planos
           </span>
         </nav>
-        <div style={{ display: "flex", alignItems: "center", height: "44px", padding: "4px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-cta-bg,#E9E0D1)", color: "var(--p-cta-fg,#143737)" }}>
+        <div style={{ display: "flex", alignItems: "center", height: "44px", padding: "4px", border: "1px solid var(--p-hair,rgba(234,217,204,.14))", borderRadius: "999px", background: "var(--p-cta-bg,#EAD9CC)", color: "var(--p-cta-fg,#143937)" }}>
           <MaiqButton
             size="md"
             variant="ghost"
             onClick={() => setAuthOpen(true)}
-            style={{ "--action-ghost-fg": "var(--p-cta-fg,#143737)", "--action-ghost-bg-hover": "var(--p-cta-bg-hover,#F1EBE0)", color: "var(--p-cta-fg,#143737)" } as React.CSSProperties}
+            style={{ "--action-ghost-fg": "var(--p-cta-fg,#143937)", "--action-ghost-bg-hover": "var(--p-cta-bg-hover,#F3E7DE)", color: "var(--p-cta-fg,#143937)" } as React.CSSProperties}
           >
             {user ? 'Conta' : 'Entrar'}
           </MaiqButton>
-          <div style={{ width: "1px", height: "20px", background: "var(--p-cta-fg,#143737)", opacity: 0.2 }} />
+          <div style={{ width: "1px", height: "20px", background: "var(--p-cta-fg,#143937)", opacity: 0.2 }} />
           <MaiqButton
             size="md"
             variant="ghost"
             onClick={() => setLeadOpen(true)}
-            style={{ "--action-ghost-fg": "var(--p-cta-fg,#143737)", "--action-ghost-bg-hover": "var(--p-cta-bg-hover,#F1EBE0)", color: "var(--p-cta-fg,#143737)" } as React.CSSProperties}
+            style={{ "--action-ghost-fg": "var(--p-cta-fg,#143937)", "--action-ghost-bg-hover": "var(--p-cta-bg-hover,#F3E7DE)", color: "var(--p-cta-fg,#143937)" } as React.CSSProperties}
           >
             Fale Conosco
           </MaiqButton>
@@ -825,24 +825,24 @@ export default function PaginaInstitucional() {
       <div ref={heroLogoSlotRef} aria-hidden="true" style={{ position: "fixed", left: "48px", top: "52px", transform: "translateY(-50%)", height: "clamp(22px,3.4vw,44px)", zIndex: "51", pointerEvents: "none", opacity: "0" }}>
         <img src={logoBranco} alt="" style={{ height: "clamp(22px,3.4vw,44px)", width: "auto", display: "block" }} />
       </div>
-      <section ref={heroRef} style={{ background: "var(--p-hero-bg,#143737)", padding: "clamp(140px,12.5vh,160px) 48px clamp(44px,6.5vh,84px)", boxSizing: "border-box", minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center", position: "sticky", top: "0", zIndex: "0", overflow: "hidden", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
+      <section ref={heroRef} style={{ background: "var(--p-hero-bg,#143937)", padding: "clamp(140px,12.5vh,160px) 48px clamp(44px,6.5vh,84px)", boxSizing: "border-box", minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center", position: "sticky", top: "0", zIndex: "0", overflow: "hidden", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
         <div aria-hidden="true" style={{ position: "absolute", inset: "0", overflow: "hidden", isolation: "isolate" }}>
           <div data-maiq-anim="" style={{ position: "absolute", inset: "0", animation: "maiqPathA 45s linear infinite", willChange: "transform" }}>
             <div data-maiq-anim="" style={{ position: "absolute", left: "0", top: "0", width: "0", height: "0", animation: "maiqExA 45s linear infinite" }}>
               <div data-maiq-anim="" style={{ position: "absolute", left: "0", top: "0", width: "0", height: "0", animation: "maiqEyA 45s linear infinite" }}>
                 <div data-maiq-anim="" style={{ position: "absolute", left: "0", top: "0", width: "0", height: "0", animation: "maiqBodyA 45s linear infinite", willChange: "transform" }}>
                   <div data-maiq-anim="" style={{ position: "absolute", left: "0", top: "0", width: "0", height: "0", animation: "maiqHaloScaleA 45s linear infinite", willChange: "transform" }}>
-                    <div data-maiq-anim="" style={{ position: "absolute", left: "0", top: "0", width: "36vw", height: "36vw", margin: "-18vw 0 0 -18vw", opacity: "0", mixBlendMode: "var(--p-halo-blend,plus-lighter)", filter: "blur(18px)", background: "radial-gradient(closest-side,var(--p-halo,rgba(145,163,152,.30)) 0%,var(--p-halo,rgba(145,163,152,.30)) 40%,var(--p-halo-2,rgba(145,163,152,.14)) 66%,var(--p-halo-0,rgba(145,163,152,0)) 88%)", animation: "maiqHaloA 45s linear infinite", willChange: "opacity" } as unknown as React.CSSProperties}>
+                    <div data-maiq-anim="" style={{ position: "absolute", left: "0", top: "0", width: "36vw", height: "36vw", margin: "-18vw 0 0 -18vw", opacity: "0", mixBlendMode: "var(--p-halo-blend,plus-lighter)", filter: "blur(18px)", background: "radial-gradient(closest-side,var(--p-halo,rgba(159,214,210,.30)) 0%,var(--p-halo,rgba(159,214,210,.30)) 40%,var(--p-halo-2,rgba(159,214,210,.14)) 66%,var(--p-halo-0,rgba(159,214,210,0)) 88%)", animation: "maiqHaloA 45s linear infinite", willChange: "opacity" } as unknown as React.CSSProperties}>
                     </div>
                   </div>
-                  <div data-maiq-anim="" style={{ position: "absolute", left: "0", top: "0", width: "26.25vw", height: "26.25vw", margin: "-13.125vw 0 0 -13.125vw", opacity: "0", mixBlendMode: "var(--p-shade-blend,normal)", filter: "blur(26px)", background: "radial-gradient(closest-side,var(--p-shade-0,rgba(145,163,152,0)) 0%,var(--p-shade-0,rgba(145,163,152,0)) 30%,var(--p-shade,rgba(145,163,152,0)) 62%,var(--p-shade-0,rgba(145,163,152,0)) 92%)", animation: "maiqCoreA 45s linear infinite", willChange: "opacity" } as unknown as React.CSSProperties}>
+                  <div data-maiq-anim="" style={{ position: "absolute", left: "0", top: "0", width: "26.25vw", height: "26.25vw", margin: "-13.125vw 0 0 -13.125vw", opacity: "0", mixBlendMode: "var(--p-shade-blend,normal)", filter: "blur(26px)", background: "radial-gradient(closest-side,var(--p-shade-0,rgba(159,214,210,0)) 0%,var(--p-shade-0,rgba(159,214,210,0)) 30%,var(--p-shade,rgba(159,214,210,0)) 62%,var(--p-shade-0,rgba(159,214,210,0)) 92%)", animation: "maiqCoreA 45s linear infinite", willChange: "opacity" } as unknown as React.CSSProperties}>
                   </div>
-                  <div data-maiq-anim="" style={{ position: "absolute", left: "0", top: "0", width: "15vw", height: "15vw", margin: "-7.5vw 0 0 -7.5vw", opacity: "0", mixBlendMode: "var(--p-core-blend,plus-lighter)", filter: "blur(6px)", background: "radial-gradient(closest-side,var(--p-orb,rgba(145,163,152,.54)) 0%,var(--p-orb-2,rgba(145,163,152,.20)) 44%,var(--p-orb-0,rgba(145,163,152,0)) 78%)", animation: "maiqCoreA 45s linear infinite", willChange: "opacity" } as unknown as React.CSSProperties}>
+                  <div data-maiq-anim="" style={{ position: "absolute", left: "0", top: "0", width: "15vw", height: "15vw", margin: "-7.5vw 0 0 -7.5vw", opacity: "0", mixBlendMode: "var(--p-core-blend,plus-lighter)", filter: "blur(6px)", background: "radial-gradient(closest-side,var(--p-orb,rgba(159,214,210,.54)) 0%,var(--p-orb-2,rgba(159,214,210,.20)) 44%,var(--p-orb-0,rgba(159,214,210,0)) 78%)", animation: "maiqCoreA 45s linear infinite", willChange: "opacity" } as unknown as React.CSSProperties}>
                   </div>
                 </div>
               </div>
             </div>
-            <div data-maiq-anim="" style={{ position: "absolute", left: "0", top: "0", width: "25vw", height: "25vw", margin: "-12.5vw 0 0 -12.5vw", opacity: "0", mixBlendMode: "var(--p-core-blend,plus-lighter)", filter: "blur(22px)", background: "radial-gradient(closest-side,var(--p-flash,rgba(203,219,208,.95)) 0%,var(--p-flash-2,rgba(203,219,208,.34)) 38%,var(--p-orb-0,rgba(145,163,152,0)) 70%)", animation: "maiqFlash 45s linear infinite", willChange: "opacity" } as unknown as React.CSSProperties}>
+            <div data-maiq-anim="" style={{ position: "absolute", left: "0", top: "0", width: "25vw", height: "25vw", margin: "-12.5vw 0 0 -12.5vw", opacity: "0", mixBlendMode: "var(--p-core-blend,plus-lighter)", filter: "blur(22px)", background: "radial-gradient(closest-side,var(--p-flash,rgba(223,244,243,.95)) 0%,var(--p-flash-2,rgba(223,244,243,.34)) 38%,var(--p-orb-0,rgba(159,214,210,0)) 70%)", animation: "maiqFlash 45s linear infinite", willChange: "opacity" } as unknown as React.CSSProperties}>
             </div>
           </div>
           <div data-maiq-anim="" style={{ position: "absolute", inset: "0", animation: "maiqPathB 45s linear infinite", willChange: "transform" }}>
@@ -850,12 +850,12 @@ export default function PaginaInstitucional() {
               <div data-maiq-anim="" style={{ position: "absolute", left: "0", top: "0", width: "0", height: "0", animation: "maiqEyB 45s linear infinite" }}>
                 <div data-maiq-anim="" style={{ position: "absolute", left: "0", top: "0", width: "0", height: "0", animation: "maiqBodyB 45s linear infinite", willChange: "transform" }}>
                   <div data-maiq-anim="" style={{ position: "absolute", left: "0", top: "0", width: "0", height: "0", animation: "maiqHaloScaleB 45s linear infinite", willChange: "transform" }}>
-                    <div data-maiq-anim="" style={{ position: "absolute", left: "0", top: "0", width: "34vw", height: "34vw", margin: "-17vw 0 0 -17vw", opacity: "0", mixBlendMode: "var(--p-halo-blend,plus-lighter)", filter: "blur(18px)", background: "radial-gradient(closest-side,var(--p-halo,rgba(145,163,152,.30)) 0%,var(--p-halo,rgba(145,163,152,.30)) 40%,var(--p-halo-2,rgba(145,163,152,.14)) 66%,var(--p-halo-0,rgba(145,163,152,0)) 88%)", animation: "maiqHaloB 45s linear infinite", willChange: "opacity" } as unknown as React.CSSProperties}>
+                    <div data-maiq-anim="" style={{ position: "absolute", left: "0", top: "0", width: "34vw", height: "34vw", margin: "-17vw 0 0 -17vw", opacity: "0", mixBlendMode: "var(--p-halo-blend,plus-lighter)", filter: "blur(18px)", background: "radial-gradient(closest-side,var(--p-halo,rgba(159,214,210,.30)) 0%,var(--p-halo,rgba(159,214,210,.30)) 40%,var(--p-halo-2,rgba(159,214,210,.14)) 66%,var(--p-halo-0,rgba(159,214,210,0)) 88%)", animation: "maiqHaloB 45s linear infinite", willChange: "opacity" } as unknown as React.CSSProperties}>
                     </div>
                   </div>
-                  <div data-maiq-anim="" style={{ position: "absolute", left: "0", top: "0", width: "24.5vw", height: "24.5vw", margin: "-12.25vw 0 0 -12.25vw", opacity: "0", mixBlendMode: "var(--p-shade-blend,normal)", filter: "blur(26px)", background: "radial-gradient(closest-side,var(--p-shade-0,rgba(145,163,152,0)) 0%,var(--p-shade-0,rgba(145,163,152,0)) 30%,var(--p-shade,rgba(145,163,152,0)) 62%,var(--p-shade-0,rgba(145,163,152,0)) 92%)", animation: "maiqCoreB 45s linear infinite", willChange: "opacity" } as unknown as React.CSSProperties}>
+                  <div data-maiq-anim="" style={{ position: "absolute", left: "0", top: "0", width: "24.5vw", height: "24.5vw", margin: "-12.25vw 0 0 -12.25vw", opacity: "0", mixBlendMode: "var(--p-shade-blend,normal)", filter: "blur(26px)", background: "radial-gradient(closest-side,var(--p-shade-0,rgba(159,214,210,0)) 0%,var(--p-shade-0,rgba(159,214,210,0)) 30%,var(--p-shade,rgba(159,214,210,0)) 62%,var(--p-shade-0,rgba(159,214,210,0)) 92%)", animation: "maiqCoreB 45s linear infinite", willChange: "opacity" } as unknown as React.CSSProperties}>
                   </div>
-                  <div data-maiq-anim="" style={{ position: "absolute", left: "0", top: "0", width: "14vw", height: "14vw", margin: "-7vw 0 0 -7vw", opacity: "0", mixBlendMode: "var(--p-core-blend,plus-lighter)", filter: "blur(6px)", background: "radial-gradient(closest-side,var(--p-orb,rgba(145,163,152,.54)) 0%,var(--p-orb-2,rgba(145,163,152,.20)) 44%,var(--p-orb-0,rgba(145,163,152,0)) 78%)", animation: "maiqCoreB 45s linear infinite", willChange: "opacity" } as unknown as React.CSSProperties}>
+                  <div data-maiq-anim="" style={{ position: "absolute", left: "0", top: "0", width: "14vw", height: "14vw", margin: "-7vw 0 0 -7vw", opacity: "0", mixBlendMode: "var(--p-core-blend,plus-lighter)", filter: "blur(6px)", background: "radial-gradient(closest-side,var(--p-orb,rgba(159,214,210,.54)) 0%,var(--p-orb-2,rgba(159,214,210,.20)) 44%,var(--p-orb-0,rgba(159,214,210,0)) 78%)", animation: "maiqCoreB 45s linear infinite", willChange: "opacity" } as unknown as React.CSSProperties}>
                   </div>
                 </div>
               </div>
@@ -866,17 +866,17 @@ export default function PaginaInstitucional() {
               <div data-maiq-anim="" style={{ position: "absolute", left: "0", top: "0", width: "0", height: "0", animation: "maiqEyA 45s linear infinite", animationDelay: "-22.5s" }}>
                 <div data-maiq-anim="" style={{ position: "absolute", left: "0", top: "0", width: "0", height: "0", animation: "maiqBodyA 45s linear infinite", animationDelay: "-22.5s", willChange: "transform" }}>
                   <div data-maiq-anim="" style={{ position: "absolute", left: "0", top: "0", width: "0", height: "0", animation: "maiqHaloScaleA 45s linear infinite", animationDelay: "-22.5s", willChange: "transform" }}>
-                    <div data-maiq-anim="" style={{ position: "absolute", left: "0", top: "0", width: "32vw", height: "32vw", margin: "-16vw 0 0 -16vw", opacity: "0", mixBlendMode: "var(--p-halo-blend,plus-lighter)", filter: "blur(18px)", background: "radial-gradient(closest-side,var(--p-halo,rgba(145,163,152,.30)) 0%,var(--p-halo,rgba(145,163,152,.30)) 40%,var(--p-halo-2,rgba(145,163,152,.14)) 66%,var(--p-halo-0,rgba(145,163,152,0)) 88%)", animation: "maiqHaloA 45s linear infinite", animationDelay: "-22.5s", willChange: "opacity" } as unknown as React.CSSProperties}>
+                    <div data-maiq-anim="" style={{ position: "absolute", left: "0", top: "0", width: "32vw", height: "32vw", margin: "-16vw 0 0 -16vw", opacity: "0", mixBlendMode: "var(--p-halo-blend,plus-lighter)", filter: "blur(18px)", background: "radial-gradient(closest-side,var(--p-halo,rgba(159,214,210,.30)) 0%,var(--p-halo,rgba(159,214,210,.30)) 40%,var(--p-halo-2,rgba(159,214,210,.14)) 66%,var(--p-halo-0,rgba(159,214,210,0)) 88%)", animation: "maiqHaloA 45s linear infinite", animationDelay: "-22.5s", willChange: "opacity" } as unknown as React.CSSProperties}>
                     </div>
                   </div>
-                  <div data-maiq-anim="" style={{ position: "absolute", left: "0", top: "0", width: "22.75vw", height: "22.75vw", margin: "-11.375vw 0 0 -11.375vw", opacity: "0", mixBlendMode: "var(--p-shade-blend,normal)", filter: "blur(26px)", background: "radial-gradient(closest-side,var(--p-shade-0,rgba(145,163,152,0)) 0%,var(--p-shade-0,rgba(145,163,152,0)) 30%,var(--p-shade,rgba(145,163,152,0)) 62%,var(--p-shade-0,rgba(145,163,152,0)) 92%)", animation: "maiqCoreA 45s linear infinite", animationDelay: "-22.5s", willChange: "opacity" } as unknown as React.CSSProperties}>
+                  <div data-maiq-anim="" style={{ position: "absolute", left: "0", top: "0", width: "22.75vw", height: "22.75vw", margin: "-11.375vw 0 0 -11.375vw", opacity: "0", mixBlendMode: "var(--p-shade-blend,normal)", filter: "blur(26px)", background: "radial-gradient(closest-side,var(--p-shade-0,rgba(159,214,210,0)) 0%,var(--p-shade-0,rgba(159,214,210,0)) 30%,var(--p-shade,rgba(159,214,210,0)) 62%,var(--p-shade-0,rgba(159,214,210,0)) 92%)", animation: "maiqCoreA 45s linear infinite", animationDelay: "-22.5s", willChange: "opacity" } as unknown as React.CSSProperties}>
                   </div>
-                  <div data-maiq-anim="" style={{ position: "absolute", left: "0", top: "0", width: "13vw", height: "13vw", margin: "-6.5vw 0 0 -6.5vw", opacity: "0", mixBlendMode: "var(--p-core-blend,plus-lighter)", filter: "blur(6px)", background: "radial-gradient(closest-side,var(--p-orb,rgba(145,163,152,.54)) 0%,var(--p-orb-2,rgba(145,163,152,.20)) 44%,var(--p-orb-0,rgba(145,163,152,0)) 78%)", animation: "maiqCoreA 45s linear infinite", animationDelay: "-22.5s", willChange: "opacity" } as unknown as React.CSSProperties}>
+                  <div data-maiq-anim="" style={{ position: "absolute", left: "0", top: "0", width: "13vw", height: "13vw", margin: "-6.5vw 0 0 -6.5vw", opacity: "0", mixBlendMode: "var(--p-core-blend,plus-lighter)", filter: "blur(6px)", background: "radial-gradient(closest-side,var(--p-orb,rgba(159,214,210,.54)) 0%,var(--p-orb-2,rgba(159,214,210,.20)) 44%,var(--p-orb-0,rgba(159,214,210,0)) 78%)", animation: "maiqCoreA 45s linear infinite", animationDelay: "-22.5s", willChange: "opacity" } as unknown as React.CSSProperties}>
                   </div>
                 </div>
               </div>
             </div>
-            <div data-maiq-anim="" style={{ position: "absolute", left: "0", top: "0", width: "25vw", height: "25vw", margin: "-12.5vw 0 0 -12.5vw", opacity: "0", mixBlendMode: "var(--p-core-blend,plus-lighter)", filter: "blur(22px)", background: "radial-gradient(closest-side,var(--p-flash,rgba(203,219,208,.95)) 0%,var(--p-flash-2,rgba(203,219,208,.34)) 38%,var(--p-orb-0,rgba(145,163,152,0)) 70%)", animation: "maiqFlash 45s linear infinite", animationDelay: "-22.5s", willChange: "opacity" } as unknown as React.CSSProperties}>
+            <div data-maiq-anim="" style={{ position: "absolute", left: "0", top: "0", width: "25vw", height: "25vw", margin: "-12.5vw 0 0 -12.5vw", opacity: "0", mixBlendMode: "var(--p-core-blend,plus-lighter)", filter: "blur(22px)", background: "radial-gradient(closest-side,var(--p-flash,rgba(223,244,243,.95)) 0%,var(--p-flash-2,rgba(223,244,243,.34)) 38%,var(--p-orb-0,rgba(159,214,210,0)) 70%)", animation: "maiqFlash 45s linear infinite", animationDelay: "-22.5s", willChange: "opacity" } as unknown as React.CSSProperties}>
             </div>
           </div>
           <div data-maiq-anim="" style={{ position: "absolute", inset: "0", animation: "maiqPathB 45s linear infinite", animationDelay: "-22.5s", willChange: "transform" }}>
@@ -884,104 +884,104 @@ export default function PaginaInstitucional() {
               <div data-maiq-anim="" style={{ position: "absolute", left: "0", top: "0", width: "0", height: "0", animation: "maiqEyB 45s linear infinite", animationDelay: "-22.5s" }}>
                 <div data-maiq-anim="" style={{ position: "absolute", left: "0", top: "0", width: "0", height: "0", animation: "maiqBodyB 45s linear infinite", animationDelay: "-22.5s", willChange: "transform" }}>
                   <div data-maiq-anim="" style={{ position: "absolute", left: "0", top: "0", width: "0", height: "0", animation: "maiqHaloScaleB 45s linear infinite", animationDelay: "-22.5s", willChange: "transform" }}>
-                    <div data-maiq-anim="" style={{ position: "absolute", left: "0", top: "0", width: "30vw", height: "30vw", margin: "-15vw 0 0 -15vw", opacity: "0", mixBlendMode: "var(--p-halo-blend,plus-lighter)", filter: "blur(18px)", background: "radial-gradient(closest-side,var(--p-halo,rgba(145,163,152,.30)) 0%,var(--p-halo,rgba(145,163,152,.30)) 40%,var(--p-halo-2,rgba(145,163,152,.14)) 66%,var(--p-halo-0,rgba(145,163,152,0)) 88%)", animation: "maiqHaloB 45s linear infinite", animationDelay: "-22.5s", willChange: "opacity" } as unknown as React.CSSProperties}>
+                    <div data-maiq-anim="" style={{ position: "absolute", left: "0", top: "0", width: "30vw", height: "30vw", margin: "-15vw 0 0 -15vw", opacity: "0", mixBlendMode: "var(--p-halo-blend,plus-lighter)", filter: "blur(18px)", background: "radial-gradient(closest-side,var(--p-halo,rgba(159,214,210,.30)) 0%,var(--p-halo,rgba(159,214,210,.30)) 40%,var(--p-halo-2,rgba(159,214,210,.14)) 66%,var(--p-halo-0,rgba(159,214,210,0)) 88%)", animation: "maiqHaloB 45s linear infinite", animationDelay: "-22.5s", willChange: "opacity" } as unknown as React.CSSProperties}>
                     </div>
                   </div>
-                  <div data-maiq-anim="" style={{ position: "absolute", left: "0", top: "0", width: "21vw", height: "21vw", margin: "-10.5vw 0 0 -10.5vw", opacity: "0", mixBlendMode: "var(--p-shade-blend,normal)", filter: "blur(26px)", background: "radial-gradient(closest-side,var(--p-shade-0,rgba(145,163,152,0)) 0%,var(--p-shade-0,rgba(145,163,152,0)) 30%,var(--p-shade,rgba(145,163,152,0)) 62%,var(--p-shade-0,rgba(145,163,152,0)) 92%)", animation: "maiqCoreB 45s linear infinite", animationDelay: "-22.5s", willChange: "opacity" } as unknown as React.CSSProperties}>
+                  <div data-maiq-anim="" style={{ position: "absolute", left: "0", top: "0", width: "21vw", height: "21vw", margin: "-10.5vw 0 0 -10.5vw", opacity: "0", mixBlendMode: "var(--p-shade-blend,normal)", filter: "blur(26px)", background: "radial-gradient(closest-side,var(--p-shade-0,rgba(159,214,210,0)) 0%,var(--p-shade-0,rgba(159,214,210,0)) 30%,var(--p-shade,rgba(159,214,210,0)) 62%,var(--p-shade-0,rgba(159,214,210,0)) 92%)", animation: "maiqCoreB 45s linear infinite", animationDelay: "-22.5s", willChange: "opacity" } as unknown as React.CSSProperties}>
                   </div>
-                  <div data-maiq-anim="" style={{ position: "absolute", left: "0", top: "0", width: "12vw", height: "12vw", margin: "-6vw 0 0 -6vw", opacity: "0", mixBlendMode: "var(--p-core-blend,plus-lighter)", filter: "blur(6px)", background: "radial-gradient(closest-side,var(--p-orb,rgba(145,163,152,.54)) 0%,var(--p-orb-2,rgba(145,163,152,.20)) 44%,var(--p-orb-0,rgba(145,163,152,0)) 78%)", animation: "maiqCoreB 45s linear infinite", animationDelay: "-22.5s", willChange: "opacity" } as unknown as React.CSSProperties}>
+                  <div data-maiq-anim="" style={{ position: "absolute", left: "0", top: "0", width: "12vw", height: "12vw", margin: "-6vw 0 0 -6vw", opacity: "0", mixBlendMode: "var(--p-core-blend,plus-lighter)", filter: "blur(6px)", background: "radial-gradient(closest-side,var(--p-orb,rgba(159,214,210,.54)) 0%,var(--p-orb-2,rgba(159,214,210,.20)) 44%,var(--p-orb-0,rgba(159,214,210,0)) 78%)", animation: "maiqCoreB 45s linear infinite", animationDelay: "-22.5s", willChange: "opacity" } as unknown as React.CSSProperties}>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div style={{ position: "absolute", inset: "0", background: "radial-gradient(120% 110% at 62% 34%, var(--p-fade,rgba(4,16,16,0)) 44%, var(--p-vignette,rgba(4,16,16,.42)) 100%)" }}>
+        <div style={{ position: "absolute", inset: "0", background: "radial-gradient(120% 110% at 62% 34%, var(--p-fade,rgba(5,18,17,0)) 44%, var(--p-vignette,rgba(5,18,17,.42)) 100%)" }}>
         </div>
         <div ref={heroContentRef} style={{ position: "relative", maxWidth: "1200px", margin: "0 auto", width: "100%", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap: "clamp(30px,5vh,72px)", willChange: "transform,opacity" }}>
-          <h1 style={{ fontFamily: "Inter, var(--font-core)", fontSize: "clamp(40px, 4.6vw, 68px)", lineHeight: "1.06", letterSpacing: "-.022em", fontWeight: "600", margin: "0", maxWidth: "30ch", color: "var(--p-h1,#E9E0D1)", textWrap: "balance" }}>
+          <h1 style={{ fontFamily: "Inter, var(--font-core)", fontSize: "clamp(40px, 4.6vw, 68px)", lineHeight: "1.06", letterSpacing: "-.022em", fontWeight: "600", margin: "0", maxWidth: "30ch", color: "var(--p-h1,#EAD9CC)", textWrap: "balance" }}>
             O hub de Fusões e Aquisições para Médias Empresas
           </h1>
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "clamp(30px,5vh,72px)", width: "100%" }}>
-            <div style={{ width: "clamp(120px,18vw,260px)", height: "1px", background: "linear-gradient(90deg,transparent 0%,var(--p-hair,rgba(233,224,209,.14)) 18%,var(--p-hair,rgba(233,224,209,.14)) 82%,transparent 100%)" }}>
+            <div style={{ width: "clamp(120px,18vw,260px)", height: "1px", background: "linear-gradient(90deg,transparent 0%,var(--p-hair,rgba(234,217,204,.14)) 18%,var(--p-hair,rgba(234,217,204,.14)) 82%,transparent 100%)" }}>
             </div>
-            <p className="maiq-hero-subhead" style={{ color: "var(--p-text-2,#B7C4BC)", margin: "0", maxWidth: "min(1080px,94%)", textWrap: "balance" }}>
+            <p className="maiq-hero-subhead" style={{ color: "var(--p-text-2,#AFE3E0)", margin: "0", maxWidth: "min(1080px,94%)", textWrap: "balance" }}>
               Combinamos método e tecnologia para sistematizar o processo de M&A
             </p>
           </div>
         </div>
         <div style={{ position: "relative", margin: "clamp(30px,5vh,72px) auto 0", display: "flex", flexDirection: "column", alignItems: "center", gap: "clamp(30px,5vh,72px)" }}>
-          <div style={{ width: "68px", height: "1px", background: "linear-gradient(90deg,transparent 0%,var(--p-hair,rgba(233,224,209,.14)) 22%,var(--p-hair,rgba(233,224,209,.14)) 78%,transparent 100%)" }}>
+          <div style={{ width: "68px", height: "1px", background: "linear-gradient(90deg,transparent 0%,var(--p-hair,rgba(234,217,204,.14)) 22%,var(--p-hair,rgba(234,217,204,.14)) 78%,transparent 100%)" }}>
           </div>
-          <div style={{ fontSize: "12px", letterSpacing: ".14em", fontWeight: "500", color: "var(--p-muted,#91A398)" }}>
+          <div style={{ fontSize: "12px", letterSpacing: ".14em", fontWeight: "500", color: "var(--p-muted,#9FD6D2)" }}>
             Como ajudamos nossos clientes e parceiros
           </div>
         </div>
         <div ref={marqueeRef} style={{ position: "relative", margin: "clamp(16px,2.2vh,28px) auto 0", width: "80%", display: "flex", flexDirection: "column", gap: "10px", maskImage: "linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%)", WebkitMaskImage: "linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%)" }}>
           <div style={{ overflow: "hidden" }}>
             <div ref={rowARef} style={{ display: "flex", gap: "10px", width: "max-content", willChange: "transform" }}>
-              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
+              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(234,217,204,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(234,217,204,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
                 Venda de empresa
               </div>
-              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
+              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(234,217,204,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(234,217,204,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
                 Aquisição de concorrente
               </div>
-              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
+              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(234,217,204,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(234,217,204,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
                 Captação de recursos
               </div>
-              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
+              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(234,217,204,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(234,217,204,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
                 Atração de investidores
               </div>
-              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
+              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(234,217,204,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(234,217,204,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
                 Coordenação de M&A
               </div>
-              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
+              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(234,217,204,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(234,217,204,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
                 Venda de empresa
               </div>
-              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
+              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(234,217,204,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(234,217,204,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
                 Aquisição de concorrente
               </div>
-              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
+              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(234,217,204,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(234,217,204,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
                 Captação de recursos
               </div>
-              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
+              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(234,217,204,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(234,217,204,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
                 Atração de investidores
               </div>
-              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
+              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(234,217,204,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(234,217,204,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
                 Coordenação de M&A
               </div>
             </div>
           </div>
           <div style={{ overflow: "hidden" }}>
             <div ref={rowBRef} style={{ display: "flex", gap: "10px", width: "max-content", willChange: "transform" }}>
-              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
+              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(234,217,204,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(234,217,204,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
                 Avaliação de empresas — valuation
               </div>
-              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
+              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(234,217,204,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(234,217,204,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
                 Fairness Opinion
               </div>
-              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
+              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(234,217,204,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(234,217,204,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
                 Estruturação de dívida
               </div>
-              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
+              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(234,217,204,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(234,217,204,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
                 Joint ventures
               </div>
-              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
+              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(234,217,204,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(234,217,204,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
                 Consolidação de mercado
               </div>
-              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
+              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(234,217,204,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(234,217,204,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
                 Avaliação de empresas — valuation
               </div>
-              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
+              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(234,217,204,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(234,217,204,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
                 Fairness Opinion
               </div>
-              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
+              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(234,217,204,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(234,217,204,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
                 Estruturação de dívida
               </div>
-              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
+              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(234,217,204,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(234,217,204,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
                 Joint ventures
               </div>
-              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(233,224,209,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
+              <div style={{ display: "flex", alignItems: "center", height: "36px", padding: "0 16px", border: "1px solid var(--p-hair,rgba(234,217,204,.14))", borderRadius: "999px", background: "var(--p-chip-bg,rgba(234,217,204,.04))", fontSize: "15px", fontWeight: "500", color: "var(--p-chip-text,#D8D0C2)", whiteSpace: "nowrap" }}>
                 Consolidação de mercado
               </div>
             </div>
@@ -1015,7 +1015,7 @@ export default function PaginaInstitucional() {
               <h2 data-maiq-modelo-h2="" style={{ fontFamily: "Inter,var(--font-core)", fontSize: "clamp(38px,4.2vw,58px)", lineHeight: "1.04", letterSpacing: "-.022em", fontWeight: "600", margin: "0" }}>
                 Nosso Modelo
               </h2>
-              <p className="maiq-section-subhead" style={{ color: "var(--p-muted,#91A398)", margin: "14px auto 0", textWrap: "pretty" }}>
+              <p className="maiq-section-subhead" style={{ color: "var(--p-muted,#9FD6D2)", margin: "14px auto 0", textWrap: "pretty" }}>
                 Convergência entre método e tecnologia,<span className="maiq-subhead-break maiq-subhead-break-model" aria-hidden="true" />
                 potencializada por experiência e ampla rede construída.
               </p>
@@ -1024,7 +1024,7 @@ export default function PaginaInstitucional() {
               <div data-maiq-side-text="" ref={lColRef} style={{ flex: "1 1 0", minWidth: "246px", maxWidth: "312px", marginRight: "-48px", position: "relative", display: "flex", justifyContent: "flex-end" }}>
                 <div ref={lClipRef} style={{ maxWidth: "100%" }}>
                   <div ref={lTextRef} style={{ opacity: "0", transform: "translateX(312px)", transition: "opacity 260ms cubic-bezier(.4,0,1,1),transform 320ms cubic-bezier(.4,0,1,1)" }}>
-                    <p style={{ margin: "0", paddingRight: "76px", fontSize: "15px", lineHeight: "1.6", color: "var(--p-text-2,#B7C4BC)", textAlign: "right", textWrap: "pretty" }}>
+                    <p style={{ margin: "0", paddingRight: "76px", fontSize: "15px", lineHeight: "1.6", color: "var(--p-text-2,#AFE3E0)", textAlign: "right", textWrap: "pretty" }}>
                       Conjugamos experiência de mercado de capitais, investimentos privados, bagagem em consultoria, auditoria e empreendedorismo.
                     </p>
                   </div>
@@ -1036,11 +1036,11 @@ export default function PaginaInstitucional() {
                     {helixBars}
                   </div>
                 </div>
-                <div aria-hidden="true" style={{ position: "absolute", left: "0", top: "0", width: "538px", height: "360px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "180px", background: "var(--p-chip-bg,rgba(233,224,209,.04))" }}>
+                <div aria-hidden="true" style={{ position: "absolute", left: "0", top: "0", width: "538px", height: "360px", border: "1px solid var(--p-hair,rgba(234,217,204,.14))", borderRadius: "180px", background: "var(--p-chip-bg,rgba(234,217,204,.04))" }}>
                 </div>
-                <div aria-hidden="true" style={{ position: "absolute", left: "298px", top: "0", width: "538px", height: "360px", border: "1px solid var(--p-hair,rgba(233,224,209,.14))", borderRadius: "180px", background: "var(--p-chip-bg,rgba(233,224,209,.04))" }}>
+                <div aria-hidden="true" style={{ position: "absolute", left: "298px", top: "0", width: "538px", height: "360px", border: "1px solid var(--p-hair,rgba(234,217,204,.14))", borderRadius: "180px", background: "var(--p-chip-bg,rgba(234,217,204,.04))" }}>
                 </div>
-                <div style={{ position: "absolute", left: "418px", top: "50%", transform: "translate(-50%,-50%)", textAlign: "center", fontSize: "14px", lineHeight: "1.34", fontWeight: "600", letterSpacing: ".01em", color: "var(--p-text,#E9E0D1)", whiteSpace: "nowrap" }}>
+                <div style={{ position: "absolute", left: "418px", top: "50%", transform: "translate(-50%,-50%)", textAlign: "center", fontSize: "14px", lineHeight: "1.34", fontWeight: "600", letterSpacing: ".01em", color: "var(--p-text,#EAD9CC)", whiteSpace: "nowrap" }}>
                   <div>
                     Sistematização
                   </div>
@@ -1059,26 +1059,26 @@ export default function PaginaInstitucional() {
                     <div style={{ fontSize: "15.6px", fontWeight: "500", marginTop: "8px" }}>
                       Metodologia proprietária
                     </div>
-                    <div style={{ fontSize: "13px", fontStyle: "italic", color: "var(--p-muted,#91A398)", marginTop: "2px" }}>
+                    <div style={{ fontSize: "13px", fontStyle: "italic", color: "var(--p-muted,#9FD6D2)", marginTop: "2px" }}>
                       unknown unknowns
                     </div>
                   </div>
                   <div style={{ marginTop: "24px", alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
-                    <div ref={scoreRowRef} style={{ position: "relative", marginLeft: "25px", width: "251px", padding: "13px 0", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", fontSize: "16.8px", color: "var(--p-text-2,#B7C4BC)", textAlign: "right", transitionDelay: "0ms" }}>
+                    <div ref={scoreRowRef} style={{ position: "relative", marginLeft: "25px", width: "251px", padding: "13px 0", borderTop: "1px solid var(--p-hair,rgba(234,217,204,.14))", fontSize: "16.8px", color: "var(--p-text-2,#AFE3E0)", textAlign: "right", transitionDelay: "0ms" }}>
                       <span ref={scoreTextRef}>
                         Score de prontidão
                       </span>
-                      <div data-maiq-dot="" style={{ position: "absolute", top: "-3.7px", left: "-4.2px", width: "8.4px", height: "8.4px", borderRadius: "999px", background: "var(--p-text,#E9E0D1)", opacity: "0", pointerEvents: "none" }}>
+                      <div data-maiq-dot="" style={{ position: "absolute", top: "-3.7px", left: "-4.2px", width: "8.4px", height: "8.4px", borderRadius: "999px", background: "var(--p-text,#EAD9CC)", opacity: "0", pointerEvents: "none" }}>
                       </div>
                     </div>
-                    <div ref={lRow1Ref} style={{ position: "relative", marginLeft: "31px", width: "246px", padding: "13px 0", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", fontSize: "16.8px", color: "var(--p-text-2,#B7C4BC)", textAlign: "right" }}>
+                    <div ref={lRow1Ref} style={{ position: "relative", marginLeft: "31px", width: "246px", padding: "13px 0", borderTop: "1px solid var(--p-hair,rgba(234,217,204,.14))", fontSize: "16.8px", color: "var(--p-text-2,#AFE3E0)", textAlign: "right" }}>
                       Roadmap de evolução
-                      <div data-maiq-dot="" style={{ position: "absolute", top: "-3.7px", left: "-4.2px", width: "8.4px", height: "8.4px", borderRadius: "999px", background: "var(--p-text,#E9E0D1)", opacity: "0", pointerEvents: "none" }}>
+                      <div data-maiq-dot="" style={{ position: "absolute", top: "-3.7px", left: "-4.2px", width: "8.4px", height: "8.4px", borderRadius: "999px", background: "var(--p-text,#EAD9CC)", opacity: "0", pointerEvents: "none" }}>
                       </div>
                     </div>
-                    <div ref={lRow3Ref} style={{ position: "relative", marginLeft: "52px", width: "233px", padding: "13px 0", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", fontSize: "16.8px", color: "var(--p-text-2,#B7C4BC)", textAlign: "right" }}>
+                    <div ref={lRow3Ref} style={{ position: "relative", marginLeft: "52px", width: "233px", padding: "13px 0", borderTop: "1px solid var(--p-hair,rgba(234,217,204,.14))", fontSize: "16.8px", color: "var(--p-text-2,#AFE3E0)", textAlign: "right" }}>
                       Playbooks por etapa
-                      <div data-maiq-dot="" style={{ position: "absolute", top: "-3.7px", left: "-4.2px", width: "8.4px", height: "8.4px", borderRadius: "999px", background: "var(--p-text,#E9E0D1)", opacity: "0", pointerEvents: "none" }}>
+                      <div data-maiq-dot="" style={{ position: "absolute", top: "-3.7px", left: "-4.2px", width: "8.4px", height: "8.4px", borderRadius: "999px", background: "var(--p-text,#EAD9CC)", opacity: "0", pointerEvents: "none" }}>
                       </div>
                     </div>
                   </div>
@@ -1091,26 +1091,26 @@ export default function PaginaInstitucional() {
                     <div style={{ fontSize: "15.6px", fontWeight: "500", marginTop: "8px" }}>
                       Arquitetura tecnológica
                     </div>
-                    <div style={{ fontSize: "13px", fontStyle: "italic", color: "var(--p-muted,#91A398)", marginTop: "2px" }}>
+                    <div style={{ fontSize: "13px", fontStyle: "italic", color: "var(--p-muted,#9FD6D2)", marginTop: "2px" }}>
                       known unknowns
                     </div>
                   </div>
                   <div style={{ marginTop: "24px", alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-end" }}>
-                    <div ref={chatRowRef} style={{ position: "relative", marginRight: "25px", width: "251px", padding: "13px 0", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", fontSize: "16.8px", color: "var(--p-text-2,#B7C4BC)", textAlign: "left" }}>
+                    <div ref={chatRowRef} style={{ position: "relative", marginRight: "25px", width: "251px", padding: "13px 0", borderTop: "1px solid var(--p-hair,rgba(234,217,204,.14))", fontSize: "16.8px", color: "var(--p-text-2,#AFE3E0)", textAlign: "left" }}>
                       <span ref={chatTextRef}>
                         Plataforma de dados
                       </span>
-                      <div data-maiq-dot="" style={{ position: "absolute", top: "-3.7px", right: "-4.2px", width: "8.4px", height: "8.4px", borderRadius: "999px", background: "var(--p-text,#E9E0D1)", opacity: "0", pointerEvents: "none" }}>
+                      <div data-maiq-dot="" style={{ position: "absolute", top: "-3.7px", right: "-4.2px", width: "8.4px", height: "8.4px", borderRadius: "999px", background: "var(--p-text,#EAD9CC)", opacity: "0", pointerEvents: "none" }}>
                       </div>
                     </div>
-                    <div ref={rRow1Ref} style={{ position: "relative", marginRight: "31px", width: "246px", padding: "13px 0", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", fontSize: "16.8px", color: "var(--p-text-2,#B7C4BC)", textAlign: "left" }}>
+                    <div ref={rRow1Ref} style={{ position: "relative", marginRight: "31px", width: "246px", padding: "13px 0", borderTop: "1px solid var(--p-hair,rgba(234,217,204,.14))", fontSize: "16.8px", color: "var(--p-text-2,#AFE3E0)", textAlign: "left" }}>
                       Chat e agentes de IA
-                      <div data-maiq-dot="" style={{ position: "absolute", top: "-3.7px", right: "-4.2px", width: "8.4px", height: "8.4px", borderRadius: "999px", background: "var(--p-text,#E9E0D1)", opacity: "0", pointerEvents: "none" }}>
+                      <div data-maiq-dot="" style={{ position: "absolute", top: "-3.7px", right: "-4.2px", width: "8.4px", height: "8.4px", borderRadius: "999px", background: "var(--p-text,#EAD9CC)", opacity: "0", pointerEvents: "none" }}>
                       </div>
                     </div>
-                    <div ref={rRow2Ref} style={{ position: "relative", marginRight: "52px", width: "233px", padding: "13px 0", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", fontSize: "16.8px", color: "var(--p-text-2,#B7C4BC)", textAlign: "left" }}>
+                    <div ref={rRow2Ref} style={{ position: "relative", marginRight: "52px", width: "233px", padding: "13px 0", borderTop: "1px solid var(--p-hair,rgba(234,217,204,.14))", fontSize: "16.8px", color: "var(--p-text-2,#AFE3E0)", textAlign: "left" }}>
                       Integrações
-                      <div data-maiq-dot="" style={{ position: "absolute", top: "-3.7px", right: "-4.2px", width: "8.4px", height: "8.4px", borderRadius: "999px", background: "var(--p-text,#E9E0D1)", opacity: "0", pointerEvents: "none" }}>
+                      <div data-maiq-dot="" style={{ position: "absolute", top: "-3.7px", right: "-4.2px", width: "8.4px", height: "8.4px", borderRadius: "999px", background: "var(--p-text,#EAD9CC)", opacity: "0", pointerEvents: "none" }}>
                       </div>
                     </div>
                   </div>
@@ -1119,14 +1119,14 @@ export default function PaginaInstitucional() {
               <div data-maiq-side-text="" ref={rColRef} style={{ flex: "1 1 0", minWidth: "246px", maxWidth: "312px", marginLeft: "-48px", position: "relative", display: "flex", justifyContent: "flex-start" }}>
                 <div ref={rClipRef} style={{ maxWidth: "100%" }}>
                   <div ref={rTextRef} style={{ opacity: "0", transform: "translateX(-312px)", transition: "opacity 260ms cubic-bezier(.4,0,1,1),transform 320ms cubic-bezier(.4,0,1,1)" }}>
-                    <p style={{ margin: "0", paddingLeft: "76px", fontSize: "15px", lineHeight: "1.6", color: "var(--p-text-2,#B7C4BC)", textAlign: "left", textWrap: "pretty" }}>
+                    <p style={{ margin: "0", paddingLeft: "76px", fontSize: "15px", lineHeight: "1.6", color: "var(--p-text-2,#AFE3E0)", textAlign: "left", textWrap: "pretty" }}>
                       Integramos as melhores tecnologias do mercado para transformar o processo de fusões e aquisições em um fluxo seguro e de decisão informada.
                     </p>
                   </div>
                 </div>
               </div>
             </div>
-            <div style={{ width: "60%", minWidth: "520px", maxWidth: "100%", margin: "0 auto", backgroundImage: "linear-gradient(90deg,transparent 0%,var(--p-hair,rgba(233,224,209,.14)) 14%,var(--p-hair,rgba(233,224,209,.14)) 86%,transparent 100%),linear-gradient(90deg,transparent 0%,var(--p-hair,rgba(233,224,209,.14)) 14%,var(--p-hair,rgba(233,224,209,.14)) 86%,transparent 100%)", backgroundSize: "100% 1px,100% 1px", backgroundPosition: "0 0,0 100%", backgroundRepeat: "no-repeat", padding: "22px clamp(8px,2vw,24px)", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "clamp(24px,4vw,48px)", flexWrap: "wrap" }}>
+            <div style={{ width: "60%", minWidth: "520px", maxWidth: "100%", margin: "0 auto", backgroundImage: "linear-gradient(90deg,transparent 0%,var(--p-hair,rgba(234,217,204,.14)) 14%,var(--p-hair,rgba(234,217,204,.14)) 86%,transparent 100%),linear-gradient(90deg,transparent 0%,var(--p-hair,rgba(234,217,204,.14)) 14%,var(--p-hair,rgba(234,217,204,.14)) 86%,transparent 100%)", backgroundSize: "100% 1px,100% 1px", backgroundPosition: "0 0,0 100%", backgroundRepeat: "no-repeat", padding: "22px clamp(8px,2vw,24px)", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "clamp(24px,4vw,48px)", flexWrap: "wrap" }}>
               <img src={toolGpt} alt="OpenAI" loading="lazy" decoding="async" style={{ height: "24px", width: "auto", display: "block", opacity: ".42", filter: "var(--p-tool-filter,brightness(0) invert(1))", transition: "opacity 200ms cubic-bezier(.2,0,0,1)" }} data-hover-style="opacity:.9" />
               <img src={toolClaude} alt="Claude" loading="lazy" decoding="async" style={{ height: "24px", width: "auto", display: "block", opacity: ".42", filter: "var(--p-tool-filter,brightness(0) invert(1))", transition: "opacity 200ms cubic-bezier(.2,0,0,1)" }} data-hover-style="opacity:.9" />
               <img src={toolGemini} alt="Gemini" loading="lazy" decoding="async" style={{ height: "24px", width: "auto", display: "block", opacity: ".42", filter: "var(--p-tool-filter,brightness(0) invert(1))", transition: "opacity 200ms cubic-bezier(.2,0,0,1)" }} data-hover-style="opacity:.9" />
@@ -1139,9 +1139,9 @@ export default function PaginaInstitucional() {
                 <div style={{ fontSize: "clamp(38px,4.2vw,58px)", lineHeight: "1", fontWeight: "600", letterSpacing: "-.022em", fontVariantNumeric: "tabular-nums" }} data-maiq-odo="">
                   32
                 </div>
-                <div style={{ height: "3px", background: "var(--p-mark-1,#91A398)" }}>
+                <div style={{ height: "3px", background: "var(--p-mark-1,#9FD6D2)" }}>
                 </div>
-                <div style={{ fontSize: "12px", letterSpacing: ".14em", fontWeight: "500", color: "var(--p-muted,#91A398)" }}>
+                <div style={{ fontSize: "12px", letterSpacing: ".14em", fontWeight: "500", color: "var(--p-muted,#9FD6D2)" }}>
                   Investidores na nossa rede
                 </div>
               </div>
@@ -1149,9 +1149,9 @@ export default function PaginaInstitucional() {
                 <div style={{ fontSize: "clamp(38px,4.2vw,58px)", lineHeight: "1", fontWeight: "600", letterSpacing: "-.022em", fontVariantNumeric: "tabular-nums" }} data-maiq-odo="">
                   R$ 291
                 </div>
-                <div style={{ height: "3px", background: "var(--p-mark-2,#33605A)" }}>
+                <div style={{ height: "3px", background: "var(--p-mark-2,#308984)" }}>
                 </div>
-                <div style={{ fontSize: "12px", letterSpacing: ".14em", fontWeight: "500", color: "var(--p-muted,#91A398)" }}>
+                <div style={{ fontSize: "12px", letterSpacing: ".14em", fontWeight: "500", color: "var(--p-muted,#9FD6D2)" }}>
                   Milhões em transações realizadas
                 </div>
               </div>
@@ -1159,9 +1159,9 @@ export default function PaginaInstitucional() {
                 <div style={{ fontSize: "clamp(38px,4.2vw,58px)", lineHeight: "1", fontWeight: "600", letterSpacing: "-.022em", fontVariantNumeric: "tabular-nums" }} data-maiq-odo="">
                   16
                 </div>
-                <div style={{ height: "3px", background: "var(--p-hair,rgba(233,224,209,.14))" }}>
+                <div style={{ height: "3px", background: "var(--p-hair,rgba(234,217,204,.14))" }}>
                 </div>
-                <div style={{ fontSize: "12px", letterSpacing: ".14em", fontWeight: "500", color: "var(--p-muted,#91A398)" }}>
+                <div style={{ fontSize: "12px", letterSpacing: ".14em", fontWeight: "500", color: "var(--p-muted,#9FD6D2)" }}>
                   Parceiros em nosso ecossistema
                 </div>
               </div>
@@ -1176,7 +1176,7 @@ export default function PaginaInstitucional() {
         <div ref={finalWrapRef} className="maiq-final-base">
           <div ref={overlay3Ref} className="maiq-final-content">
             <Faq onContact={() => setLeadOpen(true)} />
-            <footer className="maiq-footer" style={{ background: "var(--p-footer-bg,#0A1D1D)", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", padding: "56px 48px 28px", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
+            <footer className="maiq-footer" style={{ background: "var(--p-footer-bg,#09201F)", borderTop: "1px solid var(--p-hair,rgba(234,217,204,.14))", padding: "56px 48px 28px", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
               <div className="maiq-footer-top">
                 <div style={{ position: "relative", display: "inline-flex" }}>
                   <img src={logoBranco} alt="Maiq" style={{ height: "30px", width: "auto", display: "block" }} />
@@ -1194,7 +1194,7 @@ export default function PaginaInstitucional() {
                   </div>
                 </nav>
               </div>
-              <div style={{ maxWidth: "1200px", margin: "40px auto 0", paddingTop: "22px", borderTop: "1px solid var(--p-hair,rgba(233,224,209,.14))", fontSize: "13px", color: "var(--p-muted,#91A398)" }}>
+              <div style={{ maxWidth: "1200px", margin: "40px auto 0", paddingTop: "22px", borderTop: "1px solid var(--p-hair,rgba(234,217,204,.14))", fontSize: "13px", color: "var(--p-muted,#9FD6D2)" }}>
                 © 2026 Maiq. Todos os direitos reservados.
               </div>
             </footer>

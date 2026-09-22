@@ -14,7 +14,7 @@ export interface VdrEmbedProps {
   onProgress?: ((time: number, duration: number) => void) | undefined;
 }
 
-export function VdrEmbed({ accent = '#91A398', showGhosts = true, playing = true, time, initialTime = 0, resetSignal = 0 }: VdrEmbedProps) {
+export function VdrEmbed({ accent = '#9FD6D2', showGhosts = true, playing = true, time, initialTime = 0, resetSignal = 0 }: VdrEmbedProps) {
   const ref = useRef<HTMLDivElement | null>(null);
   const boxRef = useRef<HTMLDivElement | null>(null);
   const [visible, setVisible] = useState(false);
@@ -49,7 +49,7 @@ export function VdrEmbed({ accent = '#91A398', showGhosts = true, playing = true
   }, []);
 
   return (
-    <div ref={ref} style={{ position: 'absolute', inset: 0, overflow: 'hidden', background: '#143737' }}>
+    <div ref={ref} style={{ position: 'absolute', inset: 0, overflow: 'hidden', background: '#143937' }}>
       <div ref={boxRef} style={{
         position: 'absolute', left: '50%', top: '50%', width: 1080, height: 1080,
         transformOrigin: 'center', transform: 'translate(-50%, -50%)',
