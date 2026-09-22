@@ -861,4 +861,5 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
   .maiq-insights-header > div:first-child{margin-right:8px !important}
   .maiq-insights-nav{gap:10px !important;margin-right:8px !important;font-size:13px}
   .maiq-insights-header button{padding:0 10px !important}
+  .maiq-insights-nav a[href="/insights"]{display:none}
 }
