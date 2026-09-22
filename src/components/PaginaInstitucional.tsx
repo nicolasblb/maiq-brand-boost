@@ -351,6 +351,10 @@ export default function PaginaInstitucional() {
     return () => {
       if (S._odoIO) S._odoIO.disconnect();
       if (S._odos) S._odos.forEach((o: Any) => { if (o.raf) cancelAnimationFrame(o.raf); });
+      if (S._checkOdos) {
+        window.removeEventListener('scroll', S._checkOdos);
+        window.removeEventListener('resize', S._checkOdos);
+      }
       if (S._pauseIO) S._pauseIO.disconnect();
       if (S._raf) cancelAnimationFrame(S._raf);
       if (S._remeasure) window.removeEventListener('resize', S._remeasure);
@@ -419,18 +423,32 @@ export default function PaginaInstitucional() {
       };
       o.raf = requestAnimationFrame(tick);
     };
-    S._odoIO = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        const odo = S._odos.find((item: Any) => item.el === entry.target);
-        if (odo) animateOdo(odo);
-        S._odoIO.unobserve(entry.target);
+    const startVisibleOdos = () => {
+      const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+      S._odos.forEach((o: Any) => {
+        if (o.started) return;
+        const rect = o.el.getBoundingClientRect();
+        if (rect.bottom > 0 && rect.top < viewportHeight) animateOdo(o);
       });
-    }, { threshold: 0.35 });
+    };
+    S._checkOdos = startVisibleOdos;
+    if ('IntersectionObserver' in window) {
+      S._odoIO = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const odo = S._odos.find((item: Any) => item.el === entry.target);
+          if (odo) animateOdo(odo);
+          S._odoIO.unobserve(entry.target);
+        });
+      }, { threshold: 0.05 });
+    }
     S._odos.forEach((o: Any) => {
       paintOdo(o, 0);
-      S._odoIO.observe(o.el);
+      S._odoIO?.observe(o.el);
     });
+    window.addEventListener('scroll', startVisibleOdos, { passive: true });
+    window.addEventListener('resize', startVisibleOdos);
+    requestAnimationFrame(startVisibleOdos);
   }
 
   // a logo nasce grande no hero e viaja até o slot do header
@@ -1116,7 +1134,7 @@ export default function PaginaInstitucional() {
         <div ref={finalWrapRef} className="maiq-final-base">
           <div ref={overlay3Ref} className="maiq-final-content">
             <Faq onContact={() => setLeadOpen(true)} />
-            <footer className="maiq-footer" style={{ background: "var(--p-footer-bg,#09201F)", borderTop: "1px solid var(--p-hair,rgba(234,217,204,.14))", padding: "56px 48px 28px", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
+            <footer className="maiq-footer" style={{ background: "var(--p-footer-bg,#09201F)", borderTop: "1px solid var(--p-hair,rgba(234,217,204,.14))", padding: "56px 48px 28px", flexShrink: 0, transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
               <div className="maiq-footer-top">
                 <div style={{ position: "relative", display: "inline-flex" }}>
                   <img src={logoBranco} alt="Maiq" style={{ height: "30px", width: "auto", display: "block" }} />
