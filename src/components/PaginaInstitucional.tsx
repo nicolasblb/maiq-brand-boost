@@ -13,6 +13,7 @@ import PageLoader from '@/components/maiq/PageLoader';
 import AuthLeadDialogs from '@/components/AuthLeadDialogs';
 import PlatformShowcase from '@/components/maiq/PlatformShowcase';
 import MaiqButton from '@/components/maiq/MaiqButton';
+import NavDropdown from '@/components/maiq/NavDropdown';
 import { supabase } from '@/integrations/supabase/client';
 import logoBranco from '@/assets/logo-maiq-branco.png';
 import logoMadeira from '@/assets/logo-maiq-madeira.png';
