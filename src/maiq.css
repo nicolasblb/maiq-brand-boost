@@ -351,20 +351,24 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
   flex:1 1 auto;
   display:flex;
   align-items:center;
+  min-height:0;
+  overflow:hidden;
   scroll-margin-top:132px;
-  padding:clamp(128px,16vh,160px) clamp(24px,5vw,48px) clamp(48px,6vh,72px);
+  padding:clamp(108px,13vh,132px) clamp(24px,5vw,48px) clamp(28px,4vh,44px);
   border-top:1px solid var(--p-hair);
   background:var(--p-bg);
 }
 
 .maiq-faq-inner{
   width:100%;
+  height:100%;
+  min-height:0;
   max-width:1200px;
   margin:0 auto;
   display:grid;
   grid-template-columns:minmax(240px,1fr) minmax(0,2fr);
   gap:clamp(56px,8vw,112px);
-  align-items:start;
+  align-items:stretch;
 }
 .maiq-faq-intro{display:flex;flex-direction:column;align-items:flex-start}
 .maiq-faq-intro h2{
@@ -395,7 +399,18 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 .maiq-faq-contact:active{
   background:var(--p-cta-bg-active)!important;
 }
-.maiq-faq-list{border-top:1px solid var(--p-hair)}
+.maiq-faq-list{
+  min-height:0;
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  padding-right:clamp(8px,1.2vw,16px);
+  border-top:1px solid var(--p-hair);
+  scrollbar-width:thin;
+  scrollbar-color:var(--p-hair-strong) transparent;
+}
+.maiq-faq-list::-webkit-scrollbar{width:6px}
+.maiq-faq-list::-webkit-scrollbar-track{background:transparent}
+.maiq-faq-list::-webkit-scrollbar-thumb{border-radius:var(--radius-pill);background:var(--p-hair-strong)}
 .maiq-faq-item{border-bottom:1px solid var(--p-hair)}
 .maiq-faq-trigger{
   width:100%!important;
@@ -449,8 +464,9 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 }
 .maiq-faq-answer[data-visible="true"]{grid-template-rows:1fr;opacity:1}
 @media (max-width:800px){
-  .maiq-faq{padding-top:128px;padding-bottom:56px}
-  .maiq-faq-inner{grid-template-columns:1fr;gap:56px}
+  .maiq-faq{padding:96px 24px 24px}
+  .maiq-faq-inner{grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr);gap:28px}
+  .maiq-faq-contact{margin-top:20px}
   .maiq-faq-trigger{min-height:76px;padding:20px 4px!important}
   .maiq-faq-answer p{padding:0 42px 24px 4px}
 }
@@ -644,7 +660,7 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 .maiq-platform-hold{position:relative;z-index:0;pointer-events:none}
 .maiq-final-reveal-stage{position:relative;z-index:3}
 .maiq-final-base{position:sticky;z-index:0;overflow:clip;clip-path:inset(24px 0 0)}
-.maiq-final-content{display:flex;min-height:100svh;flex-direction:column;background:var(--p-bg)}
+.maiq-final-content{display:flex;height:100svh;min-height:0;overflow:hidden;flex-direction:column;background:var(--p-bg)}
 .maiq-cycle-domains-overlay{position:relative;z-index:2;overflow:clip;border:1px solid var(--p-hair);border-radius:24px;background:var(--p-bg);box-shadow:var(--p-overlay-shadow),0 30px 60px -18px color-mix(in oklab,var(--p-bg-deep) 72%,transparent);transition:background var(--dur-3) var(--ease-out)}
 .maiq-final-hold{position:relative;z-index:0;pointer-events:none}
 .maiq-dominios-placeholder{position:relative;display:flex;min-height:42svh;align-items:center;justify-content:center;box-sizing:border-box;padding:clamp(36px,5vh,54px) 48px;background:transparent;overflow:hidden}

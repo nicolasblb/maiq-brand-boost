@@ -393,46 +393,20 @@ export default function PaginaInstitucional() {
     const els: Any[] = Array.prototype.slice.call(scope.querySelectorAll('[data-maiq-odo]'));
     if (!els.length) return;
     S._odos = els.map((el) => {
-      const raw = (el.textContent || '').replace(/[^0-9]/g, '');
-      const digits = raw.length;
-      const target = parseInt(raw, 10) || 0;
-      const suffix = el.querySelector('span');
-      const prefixTxt = (el.firstChild && el.firstChild.nodeType === 3)
-        ? el.firstChild.textContent.replace(/[0-9].*$/, '') : '';
-      el.textContent = '';
-      if (prefixTxt) {
-        const p = document.createElement('span');
-        p.textContent = prefixTxt;
-        el.appendChild(p);
-      }
-      const strips: Any[] = [];
-      for (let i = 0; i < digits; i++) {
-        const box = document.createElement('span');
-        box.style.cssText = 'display:inline-block;width:1ch;height:1em;overflow:hidden;vertical-align:bottom;line-height:1';
-        const col = document.createElement('span');
-        col.style.cssText = 'display:block;will-change:transform';
-        for (let d = 0; d < 12; d++) {
-          const g = document.createElement('span');
-          g.style.cssText = 'display:block;height:1em;line-height:1';
-          g.textContent = String(d % 10);
-          col.appendChild(g);
-        }
-        box.appendChild(col);
-        el.appendChild(box);
-        strips.push(col);
-      }
-      if (suffix) el.appendChild(suffix);
-      const finals = raw.split('').map(Number);
-      return { el, finals, strips, digits, target, p: 0 };
+      const initial = (el.dataset.maiqOdoLabel || el.textContent || '').trim();
+      const raw = initial.replace(/[^0-9]/g, '');
+      const target = Number(el.dataset.maiqOdoTarget || raw) || 0;
+      const prefix = el.dataset.maiqOdoPrefix ?? initial.slice(0, initial.search(/[0-9]/));
+      el.dataset.maiqOdoLabel = initial;
+      el.dataset.maiqOdoTarget = String(target);
+      el.dataset.maiqOdoPrefix = prefix;
+      return { el, prefix, target, p: 0 };
     });
     const paintOdo = (o: Any, p: number) => {
       if (Math.abs(p - o.p) < 0.001 && o.painted) return;
       o.p = p; o.painted = true;
       const e = p * p * (3 - 2 * p);
-      for (let i = 0; i < o.digits; i++) {
-        const pos = o.finals[i] * e;
-        o.strips[i].style.transform = 'translate3d(0,' + (-pos * 100 / 12).toFixed(4) + '%,0)';
-      }
+      o.el.textContent = `${o.prefix}${Math.round(o.target * e).toLocaleString('pt-BR')}`;
     };
     const animateOdo = (o: Any) => {
       if (o.started) return;
