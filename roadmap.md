@@ -46,3 +46,4 @@
 - [x] Tornar os sub-headers responsivos e ajustar suas quebras de linha por seção.
 - [x] Recalibrar os sub-headers para 40%, manter o Hero em 60% e estabilizar as quebras condicionais.
 - [x] Corrigir “Nosso Modelo” e reequilibrar verticalmente as seções “Nossa Plataforma” e “Nosso Time”.
+- [x] Refinar sub-headers e contornos com a nova paleta, simplificar “Sobre nós” e compactar “Nosso Time” como faixa.

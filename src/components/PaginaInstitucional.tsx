@@ -783,14 +783,9 @@ export default function PaginaInstitucional() {
             items={SECOES.map((s) => ({ key: s.id, label: s.label }))}
             onSelect={goToSection}
           />
-          <NavDropdown
-            label="Sobre nós"
-            items={[
-              { key: 'dominios', label: 'Domínios' },
-              { key: 'marca', label: 'Marca' },
-            ]}
-            onSelect={(key) => { if (key === 'dominios') goToSection('dominios'); }}
-          />
+          <span style={{ cursor: "default" }}>
+            Sobre nós
+          </span>
           <span style={{ cursor: "pointer", transition: "color 200ms cubic-bezier(.2,0,0,1)" }} data-hover-style="color:var(--p-text,#EAD9CC)">
             Insights
           </span>

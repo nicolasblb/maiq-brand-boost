@@ -63,6 +63,8 @@ export default function DominiosPlaceholder() {
           </p>
         </header>
 
+        <div className="maiq-team-divider" aria-hidden="true" />
+
         <div className="maiq-team-marquee" aria-label="Empresas onde nossos especialistas tiveram experiência">
           <div className="maiq-team-logo-track" data-active={isVisible}>
             <LogoGroup />

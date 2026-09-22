@@ -168,9 +168,9 @@
   --text-inverse:#143937;
   --text-on-accent:#F3E7DE;
 
-  --border-hair:rgba(234,217,204,.14);
-  --border-mid:rgba(234,217,204,.24);
-  --border-strong-c:rgba(234,217,204,.42);
+  --border-hair:rgba(159,214,210,.18);
+  --border-mid:rgba(159,214,210,.30);
+  --border-strong-c:rgba(175,227,224,.48);
   --border-focus:#9FD6D2;
 
   --action-primary-bg:#EAD9CC;
@@ -210,10 +210,10 @@
   --text-inverse:#EAD9CC;
   --text-on-accent:#F3E7DE;
 
-  --border-hair:rgba(20,57,55,.14);
-  --border-mid:rgba(20,57,55,.22);
-  --border-strong-c:rgba(20,57,55,.40);
-  --border-focus:#308984;
+  --border-hair:rgba(104,70,43,.16);
+  --border-mid:rgba(104,70,43,.26);
+  --border-strong-c:rgba(104,70,43,.44);
+  --border-focus:#8A6038;
 
   --action-primary-bg:#143937;
   --action-primary-fg:#EAD9CC;
@@ -243,8 +243,8 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 --p-bg:#0F2B2A;--p-hero-bg:#143937;--p-card:#1F5956;--p-footer-bg:#09201F;--p-bg-deep:#09201F;--p-tool-filter:brightness(0) invert(1);--p-helix:rgba(159,214,210,.6);--p-helix-hi:rgba(234,217,204,.92);--p-helix-dim:rgba(159,214,210,.16);
 --p-model-base:#09201F;--p-model-edge:rgba(48,137,132,.42);--p-model-core:rgba(159,214,210,.30);--p-model-wave:rgba(223,244,243,.18);
 --p-model-block-edge:#0F2B2A;--p-model-block-center:#143937;--p-platform-block-edge:#143937;--p-platform-block-center:#09201F;--p-divider-solid:#3E9B95;
---p-text:#EAD9CC;--p-text-2:#AFE3E0;--p-muted:#9FD6D2;
---p-hair:rgba(234,217,204,.14);--p-hair-soft:rgba(234,217,204,.10);
+--p-text:#EAD9CC;--p-text-2:#AFE3E0;--p-muted:#9FD6D2;--p-subhead:#DEC7B2;
+--p-hair:rgba(159,214,210,.22);--p-hair-soft:rgba(159,214,210,.12);--p-mid:rgba(159,214,210,.34);
 --p-chip-bg:rgba(234,217,204,.04);--p-chip-bg-strong:rgba(234,217,204,.13);--p-ring:#DFF4F3;--p-ring-glow:rgba(223,244,243,.40);--p-net-ink:159,214,210;--p-net-neb:48,137,132;--p-net-op:.70;--p-net-blend:lighter;--p-plat-veil:rgba(9,32,31,.46);--p-chip-text:#D8D0C2;
 --p-header-bg:rgba(20,57,55,.72);--p-header-shadow:0 10px 40px rgba(6,22,21,.35);
 --p-orb:rgba(159,214,210,.54);--p-orb-2:rgba(159,214,210,.20);--p-orb-0:rgba(159,214,210,0);--p-flash:rgba(223,244,243,.95);--p-flash-2:rgba(223,244,243,.34);
@@ -255,7 +255,7 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 --p-vol-mint:rgba(159,214,210,.34);--p-vol-mint-2:rgba(159,214,210,.11);
 --p-vol-deep:rgba(159,214,210,.30);--p-vol-deep-2:rgba(159,214,210,.10);
 --p-vignette:rgba(5,18,17,.26);--p-fade:rgba(20,57,55,0);
---p-mark-1:#9FD6D2;--p-mark-2:#308984;--p-hair-strong:rgba(234,217,204,.32);--p-toggle-thumb:rgba(234,217,204,.14);--p-h1:#EAD9CC;--p-overlay-shadow:0 -30px 60px -18px rgba(5,18,17,.62);
+--p-mark-1:#9FD6D2;--p-mark-2:#308984;--p-hair-strong:rgba(175,227,224,.46);--p-toggle-thumb:rgba(234,217,204,.14);--p-h1:#EAD9CC;--p-overlay-shadow:0 -30px 60px -18px rgba(5,18,17,.62);
 --p-band-bg:#EAD9CC;--p-band-text:#143937;--p-band-overline:#308984;--p-band-btn-bg:#143937;--p-band-btn-fg:#EAD9CC;
 --p-band-vol-shadow:rgba(20,57,55,.20);--p-band-vol-shadow-2:rgba(20,57,55,.06);
 --p-band-vol-accent:rgba(48,137,132,.16);--p-band-vol-accent-2:rgba(48,137,132,.05);
@@ -267,8 +267,8 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 --p-bg:#EEE0D4;--p-hero-bg:#E0CBB8;--p-card:#F9F1EA;--p-footer-bg:#E0CBB8;--p-bg-deep:#E3CFBC;--p-tool-filter:brightness(0);--p-helix:rgba(104,70,43,.5);--p-helix-hi:rgba(52,35,22,.9);--p-helix-dim:rgba(104,70,43,.12);
 --p-model-base:#F3E7DE;--p-model-edge:rgba(191,141,101,.26);--p-model-core:rgba(255,253,248,.85);--p-model-wave:rgba(104,70,43,.20);
 --p-model-block-edge:#EEE0D4;--p-model-block-center:#F9F1EA;--p-platform-block-edge:#F9F1EA;--p-platform-block-center:#E0CBB8;--p-divider-solid:#B39C88;
---p-text:#342316;--p-text-2:#68462B;--p-muted:#8A6038;
---p-hair:rgba(52,35,22,.14);--p-hair-soft:rgba(52,35,22,.10);
+--p-text:#342316;--p-text-2:#68462B;--p-muted:#8A6038;--p-subhead:#8A6038;
+--p-hair:rgba(104,70,43,.18);--p-hair-soft:rgba(104,70,43,.10);--p-mid:rgba(104,70,43,.30);
 --p-chip-bg:rgba(255,253,248,.20);--p-chip-bg-strong:rgba(104,70,43,.10);--p-ring:#68462B;--p-ring-glow:rgba(104,70,43,.26);--p-net-ink:104,70,43;--p-net-neb:138,96,56;--p-net-op:.40;--p-net-blend:multiply;--p-plat-veil:rgba(249,241,234,.52);--p-chip-text:#342316;
 --p-header-bg:rgba(249,241,234,.80);--p-header-shadow:0 10px 40px rgba(52,35,22,.14);
 --p-orb-blend:screen;--p-core-blend:screen;--p-halo-blend:screen;--p-shade-blend:multiply;
@@ -281,7 +281,7 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 --p-vol-mint:rgba(255,246,226,.88);--p-vol-mint-2:rgba(255,246,226,.30);
 --p-vol-deep:rgba(255,248,232,.86);--p-vol-deep-2:rgba(255,248,232,.28);
 --p-vignette:rgba(52,35,22,.10);--p-fade:rgba(224,203,184,0);
---p-mark-1:#68462B;--p-mark-2:#BF8D65;--p-hair-strong:rgba(52,35,22,.28);--p-toggle-thumb:rgba(52,35,22,.10);--p-h1:var(--wood,#68462B);--p-overlay-shadow:0 -30px 60px -18px rgba(52,35,22,.26);
+--p-mark-1:#68462B;--p-mark-2:#BF8D65;--p-hair-strong:rgba(104,70,43,.42);--p-toggle-thumb:rgba(52,35,22,.10);--p-h1:var(--wood,#68462B);--p-overlay-shadow:0 -30px 60px -18px rgba(52,35,22,.26);
 --p-band-bg:#143937;--p-band-text:#EAD9CC;--p-band-overline:#9FD6D2;--p-band-btn-bg:#EAD9CC;--p-band-btn-fg:#143937;
 --p-band-vol-shadow:rgba(5,18,17,.62);--p-band-vol-shadow-2:rgba(5,18,17,.2);
 --p-band-vol-accent:rgba(48,137,132,.55);--p-band-vol-accent-2:rgba(48,137,132,.16);
@@ -505,6 +505,7 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
   text-wrap:pretty;
 }
 .maiq-section-subhead{
+  color:var(--p-subhead);
   font-family:var(--font-core);
   font-size:clamp(15.2px,1.68vw,23px);
   font-weight:var(--fw-regular);
@@ -512,6 +513,7 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
   letter-spacing:0;
 }
 .maiq-hero-subhead{
+  color:var(--p-subhead);
   font-family:var(--font-core);
   font-size:clamp(24px,2.76vw,41px);
   font-weight:var(--fw-regular);
@@ -645,11 +647,12 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 .maiq-final-content{display:flex;min-height:100svh;flex-direction:column;background:var(--p-bg)}
 .maiq-cycle-domains-overlay{position:relative;z-index:2;overflow:clip;border:1px solid var(--p-hair);border-radius:24px;background:var(--p-bg);box-shadow:var(--p-overlay-shadow),0 30px 60px -18px color-mix(in oklab,var(--p-bg-deep) 72%,transparent);transition:background var(--dur-3) var(--ease-out)}
 .maiq-final-hold{position:relative;z-index:0;pointer-events:none}
-.maiq-dominios-placeholder{position:relative;display:flex;min-height:60svh;align-items:center;justify-content:center;box-sizing:border-box;padding:clamp(64px,9vh,96px) 48px;background:transparent;overflow:hidden}
+.maiq-dominios-placeholder{position:relative;display:flex;min-height:42svh;align-items:center;justify-content:center;box-sizing:border-box;padding:clamp(36px,5vh,54px) 48px;background:transparent;overflow:hidden}
 .maiq-dominios-placeholder-inner{width:100%;max-width:1200px;margin:0 auto;text-align:center}
 .maiq-dominios-placeholder h2{margin:0;color:var(--p-text);font-family:var(--font-core);font-size:clamp(38px,4.2vw,58px);font-weight:600;line-height:1.04;letter-spacing:0}
-.maiq-team-heading{margin:0 auto clamp(38px,6vh,64px)}
-.maiq-team-heading p{max-width:none;margin:14px auto 0;color:var(--p-muted);white-space:nowrap}
+.maiq-team-heading{margin:0 auto clamp(22px,3vh,32px)}
+.maiq-team-heading p{max-width:none;margin:12px auto 0;white-space:nowrap}
+.maiq-team-divider{width:min(720px,72%);height:1px;margin:0 auto clamp(22px,3vh,32px);background:linear-gradient(90deg,transparent 0%,var(--p-hair-strong) 18%,var(--p-hair-strong) 82%,transparent 100%)}
 .maiq-team-marquee{position:relative;width:100%;overflow:hidden;mask-image:linear-gradient(90deg,transparent 0%,black 8%,black 92%,transparent 100%);-webkit-mask-image:linear-gradient(90deg,transparent 0%,black 8%,black 92%,transparent 100%)}
 .maiq-team-logo-track{display:flex;width:max-content;will-change:transform;animation:maiqTeamMarquee 25s linear infinite;animation-play-state:paused}
 .maiq-team-logo-track[data-active="true"]{animation-play-state:running}
@@ -659,7 +662,7 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 .maiq-team-logo img{display:block;width:auto;max-width:100%;height:auto;max-height:32px;object-fit:contain;filter:invert(1) brightness(1.05)}
 [data-theme="claro"] .maiq-team-logo img{filter:none}
 @keyframes maiqTeamMarquee{to{transform:translate3d(-50%,0,0)}}
-@media(max-width:800px){.maiq-dominios-placeholder{padding:clamp(56px,8vh,72px) 24px}.maiq-team-heading{margin-bottom:40px}.maiq-team-logo{width:152px;padding:0 22px}.maiq-team-logo img{max-height:27px}}
+@media(max-width:800px){.maiq-dominios-placeholder{min-height:0;padding:44px 24px}.maiq-team-heading{margin-bottom:22px}.maiq-team-divider{width:88%;margin-bottom:22px}.maiq-team-logo{width:152px;padding:0 22px}.maiq-team-logo img{max-height:27px}}
 @media(max-width:700px){.maiq-team-subhead-break{display:block}}
 @media(prefers-reduced-motion:reduce){.maiq-team-logo-track{animation:none;transform:none}.maiq-team-marquee{overflow-x:auto;scrollbar-width:none}.maiq-team-marquee::-webkit-scrollbar{display:none}}
 @media (prefers-reduced-motion:reduce){
@@ -720,7 +723,7 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 .maiq-platform-section-inner{width:100%;max-width:1200px;margin:0 auto}
 .maiq-platform-heading{display:flex;flex-direction:column;align-items:center;text-align:center}
 .maiq-platform-heading h2{margin:0;color:var(--p-text);font-family:var(--font-core);font-size:clamp(38px,4.2vw,58px);font-weight:600;line-height:1.04;letter-spacing:0}
-.maiq-platform-heading>p{max-width:none;margin:14px auto 0;color:var(--p-muted);text-wrap:pretty}
+.maiq-platform-heading>p{max-width:none;margin:14px auto 0;text-wrap:pretty}
 .maiq-platform-showcase{margin-top:clamp(44px,6vh,64px)}
 .maiq-platform-tabs-viewport{overflow-x:auto;overflow-y:hidden;padding-bottom:10px;scrollbar-width:none}
 .maiq-platform-tabs-viewport::-webkit-scrollbar{display:none}
