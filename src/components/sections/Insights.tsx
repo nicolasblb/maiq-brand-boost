@@ -31,29 +31,29 @@ const SECOES = [
 // novos artigos forem publicados (titulo, data de publicação e link).
 const ARTIGOS = [
   {
-    titulo: 'M&A como disciplina contínua: por que a assinatura é só o começo',
-    data: 'Set 12, 2026',
-    url: '#',
+    titulo: 'O vácuo na liderança',
+    data: 'Out 24, 2025',
+    url: 'https://enzorbrodrigues.substack.com/p/o-vacuo-na-lideranca',
   },
   {
-    titulo: 'Valuation na prática: o que o múltiplo não conta',
-    data: 'Ago 28, 2026',
-    url: '#',
+    titulo: 'Governança "para inglês ver"',
+    data: 'Out 01, 2025',
+    url: 'https://enzorbrodrigues.substack.com/p/governanca-para-ingles-ver',
   },
   {
-    titulo: 'Playbooks por etapa: como estruturar a diligência sem perder ritmo',
-    data: 'Ago 05, 2026',
-    url: '#',
+    titulo: 'Não teremos mais IPO no Brasil',
+    data: 'Set 18, 2025',
+    url: 'https://enzorbrodrigues.substack.com/p/nao-teremos-mais-ipo-no-brasil',
   },
   {
-    titulo: 'Virtual Data Room: prepare a casa antes da visita',
-    data: 'Jul 17, 2026',
-    url: '#',
+    titulo: 'O que Peter Thiel nos ensina sobre M&A?',
+    data: 'Set 09, 2025',
+    url: 'https://enzorbrodrigues.substack.com/p/o-que-peter-thiel-nos-ensina-sobre',
   },
   {
-    titulo: 'Integração pós-aquisição: onde o valor costuma ser perdido',
-    data: 'Jun 30, 2026',
-    url: '#',
+    titulo: 'Por que os M&As falham?',
+    data: 'Set 01, 2025',
+    url: 'https://enzorbrodrigues.substack.com/p/por-que-a-maioria-dos-m-and-as-falha',
   },
 ];
 
