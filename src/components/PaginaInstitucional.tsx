@@ -113,6 +113,17 @@ export default function PaginaInstitucional() {
     window.scrollTo({ top: Math.max(0, top - menuClearance), behavior: 'smooth' });
   };
 
+  // Volta de outra página (ex.: Insights) com destino a uma seção da home
+  const navState = useRouterState({ select: (s) => s.location.state as { secao?: string } | null });
+  useEffect(() => {
+    if (!navState?.secao) return;
+    const timer = setTimeout(() => goToSection(navState.secao as string), 650);
+    return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+
+
 
   const scopeRef = useRef<Any>(null);
   const logoDayRef = useRef<Any>(null);
