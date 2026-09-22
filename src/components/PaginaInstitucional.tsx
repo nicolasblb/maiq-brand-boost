@@ -415,6 +415,7 @@ export default function PaginaInstitucional() {
     const animateOdo = (o: Any) => {
       if (o.started) return;
       o.started = true;
+      paintOdo(o, 0);
       const startedAt = performance.now();
       const tick = (now: number) => {
         const p = Math.min(1, (now - startedAt) / 1100);
@@ -443,7 +444,6 @@ export default function PaginaInstitucional() {
       }, { threshold: 0.05 });
     }
     S._odos.forEach((o: Any) => {
-      paintOdo(o, 0);
       S._odoIO?.observe(o.el);
     });
     window.addEventListener('scroll', startVisibleOdos, { passive: true });
