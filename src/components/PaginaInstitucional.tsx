@@ -751,7 +751,7 @@ export default function PaginaInstitucional() {
           <span
             className="maiq-nav-item"
             style={{ cursor: "pointer", transition: "color 200ms cubic-bezier(.2,0,0,1)" }}
-            data-hover-style="color:var(--p-text,#EAD9CC)"
+            data-hover-style="color:var(--p-hover-text,#EAD9CC)"
             onClick={() => goToSection('dominios')}
             role="button"
             tabIndex={0}
@@ -763,7 +763,7 @@ export default function PaginaInstitucional() {
             to="/insights"
             className="maiq-nav-item"
             style={{ cursor: "pointer", textDecoration: "none", transition: "color 200ms cubic-bezier(.2,0,0,1)" }}
-            data-hover-style="color:var(--p-text,#EAD9CC)"
+            data-hover-style="color:var(--p-hover-text,#EAD9CC)"
           >
             Insights
           </Link>
@@ -875,7 +875,7 @@ export default function PaginaInstitucional() {
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "clamp(30px,5vh,72px)", width: "100%" }}>
             <div style={{ width: "clamp(120px,18vw,260px)", height: "1px", background: "linear-gradient(90deg,transparent 0%,var(--p-hair,rgba(234,217,204,.14)) 18%,var(--p-hair,rgba(234,217,204,.14)) 82%,transparent 100%)" }}>
             </div>
-            <p className="maiq-hero-subhead" style={{ color: "var(--p-text-2,#AFE3E0)", margin: "0", maxWidth: "min(1080px,94%)", textWrap: "balance" }}>
+            <p className="maiq-hero-subhead" style={{ color: "var(--p-hero-text,#AFE3E0)", margin: "0", maxWidth: "min(1080px,94%)", textWrap: "balance" }}>
               Combinamos método e tecnologia para sistematizar o processo de M&A
             </p>
           </div>
