@@ -665,6 +665,8 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
   content:none;
 }
 .maiq-model-pilares-bg > section{position:relative;z-index:1}
+.maiq-nav-dropdown-item{color:inherit;background:transparent;outline:none}
+.maiq-nav-dropdown-item:hover,.maiq-nav-dropdown-item:focus-visible{color:var(--p-text);background:var(--p-chip-bg)}
 .maiq-platform-ciclo-bg{background:linear-gradient(180deg,var(--p-platform-block-edge) 0%,var(--p-platform-block-center) 50%,var(--p-platform-block-edge) 100%);transition:background var(--dur-3) var(--ease-out)}
 .maiq-platform-transition{background:var(--p-platform-block-edge)}
 .maiq-scroll-stack{position:relative;z-index:1;background:var(--p-platform-block-edge)}
