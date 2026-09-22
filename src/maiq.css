@@ -850,7 +850,7 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
   .maiq-insights-header > div:first-child{margin-right:12px !important}
   .maiq-insights-nav{gap:14px !important;margin-right:12px !important}
   .maiq-insights-nav-planos{display:none}
-  .maiq-insights-header .maiq-theme-toggle{position:static}
+  .maiq-insights-toggle{top:92px !important;right:12px !important}
 }
 @media(max-width:430px){
   .maiq-insights-cta-div,.maiq-insights-cta-lead{display:none}
