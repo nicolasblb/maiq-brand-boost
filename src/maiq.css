@@ -879,6 +879,23 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 .maiq-insight-title{font-family:var(--font-core);font-size:clamp(16px,1.5vw,20px);font-weight:500;line-height:1.35}
 .maiq-insight-date{color:var(--p-subhead);font-family:var(--font-core);font-size:14px;font-weight:500;letter-spacing:.02em;white-space:nowrap;font-variant-numeric:tabular-nums}
 .maiq-insights-cta-lead{display:flex;align-items:center}
+.maiq-manifesto-body{position:relative;max-width:760px;margin:clamp(30px,4.5vh,48px) auto 0;padding:0 clamp(34px,5vw,60px)}
+.maiq-manifesto-body p{margin:0 0 20px;font-size:clamp(16px,1.6vw,18px);line-height:1.75;color:var(--p-text);text-wrap:pretty}
+.maiq-manifesto-body p:last-child{margin-bottom:0}
+.maiq-manifesto-quote{position:absolute;color:var(--p-mark-1,#9FD6D2);font-family:var(--font-core);font-size:clamp(60px,7vw,92px);line-height:1;opacity:.9;user-select:none}
+.maiq-manifesto-quote-open{top:-12px;left:0}
+.maiq-manifesto-quote-close{bottom:-26px;right:0;line-height:0}
+.maiq-manifesto-founders{margin:clamp(44px,6vh,64px) 0 0;text-align:center;font-size:15px;letter-spacing:.04em;color:var(--p-muted,#9FD6D2)}
+.maiq-manifesto-founders strong{color:var(--p-text,#EAD9CC);font-weight:600}
+.maiq-founder-grid{margin-top:clamp(28px,4vh,44px);display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(20px,3vw,36px);max-width:820px;margin-left:auto;margin-right:auto}
+.maiq-founder-card{display:flex;flex-direction:column;align-items:center;gap:6px;padding:clamp(24px,3vw,36px) clamp(20px,3vw,32px);border:1px solid var(--p-hair,rgba(234,217,204,.14));border-radius:24px;background:var(--p-chip-bg,rgba(234,217,204,.04))}
+.maiq-founder-name{font-family:var(--font-core);font-size:20px;font-weight:600;color:var(--p-text,#EAD9CC)}
+.maiq-founder-frente{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--p-muted,#9FD6D2)}
+.maiq-founder-signature{margin-top:14px;padding-top:12px;border-top:1px solid var(--p-hair,rgba(234,217,204,.14));width:100%;text-align:center;font-family:'Caveat',cursive;font-size:clamp(34px,4vw,44px);font-weight:500;line-height:1.1;color:var(--p-mark-1,#9FD6D2)}
+@media (max-width:720px){
+  .maiq-founder-grid{grid-template-columns:1fr}
+  .maiq-manifesto-body{padding:0 clamp(24px,6vw,32px)}
+}
 @media(max-width:640px){
   .maiq-insight-row{grid-template-columns:44px 1fr;row-gap:6px;padding:16px 12px}
   .maiq-insight-icon{width:32px;height:32px;border-radius:10px}
