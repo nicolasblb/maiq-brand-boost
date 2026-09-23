@@ -748,17 +748,14 @@ export default function PaginaInstitucional() {
             items={SECOES.map((s) => ({ key: s.id, label: s.label }))}
             onSelect={goToSection}
           />
-          <span
+          <Link
+            to="/sobre-nos"
             className="maiq-nav-item"
-            style={{ cursor: "pointer", transition: "color 200ms cubic-bezier(.2,0,0,1)" }}
+            style={{ cursor: "pointer", textDecoration: "none", transition: "color 200ms cubic-bezier(.2,0,0,1)" }}
             data-hover-style="color:var(--p-hover-text,#EAD9CC)"
-            onClick={() => goToSection('dominios')}
-            role="button"
-            tabIndex={0}
-            onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); goToSection('dominios'); } }}
           >
             Sobre nós
-          </span>
+          </Link>
           <Link
             to="/insights"
             className="maiq-nav-item"
