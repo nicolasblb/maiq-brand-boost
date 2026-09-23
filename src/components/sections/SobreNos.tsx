@@ -27,45 +27,22 @@ const SECOES = [
   { id: 'faq', label: 'FAQ' },
 ];
 
-// Lista de artigos do Substack — adicione novas entradas aqui à medida que
-// novos artigos forem publicados (titulo, data de publicação e link).
-const ARTIGOS = [
-  {
-    titulo: 'O vácuo na liderança',
-    data: 'Out 24, 2025',
-    url: 'https://enzorbrodrigues.substack.com/p/o-vacuo-na-lideranca',
-  },
-  {
-    titulo: 'Governança "para inglês ver"',
-    data: 'Out 01, 2025',
-    url: 'https://enzorbrodrigues.substack.com/p/governanca-para-ingles-ver',
-  },
-  {
-    titulo: 'Não teremos mais IPO no Brasil',
-    data: 'Set 18, 2025',
-    url: 'https://enzorbrodrigues.substack.com/p/nao-teremos-mais-ipo-no-brasil',
-  },
-  {
-    titulo: 'O que Peter Thiel nos ensina sobre M&A?',
-    data: 'Set 09, 2025',
-    url: 'https://enzorbrodrigues.substack.com/p/o-que-peter-thiel-nos-ensina-sobre',
-  },
-  {
-    titulo: 'Por que os M&As falham?',
-    data: 'Set 01, 2025',
-    url: 'https://enzorbrodrigues.substack.com/p/por-que-a-maioria-dos-m-and-as-falha',
-  },
+const MANIFESTO = [
+  'A empresa que só cresce de forma orgânica pode estar limitando o próprio futuro.',
+  'Um M&A pode incorporar competências que levariam décadas para serem construídas internamente. Ainda assim, a maioria das médias empresas trata o tema como evento pontual – uma possibilidade específica –, sem preparação ou olhar coerente de longo prazo.',
+  'Isso ajuda a explicar o alto índice de falhas em fusões e aquisições.',
+  'O problema raramente está na negociação. Está na ausência de uma tese clara, na baixa prontidão da organização, na avaliação limitada das opções e na condução fragmentada do processo. Porque o M&A não termina na assinatura de um contrato. É a partir dele que começa o trabalho decisivo de captura de valor.',
+  'O Maiq existe para transformar essa capacidade de crescimento dos clientes e parceiros.',
+  'Somos um hub de fusões e aquisições dedicado às médias empresas. Combinamos método, tecnologia e conhecimento multidisciplinar para sistematizar o processo de M&A, reduzir incertezas e aumentar a probabilidade de sucesso em cada etapa – do desenho de uma transação até a integração efetiva das estruturas.',
+  'Enxergamos a expansão inorgânica como competência permanente de gestão. Uma disciplina contínua que deve ser desenvolvida e incorporada à estratégia da empresa. Acreditamos que a construção de valor só é verdadeiramente favorecida quando há uma visão holística sobre a evolução do negócio.',
 ];
 
-function SubstackIcon({ size = 22 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M22.539 8.242H1.46V5.406h21.079v2.836zM1.46 10.5h21.079v10.5L12.15 15.9 1.46 21v-10.5zM0 0h22.539v2.836H0V0z" />
-    </svg>
-  );
-}
+const FUNDADORES = [
+  { nome: 'Enzo Rodrigues', frente: 'Business' },
+  { nome: 'Nicolas Bernard', frente: 'Digital' },
+];
 
-export default function Insights() {
+export default function SobreNos() {
   const [theme, setTheme] = useState<'noite' | 'claro'>('noite');
   const [authOpen, setAuthOpen] = useState(false);
   const [leadOpen, setLeadOpen] = useState(false);
@@ -235,31 +212,31 @@ export default function Insights() {
 
       <main className="maiq-insights-main">
         <header className="maiq-insights-head">
-          <h2>Artigos Autorais</h2>
-          <p className="maiq-section-subhead">
-            Conteúdos profundos sobre Fusões e Aquisições
-          </p>
+          <h2>Manifesto</h2>
         </header>
 
-        <div className="maiq-insights-list">
-          {ARTIGOS.map((artigo) => {
-            const externo = /^https?:\/\//.test(artigo.url);
-            return (
-              <a
-                key={artigo.titulo}
-                className="maiq-insight-row"
-                href={artigo.url}
-                target={externo ? '_blank' : undefined}
-                rel={externo ? 'noreferrer' : undefined}
-              >
-                <span className="maiq-insight-icon" aria-hidden="true">
-                  <SubstackIcon />
-                </span>
-                <span className="maiq-insight-title">{artigo.titulo}</span>
-                <span className="maiq-insight-date">{artigo.data}</span>
-              </a>
-            );
-          })}
+        <article className="maiq-manifesto-body">
+          <span className="maiq-manifesto-quote maiq-manifesto-quote-open" aria-hidden="true">“</span>
+          {MANIFESTO.map((paragrafo) => (
+            <p key={paragrafo.slice(0, 24)}>{paragrafo}</p>
+          ))}
+          <span className="maiq-manifesto-quote maiq-manifesto-quote-close" aria-hidden="true">”</span>
+        </article>
+
+        <p className="maiq-manifesto-founders">
+          Fundadores: <strong>Enzo Rodrigues</strong> e <strong>Nicolas Bernard</strong>
+        </p>
+
+        <div className="maiq-founder-grid">
+          {FUNDADORES.map((fundador) => (
+            <div key={fundador.nome} className="maiq-founder-card">
+              <div className="maiq-founder-name">{fundador.nome}</div>
+              <div className="maiq-founder-frente">Frente: {fundador.frente}</div>
+              <div className="maiq-founder-signature" aria-label={`Assinatura de ${fundador.nome}`}>
+                {fundador.nome}
+              </div>
+            </div>
+          ))}
         </div>
       </main>
     </div>
