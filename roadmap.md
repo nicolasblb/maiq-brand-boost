@@ -670,5 +670,9 @@ Plataforma repetindo no modal por 18s sem pausar. Varredura completa de scroll (
 - [x] **Menu compacto (<1024px): "Sobre nós" e "Insights" em negrito (600)**, para se distinguirem
       das seções da Home. É uma nova opção `pageLink` em `NavDropdown` e vale em todas as páginas,
       porque o menu vem do `SiteHeader` compartilhado. Verificado nas 6 rotas, em celular e tablet.
+- [x] **Tela cheia da Plataforma cortada no celular.** A coluna de texto podia impor sua altura
+      mínima ao quadro horizontal e fazê-lo ultrapassar a tela, tanto na rotação simulada em
+      portrait quanto na paisagem real. A grade agora permanece limitada à viewport e a coluna
+      textual usa rolagem interna quando o conteúdo não cabe, sem recortar o vídeo.
 
 `tsc`, `eslint` (sem a regra de aspas do prettier) e `npm run build` limpos.
