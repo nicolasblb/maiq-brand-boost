@@ -1,5 +1,5 @@
 import * as DialogPrimitive from '@radix-ui/react-dialog';
-import { ChevronLeft, ChevronRight, Cog, FileCheck, Maximize2, Minimize2, Search, Settings, Target } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Cog, FileCheck, Maximize2, Minimize2, RotateCw, Search, Settings, Target } from 'lucide-react';
 import { useEffect, useRef, useState, type Ref } from 'react';
 
 import MaiqButton from '@/components/maiq/MaiqButton';
@@ -1158,6 +1158,10 @@ export default function Ciclo() {
             >
               <Minimize2 size={17} />
             </MaiqButton>
+            <div className="maiq-orientation-hint" role="status">
+              <RotateCw size={15} aria-hidden="true" />
+              <span>Gire o aparelho</span>
+            </div>
           </DialogPrimitive.Content>
         </DialogPrimitive.Portal>
       </DialogPrimitive.Root>
