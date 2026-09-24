@@ -59,6 +59,7 @@
 - [x] Fixar FAQ + rodapé em uma tela e adicionar rolagem local às perguntas.
 - [x] Restaurar o odômetro do Nosso Modelo por dígito, reversível e orientado pela posição da seção na tela.
 - [x] Destacar as subopções de Home, alinhar seus destinos ao topo e concluir o odômetro quando Nosso Modelo alcança o topo.
+- [x] Corrigir no celular os odômetros e a faixa de marcas do Modelo, criar o carrossel da identidade, uniformizar o menu compacto, limpar as quinas das sobreposições e estabilizar vídeos ampliados em desktop/paisagem.
 
 ## Header responsivo e tema noturno sem Areia Nobre (22/09)
 - [x] Adicionar breakpoint estrutural único em 1024px ao `SiteHeader`: abaixo dele, `<nav>`
