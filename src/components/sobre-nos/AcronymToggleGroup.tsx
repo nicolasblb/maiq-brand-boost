@@ -1,4 +1,4 @@
-import { useEffect, useRef, type ReactNode } from 'react';
+import { useEffect, useRef, type PointerEvent, type ReactNode } from 'react';
 
 import type { AcronymIndex } from './IdentityMark';
 
@@ -55,20 +55,38 @@ export default function AcronymToggleGroup({ active, onSelect, onMobileSelect, o
   const trackRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<Array<HTMLButtonElement | null>>([]);
   const scrollFrameRef = useRef<number | null>(null);
+  const scrollSettleRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const programmaticScrollRef = useRef(false);
+  const activeRef = useRef(active);
 
   useEffect(() => {
+    activeRef.current = active;
     if (!window.matchMedia('(max-width: 760px)').matches) return;
-    cardsRef.current[active]?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    const track = trackRef.current;
+    const card = cardsRef.current[active];
+    if (!track || !card) return;
+    const target = card.offsetLeft - (track.clientWidth - card.offsetWidth) / 2;
+    if (Math.abs(track.scrollLeft - target) < 2) return;
+    programmaticScrollRef.current = true;
+    track.scrollTo({ left: target, behavior: 'smooth' });
   }, [active]);
 
   useEffect(() => () => {
     if (scrollFrameRef.current !== null) cancelAnimationFrame(scrollFrameRef.current);
+    if (scrollSettleRef.current !== null) clearTimeout(scrollSettleRef.current);
   }, []);
 
   const handleScroll = () => {
     if (!window.matchMedia('(max-width: 760px)').matches || scrollFrameRef.current !== null) return;
     scrollFrameRef.current = requestAnimationFrame(() => {
       scrollFrameRef.current = null;
+      if (scrollSettleRef.current !== null) clearTimeout(scrollSettleRef.current);
+      scrollSettleRef.current = setTimeout(() => {
+        scrollSettleRef.current = null;
+        if (programmaticScrollRef.current) {
+          programmaticScrollRef.current = false;
+          return;
+        }
       const track = trackRef.current;
       if (!track) return;
       const center = track.scrollLeft + track.clientWidth / 2;
@@ -82,13 +100,29 @@ export default function AcronymToggleGroup({ active, onSelect, onMobileSelect, o
           nearestDistance = distance;
         }
       });
-      if (nearest !== active) onMobileSelect(nearest);
+        if (nearest !== activeRef.current) onMobileSelect(nearest);
+      }, 120);
     });
+  };
+
+  const handlePointerEnter = (event: PointerEvent<HTMLButtonElement>, index: AcronymIndex) => {
+    if (event.pointerType === 'mouse') onHover(index);
+  };
+
+  const handlePointerLeave = (event: PointerEvent<HTMLButtonElement>) => {
+    if (event.pointerType === 'mouse') onHoverEnd();
   };
 
   return (
     <div className="maiq-about-carousel">
-      <div ref={trackRef} className="maiq-about-cards" role="tablist" aria-label="Acrônimos do nome Maiq" onScroll={handleScroll}>
+      <div
+        ref={trackRef}
+        className="maiq-about-cards"
+        role="tablist"
+        aria-label="Acrônimos do nome Maiq"
+        onPointerDown={() => { programmaticScrollRef.current = false; }}
+        onScroll={handleScroll}
+      >
         {CARDS.map((card, index) => {
           const acronymIndex = index as AcronymIndex;
           const selected = acronymIndex === active;
@@ -101,8 +135,8 @@ export default function AcronymToggleGroup({ active, onSelect, onMobileSelect, o
               aria-selected={selected}
               className="maiq-about-card"
               onClick={() => onSelect(acronymIndex)}
-              onMouseEnter={() => onHover(acronymIndex)}
-              onMouseLeave={onHoverEnd}
+              onPointerEnter={(event) => handlePointerEnter(event, acronymIndex)}
+              onPointerLeave={handlePointerLeave}
             >
               <span className="maiq-about-card-acronym">{card.acronym}</span>
               <span className="maiq-about-card-body">

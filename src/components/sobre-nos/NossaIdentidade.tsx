@@ -80,7 +80,7 @@ export default function NossaIdentidade() {
       <AcronymToggleGroup
         active={active}
         onSelect={handleSelect}
-        onMobileSelect={setActive}
+        onMobileSelect={handleSelect}
         onHover={handleHover}
         onHoverEnd={handleHoverEnd}
       />
