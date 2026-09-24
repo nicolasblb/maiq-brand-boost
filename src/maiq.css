@@ -1334,9 +1334,10 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 
   .maiq-about-section{gap:56px}
   .maiq-about-carousel{width:calc(100% + 48px);margin:0 -24px;overflow:hidden}
-  .maiq-about-cards{display:flex;gap:14px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scroll-padding-inline:24px;padding:4px 24px 18px;scrollbar-width:none}
+  .maiq-about-cards{display:flex;gap:14px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scroll-padding-inline:24px;padding:18px 24px 24px;scrollbar-width:none;touch-action:pan-x pan-y}
   .maiq-about-cards::-webkit-scrollbar{display:none}
-  .maiq-about-card{flex:0 0 calc(100% - 48px);min-height:230px;padding:28px 24px;scroll-snap-align:center;scroll-snap-stop:always}
+  .maiq-about-card{flex:0 0 calc(100% - 48px);min-height:230px;padding:28px 24px;scroll-snap-align:center;scroll-snap-stop:always;transform:none}
+  .maiq-about-card[aria-selected="true"]{transform:none;box-shadow:0 0 0 1px color-mix(in oklab,var(--highlight) 42%,transparent),0 0 16px color-mix(in oklab,var(--highlight) 28%,transparent),0 0 32px color-mix(in oklab,var(--highlight) 14%,transparent)}
   .maiq-about-card-name{font-size:22px}
   .maiq-about-card-desc{max-width:25ch}
   .maiq-about-carousel-dots{display:flex;align-items:center;justify-content:center;gap:9px;margin-top:4px}
