@@ -63,7 +63,13 @@ export default function SiteHeader({
   // sempre renderizados aqui para que a troca de layout seja só CSS.
   const compactMenuItems = [
     { key: COMPACT_KEY_ENTRAR, label: user ? 'Conta' : 'Entrar', mobileOnly: true },
-    { key: COMPACT_KEY_FALE_CONOSCO, label: 'Fale Conosco', mobileOnly: true, separatorAfter: true },
+    {
+      key: COMPACT_KEY_FALE_CONOSCO,
+      label: 'Fale Conosco',
+      mobileOnly: true,
+      separatorAfter: true,
+      separatorVariant: 'fade' as const,
+    },
     ...SECOES.map((s, i) =>
       i === SECOES.length - 1
         ? { key: s.id, label: s.label, separatorAfter: true, separatorVariant: 'fade' as const }

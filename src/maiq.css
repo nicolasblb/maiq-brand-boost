@@ -733,8 +733,8 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 .maiq-nav-dropdown-item:hover,.maiq-nav-dropdown-item:focus-visible{color:var(--p-text)!important;background:var(--p-chip-bg-strong)!important}
 .maiq-platform-ciclo-bg{background:linear-gradient(180deg,var(--p-platform-block-edge) 0%,var(--p-platform-block-center) 50%,var(--p-platform-block-edge) 100%);transition:background var(--dur-3) var(--ease-out)}
 .maiq-platform-transition{background:var(--p-platform-block-edge)}
-.maiq-scroll-stack{position:relative;z-index:1;background:var(--p-platform-block-edge)}
-.maiq-platform-base{position:sticky;z-index:0;overflow:clip}
+.maiq-scroll-stack{position:relative;z-index:1;background:var(--p-bg)}
+.maiq-platform-base{position:sticky;z-index:0;overflow:clip;border-radius:24px 24px 0 0}
 .maiq-primary-overlay{position:relative;z-index:2;overflow:clip;border:1px solid var(--p-hair);border-radius:24px;background:var(--p-bg);box-shadow:var(--p-overlay-shadow),0 30px 60px -18px color-mix(in oklab,var(--p-bg-deep) 72%,transparent);transition:background var(--dur-3) var(--ease-out)}
 .maiq-platform-hold{position:relative;z-index:0;pointer-events:none}
 .maiq-final-reveal-stage{position:relative;z-index:3}
@@ -944,6 +944,8 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 /* Vídeos quadrados exibidos inteiros (contain): o fundo da caixa usa a mesma cor da borda
    dos vídeos (--p-plat-video-bg), então as sobras laterais não aparecem como faixa. */
 .maiq-platform-video{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:contain}
+.maiq-platform-modal-media .maiq-platform-video,
+.maiq-conviction-modal-media .maiq-conviction-video{inset:-1px;width:calc(100% + 2px);height:calc(100% + 2px)}
 /* ≤1023px: o preview mostra só uma faixa central do vídeo (cover) em vez de uma
    miniatura ilegível — convite para a tela cheia, onde o vídeo aparece inteiro. */
 @media (max-width:1023px){
@@ -1086,6 +1088,14 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
      girando; desligar aqui não muda nada que se veja. */
   .maiq-platform-modal-overlay{backdrop-filter:none}
 }
+/* Quando o aparelho gira de verdade, não há rotação CSS: o modal recompõe a
+   experiência em paisagem e ocupa o viewport nativo. */
+@media (orientation:landscape) and (max-height:500px) and (pointer:coarse){
+  .maiq-platform-modal{inset:0;max-width:none;margin:0;border:none;border-radius:0}
+  .maiq-platform-modal-layout{grid-template-columns:minmax(0,1.65fr) minmax(260px,.7fr);grid-template-rows:none}
+  .maiq-platform-modal-copy{padding:24px;border-top:0;border-left:1px solid var(--p-hair)}
+  .maiq-platform-rotate-hint{display:none}
+}
 @media (prefers-reduced-motion:reduce){
   .maiq-platform-line-progress,.maiq-platform-line-divider,.maiq-platform-tab{transition:none!important}
   .maiq-platform-copy-inner,.maiq-platform-modal,.maiq-platform-modal-overlay{animation:none!important}
@@ -1153,6 +1163,8 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
   .maiq-site-nav{display:none !important}
   .maiq-site-theme-toggle-wrap{display:none !important}
   .maiq-site-header-compact{display:flex !important}
+  .maiq-nav-dropdown-item{color:#FFFFFF}
+  [data-theme="claro"] .maiq-nav-dropdown-item{color:var(--p-text)}
 }
 @media(max-width:640px){
   .maiq-site-header{padding:0 8px 0 14px;height:56px;max-width:calc(100vw - 16px)}
@@ -1271,6 +1283,7 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 .maiq-about-meta-value{font-size:32px;line-height:1.1;font-weight:600;letter-spacing:-.01em;color:var(--text-primary)}
 .maiq-about-meta-note{font-size:14px;color:var(--text-muted)}
 
+.maiq-about-carousel{min-width:0}
 .maiq-about-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
 .maiq-about-card{all:unset;box-sizing:border-box;cursor:pointer;display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px;padding:24px 28px;border-radius:16px;border:1px solid var(--border-hair);background:transparent;transition:background 320ms cubic-bezier(.16,1,.3,1),border-color 320ms cubic-bezier(.16,1,.3,1),box-shadow 320ms cubic-bezier(.16,1,.3,1),transform 320ms cubic-bezier(.16,1,.3,1)}
 .maiq-about-card[aria-selected="true"]{border-color:var(--border-strong-c);background:var(--surface-card);transform:translateY(-2px);box-shadow:0 0 0 1px color-mix(in oklab,var(--highlight) 35%,transparent),0 0 18px color-mix(in oklab,var(--highlight) 22%,transparent),0 0 44px color-mix(in oklab,var(--highlight) 10%,transparent)}
@@ -1280,6 +1293,7 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 .maiq-about-card-name{font-size:20px;font-weight:600;line-height:1.3;color:var(--text-primary)}
 .maiq-about-card-name em{font-style:normal;text-decoration:underline;text-decoration-color:var(--border-focus);text-decoration-thickness:2px;text-underline-offset:5px}
 .maiq-about-card-desc{font-size:15px;line-height:1.55;color:var(--text-secondary);text-wrap:pretty}
+.maiq-about-carousel-dots{display:none}
 
 .maiq-about-quote{position:relative;max-width:760px;width:100%;margin:0 auto;padding:24px 0 0;box-sizing:border-box;display:flex;flex-direction:column;gap:24px}
 .maiq-about-quote-mark{position:absolute;font-size:200px;line-height:1;font-weight:600;color:var(--border-mid);user-select:none}
@@ -1304,6 +1318,30 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
   .maiq-about-quote-mark{font-size:clamp(96px,22vw,120px)}
   .maiq-about-quote-mark--open{left:-16px;top:-8px}
   .maiq-about-quote-mark--close{right:-16px;bottom:-8px}
+}
+
+@media(max-width:760px){
+  .maiq-model-section{padding-right:24px!important;padding-left:24px!important}
+  .maiq-model-tools-row{flex-wrap:nowrap!important;gap:12px!important;padding-right:12px!important;padding-left:12px!important}
+  .maiq-model-tools-row img{width:auto!important;height:18px!important;min-width:0;flex:0 1 auto}
+  [data-maiq-odo-row]{gap:12px!important}
+  [data-maiq-odo-row]>div{min-width:0;gap:10px!important}
+  [data-maiq-odo-row]>div>div:first-child{min-width:0;font-size:clamp(25px,8vw,34px)!important;letter-spacing:0!important}
+  [data-maiq-odo-row]>div>div:last-child{overflow-wrap:anywhere;font-size:10px!important;line-height:1.45;letter-spacing:.08em!important}
+  .maiq-odometer{max-width:100%;align-items:baseline}
+  .maiq-odometer-prefix{flex:none;margin-right:.08em}
+  .maiq-odometer-digits{min-width:0}
+
+  .maiq-about-section{gap:56px}
+  .maiq-about-carousel{width:calc(100% + 48px);margin:0 -24px;overflow:hidden}
+  .maiq-about-cards{display:flex;gap:14px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scroll-padding-inline:24px;padding:4px 24px 18px;scrollbar-width:none}
+  .maiq-about-cards::-webkit-scrollbar{display:none}
+  .maiq-about-card{flex:0 0 calc(100% - 48px);min-height:230px;padding:28px 24px;scroll-snap-align:center;scroll-snap-stop:always}
+  .maiq-about-card-name{font-size:22px}
+  .maiq-about-card-desc{max-width:25ch}
+  .maiq-about-carousel-dots{display:flex;align-items:center;justify-content:center;gap:9px;margin-top:4px}
+  .maiq-about-carousel-dots button{width:7px;height:7px;padding:0;border:0;border-radius:50%;background:var(--border-mid);cursor:pointer;transition:width 240ms var(--ease-out),border-radius 240ms var(--ease-out),background 240ms var(--ease-out)}
+  .maiq-about-carousel-dots button[aria-current="true"]{width:26px;border-radius:var(--radius-pill);background:var(--highlight);box-shadow:0 0 12px color-mix(in oklab,var(--highlight) 34%,transparent)}
 }
 
 @media(prefers-reduced-motion:reduce){

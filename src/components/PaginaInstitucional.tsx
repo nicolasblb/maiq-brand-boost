@@ -492,8 +492,9 @@ export default function PaginaInstitucional() {
         net.style.top = '0px';
         const primary = overlayRef.current;
         const hold = platformHoldRef.current;
-        if (primary) primary.style.marginTop = `${-net.offsetHeight}px`;
-        if (hold) hold.style.height = `${net.offsetHeight}px`;
+        const netHeight = Math.ceil(net.getBoundingClientRect().height);
+        if (primary) primary.style.marginTop = `${-netHeight}px`;
+        if (hold) hold.style.height = `${netHeight}px`;
       };
       S._fitNet();
       window.addEventListener('resize', S._fitNet);
@@ -510,8 +511,9 @@ export default function PaginaInstitucional() {
         final.style.top = '0px';
         const middle = overlay2Ref.current;
         const hold = finalHoldRef.current;
-        if (middle) middle.style.marginTop = `${-final.offsetHeight}px`;
-        if (hold) hold.style.height = `${final.offsetHeight}px`;
+        const finalHeight = Math.ceil(final.getBoundingClientRect().height);
+        if (middle) middle.style.marginTop = `${-finalHeight}px`;
+        if (hold) hold.style.height = `${finalHeight}px`;
       };
       S._fitFinal();
       window.addEventListener('resize', S._fitFinal);
