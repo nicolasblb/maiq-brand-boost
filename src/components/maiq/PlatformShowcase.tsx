@@ -1,11 +1,28 @@
 import * as DialogPrimitive from '@radix-ui/react-dialog';
-import { ChevronLeft, ChevronRight, Maximize2, Minimize2, Pause, Play } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Maximize2, Minimize2, Pause, Play, RotateCw } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 
 import MaiqButton from '@/components/maiq/MaiqButton';
-import VdrEmbed from '@/components/maiq/vdr/VdrEmbed';
+import etapasClaro from '@/assets/plataforma/plataforma-etapas-claro.mp4';
+import etapasNoite from '@/assets/plataforma/plataforma-etapas-noite.mp4';
+import iaClaro from '@/assets/plataforma/plataforma-ia-claro.mp4';
+import iaNoite from '@/assets/plataforma/plataforma-ia-noite.mp4';
+import salaClaro from '@/assets/plataforma/plataforma-sala-de-dados-claro.mp4';
+import salaNoite from '@/assets/plataforma/plataforma-sala-de-dados-noite.mp4';
+import tesesClaro from '@/assets/plataforma/plataforma-teses-claro.mp4';
+import tesesNoite from '@/assets/plataforma/plataforma-teses-noite.mp4';
 
 const FEATURE_DURATION = 15;
+// Chave de sessão para a dica "Gire o aparelho" (fullscreen rotacionado do
+// modal em celular portrait) não repetir a cada reabertura na mesma sessão —
+// mesmo padrão de .maiq-conviction-modal em ConvictionScene.tsx.
+const ROTATE_HINT_STORAGE_KEY = 'maiq-platform-rotate-hint-seen';
+const ROTATE_HINT_VISIBLE_MS = 2500;
+const ROTATE_HINT_FADE_BUFFER_MS = 220;
+const NARROW_PORTRAIT_QUERY = '(max-width:800px) and (orientation:portrait)';
+// Abaixo de 1024px o vídeo fica numa faixa estreita sob o texto; tocar nele
+// abre o modal de tela cheia (o botão Maximizar continua disponível).
+const TAP_TO_EXPAND_QUERY = '(max-width:1023px)';
 
 const FEATURES = [
   {
@@ -16,7 +33,7 @@ const FEATURES = [
       'Assistente de IA treinada especificamente para Fusões e Aquisições',
       'Agregação de diversas tecnologias para contexto mais acurado',
     ],
-    visual: 'circle',
+    video: { noite: iaNoite, claro: iaClaro },
   },
   {
     name: 'Teses de Investimento',
@@ -25,7 +42,7 @@ const FEATURES = [
       'Desenhe seus objetivos de M&A e conecte com a estratégia do seu negócio',
       'Crie múltiplos cenários: possíveis compradores, investidores ou concorrentes para aquisição',
     ],
-    visual: 'rings',
+    video: { noite: tesesNoite, claro: tesesClaro },
   },
   {
     name: 'Etapas do M&A',
@@ -35,7 +52,7 @@ const FEATURES = [
       'Ferramenta de análise de documentos',
       'Gerador de apresentações com uso de IA',
     ],
-    visual: 'diamond',
+    video: { noite: etapasNoite, claro: etapasClaro },
   },
   {
     name: 'Virtual Data Room',
@@ -44,7 +61,7 @@ const FEATURES = [
       'Segurança para dividir e acessar arquivos',
       'Rastreabilidade, controle e auditoria de todos os documentos compartilhados',
     ],
-    visual: 'vdr',
+    video: { noite: salaNoite, claro: salaClaro },
   },
 ] as const;
 
@@ -85,16 +102,56 @@ function PlaybackButton({ playing, progress, onClick }: { playing: boolean; prog
   );
 }
 
-function MediaVisual({ index, playing, run, time }: { index: number; playing: boolean; run: number; time: number }) {
-  const feature = FEATURES[index];
-  if (!feature) return null;
-  if (feature.visual === 'vdr') {
-    return <VdrEmbed playing={playing} resetSignal={run} time={time} />;
-  }
-  if (feature.visual === 'circle') return <div className="maiq-platform-placeholder maiq-platform-placeholder-circle" data-playing={playing} />;
-  if (feature.visual === 'diamond') return <div className="maiq-platform-placeholder maiq-platform-placeholder-diamond" data-playing={playing} />;
-  if (feature.visual === 'rings') return <div className="maiq-platform-placeholder maiq-platform-placeholder-rings" data-playing={playing}><i /><i /><i /></div>;
-  return <div className="maiq-platform-placeholder maiq-platform-placeholder-circle" data-playing={playing} />;
+// Vídeo da funcionalidade ativa. Os vídeos têm exatamente FEATURE_DURATION
+// segundos, então o timer da aba segue sendo a referência: ao montar (card ↔
+// modal), trocar de tema ou reiniciar, o vídeo é posicionado no tempo do timer
+// e depois apenas acompanha play/pause.
+function MediaVisual({ src, playing, run, time, onExpand }: { src: string; playing: boolean; run: number; time: number; onExpand?: () => void }) {
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const timeRef = useRef(time);
+  timeRef.current = time;
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    const sync = () => {
+      const limit = (Number.isFinite(video.duration) ? video.duration : FEATURE_DURATION) - 0.05;
+      video.currentTime = Math.max(0, Math.min(timeRef.current, limit));
+    };
+    if (video.readyState >= 1) {
+      sync();
+      return;
+    }
+    video.addEventListener('loadedmetadata', sync, { once: true });
+    return () => video.removeEventListener('loadedmetadata', sync);
+  }, [src, run]);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    if (playing) {
+      // Autoplay mudo é permitido; a rejeição (ex.: economia de dados) só deixa o quadro parado.
+      video.play().catch(() => {});
+    } else {
+      video.pause();
+    }
+  }, [playing, src, run]);
+
+  return (
+    <video
+      key={src}
+      ref={videoRef}
+      className="maiq-platform-video"
+      src={src}
+      muted
+      playsInline
+      loop
+      preload="auto"
+      aria-hidden="true"
+      data-expandable={onExpand ? 'true' : undefined}
+      onClick={onExpand}
+    />
+  );
 }
 
 export default function PlatformShowcase() {
@@ -105,12 +162,16 @@ export default function PlatformShowcase() {
   const [active, setActive] = useState(0);
   const [hovered, setHovered] = useState(false);
   const [visible, setVisible] = useState(true);
+  const [mediaArmed, setMediaArmed] = useState(false);
+  const [themeReady, setThemeReady] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [playing, setPlaying] = useState(true);
   const [progress, setProgress] = useState(0);
   const [run, setRun] = useState(0);
   const [navProgress, setNavProgress] = useState(0);
   const [navSettling, setNavSettling] = useState(false);
+  const [rotateHintMounted, setRotateHintMounted] = useState(false);
+  const [rotateHintShown, setRotateHintShown] = useState(false);
   const progressRef = useRef(0);
   const segmentProgressRef = useRef(0);
   const mediaLastRef = useRef<number | null>(null);
@@ -118,6 +179,7 @@ export default function PlatformShowcase() {
   const feature = FEATURES[active] ?? FEATURES[0];
   const timerPaused = hovered || !visible || modalOpen;
   const mediaPlaying = playing && visible;
+  const videoSrc = feature.video[theme];
 
   const restartMedia = (index: number) => {
     setActive(index);
@@ -145,6 +207,44 @@ export default function PlatformShowcase() {
     return () => observer.disconnect();
   }, []);
 
+  // O vídeo só é montado (e baixado) quando a seção se aproxima da tela — não
+  // disputa banda com o carregamento inicial da página.
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!root) return;
+    if (!window.IntersectionObserver) {
+      setMediaArmed(true);
+      return;
+    }
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry?.isIntersecting) return;
+      setMediaArmed(true);
+      observer.disconnect();
+    }, { rootMargin: '100% 0px' });
+    observer.observe(root);
+    return () => observer.disconnect();
+  }, []);
+
+  // Tema acompanhado continuamente (não só ao abrir o modal): cada tema tem seu vídeo.
+  // data-theme-ready marca que o useMaiqTheme já aplicou o tema real; antes disso o
+  // escopo mostra o 'noite' provisório do SSR, e montar o vídeo ali baixaria o do
+  // tema errado. Sem escopo (uso fora da home), segue sem esperar.
+  useEffect(() => {
+    const scope = rootRef.current?.closest('[data-maiq-scope]');
+    if (!scope) {
+      setThemeReady(true);
+      return;
+    }
+    const read = () => {
+      setTheme(scope.getAttribute('data-theme') === 'claro' ? 'claro' : 'noite');
+      setThemeReady(scope.hasAttribute('data-theme-ready'));
+    };
+    read();
+    const observer = new MutationObserver(read);
+    observer.observe(scope, { attributes: true, attributeFilter: ['data-theme', 'data-theme-ready'] });
+    return () => observer.disconnect();
+  }, []);
+
   useEffect(() => {
     if (!navSettling) return;
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -159,6 +259,43 @@ export default function PlatformShowcase() {
     const left = tab.offsetLeft - (viewport.clientWidth - tab.offsetWidth) / 2;
     viewport.scrollTo({ left: Math.max(0, left), behavior: 'smooth' });
   }, [active]);
+
+  // Dica "Gire o aparelho": só na primeira vez que o modal abre em celular
+  // portrait (mesma condição da rotação CSS), e só uma vez por sessão.
+  useEffect(() => {
+    if (!modalOpen) {
+      setRotateHintMounted(false);
+      setRotateHintShown(false);
+      return;
+    }
+    if (typeof window === 'undefined') return;
+    if (!window.matchMedia(NARROW_PORTRAIT_QUERY).matches) return;
+    let alreadySeen = false;
+    try {
+      alreadySeen = window.sessionStorage.getItem(ROTATE_HINT_STORAGE_KEY) === '1';
+    } catch {
+      alreadySeen = false;
+    }
+    if (alreadySeen) return;
+    try {
+      window.sessionStorage.setItem(ROTATE_HINT_STORAGE_KEY, '1');
+    } catch {
+      // sessionStorage indisponível (ex.: modo privado) — pior caso é a dica
+      // reaparecer em reaberturas na mesma sessão, sem impacto funcional.
+    }
+    setRotateHintMounted(true);
+    const showFrame = window.requestAnimationFrame(() => setRotateHintShown(true));
+    const hideTimer = window.setTimeout(() => setRotateHintShown(false), ROTATE_HINT_VISIBLE_MS);
+    const unmountTimer = window.setTimeout(
+      () => setRotateHintMounted(false),
+      ROTATE_HINT_VISIBLE_MS + ROTATE_HINT_FADE_BUFFER_MS,
+    );
+    return () => {
+      window.cancelAnimationFrame(showFrame);
+      window.clearTimeout(hideTimer);
+      window.clearTimeout(unmountTimer);
+    };
+  }, [modalOpen]);
 
   useEffect(() => {
     if (timerPaused) {
@@ -201,14 +338,14 @@ export default function PlatformShowcase() {
     let raf = 0;
     const tick = (now: number) => {
       if (mediaLastRef.current == null) mediaLastRef.current = now;
-      const next = Math.min(1, progressRef.current + (now - mediaLastRef.current) / (FEATURE_DURATION * 1000));
+      let next = progressRef.current + (now - mediaLastRef.current) / (FEATURE_DURATION * 1000);
       mediaLastRef.current = now;
+      // Loop: quando a aba não avança sozinha (mouse sobre o card ou modal
+      // aberto), o vídeo recomeça — o <video loop> faz isso nativamente e o
+      // progresso só dá a volta junto, sem seek.
+      if (next >= 1) next -= 1;
       progressRef.current = next;
       setProgress(next);
-      if (next >= 1) {
-        setPlaying(false);
-        return;
-      }
       raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
@@ -227,9 +364,11 @@ export default function PlatformShowcase() {
   };
 
   const openModal = () => {
-    const scope = rootRef.current?.closest('[data-maiq-scope]');
-    setTheme(scope?.getAttribute('data-theme') === 'claro' ? 'claro' : 'noite');
     setModalOpen(true);
+  };
+
+  const expandFromTap = () => {
+    if (window.matchMedia(TAP_TO_EXPAND_QUERY).matches) openModal();
   };
 
   const closeModal = () => {
@@ -293,15 +432,15 @@ export default function PlatformShowcase() {
       </div>
 
       <div className="maiq-platform-card">
-        <div className="maiq-platform-media" onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
-          {!modalOpen ? <MediaVisual index={active} playing={mediaPlaying} run={run} time={progress * FEATURE_DURATION} /> : null}
-          {mediaControls(false)}
-        </div>
         <div className="maiq-platform-copy" onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
           <div key={active} className="maiq-platform-copy-inner">
             <h3>{feature.title}</h3>
             <FeaturePoints points={feature.points} />
           </div>
+        </div>
+        <div className="maiq-platform-media" onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
+          {!modalOpen && mediaArmed && themeReady ? <MediaVisual src={videoSrc} playing={mediaPlaying} run={run} time={progress * FEATURE_DURATION} onExpand={expandFromTap} /> : null}
+          {mediaControls(false)}
         </div>
       </div>
 
@@ -312,7 +451,7 @@ export default function PlatformShowcase() {
             <DialogPrimitive.Title className="maiq-platform-modal-title">{feature.name}</DialogPrimitive.Title>
             <div className="maiq-platform-modal-layout">
               <div className="maiq-platform-modal-media">
-                {modalOpen ? <MediaVisual index={active} playing={mediaPlaying} run={run} time={progress * FEATURE_DURATION} /> : null}
+                {modalOpen ? <MediaVisual src={videoSrc} playing={mediaPlaying} run={run} time={progress * FEATURE_DURATION} /> : null}
                 {mediaControls(true)}
               </div>
               <div className="maiq-platform-modal-copy">
@@ -326,6 +465,12 @@ export default function PlatformShowcase() {
                 </div>
               </div>
             </div>
+            {rotateHintMounted ? (
+              <div className="maiq-platform-rotate-hint" data-visible={rotateHintShown} role="status">
+                <RotateCw size={15} aria-hidden="true" />
+                <span>Gire o aparelho</span>
+              </div>
+            ) : null}
           </DialogPrimitive.Content>
         </DialogPrimitive.Portal>
       </DialogPrimitive.Root>

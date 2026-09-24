@@ -1,4 +1,5 @@
 import ConvictionScene from '@/components/maiq/ConvictionScene';
+import TeamMarquee from '@/components/maiq/TeamMarquee';
 
 export default function Conviccao() {
   return (
@@ -14,7 +15,7 @@ export default function Conviccao() {
         <div className="maiq-conviction-body">
           <div className="maiq-conviction-lede">
             <p>
-              Se feita da maneira correta, como disciplina contínua, um M&amp;A pode criar valor
+              Se feita da maneira correta, como disciplina contínua, um M&A pode criar valor
               incomparável e acelerar o caminho de uma companhia.
             </p>
             <p>
@@ -27,6 +28,7 @@ export default function Conviccao() {
           </div>
           <ConvictionScene />
         </div>
+        <TeamMarquee />
       </div>
     </section>
   );

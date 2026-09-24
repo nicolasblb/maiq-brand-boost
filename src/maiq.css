@@ -130,7 +130,7 @@
   --shadow-1:0 1px 2px rgba(7,24,23,.45);
   --shadow-2:0 8px 24px -10px rgba(7,24,23,.60);
   --shadow-3:0 24px 64px -20px rgba(7,24,23,.70);
-  --shadow-inset-hairline:inset 0 1px 0 rgba(255,255,255,.06);
+  --shadow-inset-hairline:inset 0 1px 0 rgba(234,217,204,.06);
   --glow-focus:0 0 0 3px rgba(159,214,210,.32);
 
   --scrim-top:linear-gradient(180deg,rgba(9,32,31,.85) 0%,rgba(9,32,31,0) 100%); /* @kind other */
@@ -154,39 +154,39 @@
 /* --- tokens/semantic.css --- */
 /* Default scope is the DARK palette (Paleta Escura, 6pm–6am). */
 [data-maiq-scope]{
-  --bg-page:#143937;
-  --bg-page-deep:#0F2B2A;
-  --bg-elevated:#1F5956;
-  --surface-card:#1C5250;
-  --surface-card-hover:#246562;
-  --surface-inset:#113331;
+  --bg-page:#143737;
+  --bg-page-deep:#0B2120;
+  --bg-elevated:#1A4443;
+  --surface-card:#17403E;
+  --surface-card-hover:#1F5956;
+  --surface-inset:#102E2D;
   --surface-accent:#308984;
 
-  --text-primary:#FFFFFF;
+  --text-primary:#DFF4F3;
   --text-secondary:#AFE3E0;
-  --text-muted:#9FD6D2;
-  --text-inverse:#143937;
+  --text-muted:#8FBAB6;
+  --text-inverse:#143737;
   --text-on-accent:#FFFFFF;
 
-  --border-hair:rgba(159,214,210,.18);
-  --border-mid:rgba(159,214,210,.30);
-  --border-strong-c:rgba(175,227,224,.48);
-  --border-focus:#9FD6D2;
+  --border-hair:rgba(175,227,224,.16);
+  --border-mid:rgba(175,227,224,.26);
+  --border-strong-c:rgba(175,227,224,.45);
+  --border-focus:#5FC7C1;
 
-  --action-primary-bg:#FFFFFF;
-  --action-primary-fg:#143937;
-  --action-primary-bg-hover:#DFF4F3;
-  --action-primary-bg-active:#AFE3E0;
+  --action-primary-bg:#5FC7C1;
+  --action-primary-fg:#0B2120;
+  --action-primary-bg-hover:#8AD8D3;
+  --action-primary-bg-active:#3FA49E;
   --action-secondary-bg:transparent;
-  --action-secondary-fg:#FFFFFF;
-  --action-secondary-border:rgba(255,255,255,.42);
+  --action-secondary-fg:#DFF4F3;
+  --action-secondary-border:rgba(175,227,224,.45);
   --action-ghost-fg:#AFE3E0;
-  --action-ghost-bg-hover:rgba(255,255,255,.08);
+  --action-ghost-bg-hover:rgba(175,227,224,.10);
   --action-accent-bg:#308984;
   --action-accent-fg:#FFFFFF;
 
-  --highlight:#BF8D65;
-  --link:#FFFFFF;
+  --highlight:#FFFFFF;
+  --link:#AFE3E0;
   --link-hover:#FFFFFF;
 
   --state-positive:#4E8F6E;
@@ -197,55 +197,55 @@
 /* LIGHT palette (Paleta Clara, 6am–6pm) */
 [data-maiq-scope][data-theme="claro"]{
   --bg-page:#EAD9CC;
-  --bg-page-deep:#DEC7B2;
-  --bg-elevated:#F3E7DE;
-  --surface-card:#F9F1EA;
+  --bg-page-deep:#DFC7B4;
+  --bg-elevated:#F2E6DC;
+  --surface-card:#F7EFE8;
   --surface-card-hover:#FFFFFF;
-  --surface-inset:#E3CFBC;
-  --surface-accent:#308984;
+  --surface-inset:#E3D0C0;
+  --surface-accent:#68462B;
 
-  --text-primary:#143937;
-  --text-secondary:#308984;
-  --text-muted:#8A6038;
+  --text-primary:#342316;
+  --text-secondary:#4E3520;
+  --text-muted:#8A5F3C;
   --text-inverse:#EAD9CC;
-  --text-on-accent:#F3E7DE;
+  --text-on-accent:#F2E6DC;
 
-  --border-hair:rgba(104,70,43,.16);
-  --border-mid:rgba(104,70,43,.26);
-  --border-strong-c:rgba(104,70,43,.44);
-  --border-focus:#8A6038;
+  --border-hair:rgba(52,35,22,.14);
+  --border-mid:rgba(52,35,22,.22);
+  --border-strong-c:rgba(52,35,22,.40);
+  --border-focus:#8A5F3C;
 
-  --action-primary-bg:#143937;
-  --action-primary-fg:#EAD9CC;
-  --action-primary-bg-hover:#1F5956;
-  --action-primary-bg-active:#0F2B2A;
+  --action-primary-bg:#342316;
+  --action-primary-fg:#F2E6DC;
+  --action-primary-bg-hover:#4E3520;
+  --action-primary-bg-active:#241810;
   --action-secondary-bg:transparent;
-  --action-secondary-fg:#143937;
-  --action-secondary-border:rgba(20,57,55,.40);
-  --action-ghost-fg:#308984;
-  --action-ghost-bg-hover:rgba(20,57,55,.06);
-  --action-accent-bg:#308984;
-  --action-accent-fg:#F3E7DE;
+  --action-secondary-fg:#342316;
+  --action-secondary-border:rgba(52,35,22,.40);
+  --action-ghost-fg:#4E3520;
+  --action-ghost-bg-hover:rgba(52,35,22,.06);
+  --action-accent-bg:#68462B;
+  --action-accent-fg:#F2E6DC;
 
-  --highlight:#68462B;
-  --link:#143937;
-  --link-hover:#308984;
+  --highlight:#8A5F3C;
+  --link:#4E3520;
+  --link-hover:#8A5F3C;
 
-  --shadow-1:0 1px 2px rgba(20,57,55,.10);
-  --shadow-2:0 10px 28px -14px rgba(20,57,55,.22);
-  --shadow-3:0 28px 70px -26px rgba(20,57,55,.28);
-  --glow-focus:0 0 0 3px rgba(48,137,132,.28);
+  --shadow-1:0 1px 2px rgba(52,35,22,.10);
+  --shadow-2:0 10px 28px -14px rgba(52,35,22,.22);
+  --shadow-3:0 28px 70px -26px rgba(52,35,22,.28);
+  --glow-focus:0 0 0 3px rgba(138,95,60,.28);
 }
 
 /* --- estilos globais da pagina (helmet do original) --- */
-body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,.3,1)}a{color:#FFFFFF;text-decoration:none}a:hover{color:#FFFFFF}
+body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,.3,1)}a{color:#EAD9CC;text-decoration:none}a:hover{color:var(--p-text,#FFFFFF)}
 [data-maiq-scope]{
---p-bg:#0F2B2A;--p-hero-bg:#143937;--p-card:#1F5956;--p-footer-bg:#09201F;--p-bg-deep:#09201F;--p-tool-filter:brightness(0) invert(1);--p-helix:rgba(159,214,210,.6);--p-helix-hi:rgba(255,255,255,.92);--p-helix-dim:rgba(159,214,210,.16);
+--p-bg:#0F2B2A;--p-hero-bg:#143937;--p-card:#1F5956;--p-footer-bg:#09201F;--p-bg-deep:#09201F;--p-plat-video-bg:#153738;--p-tool-filter:brightness(0) invert(1);--p-helix:rgba(159,214,210,.6);--p-helix-hi:rgba(255,255,255,.92);--p-helix-dim:rgba(159,214,210,.16);
 --p-model-base:#09201F;--p-model-edge:rgba(48,137,132,.42);--p-model-core:rgba(159,214,210,.30);--p-model-wave:rgba(223,244,243,.18);
 --p-model-block-edge:#0F2B2A;--p-model-block-center:#143937;--p-platform-block-edge:#143937;--p-platform-block-center:#09201F;--p-divider-solid:#3E9B95;
---p-text:#FFFFFF;--p-text-2:#AFE3E0;--p-muted:#9FD6D2;--p-subhead:#FFFFFF;--p-hero-text:#FFFFFF;--p-hover-text:#FFFFFF;
+--p-text:#FFFFFF;--p-text-2:#AFE3E0;--p-muted:#9FD6D2;--p-subhead:#FFFFFF;
 --p-hair:rgba(159,214,210,.22);--p-hair-soft:rgba(159,214,210,.12);--p-mid:rgba(159,214,210,.34);
---p-chip-bg:rgba(255,255,255,.04);--p-chip-bg-strong:rgba(255,255,255,.13);--p-ring:#DFF4F3;--p-ring-glow:rgba(223,244,243,.40);--p-net-ink:159,214,210;--p-net-neb:48,137,132;--p-net-op:.70;--p-net-blend:lighter;--p-plat-veil:rgba(9,32,31,.46);--p-chip-text:#FFFFFF;
+--p-chip-bg:rgba(159,214,210,.05);--p-chip-bg-strong:rgba(159,214,210,.16);--p-ring:#DFF4F3;--p-ring-glow:rgba(223,244,243,.40);--p-net-ink:159,214,210;--p-net-neb:48,137,132;--p-net-op:.70;--p-net-blend:lighter;--p-plat-veil:rgba(9,32,31,.46);--p-chip-text:#DFF4F3;
 --p-header-bg:rgba(20,57,55,.72);--p-header-shadow:0 10px 40px rgba(6,22,21,.35);
 --p-orb:rgba(159,214,210,.54);--p-orb-2:rgba(159,214,210,.20);--p-orb-0:rgba(159,214,210,0);--p-flash:rgba(223,244,243,.95);--p-flash-2:rgba(223,244,243,.34);
 --p-core-blend:plus-lighter;--p-halo-blend:plus-lighter;--p-shade-blend:normal;
@@ -261,10 +261,10 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 --p-band-vol-accent:rgba(48,137,132,.16);--p-band-vol-accent-2:rgba(48,137,132,.05);
 --p-band-vol-light:rgba(255,252,246,.5);--p-band-vol-light-2:rgba(255,252,246,.14);
 --p-band-fade:rgba(255,255,255,0);
---p-cta-bg:#AFE3E0;--p-cta-fg:#143937;--p-cta-bg-hover:#DFF4F3;--p-cta-bg-active:#A3D3D0;
+--p-cta-bg:#FFFFFF;--p-cta-fg:#143937;--p-cta-bg-hover:#DFF4F3;--p-cta-bg-active:#AFE3E0;
 }
 [data-maiq-scope][data-theme="claro"]{
---p-bg:#EEE0D4;--p-hero-bg:#E0CBB8;--p-card:#F9F1EA;--p-footer-bg:#E0CBB8;--p-bg-deep:#E3CFBC;--p-tool-filter:brightness(0);--p-helix:rgba(104,70,43,.5);--p-helix-hi:rgba(52,35,22,.9);--p-helix-dim:rgba(104,70,43,.12);
+--p-bg:#EEE0D4;--p-hero-bg:#E0CBB8;--p-card:#F9F1EA;--p-footer-bg:#E0CBB8;--p-bg-deep:#E3CFBC;--p-plat-video-bg:#EAD9CD;--p-tool-filter:brightness(0);--p-helix:rgba(104,70,43,.5);--p-helix-hi:rgba(52,35,22,.9);--p-helix-dim:rgba(104,70,43,.12);
 --p-model-base:#F3E7DE;--p-model-edge:rgba(191,141,101,.26);--p-model-core:rgba(255,253,248,.85);--p-model-wave:rgba(104,70,43,.20);
 --p-model-block-edge:#EEE0D4;--p-model-block-center:#F9F1EA;--p-platform-block-edge:#F9F1EA;--p-platform-block-center:#E0CBB8;--p-divider-solid:#B39C88;
 --p-text:#342316;--p-text-2:#68462B;--p-muted:#8A6038;--p-subhead:#8A6038;
@@ -281,7 +281,7 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 --p-vol-mint:rgba(255,246,226,.88);--p-vol-mint-2:rgba(255,246,226,.30);
 --p-vol-deep:rgba(255,248,232,.86);--p-vol-deep-2:rgba(255,248,232,.28);
 --p-vignette:rgba(52,35,22,.10);--p-fade:rgba(224,203,184,0);
---p-mark-1:#68462B;--p-mark-2:#BF8D65;--p-hair-strong:rgba(104,70,43,.42);--p-toggle-thumb:rgba(52,35,22,.10);--p-h1:var(--wood,#68462B);--p-overlay-shadow:0 -30px 60px -18px rgba(52,35,22,.26);--p-hero-text:#68462B;--p-hover-text:#342316;
+--p-mark-1:#68462B;--p-mark-2:#BF8D65;--p-hair-strong:rgba(104,70,43,.42);--p-toggle-thumb:rgba(52,35,22,.10);--p-h1:var(--wood,#68462B);--p-overlay-shadow:0 -30px 60px -18px rgba(52,35,22,.26);
 --p-band-bg:#143937;--p-band-text:#EAD9CC;--p-band-overline:#9FD6D2;--p-band-btn-bg:#EAD9CC;--p-band-btn-fg:#143937;
 --p-band-vol-shadow:rgba(5,18,17,.62);--p-band-vol-shadow-2:rgba(5,18,17,.2);
 --p-band-vol-accent:rgba(48,137,132,.55);--p-band-vol-accent-2:rgba(48,137,132,.16);
@@ -302,45 +302,6 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 .maiq-odometer-strip{display:flex;flex-direction:column;will-change:transform;transform:translate3d(0,calc(var(--maiq-odo-step,0) * -1em),0)}
 .maiq-odometer-strip>span{display:block;flex:0 0 1em;height:1em;line-height:1;text-align:center}
 .maiq-required-legend span{color:var(--p-required,var(--state-attention))}
-.maiq-message-switch{
-  position:relative;
-  width:62px!important;
-  min-width:62px;
-  height:26px!important;
-  padding:2px!important;
-  gap:0!important;
-  overflow:hidden;
-  border:1px solid var(--p-hair)!important;
-  background:var(--p-chip-bg)!important;
-  color:var(--p-muted)!important;
-  font-size:11px!important;
-  line-height:1;
-}
-.maiq-message-switch>span:not(.maiq-message-switch-thumb){position:relative;z-index:1;width:50%;transition:color var(--dur-2) var(--ease-standard)}
-.maiq-message-switch-thumb{
-  position:absolute;
-  z-index:0;
-  top:2px;
-  left:2px;
-  width:27px;
-  height:20px;
-  border-radius:var(--radius-pill);
-  background:var(--p-cta-bg);
-  transform:translateX(0);
-  transition:transform var(--dur-3) var(--ease-out);
-}
-.maiq-message-switch[data-enabled="true"] .maiq-message-switch-thumb{transform:translateX(29px)}
-.maiq-message-switch[data-enabled="false"]>span:nth-of-type(2),
-.maiq-message-switch[data-enabled="true"]>span:nth-of-type(3){color:var(--p-cta-fg)}
-.maiq-message-reveal{
-  display:grid;
-  grid-template-rows:0fr;
-  opacity:0;
-  transform:translateY(-6px);
-  transition:grid-template-rows var(--dur-3) var(--ease-out),opacity var(--dur-2) var(--ease-standard),transform var(--dur-3) var(--ease-out);
-}
-.maiq-message-reveal>div{min-height:0;overflow:hidden}
-.maiq-message-reveal[data-visible="true"]{grid-template-rows:1fr;opacity:1;transform:translateY(0)}
 .maiq-message-textarea{
   height:112px!important;
   min-height:88px;
@@ -352,7 +313,6 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 .maiq-form-scroll::-webkit-scrollbar{width:8px;height:8px}
 .maiq-form-scroll::-webkit-scrollbar-track{background:var(--p-chip-bg);border-radius:var(--radius-pill)}
 .maiq-form-scroll::-webkit-scrollbar-thumb{background:var(--p-muted);border:2px solid var(--p-card);border-radius:var(--radius-pill)}
-@media (prefers-reduced-motion:reduce){.maiq-message-switch-thumb,.maiq-message-reveal{transition:none}}
 .maiq-faq{
   flex:1 1 auto;
   display:flex;
@@ -408,7 +368,7 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 .maiq-faq-list{
   min-height:0;
   overflow-y:auto;
-  overscroll-behavior:contain;
+  overscroll-behavior:auto;
   padding-right:clamp(8px,1.2vw,16px);
   border-top:1px solid var(--p-hair);
   scrollbar-width:thin;
@@ -472,9 +432,19 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 @media (max-width:800px){
   .maiq-faq{padding:96px 24px 24px}
   .maiq-faq-inner{grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr);gap:28px}
+  .maiq-faq-intro{align-items:center;text-align:center}
+  .maiq-faq-sub-break{display:none}
   .maiq-faq-contact{margin-top:20px}
   .maiq-faq-trigger{min-height:76px;padding:20px 4px!important}
   .maiq-faq-answer p{padding:0 42px 24px 4px}
+}
+/* Altura curta: .maiq-final-content tem height:100svh fixo (alimenta
+   _fitFinal, não pode mudar) e sobra pouco miolo para a lista de FAQ, que
+   tem scroll próprio dentro de um estágio sticky — aliviar os paddings
+   internos reduz a chance de precisar desse scroll aninhado. */
+@media (max-height:750px){
+  .maiq-faq{padding:clamp(80px,13vh,132px) clamp(24px,5vw,48px) clamp(16px,4vh,44px)}
+  .maiq-faq-trigger{min-height:64px;padding:14px 8px!important}
 }
 @media (prefers-reduced-motion:reduce){.maiq-faq-answer,.maiq-faq-icon{transition:none}}
 .maiq-footer-top{
@@ -494,13 +464,13 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 .maiq-footer-link:hover,.maiq-footer-link:focus-visible{color:var(--p-text)}
 @media (max-width:640px){
   .maiq-footer-cols{width:100%;justify-content:space-between;gap:32px}
-  .maiq-final-content .maiq-footer{padding:26px 24px 16px!important}
-  .maiq-final-content .maiq-footer-top{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:start;gap:24px}
-  .maiq-final-content .maiq-footer-cols{width:auto;justify-content:end;gap:24px}
-  .maiq-final-content .maiq-footer-col{gap:6px}
-  .maiq-final-content .maiq-footer-col-title{font-size:11px}
-  .maiq-final-content .maiq-footer-link{font-size:12px}
-  .maiq-final-content .maiq-footer-top+div{margin-top:22px!important;padding-top:14px!important;font-size:11px!important}
+  .maiq-footer{padding:21px 24px 13px!important}
+  .maiq-footer-top{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:start;gap:24px}
+  .maiq-footer-cols{width:auto;justify-content:end;gap:24px}
+  .maiq-footer-col{gap:6px}
+  .maiq-footer-col-title{font-size:11px}
+  .maiq-footer-link{font-size:12px}
+  .maiq-footer-top+div{margin-top:18px!important;padding-top:11px!important;font-size:11px!important}
 }
 
 .maiq-conviction{
@@ -542,7 +512,7 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
   letter-spacing:0;
 }
 .maiq-hero-subhead{
-  color:var(--p-hero-text)!important;
+  color:var(--p-subhead)!important;
   font-family:var(--font-core);
   font-size:clamp(24px,2.76vw,41px);
   font-weight:var(--fw-regular);
@@ -550,6 +520,31 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
   letter-spacing:0;
 }
 .maiq-subhead-break::before{content:" "}
+/* Altura curta: o piso de 140px do padding-top só encolhe de verdade acima
+   de 1120px de altura de viewport (clamp com 12.5vh); abaixo disso o topo
+   do hero (slot da logo) fica perto demais do header. padding-top é estilo
+   inline, por isso o !important. */
+@media (max-height:760px){
+  .maiq-hero{padding-top:96px !important}
+}
+/* Altura curta: "Nosso Modelo" e "Nossa Convicção" não fazem parte da
+   pilha sticky (ficam dentro de .maiq-primary-overlay, que rola em fluxo
+   normal), então encurtar aqui é só respiro visual — não afeta _fitNet. */
+@media (max-height:860px){
+  .maiq-model-section{padding-top:clamp(64px,9vh,104px) !important;padding-bottom:clamp(20px,3vh,36px) !important}
+  .maiq-model-inner{gap:clamp(16px,2.4vh,32px) !important}
+  .maiq-model-tools-row{padding-top:10px !important;padding-bottom:10px !important}
+  .maiq-conviction{padding-top:clamp(64px,9vh,104px) !important;padding-bottom:clamp(40px,5vh,64px) !important}
+  .maiq-conviction-body{margin-top:clamp(24px,4vh,48px) !important}
+  .maiq-team-band{margin-top:clamp(32px,5vh,64px) !important}
+}
+/* O vídeo só ganha altura fixa em janelas largas e baixas (desktop/tablet);
+   em telas estreitas o layout empilhado (max-width:800px) já usa
+   aspect-ratio:16/9 sobre a largura total, que é mais compacto do que
+   qualquer altura fixa em vh — sobrepor lá alongaria o vídeo no celular. */
+@media (max-height:860px) and (min-width:801px){
+  .maiq-conviction-player{height:42vh}
+}
 @media (max-width:820px){
   .maiq-subhead-break-model,.maiq-subhead-break-perspective{display:block}
   .maiq-subhead-break-model::before,.maiq-subhead-break-perspective::before{content:none}
@@ -561,6 +556,16 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 @media (max-width:560px){
   .maiq-subhead-break-platform{display:block}
   .maiq-subhead-break-platform::before{content:none}
+}
+@media (max-width:640px){
+  .maiq-subhead-break-team{display:block}
+  .maiq-subhead-break-team::before{content:none}
+}
+/* A faixa de logos de LLM em "Nosso Modelo" tinha min-width:520px inline
+   (pensada para o layout desktop) — em telas mais estreitas isso forçava a
+   faixa a estourar a largura da viewport, cortando as últimas logos. */
+@media (max-width:640px){
+  .maiq-model-tools-row{width:100% !important;min-width:0 !important;gap:16px 28px !important}
 }
 .maiq-conviction-body{
   display:flex;
@@ -642,7 +647,11 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 .maiq-conviction-skip{gap:2px!important}
 .maiq-conviction-skip span{font-size:10px;font-weight:var(--fw-semibold);line-height:1}
 .maiq-conviction-modal{position:fixed;z-index:71;inset:clamp(18px,4vw,54px);max-width:1440px;max-height:calc(100vh - clamp(36px,8vw,108px));aspect-ratio:16/9;margin:auto;padding:0;overflow:hidden;border:1px solid var(--p-hair-strong);border-radius:var(--radius-lg);background:var(--p-bg-deep);box-shadow:var(--shadow-3);color:var(--p-text);animation:maiqPlatformModalIn 260ms var(--ease-out)}
-.maiq-conviction-modal-media{position:relative;width:100%;height:100%;overflow:hidden;background:var(--p-bg-deep)}
+.maiq-conviction-modal-media{position:relative;width:100%;height:100%;overflow:hidden;background:var(--p-plat-video-bg,var(--p-bg-deep))}
+/* Na tela cheia o vídeo aparece inteiro (contain): em celular a área tem a proporção da tela
+   (~19,5:9), e cover cortava as bordas. As sobras usam a cor da borda do vídeo
+   (--p-plat-video-bg, a mesma dos vídeos da Plataforma), sem faixa visível. */
+.maiq-conviction-modal .maiq-conviction-video{object-fit:contain}
 @media (max-width:800px){
   .maiq-conviction{padding:96px 24px 72px}
   .maiq-conviction-body{flex-direction:column;align-items:stretch;gap:28px;margin-top:40px}
@@ -650,8 +659,60 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
   .maiq-conviction-player-wrap{width:100%}
   .maiq-conviction-player{aspect-ratio:16/9;border-radius:var(--radius-md)}
   .maiq-conviction-controls{right:12px;left:12px;bottom:12px}
-  .maiq-conviction-modal{inset:10px;max-height:calc(100vh - 20px);border-radius:var(--radius-md)}
+  .maiq-conviction-modal{inset:10px;max-height:calc(100vh - 20px);max-height:calc(100dvh - 20px);border-radius:var(--radius-md)}
 }
+/* Vídeo maximizado em celular portrait: sem screen.orientation.lock/Fullscreen
+   API nativa (iOS Safari não suporta orientation.lock), o modal vira
+   fullscreen edge-to-edge e o conteúdo interno (vídeo + controles) é
+   rotacionado 90° via CSS para simular paisagem. Se o aparelho já estiver
+   fisicamente em paisagem, esta media query não bate e o modal segue no
+   comportamento 16:9 centralizado de sempre (regra acima). */
+@media (max-width:800px) and (orientation:portrait){
+  .maiq-conviction-modal{
+    inset:0;
+    max-width:none;
+    max-height:none;
+    aspect-ratio:auto;
+    margin:0;
+    border:none;
+    border-radius:0;
+    background:var(--p-plat-video-bg,var(--p-bg-deep));
+  }
+  /* 100dvh: no celular, 100vh inclui a área da barra do navegador e a faixa girada
+     passava da tela, cortando as pontas. 100vh fica como fallback. */
+  .maiq-conviction-modal-media{
+    position:absolute;
+    top:50%;
+    left:50%;
+    width:100vh;
+    width:100dvh;
+    height:100vw;
+    transform:translate(-50%,-50%) rotate(90deg);
+  }
+}
+.maiq-conviction-rotate-hint{
+  position:absolute;
+  z-index:3;
+  top:16px;
+  left:50%;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 14px;
+  transform:translateX(-50%);
+  border-radius:var(--radius-pill,999px);
+  background:var(--p-bg-deep,#09201F);
+  color:var(--p-text,#EAD9CC);
+  font-family:var(--font-core);
+  font-size:13px;
+  font-weight:var(--fw-medium,500);
+  box-shadow:var(--shadow-3);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity var(--dur-2) var(--ease-standard);
+}
+.maiq-conviction-rotate-hint[data-visible="true"]{opacity:1}
+@media (prefers-reduced-motion:reduce){.maiq-conviction-rotate-hint{transition:none}}
 @media (prefers-reduced-motion:reduce){.maiq-conviction-video{transition:none}.maiq-conviction-modal{animation:none}}
 
 .maiq-model-pilares-bg{
@@ -666,7 +727,10 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 }
 .maiq-model-pilares-bg > section{position:relative;z-index:1}
 .maiq-nav-dropdown-item{color:inherit;background:transparent;outline:none}
-.maiq-nav-dropdown-item:hover,.maiq-nav-dropdown-item:focus-visible{color:var(--p-hover-text,#FFFFFF)!important;background:var(--p-chip-bg-strong)!important}
+/* Menu compacto (<1024px): "Sobre nós" e "Insights" são outras páginas, não seções da Home */
+.maiq-nav-dropdown-item--page{font-weight:var(--fw-semibold,600)}
+.maiq-nav-dropdown-separator--fade{background-image:linear-gradient(90deg,transparent 0%,var(--p-hair-strong) 20%,var(--p-hair-strong) 80%,transparent 100%)!important}
+.maiq-nav-dropdown-item:hover,.maiq-nav-dropdown-item:focus-visible{color:var(--p-text)!important;background:var(--p-chip-bg-strong)!important}
 .maiq-platform-ciclo-bg{background:linear-gradient(180deg,var(--p-platform-block-edge) 0%,var(--p-platform-block-center) 50%,var(--p-platform-block-edge) 100%);transition:background var(--dur-3) var(--ease-out)}
 .maiq-platform-transition{background:var(--p-platform-block-edge)}
 .maiq-scroll-stack{position:relative;z-index:1;background:var(--p-platform-block-edge)}
@@ -674,30 +738,31 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 .maiq-primary-overlay{position:relative;z-index:2;overflow:clip;border:1px solid var(--p-hair);border-radius:24px;background:var(--p-bg);box-shadow:var(--p-overlay-shadow),0 30px 60px -18px color-mix(in oklab,var(--p-bg-deep) 72%,transparent);transition:background var(--dur-3) var(--ease-out)}
 .maiq-platform-hold{position:relative;z-index:0;pointer-events:none}
 .maiq-final-reveal-stage{position:relative;z-index:3}
-.maiq-final-base{position:sticky;z-index:0;overflow:clip;clip-path:inset(24px 0 0)}
-.maiq-final-content{display:flex;height:100svh;min-height:0;overflow:hidden;flex-direction:column;background:var(--p-bg)}
+.maiq-final-base{position:sticky;z-index:0;overflow:clip;clip-path:inset(24px 0 0);background:linear-gradient(180deg,var(--p-platform-block-edge) 0%,var(--p-platform-block-center) 50%,var(--p-platform-block-edge) 100%);transition:background var(--dur-3) var(--ease-out)}
+.maiq-final-content{display:flex;height:100svh;min-height:0;overflow:hidden;flex-direction:column;background:linear-gradient(180deg,var(--p-platform-block-edge) 0%,var(--p-platform-block-center) 50%,var(--p-platform-block-edge) 100%);transition:background var(--dur-3) var(--ease-out)}
 .maiq-cycle-domains-overlay{position:relative;z-index:2;overflow:clip;border:1px solid var(--p-hair);border-radius:24px;background:var(--p-bg);box-shadow:var(--p-overlay-shadow),0 30px 60px -18px color-mix(in oklab,var(--p-bg-deep) 72%,transparent);transition:background var(--dur-3) var(--ease-out)}
 .maiq-final-hold{position:relative;z-index:0;pointer-events:none}
-.maiq-dominios-placeholder{position:relative;display:flex;min-height:42svh;align-items:center;justify-content:center;box-sizing:border-box;padding:clamp(36px,5vh,54px) 48px;background:transparent;overflow:hidden}
-.maiq-dominios-placeholder-inner{width:100%;max-width:1200px;margin:0 auto;text-align:center}
-.maiq-dominios-placeholder h2{margin:0;color:var(--p-text);font-family:var(--font-core);font-size:clamp(38px,4.2vw,58px);font-weight:600;line-height:1.04;letter-spacing:0}
-.maiq-team-heading{margin:0 auto clamp(22px,3vh,32px)}
-.maiq-team-heading p{max-width:none;margin:12px auto 0;white-space:nowrap}
-.maiq-team-divider{width:min(720px,72%);height:1px;margin:0 auto clamp(22px,3vh,32px);background:linear-gradient(90deg,transparent 0%,var(--p-hair-strong) 18%,var(--p-hair-strong) 82%,transparent 100%)}
+/* Faixa label + carrossel mais próxima do conteúdo central da seção (antes 96px fixos) */
+.maiq-team-band{display:flex;flex-direction:column;align-items:center;margin-top:clamp(40px,5.5vh,64px)}
+.maiq-team-band-label{max-width:560px;margin:0 auto clamp(16px,2.2vh,22px);color:var(--p-text-2);font-family:var(--font-core);font-size:var(--fs-body-sm);font-weight:var(--fw-regular);line-height:var(--lh-body-sm);text-align:center}
+/* Divisória entre o rótulo e as logos — só no mobile (ver @media 760px abaixo). */
+/* Divisória com fade nas pontas entre a label e o carrossel (todas as larguras) */
+.maiq-team-band-divider{display:block;width:min(560px,75%);height:1px;margin:0 auto clamp(14px,2vh,20px);background:linear-gradient(90deg,transparent 0%,var(--p-hair,rgba(159,214,210,.14)) 18%,var(--p-hair,rgba(159,214,210,.14)) 82%,transparent 100%)}
 .maiq-team-marquee{position:relative;width:75%;margin:0 auto;overflow:hidden;mask-image:linear-gradient(90deg,transparent 0%,black 8%,black 92%,transparent 100%);-webkit-mask-image:linear-gradient(90deg,transparent 0%,black 8%,black 92%,transparent 100%)}
 .maiq-team-logo-track{display:flex;width:max-content;will-change:transform;animation:maiqTeamMarquee 25s linear infinite;animation-play-state:paused}
 .maiq-team-logo-track[data-active="true"]{animation-play-state:running}
 .maiq-team-logo-group{display:flex;flex:none;align-items:center}
-.maiq-team-logo{display:flex;width:clamp(164px,16vw,204px);height:64px;flex:none;align-items:center;justify-content:center;padding:0 clamp(20px,2.5vw,32px);box-sizing:border-box;opacity:.56;transition:opacity 220ms var(--ease-out),filter 220ms var(--ease-out)}
+.maiq-team-logo{display:flex;width:clamp(164px,16vw,204px);height:64px;flex:none;align-items:center;justify-content:center;padding:0 clamp(20px,2.5vw,32px);box-sizing:border-box;opacity:.56;transition:opacity 220ms var(--ease-out)}
 .maiq-team-logo:hover{opacity:1}
-.maiq-team-logo img{display:block;width:auto;max-width:100%;height:auto;max-height:32px;object-fit:contain;filter:invert(1) brightness(1.05)}
+.maiq-team-logo img{display:block;width:auto;max-width:100%;height:auto;max-height:32px;object-fit:contain}
 .maiq-team-logo--tr img{max-height:42px}
-.maiq-team-logo--tr img{filter:brightness(0) invert(1)}
-[data-theme="claro"] .maiq-team-logo img{filter:none}
-[data-theme="claro"] .maiq-team-logo--tr img{filter:brightness(0)}
+/* Uma imagem por tema (branca no noturno, original no diurno) — sem filtro de cor */
+.maiq-team-logo .maiq-team-logo-dia{display:none}
+[data-theme="claro"] .maiq-team-logo .maiq-team-logo-noite{display:none}
+[data-theme="claro"] .maiq-team-logo .maiq-team-logo-dia{display:block}
 @keyframes maiqTeamMarquee{to{transform:translate3d(-50%,0,0)}}
-@media(max-width:800px){.maiq-dominios-placeholder{min-height:0;padding:44px 24px}.maiq-team-heading{margin-bottom:22px}.maiq-team-divider{width:88%;margin-bottom:22px}.maiq-team-logo{width:152px;padding:0 22px}.maiq-team-logo img{max-height:27px}.maiq-team-logo--tr img{max-height:35px}}
-@media(max-width:700px){.maiq-team-subhead-break{display:block}}
+@media(max-width:800px){.maiq-team-band{margin-top:var(--space-8,40px)}.maiq-team-logo{width:152px;padding:0 22px}.maiq-team-logo img{max-height:27px}.maiq-team-logo--tr img{max-height:35px}}
+@media(max-width:760px){.maiq-team-band-label{margin-bottom:20px}.maiq-team-band-divider{width:75%;margin-bottom:20px}}
 @media(prefers-reduced-motion:reduce){.maiq-team-logo-track{animation:none;transform:none}.maiq-team-marquee{overflow-x:auto;scrollbar-width:none}.maiq-team-marquee::-webkit-scrollbar{display:none}}
 @media (prefers-reduced-motion:reduce){
   .maiq-model-pilares-bg::before,.maiq-model-pilares-bg::after{animation:none}
@@ -730,6 +795,47 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 @media (max-width:620px){[data-maiq-venn]{transform:scale(.46);margin:-97px -226px}}
 @media (max-height:940px) and (min-width:931px){[data-maiq-venn]{transform:scale(.86);margin:-25px -59px}}
 @media (max-height:840px) and (min-width:931px){[data-maiq-venn]{transform:scale(.74);margin:-47px -109px}}
+/* "Nosso Modelo" abaixo de 760px: o Venn em px absolutos fica ilegível mesmo
+   escalado (texto de 16.8px vira ~7.7px) — abaixo desse breakpoint ele é
+   trocado por um layout empilhado em fluxo normal (dois cartões + hélice
+   reduzida + chip de interseção). Entre 760-1330px nada muda: o Venn segue
+   escalando como antes. As duas subárvores (.maiq-model-dna-row e
+   .maiq-model-mobile) ficam sempre no DOM; só a visibilidade troca por CSS,
+   sem JS de resize (mesmo padrão do SiteHeader). */
+.maiq-model-mobile{display:none}
+/* Abaixo de 760px: duas pílulas verticais sobrepostas (mesma borda e fundo
+   translúcido do Venn desktop — a interseção ganha destaque só pela soma dos
+   dois fundos) com a hélice girada 90° recortada pela interseção exata.
+   --mm-h = altura de cada pílula, --mm-o = sobreposição entre elas. */
+.maiq-model-mobile{--mm-h:440px;--mm-o:160px;--mm-r:112px;position:relative;width:100%;max-width:340px;height:calc(var(--mm-h) * 2 - var(--mm-o));margin:0 auto}
+.maiq-model-mobile-pill{position:absolute;left:0;width:100%;height:var(--mm-h);box-sizing:border-box;border:1px solid var(--p-hair,rgba(159,214,210,.14));border-radius:var(--mm-r);background:var(--p-chip-bg,rgba(159,214,210,.05))}
+.maiq-model-mobile-pill--top{top:0}
+.maiq-model-mobile-pill--bottom{top:calc(var(--mm-h) - var(--mm-o))}
+.maiq-model-mobile-clip-a{position:absolute;left:0;top:0;width:100%;height:var(--mm-h);border-radius:var(--mm-r);overflow:hidden}
+.maiq-model-mobile-clip-b{position:absolute;left:0;top:calc(var(--mm-h) - var(--mm-o));width:100%;height:var(--mm-h);border-radius:var(--mm-r);overflow:hidden}
+.maiq-model-mobile-helix{position:absolute;left:50%;top:calc(var(--mm-o) / 2);width:0;height:0}
+/* A hélice nasce vertical (240x360); girada, as barras ficam em pé e o vão
+   da máscara precisa ser largo na horizontal para o texto central. */
+.maiq-model-mobile-helix>div{
+  left:50%!important;
+  top:50%!important;
+  transform:translate(-50%,-50%) rotate(90deg) scale(.94)!important;
+  -webkit-mask-image:radial-gradient(ellipse 50px 104px at 50% 50%,transparent 0%,transparent 50%,#000 100%)!important;
+  mask-image:radial-gradient(ellipse 50px 104px at 50% 50%,transparent 0%,transparent 50%,#000 100%)!important;
+}
+.maiq-model-mobile-content{position:absolute;left:0;width:100%;height:calc(var(--mm-h) - var(--mm-o));box-sizing:border-box;display:flex;flex-direction:column;align-items:center;text-align:center}
+.maiq-model-mobile-content--top{top:0;justify-content:flex-end;padding-bottom:14px}
+.maiq-model-mobile-content--bottom{top:var(--mm-h);justify-content:flex-start;padding-top:14px}
+.maiq-model-mobile-card-title{font-size:24px;line-height:1.1;font-weight:600;letter-spacing:-.012em;color:var(--p-text,#FFFFFF)}
+.maiq-model-mobile-card-sub{font-size:14.5px;font-weight:600;margin-top:8px;color:var(--p-text,#FFFFFF)}
+.maiq-model-mobile-card-tag{font-size:12.5px;font-style:italic;color:var(--p-muted,#9FD6D2);margin-top:2px}
+.maiq-model-mobile-list{list-style:none;width:80%;margin:18px 0 0;padding:0}
+.maiq-model-mobile-list li{padding:11px 0;background:linear-gradient(90deg,transparent 0%,var(--p-hair,rgba(159,214,210,.14)) 18%,var(--p-hair,rgba(159,214,210,.14)) 82%,transparent 100%) top/100% 1px no-repeat;font-size:15.5px;color:var(--p-text-2,#AFE3E0)}
+.maiq-model-mobile-center{position:absolute;left:50%;top:calc(var(--mm-h) - var(--mm-o) / 2);transform:translate(-50%,-50%);z-index:1;font-size:14px;line-height:1.34;font-weight:600;letter-spacing:.01em;color:var(--p-text,#FFFFFF);text-align:center;white-space:nowrap;text-shadow:0 0 12px var(--p-bg),0 0 4px var(--p-bg)}
+@media (max-width:760px){
+  .maiq-model-dna-row{display:none!important}
+  .maiq-model-mobile{display:block}
+}
 @keyframes maiqRingSweep{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
 .maiq-cycle-frame{--cycle-label-width:202px;isolation:isolate}
 .maiq-cycle-scroll{position:relative;display:flex;flex:1 1 auto;min-width:0;height:100%;align-items:center;overflow:hidden;outline:none;scrollbar-width:none;-ms-overflow-style:none;cursor:default;touch-action:pan-y}
@@ -745,15 +851,77 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 .maiq-cycle-drag-hint svg{flex:0 0 auto}
 @media (max-width:600px){.maiq-cycle-frame{--cycle-label-width:148px}.maiq-cycle-lane{gap:8px;font-size:14px}.maiq-cycle-lane>svg{width:18px;height:18px}.maiq-cycle-drag-hint{bottom:7px;font-size:10px}}
 @keyframes maiqNodePulse{0%{opacity:0}16%{opacity:var(--pulse-peak,.9)}100%{opacity:0}}
-[data-maiq-scope]{--c-block-bg:rgba(255,255,255,.07);--c-block-fg:#FFFFFF;--c-block-hair:rgba(255,255,255,.26);--c-line:rgba(159,214,210,.52);--c-dot:rgba(255,255,255,.42);--c-band:#308984;--c-band-fg:#FFFFFF;--c-pill:#1F5956;--c-pill-fg:#FFFFFF;--c-exit:#9FD6D2;--c-exit-fg:#143937;--c-flow:#DFF4F3;--c-flow-core:#F4F8F4;--c-flow-blend:screen;--c-lane-bg:rgba(48,137,132,.46);--c-lane-hair:rgba(255,255,255,.46);--c-lane-fg:#FFFFFF;--c-sep:rgba(255,255,255,.30);--c-frame-bg:rgba(255,255,255,.04)}
-[data-maiq-scope][data-theme="claro"]{--c-block-bg:rgba(255,253,248,.55);--c-block-fg:#342316;--c-block-hair:rgba(52,35,22,.24);--c-line:rgba(104,70,43,.42);--c-dot:rgba(52,35,22,.34);--c-band:#68462B;--c-band-fg:#F6EFE2;--c-pill:#68462B;--c-pill-fg:#F6EFE2;--c-exit:#D8C9B4;--c-exit-fg:#342316;--c-flow:#8A6038;--c-flow-core:#342316;--c-flow-blend:multiply;--c-lane-bg:rgba(255,253,248,.82);--c-lane-hair:rgba(52,35,22,.42);--c-lane-fg:#342316;--c-sep:rgba(52,35,22,.30);--c-frame-bg:rgba(255,253,248,.46)}
+/* "Nossa Perspectiva" abaixo de 760px: o diagrama (mesmo recortado, com
+   rolagem horizontal) fica baixo demais para ser legível. Nesse tier ele dá
+   lugar a um losango com as 4 pílulas (ícone + nome de cada raia) nos
+   vértices, ligadas por um laço decorativo com dois pontos luminosos em loop
+   contínuo (posição por %, sem JS), e um botão central para abrir o fluxo
+   completo em tela cheia (modal). Mesmo padrão de duas subárvores sempre no
+   DOM do "Nosso Modelo": só a visibilidade troca por CSS. */
+.maiq-cycle-mobile{display:none}
+/* Ciclo compacto mobile: geometria fixa 342x360 escalada por --flow-k (JS,
+   ResizeObserver). O ponto vem antes das pílulas no DOM para passar por trás
+   delas; o pulso é só a opacidade de um overlay (animada por rAF). */
+.maiq-cycle-flow-wrap{--flow-k:1;position:relative;width:100%;max-width:342px;height:calc(360px * var(--flow-k));margin:0 auto}
+.maiq-cycle-flow{position:absolute;left:0;top:0;width:342px;height:360px;transform:scale(var(--flow-k));transform-origin:0 0}
+.maiq-cycle-flow-path{position:absolute;inset:0;overflow:visible;pointer-events:none}
+.maiq-cycle-flow-path path{fill:none;stroke:var(--c-fp-path);stroke-width:1}
+.maiq-cycle-flow-dot{position:absolute;left:0;top:0;width:8px;height:8px;border-radius:50%;background:var(--c-fp-dot);box-shadow:0 0 10px 3px var(--c-fp-dot-glow);pointer-events:none;will-change:transform;transform:translate(64px,20px)}
+.maiq-cycle-flow-list{position:absolute;inset:0;margin:0;padding:0;list-style:none;pointer-events:none}
+.maiq-cycle-flow-pill{position:absolute;box-sizing:border-box;display:flex;align-items:center;justify-content:center;gap:8px;width:136px;height:48px;padding:0 14px;border-radius:24px;background:var(--c-fp-bg);border:1px solid var(--c-fp-hair);color:var(--p-text);font-size:15px;font-weight:600;white-space:nowrap;transition:background-color 320ms cubic-bezier(.2,0,0,1),border-color 320ms cubic-bezier(.2,0,0,1)}
+.maiq-cycle-flow-pill svg{flex:0 0 auto;color:var(--p-text-2)}
+.maiq-cycle-flow-pill[data-active="true"]{background:var(--c-fp-bg-on);border-color:var(--c-fp-hair-on)}
+.maiq-cycle-flow-pill[data-phase="0"]{left:0;top:0}
+.maiq-cycle-flow-pill[data-phase="1"]{left:206px;top:0}
+.maiq-cycle-flow-pill[data-phase="2"]{left:206px;top:312px}
+.maiq-cycle-flow-pill[data-phase="3"]{left:0;top:312px}
+.maiq-cycle-flow-pill-glow{position:absolute;inset:-1px;border-radius:24px;border:1px solid var(--c-fp-glow-edge);box-shadow:0 0 24px 2px var(--c-fp-glow),inset 0 0 14px var(--c-fp-glow-in);opacity:0;pointer-events:none;will-change:opacity}
+.maiq-cycle-flow-cta{position:absolute;left:76px;top:72px;width:190px;height:216px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;margin:0;padding:0;border:0;background:none;color:var(--p-text);font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.maiq-cycle-flow-cta-circle{position:relative;display:flex;align-items:center;justify-content:center;width:76px;height:76px;border-radius:50%;background:var(--c-fp-btn-bg);border:1px solid var(--c-fp-hair-on);color:var(--c-fp-btn-icon);box-shadow:var(--c-fp-btn-shadow);transition:background-color 200ms cubic-bezier(.2,0,0,1)}
+.maiq-cycle-flow-cta:hover .maiq-cycle-flow-cta-circle{background:var(--c-fp-bg-on)}
+.maiq-cycle-flow-cta:active .maiq-cycle-flow-cta-circle{transform:translateY(1px)}
+.maiq-cycle-flow-cta:focus-visible{outline:none}
+.maiq-cycle-flow-cta:focus-visible .maiq-cycle-flow-cta-circle{box-shadow:var(--c-fp-btn-shadow),var(--glow-focus)}
+.maiq-cycle-flow-cta-glow{position:absolute;inset:-1px;border-radius:50%;border:1px solid var(--c-fp-glow-edge);box-shadow:0 0 20px 2px var(--c-fp-glow);opacity:0;pointer-events:none;will-change:opacity}
+.maiq-cycle-flow-cta-label{font-size:15px;font-weight:600;color:var(--p-text)}
+@media (prefers-reduced-motion:reduce){.maiq-cycle-flow-dot{display:none}}
+@media (max-width:760px), (orientation:landscape) and (max-height:500px) and (pointer:coarse){
+  .maiq-cycle-frame{display:none!important}
+  .maiq-cycle-mobile{display:flex;flex-direction:column;align-items:center;width:calc(100% + 48px);margin:0 -24px}
+}
+/* Modal de tela cheia do fluxo completo (mobile). Mesmo padrão de
+   .maiq-conviction-modal/.maiq-platform-modal, incluindo a rotação via CSS
+   em celular portrait — ver comentário equivalente em .maiq-platform-modal. */
+.maiq-cycle-modal{position:fixed;z-index:71;inset:clamp(18px,4vw,54px);max-width:1440px;max-height:calc(100vh - clamp(36px,8vw,108px));margin:auto;padding:0;overflow:hidden;border:1px solid var(--p-hair-strong);border-radius:var(--radius-lg);background:var(--p-bg-deep);box-shadow:var(--shadow-3);color:var(--p-text);animation:maiqPlatformModalIn 260ms var(--ease-out)}
+.maiq-cycle-modal-media{--cycle-label-width:202px;position:relative;width:100%;height:100%;display:flex;align-items:center;overflow:hidden;background:var(--p-bg-deep);padding:16px;box-sizing:border-box}
+.maiq-cycle-modal-close{position:absolute;top:12px;right:12px;z-index:2}
+@media (max-width:800px){
+  .maiq-cycle-modal{inset:10px;max-height:calc(100vh - 20px);border-radius:var(--radius-md)}
+}
+/* Celular deitado: o fluxo completo já cabe na horizontal, só ocupa a tela toda. */
+@media (orientation:landscape) and (max-height:500px) and (pointer:coarse){
+  .maiq-cycle-modal{inset:0;max-width:none;max-height:none;margin:0;border:none;border-radius:0}
+}
+@media (max-width:800px) and (orientation:portrait){
+  .maiq-cycle-modal{inset:0;max-width:none;max-height:none;margin:0;border:none;border-radius:0}
+  .maiq-cycle-modal-media{position:absolute;top:50%;left:50%;width:100vh;width:100dvh;height:100vw;transform:translate(-50%,-50%) rotate(90deg)}
+}
+@media (prefers-reduced-motion:reduce){.maiq-cycle-modal{animation:none}}
+[data-maiq-scope]{--c-block-bg:rgba(159,214,210,.07);--c-block-fg:#FFFFFF;--c-block-hair:rgba(159,214,210,.26);--c-line:rgba(159,214,210,.52);--c-dot:rgba(159,214,210,.42);--c-band:#308984;--c-band-fg:#FFFFFF;--c-pill:#1F5956;--c-pill-fg:#FFFFFF;--c-exit:#9FD6D2;--c-exit-fg:#143937;--c-flow:#DFF4F3;--c-flow-core:#F4F8F4;--c-flow-blend:screen;--c-lane-bg:rgba(48,137,132,.46);--c-lane-hair:rgba(159,214,210,.46);--c-lane-fg:#FFFFFF;--c-sep:rgba(159,214,210,.30);--c-frame-bg:rgba(159,214,210,.04);--c-fp-bg:#17403E;--c-fp-bg-on:#1F5956;--c-fp-hair:rgba(175,227,224,.26);--c-fp-hair-on:rgba(175,227,224,.55);--c-fp-glow-edge:rgba(255,255,255,.75);--c-fp-glow:rgba(95,199,193,.45);--c-fp-glow-in:rgba(175,227,224,.16);--c-fp-path:rgba(175,227,224,.34);--c-fp-dot:#FFFFFF;--c-fp-dot-glow:rgba(223,244,243,.55);--c-fp-btn-bg:#17403E;--c-fp-btn-icon:#FFFFFF;--c-fp-btn-shadow:0 12px 24px -8px rgba(0,0,0,.6),0 2px 4px rgba(0,0,0,.3)}
+[data-maiq-scope][data-theme="claro"]{--c-block-bg:rgba(255,253,248,.55);--c-block-fg:#342316;--c-block-hair:rgba(52,35,22,.24);--c-line:rgba(104,70,43,.42);--c-dot:rgba(52,35,22,.34);--c-band:#68462B;--c-band-fg:#F6EFE2;--c-pill:#68462B;--c-pill-fg:#F6EFE2;--c-exit:#D8C9B4;--c-exit-fg:#342316;--c-flow:#8A6038;--c-flow-core:#342316;--c-flow-blend:multiply;--c-lane-bg:rgba(255,253,248,.82);--c-lane-hair:rgba(52,35,22,.42);--c-lane-fg:#342316;--c-sep:rgba(52,35,22,.30);--c-frame-bg:rgba(255,253,248,.46);--c-fp-bg:#FBF6F0;--c-fp-bg-on:#F0E2D3;--c-fp-hair:rgba(52,35,22,.22);--c-fp-hair-on:rgba(52,35,22,.48);--c-fp-glow-edge:rgba(104,70,43,.7);--c-fp-glow:rgba(138,96,56,.32);--c-fp-glow-in:rgba(138,96,56,.10);--c-fp-path:rgba(52,35,22,.28);--c-fp-dot:#68462B;--c-fp-dot-glow:rgba(138,96,56,.45);--c-fp-btn-bg:#FBF6F0;--c-fp-btn-icon:#342316;--c-fp-btn-shadow:0 12px 24px -8px rgba(52,35,22,.28),0 2px 4px rgba(52,35,22,.12)}
 @keyframes maiqPlatPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.075)}}
 @keyframes maiqPlatPulseSoft{0%,100%{transform:scale(1);opacity:.9}50%{transform:scale(1.05);opacity:1}}
-@media (max-width:1023px){[data-maiq-plat-tabs]{flex-wrap:wrap;justify-content:center}[data-maiq-plat-tab]{flex:0 0 auto!important}[data-maiq-plat-pin]{min-height:0!important;padding-top:96px!important;padding-bottom:96px!important}[data-maiq-plat-inner]{padding-top:0!important;height:auto!important;gap:40px!important}[data-maiq-plat-bar]{margin-top:0!important}[data-maiq-plat-card]{margin-top:0!important}[data-maiq-plat-spacer]{display:none!important}[data-maiq-plat-card]{grid-template-columns:minmax(0,1fr)!important;height:auto!important;width:min(100%,529px)!important}[data-maiq-plat-anim]{aspect-ratio:1/1}[data-maiq-plat-right]{border-left:0!important;border-top:1px solid var(--p-hair,rgba(255,255,255,.14))!important;min-height:300px}}
+@media (max-width:1023px){[data-maiq-plat-tabs]{flex-wrap:wrap;justify-content:center}[data-maiq-plat-tab]{flex:0 0 auto!important}[data-maiq-plat-pin]{min-height:0!important;padding-top:96px!important;padding-bottom:96px!important}[data-maiq-plat-inner]{padding-top:0!important;height:auto!important;gap:40px!important}[data-maiq-plat-bar]{margin-top:0!important}[data-maiq-plat-card]{margin-top:0!important}[data-maiq-plat-spacer]{display:none!important}[data-maiq-plat-card]{grid-template-columns:minmax(0,1fr)!important;height:auto!important;width:min(100%,529px)!important}[data-maiq-plat-anim]{aspect-ratio:1/1}[data-maiq-plat-right]{border-left:0!important;border-top:1px solid var(--p-hair,rgba(234,217,204,.14))!important;min-height:300px}}
 @media (prefers-reduced-motion:reduce){[data-maiq-anim]{animation:none!important}}
 
 /* Plataforma — navegação linear e mídia controlada */
 .maiq-platform-section{position:relative;z-index:1;display:flex;min-height:100svh;align-items:center;box-sizing:border-box;scroll-margin-top:132px;padding:clamp(108px,13vh,140px) 48px}
+/* Altura curta: .maiq-platform-base é sticky ancorado no topo e nunca rola —
+   conteúdo que exceda a viewport fica inalcançável, não "abaixo da dobra".
+   Só o piso do padding cede aqui; o comportamento em telas normais não muda. */
+@media (max-height:820px){
+  .maiq-platform-section{padding:clamp(88px,13vh,140px) 48px}
+}
 .maiq-platform-section-inner{width:100%;max-width:1200px;margin:0 auto}
 .maiq-platform-heading{display:flex;flex-direction:column;align-items:center;text-align:center}
 .maiq-platform-heading h2{margin:0;color:var(--p-text);font-family:var(--font-core);font-size:clamp(38px,4.2vw,58px);font-weight:600;line-height:1.04;letter-spacing:0}
@@ -772,9 +940,21 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 .maiq-platform-line-progress[data-settling="true"]{transition:clip-path 600ms var(--ease-out)}
 .maiq-platform-line-divider{position:absolute;z-index:2;top:50%;width:6px;height:6px;border:1px solid var(--p-divider-solid);border-radius:50%;background:var(--p-divider-solid);transform:translate(-50%,-50%);transition:background-color 180ms var(--ease-standard),border-color 180ms var(--ease-standard),box-shadow 180ms var(--ease-standard),transform 180ms var(--ease-standard)}
 .maiq-platform-line-divider[data-lit="true"]{border-color:var(--c-flow);background:var(--c-flow);box-shadow:0 0 4px 2px color-mix(in oklab,var(--c-flow) 72%,transparent),0 0 12px 5px color-mix(in oklab,var(--c-flow-core) 34%,transparent);transform:translate(-50%,-50%) scale(1.12)}
-.maiq-platform-card{width:min(100%,1058px);height:min(46vh,529px);min-height:420px;margin:clamp(38px,5vh,58px) auto 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));overflow:hidden;border:1px solid var(--p-hair);border-radius:var(--radius-lg);background:var(--p-plat-veil)}
-.maiq-platform-media{position:relative;min-width:0;overflow:hidden;background:var(--p-bg-deep)}
-.maiq-platform-copy{display:flex;align-items:center;padding:clamp(28px,6%,52px);border-left:1px solid var(--p-hair)}
+.maiq-platform-card{width:min(100%,1058px);height:min(46vh,529px);min-height:clamp(300px,46vh,420px);margin:clamp(38px,5vh,58px) auto 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-areas:"media copy";overflow:hidden;border:1px solid var(--p-hair);border-radius:var(--radius-lg);background:var(--p-plat-veil)}
+/* Vídeos quadrados exibidos inteiros (contain): o fundo da caixa usa a mesma cor da borda
+   dos vídeos (--p-plat-video-bg), então as sobras laterais não aparecem como faixa. */
+.maiq-platform-video{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:contain}
+/* ≤1023px: o preview mostra só uma faixa central do vídeo (cover) em vez de uma
+   miniatura ilegível — convite para a tela cheia, onde o vídeo aparece inteiro. */
+@media (max-width:1023px){
+  .maiq-platform-media .maiq-platform-video{object-fit:cover}
+  /* Bloco descritivo centralizado no quadro (texto segue alinhado à esquerda, por causa dos marcadores) */
+  .maiq-platform-copy{justify-content:center}
+  .maiq-platform-copy-inner{width:min(100%,460px);min-width:0}
+  .maiq-platform-video[data-expandable]{cursor:zoom-in}
+}
+.maiq-platform-media{grid-area:media;position:relative;min-width:0;overflow:hidden;background:var(--p-plat-video-bg,var(--p-bg-deep))}
+.maiq-platform-copy{grid-area:copy;display:flex;align-items:center;padding:clamp(28px,6%,52px);border-left:1px solid var(--p-hair)}
 .maiq-platform-copy-inner{animation:maiqPlatformCopyIn 420ms var(--ease-out)}
 .maiq-platform-feature-name{margin:0 0 14px;color:var(--p-muted);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:var(--ls-overline)}
 .maiq-platform-copy h3,.maiq-platform-modal-copy h3{margin:0;color:var(--p-text);font-family:var(--font-core);font-size:clamp(24px,2.2vw,32px);font-weight:600;line-height:1.08;letter-spacing:0}
@@ -783,15 +963,6 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 .maiq-platform-points li{position:relative;padding-left:18px;color:var(--p-muted);font-size:16px;line-height:1.6;text-wrap:pretty}
 .maiq-platform-points li::before{content:"";position:absolute;left:0;top:.58em;width:5px;height:5px;border-radius:50%;background:var(--p-divider-solid)}
 @keyframes maiqPlatformCopyIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-.maiq-platform-placeholder{position:absolute;top:50%;left:50%;width:42%;aspect-ratio:1;transform:translate(-50%,-50%);color:var(--p-mark-1)}
-.maiq-platform-placeholder-circle{border-radius:50%;background:var(--p-mark-2)}
-.maiq-platform-placeholder-diamond{width:36%;border:2px solid currentColor;transform:translate(-50%,-50%) rotate(45deg)}
-.maiq-platform-placeholder-rings{width:48%}
-.maiq-platform-placeholder-rings i{position:absolute;border:2px solid currentColor;border-radius:50%;inset:0}
-.maiq-platform-placeholder-rings i:nth-child(2){inset:18%;color:var(--p-mark-2)}
-.maiq-platform-placeholder-rings i:nth-child(3){inset:36%;background:var(--p-mark-1)}
-.maiq-platform-placeholder-hexagon{width:42%;background:var(--p-mark-2);clip-path:polygon(50% 0%,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%)}
-.maiq-platform-placeholder[data-playing="true"]{animation:maiqPlatPulse 5.2s cubic-bezier(.4,0,.6,1) infinite}
 .maiq-media-controls{position:absolute;z-index:4;right:16px;bottom:16px;left:16px;display:flex;justify-content:space-between;pointer-events:none}
 .maiq-media-icon-button,.maiq-platform-icon-nav{position:relative!important;width:44px!important;min-width:44px!important;height:44px!important;padding:0!important;border:1px solid var(--p-hair-strong)!important;background:var(--p-header-bg)!important;color:var(--p-text)!important;box-shadow:var(--shadow-1);backdrop-filter:blur(12px);pointer-events:auto}
 .maiq-media-icon-button>svg:not(.maiq-media-progress){position:relative;z-index:2}
@@ -803,16 +974,62 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 .maiq-platform-modal{position:fixed;z-index:71;inset:clamp(18px,4vw,54px);max-width:1440px;margin:auto;padding:0;overflow:hidden;border:1px solid var(--p-hair-strong);border-radius:var(--radius-lg);background:var(--p-card);box-shadow:var(--shadow-3);color:var(--p-text);animation:maiqPlatformModalIn 260ms var(--ease-out)}
 .maiq-platform-modal-title{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 .maiq-platform-modal-layout{height:100%;display:grid;grid-template-columns:minmax(0,1.65fr) minmax(300px,.7fr)}
-.maiq-platform-modal-media{position:relative;min-height:0;overflow:hidden;background:var(--p-bg-deep)}
+.maiq-platform-modal-media{position:relative;min-height:0;overflow:hidden;background:var(--p-plat-video-bg,var(--p-bg-deep))}
 .maiq-platform-modal-copy{display:flex;flex-direction:column;justify-content:center;padding:clamp(30px,4vw,64px);border-left:1px solid var(--p-hair)}
 .maiq-platform-modal-nav{margin-top:40px;display:flex;align-items:center;gap:14px;color:var(--p-muted);font-size:13px}
+.maiq-platform-rotate-hint{
+  position:absolute;
+  z-index:3;
+  top:16px;
+  left:50%;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 14px;
+  transform:translateX(-50%);
+  border-radius:var(--radius-pill,999px);
+  background:var(--p-bg-deep,#09201F);
+  color:var(--p-text,#EAD9CC);
+  font-family:var(--font-core);
+  font-size:13px;
+  font-weight:var(--fw-medium,500);
+  box-shadow:var(--shadow-3);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity var(--dur-2) var(--ease-standard);
+}
+.maiq-platform-rotate-hint[data-visible="true"]{opacity:1}
+@media (prefers-reduced-motion:reduce){.maiq-platform-rotate-hint{transition:none}}
 @keyframes maiqPlatformFade{from{opacity:0}to{opacity:1}}
 @keyframes maiqPlatformModalIn{from{opacity:0;transform:scale(.98)}to{opacity:1;transform:scale(1)}}
+/* Abaixo de 1024px o estágio sticky de "Nossa Plataforma" continua com
+   exatamente uma svh de altura (regra base, não sobrescrita aqui) — é a
+   mesma invariante do desktop. O cartão vira um bloco de altura fixa
+   (texto acima, faixa de mídia compacta abaixo, em vez de dirigido por
+   conteúdo): ver docs/adr/0003-nossa-plataforma-mobile-estagio-de-altura-fixa.md */
 @media (max-width:1023px){
-  .maiq-platform-section{min-height:0;padding:112px 24px 96px}
-  .maiq-platform-card{height:auto;min-height:0;grid-template-columns:1fr}
-  .maiq-platform-media{aspect-ratio:1/1}
-  .maiq-platform-copy{min-height:290px;border-top:1px solid var(--p-hair);border-left:0}
+  .maiq-platform-section{padding:88px 24px 56px}
+  .maiq-platform-card{
+    height:clamp(320px,52svh,560px);
+    min-height:0;
+    grid-template-columns:1fr;
+    grid-template-rows:minmax(0,1fr) clamp(96px,20svh,160px);
+    grid-template-areas:"copy" "media";
+  }
+  .maiq-platform-media{aspect-ratio:auto}
+  .maiq-platform-copy{
+    align-items:flex-start;
+    min-height:0;
+    overflow-y:auto;
+    overscroll-behavior:auto;
+    border-top:1px solid var(--p-hair);
+    border-left:0;
+    scrollbar-width:thin;
+    scrollbar-color:var(--p-hair-strong) transparent;
+  }
+  .maiq-platform-copy::-webkit-scrollbar{width:6px}
+  .maiq-platform-copy::-webkit-scrollbar-track{background:transparent}
+  .maiq-platform-copy::-webkit-scrollbar-thumb{border-radius:var(--radius-pill);background:var(--p-hair-strong)}
   .maiq-platform-modal-layout{grid-template-columns:1fr;grid-template-rows:minmax(0,1.25fr) auto}
   .maiq-platform-modal-copy{padding:28px;border-top:1px solid var(--p-hair);border-left:0}
   .maiq-platform-modal-copy [data-radix-dialog-description]{max-width:none}
@@ -823,8 +1040,13 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
   .maiq-platform-section{padding-right:20px;padding-left:20px}
   .maiq-platform-showcase{margin-top:42px}
   .maiq-platform-tabs{width:640px;min-width:640px}
-  .maiq-platform-card{margin-top:34px;border-radius:var(--radius-lg)}
-  .maiq-platform-copy{min-height:320px;padding:28px 24px}
+  .maiq-platform-card{
+    margin-top:34px;
+    border-radius:var(--radius-lg);
+    height:clamp(300px,50svh,420px);
+    grid-template-rows:minmax(0,1fr) clamp(88px,16svh,130px);
+  }
+  .maiq-platform-copy{padding:28px 24px}
   .maiq-platform-modal{inset:10px}
   .maiq-platform-modal-layout{grid-template-rows:minmax(0,1fr) auto}
   .maiq-platform-modal-copy{padding:22px}
@@ -832,9 +1054,41 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
   .maiq-platform-modal-copy [data-radix-dialog-description]{margin-top:12px;font-size:14px;line-height:1.55}
   .maiq-platform-modal-nav{margin-top:18px}
 }
+/* Modal de tela cheia em celular portrait: mesma técnica de
+   .maiq-conviction-modal (rotação via CSS, sem orientation.lock nativo —
+   iOS Safari não suporta). O layout interno mantém a grade de duas colunas
+   do desktop (mídia + texto lado a lado) porque, girado, a caixa fica
+   naturalmente "deitada" (width:100vh é a maior dimensão em portrait). */
+@media (max-width:800px) and (orientation:portrait){
+  .maiq-platform-modal{
+    inset:0;
+    max-width:none;
+    margin:0;
+    border:none;
+    border-radius:0;
+  }
+  .maiq-platform-modal-layout{
+    position:absolute;
+    top:50%;
+    left:50%;
+    width:100vh;
+    width:100dvh;
+    height:100vw;
+    transform:translate(-50%,-50%) rotate(90deg);
+    grid-template-columns:minmax(0,1.65fr) minmax(300px,.7fr);
+    grid-template-rows:none;
+  }
+  /* Nos 3 modais de tela cheia (Convicção/Plataforma/Perspectiva), nesse
+     estado o próprio modal vira `inset:0` opaco e cobre a tela inteira — o
+     overlay atrás fica 100% coberto, então seu `backdrop-filter` não produz
+     nenhum efeito visível. É puro custo de composição (reamostra a tela
+     inteira a cada quadro) no exato momento em que o modal está abrindo e
+     girando; desligar aqui não muda nada que se veja. */
+  .maiq-platform-modal-overlay{backdrop-filter:none}
+}
 @media (prefers-reduced-motion:reduce){
   .maiq-platform-line-progress,.maiq-platform-line-divider,.maiq-platform-tab{transition:none!important}
-  .maiq-platform-placeholder,.maiq-platform-copy-inner,.maiq-platform-modal,.maiq-platform-modal-overlay{animation:none!important}
+  .maiq-platform-copy-inner,.maiq-platform-modal,.maiq-platform-modal-overlay{animation:none!important}
 }
 
 /* Carregamento inicial — cobre a composição até fontes e recursos da primeira tela estarem prontos. */
@@ -847,8 +1101,8 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 .maiq-loader-logo-day{opacity:0}
 [data-maiq-scope][data-theme="claro"] .maiq-loader-logo-night{opacity:0}
 [data-maiq-scope][data-theme="claro"] .maiq-loader-logo-day{opacity:1}
-.maiq-loader-block{display:block;overflow:hidden;border-radius:4px;background:color-mix(in oklab,var(--p-text,#FFFFFF) 13%,transparent);position:relative}
-.maiq-loader-block::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 0%,color-mix(in oklab,var(--p-text,#FFFFFF) 20%,transparent) 48%,transparent 100%);transform:translateX(-110%);animation:maiqLoaderSweep 1.35s ease-in-out infinite}
+.maiq-loader-block{display:block;overflow:hidden;border-radius:4px;background:color-mix(in oklab,var(--p-text,#EAD9CC) 13%,transparent);position:relative}
+.maiq-loader-block::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 0%,color-mix(in oklab,var(--p-text,#EAD9CC) 20%,transparent) 48%,transparent 100%);transform:translateX(-110%);animation:maiqLoaderSweep 1.35s ease-in-out infinite}
 .maiq-loader-overline{width:112px;height:10px;margin-bottom:24px}
 .maiq-loader-line-1{width:min(680px,92%);height:clamp(34px,5.2vw,62px);margin-bottom:12px}
 .maiq-loader-line-2{width:min(520px,74%);height:clamp(34px,5.2vw,62px);margin-bottom:30px}
@@ -861,58 +1115,197 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 @media(max-width:640px){.maiq-loader-hero{width:calc(100% - 40px);margin-left:20px}.maiq-loader-line-1{width:100%}.maiq-loader-line-2{width:78%}.maiq-loader-body{width:88%}.maiq-loader-actions{width:100%}.maiq-loader-cta{flex:1;width:auto}}
 @media(prefers-reduced-motion:reduce){.maiq-loader-mark,.maiq-loader-block::after{animation:none}}
 
-/* ============ Insights (Artigos Autorais) ============ */
+/* ============ SiteHeader (chrome compartilhado) ============ */
 .maiq-nav-item{color:inherit !important}
-.maiq-nav-item:hover,.maiq-nav-item:focus-visible{color:var(--p-hover-text,#FFFFFF) !important}
+.maiq-nav-item:hover,.maiq-nav-item:focus-visible{color:var(--p-text,#EAD9CC) !important}
+.maiq-site-header-brand:hover{opacity:.82}
+.maiq-site-theme-toggle:hover,.maiq-site-theme-toggle:focus-visible{border-color:var(--p-hair-strong,rgba(234,217,204,.32))}
+.maiq-site-theme-toggle:focus-visible{box-shadow:var(--glow-focus)}
+
+/* Menu compacto (<1024px): abaixo do breakpoint estrutural, o <nav> e a
+   CTA completa (ver regras de largura adiante) somem, substituídos pelo
+   gatilho de ícone único + o toggle de tema embutido. As duas subárvores
+   (desktop e compacta) ficam sempre no DOM; só o `display` muda por
+   media query — sem JS de resize decidindo layout. */
+.maiq-site-header-compact{display:none;align-items:center;gap:8px;margin-left:10px}
+.maiq-site-theme-toggle-compact,.maiq-site-menu-trigger{
+  display:flex;align-items:center;justify-content:center;
+  width:44px;height:44px;padding:0;flex:none;
+  border:1px solid var(--p-hair,rgba(234,217,204,.14));
+  border-radius:999px;
+  background:transparent;
+  color:var(--p-text,#EAD9CC);
+  cursor:pointer;
+  transition:border-color 200ms cubic-bezier(.2,0,0,1);
+}
+.maiq-site-theme-toggle-compact:hover,.maiq-site-theme-toggle-compact:focus-visible,
+.maiq-site-menu-trigger:hover,.maiq-site-menu-trigger:focus-visible{
+  border-color:var(--p-hair-strong,rgba(234,217,204,.32));
+}
+.maiq-site-theme-toggle-compact:focus-visible,.maiq-site-menu-trigger:focus-visible{box-shadow:var(--glow-focus)}
+
+/* "Entrar"/"Conta" e "Fale Conosco" só entram no menu compacto em <=430px
+   (ver media query abaixo) — entre 431 e 1024px a pílula CTA continua
+   visível ao lado do gatilho, e esses itens ficam ocultos dentro do painel. */
+.maiq-nav-dropdown-item--mobile-auth,.maiq-nav-dropdown-separator--mobile-auth{display:none}
+
+@media(max-width:1024px){
+  .maiq-site-nav{display:none !important}
+  .maiq-site-theme-toggle-wrap{display:none !important}
+  .maiq-site-header-compact{display:flex !important}
+}
+@media(max-width:640px){
+  .maiq-site-header{padding:0 8px 0 14px;height:56px;max-width:calc(100vw - 16px)}
+  .maiq-site-header-logo{margin-right:12px !important}
+}
+/* Altura curta (notebooks com a barra de favoritos aberta, ~650-820px) —
+   top/height do header e do alternador de tema são estilo inline em
+   SiteHeader.tsx, então precisam de !important para serem vencidos aqui,
+   mesmo padrão já usado acima para display:none!important em telas estreitas. */
+@media(max-height:700px){
+  .maiq-site-header{top:10px !important;height:56px !important}
+  .maiq-site-theme-toggle-wrap{top:16px !important}
+}
+@media(max-width:430px){
+  .maiq-site-header-cta{display:none !important}
+  .maiq-nav-dropdown-item--mobile-auth,.maiq-nav-dropdown-separator--mobile-auth{display:block}
+}
+@media(max-width:360px){
+  .maiq-site-header{padding:0 4px 0 10px !important}
+  .maiq-site-header-logo{margin-right:8px !important}
+  .maiq-site-header-compact{gap:6px;margin-left:6px}
+  .maiq-site-theme-toggle-compact,.maiq-site-menu-trigger{width:40px;height:40px}
+}
+
+/* ============ Insights (Artigos Autorais) ============ */
 .maiq-insights-main{max-width:1080px;margin:0 auto;padding:clamp(140px,18vh,200px) clamp(24px,5vw,48px) clamp(80px,12vh,140px)}
 .maiq-insights-head{text-align:center}
 .maiq-insights-head h2{margin:0;color:var(--p-text);font-family:var(--font-core);font-size:clamp(38px,4.2vw,58px);font-weight:600;line-height:1.04;letter-spacing:0}
 .maiq-insights-head .maiq-section-subhead{max-width:none;margin:12px auto 0}
 .maiq-insights-list{margin-top:clamp(30px,4.5vh,48px);display:flex;flex-direction:column}
-.maiq-insight-row{display:grid;grid-template-columns:64px 1fr auto;align-items:center;gap:clamp(16px,2.4vw,28px);padding:clamp(16px,2.6vh,22px) clamp(14px,2vw,22px);border-bottom:1px solid var(--p-hair,rgba(255,255,255,.14));text-decoration:none;color:var(--p-text);transition:background 200ms cubic-bezier(.2,0,0,1),color 200ms cubic-bezier(.2,0,0,1)}
-.maiq-insight-row:first-child{border-top:1px solid var(--p-hair,rgba(255,255,255,.14))}
-.maiq-insight-row:nth-child(odd){background:var(--p-chip-bg,rgba(255,255,255,.04))}
-.maiq-insight-row:hover{background:rgba(255,255,255,.09)}
+.maiq-insight-row{display:grid;grid-template-columns:64px 1fr auto;align-items:center;gap:clamp(16px,2.4vw,28px);padding:clamp(16px,2.6vh,22px) clamp(14px,2vw,22px);border-bottom:1px solid var(--p-hair,rgba(234,217,204,.14));text-decoration:none;color:var(--p-text);transition:background 200ms cubic-bezier(.2,0,0,1),color 200ms cubic-bezier(.2,0,0,1)}
+.maiq-insight-row:first-child{border-top:1px solid var(--p-hair,rgba(234,217,204,.14))}
+.maiq-insight-row:nth-child(odd){background:var(--p-chip-bg,rgba(234,217,204,.04))}
+/* Hover na cor de destaque do tema (menta no noturno, madeira no diurno); antes o
+   a:hover global pintava o título de branco, fora da paleta do tema claro. */
+.maiq-insight-row:hover{color:var(--p-text-2);background:rgba(159,214,210,.08)}
 [data-maiq-scope][data-theme="claro"] .maiq-insight-row:hover{background:rgba(52,35,22,.06)}
-.maiq-insight-icon{display:flex;align-items:center;justify-content:center;width:40px;height:40px;border:1px solid var(--p-hair,rgba(255,255,255,.14));border-radius:12px;color:var(--p-subhead);transition:color 200ms cubic-bezier(.2,0,0,1),border-color 200ms cubic-bezier(.2,0,0,1)}
-.maiq-insight-row:hover .maiq-insight-icon{color:var(--p-text);border-color:var(--p-hair-strong,rgba(255,255,255,.32))}
+.maiq-insight-icon{display:flex;align-items:center;justify-content:center;width:40px;height:40px;border:1px solid var(--p-hair,rgba(234,217,204,.14));border-radius:12px;color:var(--p-subhead);transition:color 200ms cubic-bezier(.2,0,0,1),border-color 200ms cubic-bezier(.2,0,0,1)}
+.maiq-insight-row:hover .maiq-insight-icon{color:var(--p-text-2);border-color:var(--p-hair-strong,rgba(234,217,204,.32))}
 .maiq-insight-title{font-family:var(--font-core);font-size:clamp(16px,1.5vw,20px);font-weight:500;line-height:1.35}
 .maiq-insight-date{color:var(--p-subhead);font-family:var(--font-core);font-size:14px;font-weight:500;letter-spacing:.02em;white-space:nowrap;font-variant-numeric:tabular-nums}
-.maiq-insights-cta-lead{display:flex;align-items:center}
-.maiq-manifesto-body{position:relative;max-width:760px;margin:clamp(30px,4.5vh,48px) auto 0;padding:0 clamp(34px,5vw,60px)}
-.maiq-manifesto-body p{margin:0 0 20px;font-size:clamp(16px,1.6vw,18px);line-height:1.75;color:var(--p-text);text-wrap:pretty}
-.maiq-manifesto-body p:last-child{margin-bottom:0}
-.maiq-manifesto-quote{position:absolute;color:var(--p-mark-1,#9FD6D2);font-family:var(--font-core);font-size:clamp(60px,7vw,92px);line-height:1;opacity:.9;user-select:none}
-.maiq-manifesto-quote-open{top:-12px;left:0}
-.maiq-manifesto-quote-close{bottom:-26px;right:0;line-height:0}
-.maiq-manifesto-founders{margin:clamp(44px,6vh,64px) 0 0;text-align:center;font-size:15px;letter-spacing:.04em;color:var(--p-muted,#9FD6D2)}
-.maiq-manifesto-founders strong{color:var(--p-text,#EAD9CC);font-weight:600}
-.maiq-founder-grid{margin-top:clamp(28px,4vh,44px);display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(20px,3vw,36px);max-width:820px;margin-left:auto;margin-right:auto}
-.maiq-founder-card{display:flex;flex-direction:column;align-items:center;gap:6px;padding:clamp(24px,3vw,36px) clamp(20px,3vw,32px);border:1px solid var(--p-hair,rgba(234,217,204,.14));border-radius:24px;background:var(--p-chip-bg,rgba(234,217,204,.04))}
-.maiq-founder-name{font-family:var(--font-core);font-size:20px;font-weight:600;color:var(--p-text,#EAD9CC)}
-.maiq-founder-frente{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--p-muted,#9FD6D2)}
-.maiq-founder-signature{margin-top:14px;padding-top:12px;border-top:1px solid var(--p-hair,rgba(234,217,204,.14));width:100%;text-align:center;font-family:'Caveat',cursive;font-size:clamp(34px,4vw,44px);font-weight:500;line-height:1.1;color:var(--p-mark-1,#9FD6D2)}
-@media (max-width:720px){
-  .maiq-founder-grid{grid-template-columns:1fr}
-  .maiq-manifesto-body{padding:0 clamp(24px,6vw,32px)}
-}
 @media(max-width:640px){
   .maiq-insight-row{grid-template-columns:44px 1fr;row-gap:6px;padding:16px 12px}
   .maiq-insight-icon{width:32px;height:32px;border-radius:10px}
   .maiq-insight-date{grid-column:2}
-  .maiq-insights-header{padding:0 8px 0 14px;height:56px;max-width:calc(100vw - 16px)}
-  .maiq-insights-header > div:first-child{margin-right:12px !important}
-  .maiq-insights-nav{gap:14px !important;margin-right:12px !important}
-  .maiq-insights-toggle{top:92px !important;right:12px !important}
 }
-@media(max-width:430px){
-  .maiq-insights-header>div:last-child{display:none !important}
-  .maiq-insights-nav{margin-right:0 !important}
+
+/* ============ Páginas legais (Privacidade, Termos, Cookies) ============ */
+.maiq-legal-main{background:var(--p-bg,#0F2B2A);padding:clamp(120px,14vh,168px) clamp(24px,5vw,48px) clamp(80px,12vh,140px);transition:background 320ms cubic-bezier(.16,1,.3,1)}
+.maiq-legal{max-width:760px;margin:0 auto}
+
+.maiq-legal-title{margin:0;font-family:var(--font-core);font-size:clamp(34px,4vw,52px);font-weight:600;line-height:1.06;color:var(--p-h1,#FFFFFF)}
+.maiq-legal-version{margin-top:12px;color:var(--p-muted,#9FD6D2);font-size:15px}
+.maiq-legal-hr{margin:32px 0;border:0;border-top:1px solid var(--p-hair,rgba(234,217,204,.14))}
+
+.maiq-legal-h2{margin:44px 0 14px;font-family:var(--font-core);font-size:var(--fs-h3,24px);font-weight:600;color:var(--p-text,#EAD9CC)}
+.maiq-legal-h3{margin:26px 0 10px;font-family:var(--font-core);font-size:19px;font-weight:500;color:var(--p-text,#EAD9CC)}
+
+.maiq-legal-p{margin:0 0 16px;font-size:17px;line-height:1.7;color:var(--p-text-2,#AFE3E0)}
+.maiq-legal-p:last-child{margin-bottom:0}
+.maiq-legal-list{margin:0 0 16px;padding-left:22px;list-style:disc;font-size:17px;line-height:1.7;color:var(--p-text-2,#AFE3E0)}
+.maiq-legal-list li+li{margin-top:8px}
+
+.maiq-legal-p a,.maiq-legal-list a{color:var(--p-mark-1,#9FD6D2);text-decoration:underline;text-underline-offset:3px;transition:color 200ms cubic-bezier(.2,0,0,1)}
+.maiq-legal-p a:hover,.maiq-legal-list a:hover,.maiq-legal-p a:focus-visible,.maiq-legal-list a:focus-visible{color:var(--p-text,#EAD9CC)}
+
+.maiq-legal-footnote{margin:0;font-size:14px;color:var(--p-muted,#9FD6D2)}
+
+/* Tabela da seção "Finalidades e Base Legal" — <table> real em todas as
+   larguras; abaixo de 640px vira lista de cartões só por CSS (o thead some
+   visualmente, mas continua acessível via leitor de tela). */
+.maiq-legal-table-wrap{margin:0 0 16px}
+.maiq-legal-table{width:100%;border-collapse:collapse;font-size:16px;line-height:1.5}
+.maiq-legal-table-head th{padding:12px 14px;border-bottom:1px solid var(--p-hair-strong,rgba(234,217,204,.32));color:var(--p-text,#EAD9CC);font-weight:600;text-align:left}
+.maiq-legal-table tbody tr{border-bottom:1px solid var(--p-hair-soft,rgba(234,217,204,.12))}
+.maiq-legal-table td{padding:12px 14px;color:var(--p-text-2,#AFE3E0);vertical-align:top}
+@media(max-width:640px){
+  .maiq-legal-table-head{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  .maiq-legal-table,.maiq-legal-table tbody,.maiq-legal-table tr,.maiq-legal-table td{display:block;width:100%}
+  .maiq-legal-table tbody tr{padding:14px 0;border-bottom:1px solid var(--p-hair-soft,rgba(234,217,204,.12))}
+  .maiq-legal-table tbody tr:first-child{border-top:1px solid var(--p-hair-soft,rgba(234,217,204,.12))}
+  .maiq-legal-table td{padding:3px 0;border:0}
+  .maiq-legal-table td:first-child{padding-top:0;padding-bottom:8px;font-weight:600;font-size:17px;color:var(--p-text,#EAD9CC)}
+  .maiq-legal-table td:not(:first-child)::before{content:attr(data-label);display:block;margin-bottom:2px;color:var(--p-muted,#9FD6D2);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.02em}
 }
-@media(max-width:360px){
-  .maiq-insights-header{padding:0 4px 0 10px !important}
-  .maiq-insights-header > div:first-child{margin-right:8px !important}
-  .maiq-insights-nav{gap:10px !important;margin-right:8px !important;font-size:13px}
-  .maiq-insights-header button{padding:0 10px !important}
-  .maiq-insights-nav a[href="/insights"]{display:none}
+
+/* ============ Página "Sobre nós" ============ */
+/* Único consumidor, além do MaiqButton, da camada de tokens semântica
+   (--bg-page, --text-*, --surface-card, --border-*, --highlight, --action-*)
+   — ver DESIGN.md e ADR 0002. Não usar --p-* aqui. */
+.maiq-about-main{position:relative;overflow:hidden;background:linear-gradient(180deg,var(--bg-page) 0%,var(--bg-page) 22%,var(--bg-page-deep) 58%,var(--bg-page-deep) 100%);color:var(--text-primary);transition:background 320ms cubic-bezier(.16,1,.3,1),color 320ms cubic-bezier(.16,1,.3,1)}
+.maiq-about-identity-wrap{position:relative}
+.maiq-about-glow{position:absolute;inset:0;background:radial-gradient(70% 75% at 30% 42%,var(--border-hair) 0%,transparent 70%);pointer-events:none}
+
+.maiq-about-section{position:relative;max-width:1200px;margin:0 auto;padding:0 clamp(24px,5vw,48px);box-sizing:border-box;display:flex;flex-direction:column;gap:80px}
+.maiq-about-section:first-of-type{padding-top:clamp(140px,18vh,192px)}
+.maiq-about-section:last-of-type{padding-bottom:clamp(88px,12vh,112px)}
+.maiq-about-section+.maiq-about-section{margin-top:clamp(88px,12vh,112px)}
+.maiq-about-title{margin:0;font-family:var(--font-core);font-size:56px;line-height:1.04;letter-spacing:-.02em;font-weight:600;text-align:center;color:var(--highlight)}
+
+.maiq-about-identity-row{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:40px}
+
+.maiq-about-logo{flex:0 1 380px;min-width:0;display:flex;flex-direction:column;gap:20px}
+.maiq-about-logo-frame{position:relative;width:100%;aspect-ratio:1295/386}
+.maiq-about-logo-base,.maiq-about-logo-highlight{position:absolute;inset:0;-webkit-mask-position:center;-webkit-mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-position:center;mask-size:100% 100%;mask-repeat:no-repeat}
+.maiq-about-logo-base{background:var(--border-mid)}
+.maiq-about-logo-highlight{background:var(--highlight);transition:clip-path 560ms cubic-bezier(.16,1,.3,1)}
+.maiq-about-logo-track{position:relative;height:3px;background:var(--border-hair)}
+.maiq-about-logo-indicator{position:absolute;top:0;bottom:0;background:var(--highlight);box-shadow:0 0 8px color-mix(in oklab,var(--highlight) 70%,transparent),0 0 24px color-mix(in oklab,var(--highlight) 40%,transparent);transition:left 560ms cubic-bezier(.16,1,.3,1),width 560ms cubic-bezier(.16,1,.3,1)}
+
+.maiq-about-meta{flex:0 1 auto;display:flex;align-items:stretch}
+.maiq-about-meta-col{border-left:1px solid var(--border-hair);border-image:linear-gradient(180deg,transparent,var(--border-mid) 22%,var(--border-mid) 78%,transparent) 1;display:flex;flex-direction:column;justify-content:center;gap:6px}
+.maiq-about-meta-col--pronuncia{padding:4px 40px}
+.maiq-about-meta-col--genero{padding:4px 0 4px 40px}
+.maiq-about-meta-overline{font-size:12px;letter-spacing:.06em;font-weight:500;color:var(--text-muted)}
+.maiq-about-meta-value{font-size:32px;line-height:1.1;font-weight:600;letter-spacing:-.01em;color:var(--text-primary)}
+.maiq-about-meta-note{font-size:14px;color:var(--text-muted)}
+
+.maiq-about-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.maiq-about-card{all:unset;box-sizing:border-box;cursor:pointer;display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px;padding:24px 28px;border-radius:16px;border:1px solid var(--border-hair);background:transparent;transition:background 320ms cubic-bezier(.16,1,.3,1),border-color 320ms cubic-bezier(.16,1,.3,1),box-shadow 320ms cubic-bezier(.16,1,.3,1),transform 320ms cubic-bezier(.16,1,.3,1)}
+.maiq-about-card[aria-selected="true"]{border-color:var(--border-strong-c);background:var(--surface-card);transform:translateY(-2px);box-shadow:0 0 0 1px color-mix(in oklab,var(--highlight) 35%,transparent),0 0 18px color-mix(in oklab,var(--highlight) 22%,transparent),0 0 44px color-mix(in oklab,var(--highlight) 10%,transparent)}
+.maiq-about-card-acronym{font-size:40px;line-height:1;font-weight:600;letter-spacing:-.02em;color:var(--text-muted);transition:color 320ms cubic-bezier(.2,0,0,1)}
+.maiq-about-card[aria-selected="true"] .maiq-about-card-acronym{color:var(--highlight)}
+.maiq-about-card-body{display:flex;flex-direction:column;align-items:center;gap:6px}
+.maiq-about-card-name{font-size:20px;font-weight:600;line-height:1.3;color:var(--text-primary)}
+.maiq-about-card-name em{font-style:normal;text-decoration:underline;text-decoration-color:var(--border-focus);text-decoration-thickness:2px;text-underline-offset:5px}
+.maiq-about-card-desc{font-size:15px;line-height:1.55;color:var(--text-secondary);text-wrap:pretty}
+
+.maiq-about-quote{position:relative;max-width:760px;width:100%;margin:0 auto;padding:24px 0 0;box-sizing:border-box;display:flex;flex-direction:column;gap:24px}
+.maiq-about-quote-mark{position:absolute;font-size:200px;line-height:1;font-weight:600;color:var(--border-mid);user-select:none}
+.maiq-about-quote-mark--open{left:-96px;top:-40px}
+.maiq-about-quote-mark--close{right:-96px;bottom:-140px}
+.maiq-about-quote-lead{margin:0 0 8px;max-width:30ch;font-size:30px;line-height:1.3;letter-spacing:-.012em;font-weight:600;color:var(--text-primary);text-wrap:pretty}
+.maiq-about-quote-p{margin:0;font-size:19px;line-height:1.75;color:var(--text-secondary);text-wrap:pretty}
+.maiq-about-quote-highlight{margin:16px 0;padding:24px 0;font-size:22px;line-height:1.5;font-weight:600;color:var(--text-primary);border-top:1px solid var(--border-hair);border-bottom:1px solid var(--border-hair);border-image:linear-gradient(90deg,transparent,var(--border-mid) 18%,var(--border-mid) 82%,transparent) 1;text-wrap:pretty}
+
+.maiq-about-founders{max-width:760px;width:100%;margin:0 auto;padding-top:40px;border-top:1px solid var(--border-hair);border-image:linear-gradient(90deg,transparent,var(--border-mid) 18%,var(--border-mid) 82%,transparent) 1;display:flex;flex-wrap:wrap;align-items:center;gap:32px 64px}
+.maiq-about-founders-label{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;color:var(--text-muted)}
+.maiq-about-founder{display:flex;flex-direction:column;align-items:flex-start;gap:10px}
+.maiq-about-founder-signature{height:64px;background:var(--text-primary);-webkit-mask-position:left center;-webkit-mask-size:contain;-webkit-mask-repeat:no-repeat;mask-position:left center;mask-size:contain;mask-repeat:no-repeat}
+.maiq-about-founder-meta{display:flex;flex-direction:column;gap:2px}
+.maiq-about-founder-name{font-size:16px;font-weight:600;color:var(--text-primary)}
+.maiq-about-founder-role{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;color:var(--border-focus)}
+/* Mobile: rótulo centralizado acima, assinaturas lado a lado abaixo. */
+@media(max-width:760px){.maiq-about-founders{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 16px;justify-items:center;text-align:center}.maiq-about-founders-label{grid-column:1/-1}.maiq-about-founder{align-items:center;min-width:0;max-width:100%}.maiq-about-founder-signature{height:52px;max-width:100%;-webkit-mask-position:center;mask-position:center}}
+
+@media(max-width:720px){
+  .maiq-about-title{font-size:40px}
+  .maiq-about-quote-mark{font-size:clamp(96px,22vw,120px)}
+  .maiq-about-quote-mark--open{left:-16px;top:-8px}
+  .maiq-about-quote-mark--close{right:-16px;bottom:-8px}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .maiq-about-logo-highlight,.maiq-about-logo-indicator,.maiq-about-card{transition:none}
 }
