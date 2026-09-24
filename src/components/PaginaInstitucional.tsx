@@ -1,10 +1,8 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useRouterState } from '@tanstack/react-router';
 import type { User } from '@supabase/supabase-js';
-import { Sun, Moon } from 'lucide-react';
 import Ciclo from '@/components/sections/Ciclo';
 import Conviccao from '@/components/sections/Conviccao';
-import DominiosPlaceholder from '@/components/sections/DominiosPlaceholder';
 // O Domínio removido da página institucional; componente e logos preservados
 // (src/components/sections/Dominio.tsx e src/assets/logo-*.asset.json) para a
 // futura página "Sobre nós > Domínios".
@@ -12,9 +10,10 @@ import Faq from '@/components/sections/Faq';
 import PageLoader from '@/components/maiq/PageLoader';
 import AuthLeadDialogs from '@/components/AuthLeadDialogs';
 import PlatformShowcase from '@/components/maiq/PlatformShowcase';
-import MaiqButton from '@/components/maiq/MaiqButton';
-import NavDropdown from '@/components/maiq/NavDropdown';
-import { supabase } from '@/integrations/supabase/client';
+import SiteFooter from '@/components/maiq/SiteFooter';
+import SiteHeader from '@/components/maiq/SiteHeader';
+import { useMaiqTheme } from '@/hooks/use-maiq-theme';
+import { useSupabaseUser } from '@/hooks/use-supabase-user';
 import logoBranco from '@/assets/logo-maiq-branco.png';
 import logoMadeira from '@/assets/logo-maiq-madeira.png';
 import toolGpt from '@/assets/tool-gpt.webp';
@@ -114,29 +113,24 @@ function parseStyleText(text: string): Record<string, string> {
   return out;
 }
 
-const SECOES = [
-  { id: 'topo', label: 'Início' },
-  { id: 'modelo', label: 'Nosso Modelo' },
-  { id: 'fundacao', label: 'Nossa Convicção' },
-  { id: 'plataforma', label: 'Nossa Plataforma' },
-  { id: 'ciclo', label: 'Nossa Perspectiva' },
-  { id: 'dominios', label: 'Nosso Time' },
-  { id: 'faq', label: 'FAQ' },
-];
-
 export default function PaginaInstitucional() {
-  const [theme, setTheme] = useState<'noite' | 'claro'>('noite');
+  const { theme, dia, ready: themeReady, toggleTheme } = useMaiqTheme();
   const [authOpen, setAuthOpen] = useState(false);
   const [leadOpen, setLeadOpen] = useState(false);
-  const [user, setUser] = useState<User | null>(null);
-  const themeRef = useRef<'noite' | 'claro'>('noite');
+  const supabaseUser = useSupabaseUser();
+  // AuthLeadDialogs atualiza o usuário de forma otimista (onUserChange) logo
+  // após login/logout, antes que o listener do hook propague a mudança —
+  // espelhar aqui evita um piscar da view "Conta" no dialog.
+  const [user, setUser] = useState<User | null>(supabaseUser);
+  useEffect(() => setUser(supabaseUser), [supabaseUser]);
 
   const goToSection = (id: string) => {
     if (id === 'topo') { window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
     const el = (document.querySelector('[data-maiq-sec="' + id + '"]') as HTMLElement | null)
       ?? (document.getElementById(id) as HTMLElement | null);
     if (!el) return;
-    let top = el.getBoundingClientRect().top + window.scrollY;
+    const rect = el.getBoundingClientRect();
+    let top = rect.top + window.scrollY;
     // Plataforma e FAQ são bases sticky de seus respectivos blocos. Seus
     // elementos ficam visualmente no topo em uma faixa inteira de scroll;
     // os holds marcam o ponto em que cada base deve ser mostrada por completo.
@@ -144,6 +138,13 @@ export default function PaginaInstitucional() {
       top = platformHoldRef.current.getBoundingClientRect().top + window.scrollY;
     } else if (id === 'faq' && finalHoldRef.current) {
       top = finalHoldRef.current.getBoundingClientRect().top + window.scrollY;
+    } else if (rect.height < window.innerHeight) {
+      // Seções em fluxo normal (Nosso Modelo, Nossa Convicção) mais baixas
+      // que a tela — comum em alturas curtas — ficam com um vão embaixo se
+      // só alinharmos o topo, revelando a seção seguinte antes da hora.
+      // Alinhar a base ao fundo da tela evita isso; o respiro sobra em cima,
+      // mostrando um pouco da seção anterior, o que é natural num scroll.
+      top = rect.bottom + window.scrollY - window.innerHeight;
     }
     // Cada seção já reserva internamente o espaço do cabeçalho. Alinhar a
     // borda da seção ao topo mantém todo o conteúdo dentro da viewport.
@@ -163,18 +164,13 @@ export default function PaginaInstitucional() {
 
 
   const scopeRef = useRef<Any>(null);
-  const logoDayRef = useRef<Any>(null);
   const headerSlotRef = useRef<Any>(null);
   const headerLogoRef = useRef<Any>(null);
   const flyLogoRef = useRef<Any>(null);
-  const flyLogoDayRef = useRef<Any>(null);
   const heroLogoSlotRef = useRef<Any>(null);
-  const logoFooterDayRef = useRef<Any>(null);
   const netWrapRef = useRef<Any>(null);
   const iconSunRef = useRef<Any>(null);
   const iconMoonRef = useRef<Any>(null);
-  const tipRef = useRef<Any>(null);
-  const thumbRef = useRef<Any>(null);
   const heroRef = useRef<Any>(null);
   const heroContentRef = useRef<Any>(null);
   const overlayRef = useRef<Any>(null);
@@ -186,22 +182,6 @@ export default function PaginaInstitucional() {
   const finalWrapRef = useRef<Any>(null);
   const finalHoldRef = useRef<Any>(null);
 
-  useEffect(() => {
-    let mounted = true;
-    void supabase.auth.getUser().then(({ data }) => {
-      if (mounted) setUser(data.user);
-    });
-    const { data } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
-    });
-    return () => {
-      mounted = false;
-      data.subscription.unsubscribe();
-    };
-  }, []);
-
-  const segSunRef = useRef<Any>(null);
-  const segMoonRef = useRef<Any>(null);
   const marqueeRef = useRef<Any>(null);
   const rowARef = useRef<Any>(null);
   const rowBRef = useRef<Any>(null);
@@ -229,7 +209,7 @@ export default function PaginaInstitucional() {
   const helixBars = useMemo(() => buildHelix(), []);
 
   const refs = {
-    scopeRef, logoDayRef, logoFooterDayRef, flyLogoDayRef, thumbRef, segSunRef, segMoonRef,
+    scopeRef,
     dnaRowRef, vennBoxRef, scoreRowRef, chatRowRef, lRow1Ref, lRow3Ref,
     rRow1Ref, rRow2Ref, lColRef, rColRef, lClipRef, rClipRef, lTextRef, rTextRef,
     scoreTextRef, chatTextRef,
@@ -310,33 +290,6 @@ export default function PaginaInstitucional() {
     if (S._dnaSide) { setDnaSide(S._dnaSide, false); S._dnaSide = null; }
   };
 
-  const applyTheme = (next: 'noite' | 'claro') => {
-    const scope = scopeRef.current;
-    if (scope) {
-      if (next === 'claro') scope.setAttribute('data-theme', 'claro');
-      else scope.removeAttribute('data-theme');
-    }
-    document.body.style.background = next === 'claro' ? '#EEE0D4' : '#0F2B2A';
-    [logoDayRef, logoFooterDayRef, flyLogoDayRef].forEach((r) => {
-      if (r.current) r.current.style.opacity = next === 'claro' ? '1' : '0';
-    });
-    const dia = next === 'claro';
-    if (thumbRef.current) thumbRef.current.style.transform = dia ? 'translateX(0)' : 'translateX(42px)';
-    if (segSunRef.current) segSunRef.current.style.color = dia ? 'var(--p-text)' : 'var(--p-muted)';
-    if (segMoonRef.current) segMoonRef.current.style.color = dia ? 'var(--p-muted)' : 'var(--p-text)';
-  };
-
-  const toggleTheme = () => {
-    const next = themeRef.current === 'claro' ? 'noite' : 'claro';
-    themeRef.current = next;
-    setTheme(next);
-    applyTheme(next);
-    try { localStorage.setItem('maiq-theme', next); } catch { /* ignore */ }
-  };
-  const showTip = () => { if (tipRef.current) tipRef.current.style.opacity = '1'; };
-  const hideTip = () => { if (tipRef.current) tipRef.current.style.opacity = '0'; };
-  const tipLabel = theme === 'claro' ? 'Mudar para noite' : 'Mudar para dia';
-
   // hover declarativo (equivalente ao atributo style-hover do original)
   useEffect(() => {
     const scope = scopeRef.current;
@@ -369,15 +322,6 @@ export default function PaginaInstitucional() {
   }, []);
 
   useEffect(() => {
-    // ---- tema inicial: preferência salva > horário do visitante (6h–18h = diurno)
-    let saved: string | null = null;
-    try { saved = localStorage.getItem('maiq-theme'); } catch { /* ignore */ }
-    const h = new Date().getHours();
-    const initial = (saved === 'claro' || saved === 'noite') ? saved : (h >= 6 && h < 18 ? 'claro' : 'noite');
-    themeRef.current = initial as Any;
-    setTheme(initial as Any);
-    applyTheme(initial as Any);
-
     setupMarquee();
     S._paintLogo = setupLogoFlight();
     setupScroll();
@@ -385,7 +329,19 @@ export default function PaginaInstitucional() {
     setupOdometers();
     setupDna();
 
+    // A medição inicial de _fitNet/_fitFinal roda com a fonte de fallback
+    // (display:swap). Quando a Barlow termina de carregar, o texto muda de
+    // altura e a margem/hold ficam desatualizados — re-executar uma vez
+    // corrige a costura sem trocar o mecanismo de medição.
+    let unmounted = false;
+    document.fonts?.ready.then(() => {
+      if (unmounted) return;
+      S._fitNet?.();
+      S._fitFinal?.();
+    });
+
     return () => {
+      unmounted = true;
       if (S._odoIO) S._odoIO.disconnect();
       if (S._odos) S._odos.forEach((o: Any) => { if (o.raf) cancelAnimationFrame(o.raf); });
       if (S._checkOdos) {
@@ -402,6 +358,7 @@ export default function PaginaInstitucional() {
       if (S._fitHero) window.removeEventListener('resize', S._fitHero);
       if (S._fitNet) window.removeEventListener('resize', S._fitNet);
       if (S._fitFinal) window.removeEventListener('resize', S._fitFinal);
+      if (S._faqGuard) { window.removeEventListener('scroll', S._faqGuard); window.removeEventListener('resize', S._faqGuard); }
 
       if (S._wrap) {
         S._wrap.removeEventListener('mouseenter', S._enter);
@@ -488,14 +445,24 @@ export default function PaginaInstitucional() {
       if (S._logoDocked) return;
       const a = ph.getBoundingClientRect(), b = mark.getBoundingClientRect();
       if (!a.height || !b.height) return;
-      const e = pf * pf * (3 - 2 * pf);
+      // Posição/escala terminam de convergir cedo (t=1 já em pf=0.7, curva
+      // suavizada) para chegar exatamente sobre `mark` ANTES do crossfade de
+      // opacidade começar. Antes, `e` usava o mesmo pf do crossfade: durante
+      // a troca de opacidade (pf 0.9-1 originalmente) a logo voadora ainda
+      // estava a caminho (ex.: 94% do trajeto em pf=0.85), então por um
+      // instante duas cópias parcialmente opacas apareciam sobrepostas com um
+      // deslocamento de ~15-20px — visto como logo "duplicada". Com a posição
+      // já resolvida antes do crossfade, as duas coincidem exatamente e a
+      // transição vira um dissolve limpo, sem deslocamento visível.
+      const posT = Math.min(1, pf / 0.7);
+      const e = posT * posT * (3 - 2 * posT);
       const s = 1 + (b.height / a.height - 1) * e;
       const x = a.left + (b.left - a.left) * e, y = a.top + (b.top - a.top) * e;
       fly.style.transform = 'translate3d(' + x.toFixed(2) + 'px,' + y.toFixed(2) + 'px,0) scale(' + s.toFixed(4) + ')';
-      fly.style.opacity = (pf < 0.9 ? 1 : Math.max(0, (1 - pf) / 0.1)).toFixed(3);
+      fly.style.opacity = (pf < 0.85 ? 1 : Math.max(0, (1 - pf) / 0.15)).toFixed(3);
       slot.style.width = (b.width * e).toFixed(2) + 'px';
       slot.style.marginRight = (28 * e).toFixed(2) + 'px';
-      mark.style.opacity = (pf < 0.9 ? 0 : (pf - 0.9) / 0.1).toFixed(3);
+      mark.style.opacity = (pf < 0.85 ? 0 : (pf - 0.85) / 0.15).toFixed(3);
     };
     paintLogo(0);
     S._logoLoad = () => { S._logoMode(); paintLogo(0); };
@@ -548,6 +515,31 @@ export default function PaginaInstitucional() {
       };
       S._fitFinal();
       window.addEventListener('resize', S._fitFinal);
+    }
+
+    // A lista do FAQ é rolável e fica sob "Nossa Perspectiva" na pilha. O
+    // Chromium chega a entregar o wheel a esse contêiner coberto, e a página
+    // "trava" até a lista chegar ao fim. Enquanto coberta, ela fica inerte.
+    const faqList = (final as HTMLElement | null)?.querySelector<HTMLElement>('.maiq-faq-list');
+    const middleLayer = overlay2Ref.current;
+    if (faqList && middleLayer) {
+      let guardQueued = false;
+      const guard = () => {
+        guardQueued = false;
+        const covered = middleLayer.getBoundingClientRect().bottom > faqList.getBoundingClientRect().top + 1;
+        if (covered !== S._faqCovered) {
+          S._faqCovered = covered;
+          faqList.style.pointerEvents = covered ? 'none' : '';
+        }
+      };
+      S._faqGuard = () => {
+        if (guardQueued) return;
+        guardQueued = true;
+        requestAnimationFrame(guard);
+      };
+      guard();
+      window.addEventListener('scroll', S._faqGuard, { passive: true });
+      window.addEventListener('resize', S._faqGuard);
     }
 
     const el = heroContentRef.current;
@@ -696,7 +688,7 @@ export default function PaginaInstitucional() {
   void refs; void iconSunRef; void iconMoonRef; void lRailRef; void rRailRef; void overlay2WrapRef; void overlay3Ref; void netContentRef;
 
   return (
-    <div data-maiq-scope="" ref={scopeRef} style={{ fontFamily: "'Barlow',Helvetica,Arial,sans-serif", background: "var(--p-bg,#0F2B2A)", color: "var(--p-text,#EAD9CC)", minHeight: "100vh", transition: "background 320ms cubic-bezier(.16,1,.3,1),color 320ms cubic-bezier(.16,1,.3,1)" }}>
+    <div data-maiq-scope="" data-theme={dia ? 'claro' : undefined} data-theme-ready={themeReady ? '' : undefined} ref={scopeRef} style={{ fontFamily: "'Barlow',Helvetica,Arial,sans-serif", background: "var(--p-bg,#0F2B2A)", color: "var(--p-text,#EAD9CC)", minHeight: "100vh", transition: "background 320ms cubic-bezier(.16,1,.3,1),color 320ms cubic-bezier(.16,1,.3,1)" }}>
       <PageLoader />
       <AuthLeadDialogs
         theme={theme}
@@ -707,92 +699,39 @@ export default function PaginaInstitucional() {
         onLeadOpenChange={setLeadOpen}
         onUserChange={setUser}
       />
-      <div data-maiq-toggle="" style={{ position: "fixed", top: "30px", right: "32px", zIndex: "51", display: "flex" }}>
-        <div onClick={toggleTheme} onMouseEnter={showTip} onMouseLeave={hideTip} style={{ position: "relative", display: "flex", alignItems: "center", height: "44px", padding: "5px", borderWidth: "1px", borderStyle: "solid", borderColor: "var(--p-hair,rgba(234,217,204,.14))", borderRadius: "999px", background: "var(--p-header-bg,rgba(20,57,55,.72))", backdropFilter: "blur(18px)", WebkitBackdropFilter: "blur(18px)", boxShadow: "var(--p-header-shadow,0 10px 40px rgba(6,22,21,.35))", cursor: "pointer", transition: "border-color 200ms cubic-bezier(.2,0,0,1),background 320ms cubic-bezier(.16,1,.3,1)" }} data-hover-style="border-color:var(--p-hair-strong,rgba(234,217,204,.32))">
-          <div ref={thumbRef} style={{ position: "absolute", top: "5px", left: "5px", width: "34px", height: "34px", borderRadius: "999px", background: "var(--p-toggle-thumb,rgba(234,217,204,.14))", transition: "transform 320ms cubic-bezier(.16,1,.3,1),background 320ms cubic-bezier(.16,1,.3,1)" }}>
-          </div>
-          <div ref={segSunRef} style={{ position: "relative", display: "flex", alignItems: "center", justifyContent: "center", width: "34px", height: "34px", color: "var(--p-muted,#9FD6D2)", transition: "color 320ms cubic-bezier(.16,1,.3,1)" }}>
-            <Sun style={{ display: "block", width: 18, height: 18 }} strokeWidth={1.9} />
-          </div>
-          <div style={{ position: "relative", display: "flex", alignItems: "center", justifyContent: "center", width: "8px", height: "34px" }}>
-            <div style={{ width: "1.5px", height: "17px", background: "var(--p-hair-strong,rgba(234,217,204,.32))" }}>
+      <SiteHeader
+        dia={dia}
+        onToggleTheme={toggleTheme}
+        user={user}
+        onEntrarClick={() => setAuthOpen(true)}
+        onFaleConoscoClick={() => setLeadOpen(true)}
+        onSelectSection={goToSection}
+        logoSlot={
+          <div ref={headerSlotRef} style={{ position: "relative", display: "flex", alignItems: "center", height: "24px", width: "0", marginRight: "0", overflow: "hidden" }}>
+            <div ref={headerLogoRef} style={{ position: "relative", display: "flex", flex: "none", opacity: "0" }}>
+              <Link
+                to="/"
+                aria-label="Maiq — Página institucional"
+                title="Maiq — Página institucional"
+                onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                style={{ display: "flex", cursor: "pointer", textDecoration: "none", transition: "opacity 200ms cubic-bezier(.2,0,0,1)" }}
+                data-hover-style="opacity:0.82"
+              >
+                <img src={logoBranco} alt="Maiq" style={{ height: "22px", width: "auto", display: "block", objectFit: "contain" }} />
+                <img src={logoMadeira} alt="" style={{ position: "absolute", left: "0", top: "0", height: "22px", width: "auto", display: "block", objectFit: "contain", opacity: dia ? 1 : 0, transition: "opacity 320ms cubic-bezier(.16,1,.3,1)" }} />
+              </Link>
             </div>
           </div>
-          <div ref={segMoonRef} style={{ position: "relative", display: "flex", alignItems: "center", justifyContent: "center", width: "34px", height: "34px", color: "var(--p-muted,#9FD6D2)", transition: "color 320ms cubic-bezier(.16,1,.3,1)" }}>
-            <Moon style={{ display: "block", width: 17, height: 17 }} strokeWidth={1.9} />
-          </div>
-        </div>
-        <div ref={tipRef} style={{ position: "absolute", top: "54px", right: "0", padding: "7px 12px", border: "1px solid var(--p-hair,rgba(234,217,204,.14))", borderRadius: "6px", background: "var(--p-card,#1F5956)", color: "var(--p-text,#EAD9CC)", fontSize: "12px", fontWeight: "500", whiteSpace: "nowrap", opacity: "0", pointerEvents: "none", transition: "opacity 200ms cubic-bezier(.2,0,0,1)" }}>
-          {tipLabel}
-        </div>
-      </div>
-      <header style={{ position: "fixed", top: "20px", left: "50%", transform: "translateX(-50%)", zIndex: "50", display: "flex", alignItems: "center", gap: "0", height: "64px", padding: "0 10px 0 26px", border: "1px solid var(--p-hair,rgba(234,217,204,.14))", borderRadius: "999px", background: "var(--p-header-bg,rgba(20,57,55,.72))", backdropFilter: "blur(18px)", WebkitBackdropFilter: "blur(18px)", boxShadow: "var(--p-header-shadow,0 10px 40px rgba(6,22,21,.35))", transition: "background 320ms cubic-bezier(.16,1,.3,1),border-color 320ms cubic-bezier(.16,1,.3,1)" }}>
-        <div ref={headerSlotRef} style={{ position: "relative", display: "flex", alignItems: "center", height: "24px", width: "0", marginRight: "0", overflow: "hidden" }}>
-          <div ref={headerLogoRef} style={{ position: "relative", display: "flex", flex: "none", opacity: "0" }}>
-            <Link
-              to="/"
-              aria-label="Maiq — Página institucional"
-              title="Maiq — Página institucional"
-              onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-              style={{ display: "flex", cursor: "pointer", textDecoration: "none", transition: "opacity 200ms cubic-bezier(.2,0,0,1)" }}
-              data-hover-style="opacity:0.82"
-            >
-              <img src={logoBranco} alt="Maiq" style={{ height: "22px", width: "auto", display: "block", objectFit: "contain" }} />
-              <img ref={logoDayRef} src={logoMadeira} alt="" style={{ position: "absolute", left: "0", top: "0", height: "22px", width: "auto", display: "block", objectFit: "contain", opacity: "0", transition: "opacity 320ms cubic-bezier(.16,1,.3,1)" }} />
-            </Link>
-          </div>
-        </div>
-        <nav style={{ display: "flex", alignItems: "center", gap: "28px", marginRight: "28px", fontSize: "14px", fontWeight: "500", color: "var(--p-muted,#9FD6D2)" }}>
-          <NavDropdown
-            label="Home"
-            items={SECOES.map((s) => ({ key: s.id, label: s.label }))}
-            onSelect={goToSection}
-          />
-          <Link
-            to="/sobre-nos"
-            className="maiq-nav-item"
-            style={{ cursor: "pointer", textDecoration: "none", transition: "color 200ms cubic-bezier(.2,0,0,1)" }}
-            data-hover-style="color:var(--p-hover-text,#EAD9CC)"
-          >
-            Sobre nós
-          </Link>
-          <Link
-            to="/insights"
-            className="maiq-nav-item"
-            style={{ cursor: "pointer", textDecoration: "none", transition: "color 200ms cubic-bezier(.2,0,0,1)" }}
-            data-hover-style="color:var(--p-hover-text,#EAD9CC)"
-          >
-            Insights
-          </Link>
-        </nav>
-        <div style={{ display: "flex", alignItems: "center", height: "44px", padding: "4px", border: "1px solid var(--p-hair,rgba(234,217,204,.14))", borderRadius: "999px", background: "var(--p-cta-bg,#EAD9CC)", color: "var(--p-cta-fg,#143937)" }}>
-          <MaiqButton
-            size="md"
-            variant="ghost"
-            onClick={() => setAuthOpen(true)}
-            style={{ "--action-ghost-fg": "var(--p-cta-fg,#143937)", "--action-ghost-bg-hover": "var(--p-cta-bg-hover,#F3E7DE)", color: "var(--p-cta-fg,#143937)" } as React.CSSProperties}
-          >
-            {user ? 'Conta' : 'Entrar'}
-          </MaiqButton>
-          <div style={{ width: "1px", height: "20px", background: "var(--p-cta-fg,#143937)", opacity: 0.2 }} />
-          <MaiqButton
-            size="md"
-            variant="ghost"
-            onClick={() => setLeadOpen(true)}
-            style={{ "--action-ghost-fg": "var(--p-cta-fg,#143937)", "--action-ghost-bg-hover": "var(--p-cta-bg-hover,#F3E7DE)", color: "var(--p-cta-fg,#143937)" } as React.CSSProperties}
-          >
-            Fale Conosco
-          </MaiqButton>
-        </div>
-      </header>
+        }
+      />
       <div ref={flyLogoRef} aria-hidden="true" style={{ position: "fixed", left: "0", top: "0", transformOrigin: "0 0", zIndex: "51", pointerEvents: "none", display: "flex", willChange: "transform,opacity" }}>
         <img src={logoBranco} alt="" style={{ height: "clamp(22px,3.4vw,44px)", width: "auto", display: "block" }} />
-        <img ref={flyLogoDayRef} src={logoMadeira} alt="" style={{ position: "absolute", left: "0", top: "0", height: "clamp(22px,3.4vw,44px)", width: "auto", display: "block", opacity: "0", transition: "opacity 320ms cubic-bezier(.16,1,.3,1)" }} />
+        <img src={logoMadeira} alt="" style={{ position: "absolute", left: "0", top: "0", height: "clamp(22px,3.4vw,44px)", width: "auto", display: "block", opacity: dia ? 1 : 0, transition: "opacity 320ms cubic-bezier(.16,1,.3,1)" }} />
       </div>
       <div ref={heroLogoSlotRef} aria-hidden="true" style={{ position: "fixed", left: "48px", top: "52px", transform: "translateY(-50%)", height: "clamp(22px,3.4vw,44px)", zIndex: "51", pointerEvents: "none", opacity: "0" }}>
         <img src={logoBranco} alt="" style={{ height: "clamp(22px,3.4vw,44px)", width: "auto", display: "block" }} />
       </div>
-      <section ref={heroRef} style={{ background: "var(--p-hero-bg,#143937)", padding: "clamp(140px,12.5vh,160px) 48px clamp(44px,6.5vh,84px)", boxSizing: "border-box", minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center", position: "sticky", top: "0", zIndex: "0", overflow: "hidden", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
+      <section ref={heroRef} className="maiq-hero" style={{ background: "var(--p-hero-bg,#143937)", padding: "clamp(140px,12.5vh,160px) 48px clamp(44px,6.5vh,84px)", boxSizing: "border-box", minHeight: "100svh", display: "flex", flexDirection: "column", justifyContent: "center", position: "sticky", top: "0", zIndex: "0", overflow: "hidden", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
         <div aria-hidden="true" style={{ position: "absolute", inset: "0", overflow: "hidden", isolation: "isolate" }}>
           <div data-maiq-anim="" style={{ position: "absolute", inset: "0", animation: "maiqPathA 45s linear infinite", willChange: "transform" }}>
             <div data-maiq-anim="" style={{ position: "absolute", left: "0", top: "0", width: "0", height: "0", animation: "maiqExA 45s linear infinite" }}>
@@ -872,7 +811,7 @@ export default function PaginaInstitucional() {
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "clamp(30px,5vh,72px)", width: "100%" }}>
             <div style={{ width: "clamp(120px,18vw,260px)", height: "1px", background: "linear-gradient(90deg,transparent 0%,var(--p-hair,rgba(234,217,204,.14)) 18%,var(--p-hair,rgba(234,217,204,.14)) 82%,transparent 100%)" }}>
             </div>
-            <p className="maiq-hero-subhead" style={{ color: "var(--p-hero-text,#AFE3E0)", margin: "0", maxWidth: "min(1080px,94%)", textWrap: "balance" }}>
+            <p className="maiq-hero-subhead" style={{ color: "var(--p-text-2,#AFE3E0)", margin: "0", maxWidth: "min(1080px,94%)", textWrap: "balance" }}>
               Combinamos método e tecnologia para sistematizar o processo de M&A
             </p>
           </div>
@@ -966,7 +905,7 @@ export default function PaginaInstitucional() {
                 <h2>Nossa Plataforma</h2>
                 <p className="maiq-section-subhead">
                   Funcionalidades específicas<span className="maiq-subhead-break maiq-subhead-break-platform" aria-hidden="true" />
-                  a serviço do M&amp;A
+                  a serviço do M&A
                 </p>
               </div>
               <PlatformShowcase />
@@ -976,8 +915,8 @@ export default function PaginaInstitucional() {
       </div>
       <div ref={overlayRef} className="maiq-primary-overlay">
         <div className="maiq-model-pilares-bg" style={{ position: "relative", zIndex: "2", transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
-        <section data-maiq-sec="modelo" aria-label="Nosso Modelo" style={{ position: "relative", zIndex: "1", minHeight: "100vh", boxSizing: "border-box", display: "flex", alignItems: "center", padding: "clamp(104px,13vh,150px) 48px clamp(36px,4.5vh,64px)" }}>
-          <div style={{ width: "100%", maxWidth: "1200px", margin: "0 auto", display: "flex", flexDirection: "column", gap: "clamp(24px,3vh,44px)" }}>
+        <section data-maiq-sec="modelo" aria-label="Nosso Modelo" className="maiq-model-section" style={{ position: "relative", zIndex: "1", minHeight: "100vh", boxSizing: "border-box", display: "flex", alignItems: "center", padding: "clamp(104px,13vh,150px) 48px clamp(36px,4.5vh,64px)" }}>
+          <div className="maiq-model-inner" style={{ width: "100%", maxWidth: "1200px", margin: "0 auto", display: "flex", flexDirection: "column", gap: "clamp(24px,3vh,44px)" }}>
             <div style={{ textAlign: "center" }}>
               <h2 data-maiq-modelo-h2="" style={{ fontFamily: "Inter,var(--font-core)", fontSize: "clamp(38px,4.2vw,58px)", lineHeight: "1.04", letterSpacing: "-.022em", fontWeight: "600", margin: "0" }}>
                 Nosso Modelo
@@ -987,7 +926,7 @@ export default function PaginaInstitucional() {
                 potencializada por experiência e ampla rede construída.
               </p>
             </div>
-            <div ref={dnaRowRef} onMouseMove={handleDnaMove} onMouseLeave={handleDnaLeave} style={{ width: "100vw", marginLeft: "calc(50% - 50vw)", padding: "0 clamp(24px,4vw,48px)", boxSizing: "border-box", display: "flex", alignItems: "flex-start", justifyContent: "center", gap: "0" }}>
+            <div ref={dnaRowRef} className="maiq-model-dna-row" onMouseMove={handleDnaMove} onMouseLeave={handleDnaLeave} style={{ width: "100vw", marginLeft: "calc(50% - 50vw)", padding: "0 clamp(24px,4vw,48px)", boxSizing: "border-box", display: "flex", alignItems: "flex-start", justifyContent: "center", gap: "0" }}>
               <div data-maiq-side-text="" ref={lColRef} style={{ flex: "1 1 0", minWidth: "246px", maxWidth: "312px", marginRight: "-48px", position: "relative", display: "flex", justifyContent: "flex-end" }}>
                 <div ref={lClipRef} style={{ maxWidth: "100%" }}>
                   <div ref={lTextRef} style={{ opacity: "0", transform: "translateX(312px)", transition: "opacity 260ms cubic-bezier(.4,0,1,1),transform 320ms cubic-bezier(.4,0,1,1)" }}>
@@ -1093,7 +1032,45 @@ export default function PaginaInstitucional() {
                 </div>
               </div>
             </div>
-            <div style={{ width: "60%", minWidth: "520px", maxWidth: "100%", margin: "0 auto", backgroundImage: "linear-gradient(90deg,transparent 0%,var(--p-hair,rgba(234,217,204,.14)) 14%,var(--p-hair,rgba(234,217,204,.14)) 86%,transparent 100%),linear-gradient(90deg,transparent 0%,var(--p-hair,rgba(234,217,204,.14)) 14%,var(--p-hair,rgba(234,217,204,.14)) 86%,transparent 100%)", backgroundSize: "100% 1px,100% 1px", backgroundPosition: "0 0,0 100%", backgroundRepeat: "no-repeat", padding: "22px clamp(8px,2vw,24px)", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "clamp(24px,4vw,48px)", flexWrap: "wrap" }}>
+            <div className="maiq-model-mobile">
+              <div className="maiq-model-mobile-pill maiq-model-mobile-pill--top" aria-hidden="true" />
+              <div className="maiq-model-mobile-pill maiq-model-mobile-pill--bottom" aria-hidden="true" />
+              {/* Recorte duplo = interseção exata das duas pílulas (mesma técnica do Venn desktop). */}
+              <div className="maiq-model-mobile-clip-a" aria-hidden="true">
+                <div className="maiq-model-mobile-clip-b">
+                  <div className="maiq-model-mobile-helix">
+                    {helixBars}
+                  </div>
+                </div>
+              </div>
+              <div className="maiq-model-mobile-content maiq-model-mobile-content--top">
+                <div className="maiq-model-mobile-card-title">
+                  QUARPX<sup style={{ fontSize: ".5em", fontWeight: "500", top: "-.7em", position: "relative" }}>®</sup>
+                </div>
+                <div className="maiq-model-mobile-card-sub">Metodologia proprietária</div>
+                <div className="maiq-model-mobile-card-tag">unknown unknowns</div>
+                <ul className="maiq-model-mobile-list">
+                  <li>Score de prontidão</li>
+                  <li>Roadmap de evolução</li>
+                  <li>Playbooks por etapa</li>
+                </ul>
+              </div>
+              <div className="maiq-model-mobile-center">
+                <div>Sistematização</div>
+                <div>do M&A</div>
+              </div>
+              <div className="maiq-model-mobile-content maiq-model-mobile-content--bottom">
+                <div className="maiq-model-mobile-card-title">M&AI</div>
+                <div className="maiq-model-mobile-card-sub">Arquitetura tecnológica</div>
+                <div className="maiq-model-mobile-card-tag">known unknowns</div>
+                <ul className="maiq-model-mobile-list">
+                  <li>Plataforma de dados</li>
+                  <li>Chat e agentes de IA</li>
+                  <li>Integrações</li>
+                </ul>
+              </div>
+            </div>
+            <div className="maiq-model-tools-row" style={{ width: "60%", minWidth: "520px", maxWidth: "100%", margin: "0 auto", backgroundImage: "linear-gradient(90deg,transparent 0%,var(--p-hair,rgba(234,217,204,.14)) 14%,var(--p-hair,rgba(234,217,204,.14)) 86%,transparent 100%),linear-gradient(90deg,transparent 0%,var(--p-hair,rgba(234,217,204,.14)) 14%,var(--p-hair,rgba(234,217,204,.14)) 86%,transparent 100%)", backgroundSize: "100% 1px,100% 1px", backgroundPosition: "0 0,0 100%", backgroundRepeat: "no-repeat", padding: "22px clamp(8px,2vw,24px)", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "clamp(24px,4vw,48px)", flexWrap: "wrap" }}>
               <img src={toolGpt} alt="OpenAI" loading="lazy" decoding="async" style={{ height: "24px", width: "auto", display: "block", opacity: ".42", filter: "var(--p-tool-filter,brightness(0) invert(1))", transition: "opacity 200ms cubic-bezier(.2,0,0,1)" }} data-hover-style="opacity:.9" />
               <img src={toolClaude} alt="Claude" loading="lazy" decoding="async" style={{ height: "24px", width: "auto", display: "block", opacity: ".42", filter: "var(--p-tool-filter,brightness(0) invert(1))", transition: "opacity 200ms cubic-bezier(.2,0,0,1)" }} data-hover-style="opacity:.9" />
               <img src={toolGemini} alt="Gemini" loading="lazy" decoding="async" style={{ height: "24px", width: "auto", display: "block", opacity: ".42", filter: "var(--p-tool-filter,brightness(0) invert(1))", transition: "opacity 200ms cubic-bezier(.2,0,0,1)" }} data-hover-style="opacity:.9" />
@@ -1143,34 +1120,12 @@ export default function PaginaInstitucional() {
         <div ref={finalWrapRef} className="maiq-final-base">
           <div ref={overlay3Ref} className="maiq-final-content">
             <Faq onContact={() => setLeadOpen(true)} />
-            <footer className="maiq-footer" style={{ background: "var(--p-footer-bg,#09201F)", borderTop: "1px solid var(--p-hair,rgba(234,217,204,.14))", padding: "56px 48px 28px", flexShrink: 0, transition: "background 320ms cubic-bezier(.16,1,.3,1)" }}>
-              <div className="maiq-footer-top">
-                <div style={{ position: "relative", display: "inline-flex" }}>
-                  <img src={logoBranco} alt="Maiq" style={{ height: "30px", width: "auto", display: "block" }} />
-                  <img ref={logoFooterDayRef} src={logoMadeira} alt="" style={{ position: "absolute", left: "0", top: "0", height: "30px", width: "auto", display: "block", opacity: "0", transition: "opacity 320ms cubic-bezier(.16,1,.3,1)" }} />
-                </div>
-                <nav className="maiq-footer-cols" aria-label="Links do rodapé">
-                  <div className="maiq-footer-col">
-                    <p className="maiq-footer-col-title">Contato</p>
-                    <a className="maiq-footer-link" href="mailto:contato@maiq.app.br">contato@maiq.app.br</a>
-                  </div>
-                  <div className="maiq-footer-col">
-                    <p className="maiq-footer-col-title">Legal</p>
-                    <Link className="maiq-footer-link" to="/politica-de-privacidade">Política de privacidade</Link>
-                    <Link className="maiq-footer-link" to="/termos-de-uso">Termos de uso</Link>
-                  </div>
-                </nav>
-              </div>
-              <div style={{ maxWidth: "1200px", margin: "40px auto 0", paddingTop: "22px", borderTop: "1px solid var(--p-hair,rgba(234,217,204,.14))", fontSize: "13px", color: "var(--p-muted,#9FD6D2)" }}>
-                © 2026 Maiq. Todos os direitos reservados.
-              </div>
-            </footer>
+            <SiteFooter dia={dia} />
           </div>
         </div>
         <div ref={overlay2Ref} className="maiq-cycle-domains-overlay">
           <div className="maiq-model-pilares-bg">
             <Ciclo />
-            <DominiosPlaceholder />
           </div>
         </div>
         <div ref={finalHoldRef} className="maiq-final-hold" aria-hidden="true" />

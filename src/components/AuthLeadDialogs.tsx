@@ -76,7 +76,7 @@ function normalizeEmail(value: string) {
   return value.trim().toLowerCase();
 }
 
-function validateLead(form: LeadForm, messageEnabled: boolean) {
+function validateLead(form: LeadForm) {
   const email = normalizeEmail(form.email);
   const phone = form.phone?.trim() ?? '';
   const errors: Partial<Record<LeadField, string>> = {};
@@ -84,7 +84,7 @@ function validateLead(form: LeadForm, messageEnabled: boolean) {
   if (!EMAIL_RE.test(email)) errors.email = 'Informe um email válido.';
   if (phone && !PHONE_RE.test(phone)) errors.phone = 'Informe um telefone válido.';
   if (form.company.trim().length < 2) errors.company = 'Informe sua empresa.';
-  if (messageEnabled && (form.message?.trim().length ?? 0) > 2000) errors.message = 'A mensagem deve ter até 2.000 caracteres.';
+  if ((form.message?.trim().length ?? 0) > 2000) errors.message = 'A mensagem deve ter até 2.000 caracteres.';
   return errors;
 }
 
@@ -227,7 +227,6 @@ export default function AuthLeadDialogs({
   const [leadForm, setLeadForm] = useState<LeadForm>({ name: '', email: '', phone: '', company: '', message: '' });
   const [leadError, setLeadError] = useState<string | null>(null);
   const [leadFieldErrors, setLeadFieldErrors] = useState<Partial<Record<LeadField, string | undefined>>>({});
-  const [messageEnabled, setMessageEnabled] = useState(false);
   const [leadLoading, setLeadLoading] = useState(false);
 
   const signedInEmail = useMemo(() => user?.email ?? '', [user?.email]);
@@ -247,7 +246,6 @@ export default function AuthLeadDialogs({
       setLeadMode('form');
       setLeadError(null);
       setLeadFieldErrors({});
-      setMessageEnabled(false);
       setLeadForm((current) => ({ ...current, email: signedInEmail || current.email }));
     }
   }, [leadOpen, signedInEmail]);
@@ -317,7 +315,7 @@ export default function AuthLeadDialogs({
 
   const handleLeadSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    const validationErrors = validateLead(leadForm, messageEnabled);
+    const validationErrors = validateLead(leadForm);
     if (Object.keys(validationErrors).length > 0) {
       setLeadFieldErrors(validationErrors);
       setLeadError('Revise os campos destacados antes de enviar.');
@@ -334,7 +332,7 @@ export default function AuthLeadDialogs({
           name: leadForm.name.trim(),
           email: normalizeEmail(leadForm.email),
           company: leadForm.company.trim(),
-          ...(messageEnabled && leadForm.message?.trim() ? { message: leadForm.message.trim() } : {}),
+          ...(leadForm.message?.trim() ? { message: leadForm.message.trim() } : {}),
           ...(phone ? { phone } : {}),
         },
       });
@@ -431,18 +429,8 @@ export default function AuthLeadDialogs({
               <TextInput id="lead-email" label="Email" icon={<Mail size={16} />} required error={Boolean(leadFieldErrors.email)} type="email" autoComplete="email" value={leadForm.email} onChange={(event) => { setLeadForm((current) => ({ ...current, email: event.target.value })); setLeadFieldErrors((current) => ({ ...current, email: undefined })); }} />
               <TextInput id="lead-phone" label="Telefone" icon={<Phone size={16} />} error={Boolean(leadFieldErrors.phone)} type="tel" autoComplete="tel" value={leadForm.phone ?? ''} onChange={(event) => { setLeadForm((current) => ({ ...current, phone: event.target.value })); setLeadFieldErrors((current) => ({ ...current, phone: undefined })); }} />
               <TextInput id="lead-company" label="Empresa" icon={<Building2 size={16} />} required error={Boolean(leadFieldErrors.company)} type="text" autoComplete="organization" value={leadForm.company} onChange={(event) => { setLeadForm((current) => ({ ...current, company: event.target.value })); setLeadFieldErrors((current) => ({ ...current, company: undefined })); }} />
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
-                <span style={labelStyle}><MessageSquareText size={16} />Descreva como podemos ajudar</span>
-                <MaiqButton type="button" size="sm" variant="ghost" className="maiq-message-switch" role="switch" aria-label="Exibir campo de mensagem" aria-checked={messageEnabled} data-enabled={messageEnabled} onClick={() => setMessageEnabled((current) => !current)}>
-                  <span className="maiq-message-switch-thumb" aria-hidden="true" />
-                  <span>off</span><span>on</span>
-                </MaiqButton>
-              </div>
-              <div className="maiq-message-reveal" data-visible={messageEnabled} aria-hidden={!messageEnabled}>
-                <div>
-                  <MessageArea id="lead-message" disabled={!messageEnabled} error={Boolean(leadFieldErrors.message)} maxLength={2000} value={leadForm.message ?? ''} onChange={(event) => { setLeadForm((current) => ({ ...current, message: event.target.value })); setLeadFieldErrors((current) => ({ ...current, message: undefined })); }} />
-                </div>
-              </div>
+              <span style={labelStyle}><MessageSquareText size={16} />Descreva como podemos ajudar (opcional)</span>
+              <MessageArea id="lead-message" error={Boolean(leadFieldErrors.message)} maxLength={2000} value={leadForm.message ?? ''} onChange={(event) => { setLeadForm((current) => ({ ...current, message: event.target.value })); setLeadFieldErrors((current) => ({ ...current, message: undefined })); }} />
               {leadError ? <Message tone="critical">{leadError}</Message> : null}
             </div>
             <div style={{ padding: '20px 28px 28px', flex: '0 0 auto' }}>

@@ -11,6 +11,8 @@ export default function PageLoader() {
     let minimumTimer = 0;
     let safetyTimer = 0;
     let removeTimer = 0;
+    let raf1 = 0;
+    let raf2 = 0;
     let cancelled = false;
     const previousOverflow = document.documentElement.style.overflow;
     const previousRestoration = window.history.scrollRestoration;
@@ -26,15 +28,21 @@ export default function PageLoader() {
       removeTimer = window.setTimeout(() => setDone(true), 520);
     };
 
+    // O conteúdo já vem completo no HTML do SSR — esperar `window.load`
+    // (que também espera os vídeos abaixo da dobra) trava o primeiro paint
+    // sem necessidade. Dois `requestAnimationFrame` bastam para garantir que
+    // a hidratação já pintou o quadro antes de revelar.
     const waitForFirstView = async () => {
       const minimum = new Promise<void>((resolve) => {
-        minimumTimer = window.setTimeout(resolve, 850);
+        minimumTimer = window.setTimeout(resolve, 300);
       });
-      const pageReady = document.readyState === 'complete'
-        ? Promise.resolve()
-        : new Promise<void>((resolve) => window.addEventListener('load', () => resolve(), { once: true }));
+      const hydrated = new Promise<void>((resolve) => {
+        raf1 = window.requestAnimationFrame(() => {
+          raf2 = window.requestAnimationFrame(() => resolve());
+        });
+      });
       const fontsReady = document.fonts?.ready ?? Promise.resolve();
-      await Promise.all([minimum, pageReady, fontsReady]);
+      await Promise.all([minimum, hydrated, fontsReady]);
       finish();
     };
 
@@ -45,7 +53,7 @@ export default function PageLoader() {
         document.documentElement.style.overflow = previousOverflow;
         removeTimer = window.setTimeout(() => setDone(true), 520);
       }
-    }, 5000);
+    }, 1500);
 
     return () => {
       cancelled = true;
@@ -54,6 +62,8 @@ export default function PageLoader() {
       window.clearTimeout(minimumTimer);
       window.clearTimeout(safetyTimer);
       window.clearTimeout(removeTimer);
+      window.cancelAnimationFrame(raf1);
+      window.cancelAnimationFrame(raf2);
     };
   }, []);
 
