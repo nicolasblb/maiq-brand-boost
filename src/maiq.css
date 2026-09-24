@@ -1163,7 +1163,7 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
   .maiq-site-nav{display:none !important}
   .maiq-site-theme-toggle-wrap{display:none !important}
   .maiq-site-header-compact{display:flex !important}
-  .maiq-nav-dropdown-item{color:#FFFFFF}
+  .maiq-nav-dropdown-item{color:var(--p-text)}
   [data-theme="claro"] .maiq-nav-dropdown-item{color:var(--p-text)}
 }
 @media(max-width:640px){
