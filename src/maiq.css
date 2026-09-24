@@ -975,9 +975,9 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 .maiq-platform-modal-overlay{position:fixed;inset:0;z-index:70;background:color-mix(in oklab,var(--p-bg-deep) 84%,transparent);backdrop-filter:blur(12px);animation:maiqPlatformFade 220ms var(--ease-standard)}
 .maiq-platform-modal{position:fixed;z-index:71;inset:clamp(18px,4vw,54px);max-width:1440px;margin:auto;padding:0;overflow:hidden;border:1px solid var(--p-hair-strong);border-radius:var(--radius-lg);background:var(--p-card);box-shadow:var(--shadow-3);color:var(--p-text);animation:maiqPlatformModalIn 260ms var(--ease-out)}
 .maiq-platform-modal-title{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
-.maiq-platform-modal-layout{height:100%;display:grid;grid-template-columns:minmax(0,1.65fr) minmax(300px,.7fr)}
+.maiq-platform-modal-layout{height:100%;min-height:0;display:grid;grid-template-columns:minmax(0,1.65fr) minmax(300px,.7fr);overflow:hidden}
 .maiq-platform-modal-media{position:relative;min-height:0;overflow:hidden;background:var(--p-plat-video-bg,var(--p-bg-deep))}
-.maiq-platform-modal-copy{display:flex;flex-direction:column;justify-content:center;padding:clamp(30px,4vw,64px);border-left:1px solid var(--p-hair)}
+.maiq-platform-modal-copy{min-height:0;display:flex;flex-direction:column;justify-content:center;padding:clamp(30px,4vw,64px);overflow-y:auto;overscroll-behavior:contain;border-left:1px solid var(--p-hair)}
 .maiq-platform-modal-nav{margin-top:40px;display:flex;align-items:center;gap:14px;color:var(--p-muted);font-size:13px}
 .maiq-platform-rotate-hint{
   position:absolute;
@@ -1080,6 +1080,9 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
     grid-template-columns:minmax(0,1.65fr) minmax(300px,.7fr);
     grid-template-rows:none;
   }
+  .maiq-platform-modal-copy{
+    justify-content:flex-start;
+  }
   /* Nos 3 modais de tela cheia (Convicção/Plataforma/Perspectiva), nesse
      estado o próprio modal vira `inset:0` opaco e cobre a tela inteira — o
      overlay atrás fica 100% coberto, então seu `backdrop-filter` não produz
@@ -1093,7 +1096,7 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 @media (orientation:landscape) and (max-height:500px) and (pointer:coarse){
   .maiq-platform-modal{inset:0;max-width:none;margin:0;border:none;border-radius:0}
   .maiq-platform-modal-layout{grid-template-columns:minmax(0,1.65fr) minmax(260px,.7fr);grid-template-rows:none}
-  .maiq-platform-modal-copy{padding:24px;border-top:0;border-left:1px solid var(--p-hair)}
+  .maiq-platform-modal-copy{justify-content:flex-start;padding:24px;border-top:0;border-left:1px solid var(--p-hair)}
   .maiq-platform-rotate-hint{display:none}
 }
 @media (prefers-reduced-motion:reduce){
