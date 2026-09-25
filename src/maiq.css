@@ -1332,6 +1332,11 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 @media (orientation:landscape) and (max-height:520px) and (pointer:coarse){
   .maiq-platform-base,
   .maiq-final-base{position:relative!important;top:auto!important;clip-path:none!important}
+  /* Em fluxo contínuo o FAQ (que na pilha fica "atrás") viria antes de
+     "Nossa Perspectiva"; a ordem de leitura é restabelecida aqui. */
+  .maiq-final-reveal-stage{display:flex;flex-direction:column}
+  .maiq-cycle-domains-overlay{order:1}
+  .maiq-final-base{order:2}
   .maiq-primary-overlay,
   .maiq-cycle-domains-overlay{margin-top:0!important}
   .maiq-platform-hold,
