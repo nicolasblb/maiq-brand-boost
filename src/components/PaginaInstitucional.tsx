@@ -519,8 +519,11 @@ export default function PaginaInstitucional() {
         // floating navigation whenever this section exceeded the viewport.
         net.style.top = '0px';
         const netHeight = Math.ceil(net.getBoundingClientRect().height);
-        if (primary) primary.style.marginTop = `${-netHeight}px`;
-        if (hold) hold.style.height = `${netHeight}px`;
+        // A camada sobreposta começa um raio antes da linha reta da base.
+        // Assim, a base não aparece pelas áreas externas das quinas superiores.
+        const cornerOverlap = 24;
+        if (primary) primary.style.marginTop = `${-(netHeight + cornerOverlap)}px`;
+        if (hold) hold.style.height = `${netHeight + cornerOverlap}px`;
       };
       S._fitNet();
     }
@@ -543,8 +546,10 @@ export default function PaginaInstitucional() {
         // FAQ follows the same top-anchored reveal rule as Plataforma.
         final.style.top = '0px';
         const finalHeight = Math.ceil(final.getBoundingClientRect().height);
-        if (middle) middle.style.marginTop = `${-finalHeight}px`;
-        if (hold) hold.style.height = `${finalHeight}px`;
+        // Repete a mesma linha de corte usada na primeira sobreposição.
+        const cornerOverlap = 24;
+        if (middle) middle.style.marginTop = `${-(finalHeight + cornerOverlap)}px`;
+        if (hold) hold.style.height = `${finalHeight + cornerOverlap}px`;
       };
       S._fitFinal();
     }
