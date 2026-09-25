@@ -572,8 +572,12 @@ export default function PaginaInstitucional() {
           const holdTarget = anchor.el;
           // força o layout novo antes de medir o destino
           void document.body.offsetHeight;
-          const y = holdTarget.getBoundingClientRect().top + window.scrollY;
-          window.scrollTo({ top: Math.max(0, y - 80), behavior: 'auto' });
+          const id = holdTarget.getAttribute('data-maiq-sec');
+          let ref: Element = holdTarget;
+          if (!flat && id === 'plataforma' && platformHoldRef.current) ref = platformHoldRef.current;
+          if (!flat && id === 'faq' && finalHoldRef.current) ref = finalHoldRef.current;
+          const y = ref.getBoundingClientRect().top + window.scrollY;
+          window.scrollTo({ top: Math.max(0, flat ? y - 60 : y), behavior: 'auto' });
         }
       }
       S._heroCovered = undefined;
