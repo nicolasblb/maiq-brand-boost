@@ -719,4 +719,4 @@ Plataforma repetindo no modal por 18s sem pausar. Varredura completa de scroll (
 
 ## Linha de corte das sobreposições da Home (25/09/2026)
 
-- [ ] Revisar em conjunto o topo das sobreposições “Nosso Modelo / Nossa Convicção” e “Nossa Perspectiva”: identificar por que as bases estáticas continuam aparecendo como abas retas fora das quinas arredondadas e corrigir a linha de corte sem alterar o topo reto das seções estáticas, a altura do FAQ ou a mecânica de rolagem.
+- [x] Revisar em conjunto o topo das sobreposições “Nosso Modelo / Nossa Convicção” e “Nossa Perspectiva”. A causa era a linha de corte: cada sobreposição começava exatamente na mesma coordenada de sua base estática, que ficava visível pelas áreas externas das quinas arredondadas. As duas sobreposições agora entram 24 px antes dessa linha (o mesmo valor do raio), com compensação equivalente nos `hold`s para preservar a altura total, a ordem e a mecânica de rolagem. Os topos das bases estáticas continuam retos.
