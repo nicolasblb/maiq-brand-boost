@@ -704,3 +704,7 @@ Plataforma repetindo no modal por 18s sem pausar. Varredura completa de scroll (
   (`flat`/`settling`/`stacked`). Em paisagem, a ordem de leitura original permanece Modelo → Convicção
   → Plataforma → Perspectiva → FAQ; ao voltar para retrato, a página mantém temporariamente o fluxo linear enquanto
   a viewport estabiliza, limpa toda geometria inline anterior e só então remonta e mede as sobreposições.
+
+## Acabamento do topo de Nosso Modelo / Nossa Convicção (25/09/2026)
+
+- [x] Corrigir exclusivamente as duas quinas superiores desta sobreposição, usando as outras três extremidades já corretas como referência, sem alterar geometria, ordem ou rolagem da pilha. O fundo opaco de `.maiq-scroll-stack`, que aparecia pelos recortes do raio, foi tornado transparente como em `maiq-final-reveal-stage`; a base sticky continua preenchendo o encontro por trás.
