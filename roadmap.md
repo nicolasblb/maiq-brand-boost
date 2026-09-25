@@ -708,3 +708,7 @@ Plataforma repetindo no modal por 18s sem pausar. Varredura completa de scroll (
 ## Acabamento do topo de Nosso Modelo / Nossa Convicção (25/09/2026)
 
 - [x] Corrigir exclusivamente as duas quinas superiores desta sobreposição, usando as outras três extremidades já corretas como referência, sem alterar geometria, ordem ou rolagem da pilha. O fundo opaco de `.maiq-scroll-stack`, que aparecia pelos recortes do raio, foi tornado transparente como em `maiq-final-reveal-stage`; a base sticky continua preenchendo o encontro por trás.
+
+## Altura do bloco FAQ + rodapé (25/09/2026)
+
+- [x] Remover o recorte transparente de 24px no topo de `.maiq-final-base`. O conjunto já media exatamente `100svh`, mas o `clip-path` reduzia sua área visível e criava o vão destacado no desktop; a altura e a geometria da pilha foram preservadas.
