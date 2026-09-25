@@ -1322,3 +1322,22 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 @media(prefers-reduced-motion:reduce){
   .maiq-about-logo-highlight,.maiq-about-logo-indicator,.maiq-about-card{transition:none}
 }
+
+/* ------------------------------------------------------------------
+   Celular/tablet deitado (fora da tela cheia): a pilha de sobreposições
+   é desarmada e a página vira rolagem contínua. Em ~300px de altura útil
+   as camadas sticky com margens negativas se embaralham e o scroll trava,
+   piorando a cada giro. Aqui cada seção simplesmente rola em sequência.
+   ------------------------------------------------------------------ */
+@media (orientation:landscape) and (max-height:520px) and (pointer:coarse){
+  .maiq-platform-base,
+  .maiq-final-base{position:relative!important;top:auto!important;clip-path:none!important}
+  .maiq-primary-overlay,
+  .maiq-cycle-domains-overlay{margin-top:0!important}
+  .maiq-platform-hold,
+  .maiq-final-hold{display:none!important;height:0!important}
+  .maiq-final-content{height:auto!important;min-height:0!important;overflow:visible!important}
+  .maiq-faq-list{max-height:none!important;overflow:visible!important;pointer-events:auto!important}
+  .maiq-platform-section{min-height:0!important;padding-top:72px!important;padding-bottom:72px!important}
+  .maiq-hero{position:relative!important;top:auto!important}
+}
