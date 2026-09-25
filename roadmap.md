@@ -712,3 +712,7 @@ Plataforma repetindo no modal por 18s sem pausar. Varredura completa de scroll (
 ## Altura do bloco FAQ + rodapé (25/09/2026)
 
 - [x] Remover o recorte transparente de 24px no topo de `.maiq-final-base`. O conjunto já media exatamente `100svh`, mas o `clip-path` reduzia sua área visível e criava o vão destacado no desktop; a altura e a geometria da pilha foram preservadas.
+
+## Topo estático de Nossa Plataforma (25/09/2026)
+
+- [x] Tornar reto o topo de `.maiq-platform-base`, removendo somente o arredondamento superior que deixava o fundo aparecer nos dois cantos.
