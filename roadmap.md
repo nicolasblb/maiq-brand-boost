@@ -698,3 +698,5 @@ Plataforma repetindo no modal por 18s sem pausar. Varredura completa de scroll (
     altura da página estável (5521 / 3756 px em todos os ciclos), scroll íntegro e console limpo.
 - [ ] Se a leitura com o celular deitado não agradar, alternativa já desenhada: overlay "use o
   aparelho na vertical" fora da tela cheia (Solução 1).
+
+- [x] (25/09/2026) Volta para a vertical: recálculo em três passadas (240/600/1100 ms, também no `visualViewport`) e retorno à seção que estava na tela ao trocar entre modo deitado e em pé.

@@ -547,19 +547,61 @@ export default function PaginaInstitucional() {
     // animação de rotação (e enquanto a barra de endereços se ajusta). Medir no
     // meio disso grava margens erradas, que pioram a cada novo giro. Aqui todas
     // as medições acontecem uma única vez, depois que as dimensões assentam.
-    let refitTimer: number | undefined;
+    // Ao trocar de modo (deitado <-> em pé) a posição de rolagem do modo
+    // anterior não vale mais: guardamos a seção visível e voltamos a ela.
+    let refitTimers: number[] = [];
+    let wasFlat = isFlatLayout();
+    let anchor: { el: Element; off: number } | null = null;
+    const captureAnchor = () => {
+      const secs = Array.from(document.querySelectorAll('[data-maiq-sec]'));
+      let best: Element | null = null;
+      for (const s of secs) {
+        if (s.getBoundingClientRect().top <= window.innerHeight * 0.3) best = s;
+      }
+      return best ? { el: best, off: 0 } : null;
+    };
+    const runFit = () => {
+      S._fitHero?.();
+      S._fitNet?.();
+      S._fitFinal?.();
+      S._faqGuard?.();
+      const flat = isFlatLayout();
+      if (flat !== wasFlat) {
+        wasFlat = flat;
+        if (anchor) {
+          const holdTarget = anchor.el;
+          // força o layout novo antes de medir o destino
+          void document.body.offsetHeight;
+          const id = holdTarget.getAttribute('data-maiq-sec');
+          let ref: Element = holdTarget;
+          if (!flat && id === 'plataforma' && platformHoldRef.current) ref = platformHoldRef.current;
+          if (!flat && id === 'faq' && finalHoldRef.current) ref = finalHoldRef.current;
+          const y = ref.getBoundingClientRect().top + window.scrollY;
+          window.scrollTo({ top: Math.max(0, flat ? y - 60 : y), behavior: 'auto' });
+        }
+      }
+      S._heroCovered = undefined;
+      S._onScroll?.();
+    };
     S._refit = () => {
-      if (refitTimer) window.clearTimeout(refitTimer);
-      refitTimer = window.setTimeout(() => {
-        S._fitHero?.();
-        S._fitNet?.();
-        S._fitFinal?.();
-        S._faqGuard?.();
-      }, 240);
+      if (!refitTimers.length) anchor = captureAnchor();
+      refitTimers.forEach((t) => window.clearTimeout(t));
+      // Várias passadas: iOS/Android concluem a rotação e a barra de endereço
+      // em tempos diferentes; cada passada é idempotente.
+      refitTimers = [240, 600, 1100].map((ms, i, arr) =>
+        window.setTimeout(() => {
+          runFit();
+          if (i === arr.length - 1) { refitTimers = []; anchor = null; }
+        }, ms),
+      );
     };
     window.addEventListener('resize', S._refit);
     window.addEventListener('orientationchange', S._refit);
-    S._clearRefit = () => { if (refitTimer) window.clearTimeout(refitTimer); };
+    window.visualViewport?.addEventListener('resize', S._refit);
+    S._clearRefit = () => {
+      refitTimers.forEach((t) => window.clearTimeout(t));
+      window.visualViewport?.removeEventListener('resize', S._refit);
+    };
 
 
     // A lista do FAQ é rolável e fica sob "Nossa Perspectiva" na pilha. O
