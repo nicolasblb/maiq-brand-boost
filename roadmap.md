@@ -701,6 +701,6 @@ Plataforma repetindo no modal por 18s sem pausar. Varredura completa de scroll (
 
 - [x] (25/09/2026) Volta para a vertical: recálculo em três passadas (240/600/1100 ms, também no `visualViewport`) e retorno à seção que estava na tela ao trocar entre modo deitado e em pé.
 - [x] (25/09/2026) Carga inicial em paisagem e ordem original: o estado de layout agora é explícito
-  (`flat`/`settling`/`stacked`). Em paisagem, a ordem visual permanece Plataforma → Modelo → Convicção
-  → Perspectiva → FAQ; ao voltar para retrato, a página mantém temporariamente o fluxo linear enquanto
+  (`flat`/`settling`/`stacked`). Em paisagem, a ordem de leitura original permanece Modelo → Convicção
+  → Plataforma → Perspectiva → FAQ; ao voltar para retrato, a página mantém temporariamente o fluxo linear enquanto
   a viewport estabiliza, limpa toda geometria inline anterior e só então remonta e mede as sobreposições.
