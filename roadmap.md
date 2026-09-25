@@ -716,3 +716,7 @@ Plataforma repetindo no modal por 18s sem pausar. Varredura completa de scroll (
 ## Topo estático de Nossa Plataforma (25/09/2026)
 
 - [x] Tornar reto o topo de `.maiq-platform-base`, removendo somente o arredondamento superior que deixava o fundo aparecer nos dois cantos.
+
+## Linha de corte das sobreposições da Home (25/09/2026)
+
+- [ ] Revisar em conjunto o topo das sobreposições “Nosso Modelo / Nossa Convicção” e “Nossa Perspectiva”: identificar por que as bases estáticas continuam aparecendo como abas retas fora das quinas arredondadas e corrigir a linha de corte sem alterar o topo reto das seções estáticas, a altura do FAQ ou a mecânica de rolagem.
