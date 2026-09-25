@@ -355,9 +355,12 @@ export default function PaginaInstitucional() {
       if (S._onScroll) { window.removeEventListener('scroll', S._onScroll); window.removeEventListener('resize', S._onScroll); }
       if (S._logoMode) window.removeEventListener('resize', S._logoMode);
       if (S._logoLoad) window.removeEventListener('load', S._logoLoad);
-      if (S._fitHero) window.removeEventListener('resize', S._fitHero);
-      if (S._fitNet) window.removeEventListener('resize', S._fitNet);
-      if (S._fitFinal) window.removeEventListener('resize', S._fitFinal);
+      if (S._refit) {
+        window.removeEventListener('resize', S._refit);
+        window.removeEventListener('orientationchange', S._refit);
+      }
+      if (S._clearRefit) S._clearRefit();
+
       if (S._faqGuard) { window.removeEventListener('scroll', S._faqGuard); window.removeEventListener('resize', S._faqGuard); }
 
       if (S._wrap) {
@@ -470,15 +473,26 @@ export default function PaginaInstitucional() {
     return paintLogo;
   }
 
+  // Celular/tablet deitado: a pilha de sobreposições é desarmada (ver maiq.css)
+  // e a página vira rolagem contínua. Sem isso, as margens negativas medidas
+  // numa viewport de ~300px de altura quebram a ordem das seções.
+  function isFlatLayout() {
+    return (
+      typeof window !== 'undefined' &&
+      window.matchMedia &&
+      window.matchMedia('(orientation:landscape) and (max-height:520px) and (pointer:coarse)').matches
+    );
+  }
+
   // o hero fica preso no topo; o conteúdo recua e desvanece
   function setupScroll() {
     const hero = heroRef.current;
     if (hero) {
       S._fitHero = () => {
+        if (isFlatLayout()) { hero.style.top = ''; return; }
         hero.style.top = Math.min(0, window.innerHeight - hero.offsetHeight) + 'px';
       };
       S._fitHero();
-      window.addEventListener('resize', S._fitHero);
     }
 
     // A Plataforma fica parada ao fundo enquanto os blocos anterior e seguinte
@@ -487,17 +501,22 @@ export default function PaginaInstitucional() {
     const net = netWrapRef.current;
     if (net) {
       S._fitNet = () => {
+        const primary = overlayRef.current;
+        const hold = platformHoldRef.current;
+        if (isFlatLayout()) {
+          net.style.top = '';
+          if (primary) primary.style.marginTop = '';
+          if (hold) hold.style.height = '';
+          return;
+        }
         // Anchor from the top: bottom alignment hid the heading beneath the
         // floating navigation whenever this section exceeded the viewport.
         net.style.top = '0px';
-        const primary = overlayRef.current;
-        const hold = platformHoldRef.current;
         const netHeight = Math.ceil(net.getBoundingClientRect().height);
         if (primary) primary.style.marginTop = `${-netHeight}px`;
         if (hold) hold.style.height = `${netHeight}px`;
       };
       S._fitNet();
-      window.addEventListener('resize', S._fitNet);
     }
 
 
@@ -507,17 +526,41 @@ export default function PaginaInstitucional() {
     const final = finalWrapRef.current;
     if (final) {
       S._fitFinal = () => {
-        // FAQ follows the same top-anchored reveal rule as Plataforma.
-        final.style.top = '0px';
         const middle = overlay2Ref.current;
         const hold = finalHoldRef.current;
+        if (isFlatLayout()) {
+          final.style.top = '';
+          if (middle) middle.style.marginTop = '';
+          if (hold) hold.style.height = '';
+          return;
+        }
+        // FAQ follows the same top-anchored reveal rule as Plataforma.
+        final.style.top = '0px';
         const finalHeight = Math.ceil(final.getBoundingClientRect().height);
         if (middle) middle.style.marginTop = `${-finalHeight}px`;
         if (hold) hold.style.height = `${finalHeight}px`;
       };
       S._fitFinal();
-      window.addEventListener('resize', S._fitFinal);
     }
+
+    // Estabilizador de giro: o celular dispara dezenas de "resize" durante a
+    // animação de rotação (e enquanto a barra de endereços se ajusta). Medir no
+    // meio disso grava margens erradas, que pioram a cada novo giro. Aqui todas
+    // as medições acontecem uma única vez, depois que as dimensões assentam.
+    let refitTimer: number | undefined;
+    S._refit = () => {
+      if (refitTimer) window.clearTimeout(refitTimer);
+      refitTimer = window.setTimeout(() => {
+        S._fitHero?.();
+        S._fitNet?.();
+        S._fitFinal?.();
+        S._faqGuard?.();
+      }, 240);
+    };
+    window.addEventListener('resize', S._refit);
+    window.addEventListener('orientationchange', S._refit);
+    S._clearRefit = () => { if (refitTimer) window.clearTimeout(refitTimer); };
+
 
     // A lista do FAQ é rolável e fica sob "Nossa Perspectiva" na pilha. O
     // Chromium chega a entregar o wheel a esse contêiner coberto, e a página
