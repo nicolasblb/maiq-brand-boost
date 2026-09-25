@@ -1,6 +1,6 @@
 import * as DialogPrimitive from '@radix-ui/react-dialog';
-import { ChevronLeft, ChevronRight, Cog, FileCheck, Maximize2, Minimize2, Search, Settings, Target } from 'lucide-react';
-import { useEffect, useRef, useState, type Ref } from 'react';
+import { ChevronLeft, ChevronRight, Cog, FileCheck, Maximize2, Minimize2, RotateCw, Search, Settings, Target } from 'lucide-react';
+import { useCallback, useEffect, useRef, useState, type Ref } from 'react';
 
 import MaiqButton from '@/components/maiq/MaiqButton';
 
@@ -658,6 +658,16 @@ export default function Ciclo() {
   const modalScrollRef = useRef<HTMLDivElement | null>(null);
   const modalSvgRef = useRef<SVGSVGElement | null>(null);
   const modalFasesRef = useRef<HTMLDivElement | null>(null);
+  // O conteúdo do Radix monta pelo portal depois de modalOpen mudar. Este
+  // marcador refaz a medição quando o elemento real entra no DOM; sem ele, a
+  // primeira abertura em portrait podia ficar no tamanho flex padrão e tornar
+  // o fluxo pequeno demais para leitura.
+  const [modalMountTick, setModalMountTick] = useState(0);
+  const bindModalMedia = useCallback((element: HTMLDivElement | null) => {
+    if (modalMediaRef.current === element) return;
+    modalMediaRef.current = element;
+    setModalMountTick((value) => value + 1);
+  }, []);
 
   // O modal vive num portal fora do escopo da página: sem repassar o tema,
   // ele herdaria sempre os tokens do tema noite.
@@ -1016,7 +1026,7 @@ export default function Ciclo() {
       window.removeEventListener('resize', layout);
       detachScrollControls();
     };
-  }, [modalOpen]);
+  }, [modalOpen, modalMountTick]);
 
   return (
     <section
@@ -1131,7 +1141,7 @@ export default function Ciclo() {
             <DialogPrimitive.Title className="maiq-platform-modal-title">
               Fluxo contínuo de M&A
             </DialogPrimitive.Title>
-            <div ref={modalMediaRef} className="maiq-cycle-modal-media">
+            <div ref={bindModalMedia} className="maiq-cycle-modal-media">
               <div ref={modalFasesRef} aria-hidden="true" className="maiq-cycle-lanes">
                 <CycleLaneLabels idPrefix="maiqCModal" />
               </div>
@@ -1158,6 +1168,10 @@ export default function Ciclo() {
             >
               <Minimize2 size={17} />
             </MaiqButton>
+            <div className="maiq-orientation-hint" role="status">
+              <RotateCw size={15} aria-hidden="true" />
+              <span>Gire o aparelho</span>
+            </div>
           </DialogPrimitive.Content>
         </DialogPrimitive.Portal>
       </DialogPrimitive.Root>

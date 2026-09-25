@@ -661,13 +661,10 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
   .maiq-conviction-controls{right:12px;left:12px;bottom:12px}
   .maiq-conviction-modal{inset:10px;max-height:calc(100vh - 20px);max-height:calc(100dvh - 20px);border-radius:var(--radius-md)}
 }
-/* Vídeo maximizado em celular portrait: sem screen.orientation.lock/Fullscreen
-   API nativa (iOS Safari não suporta orientation.lock), o modal vira
-   fullscreen edge-to-edge e o conteúdo interno (vídeo + controles) é
-   rotacionado 90° via CSS para simular paisagem. Se o aparelho já estiver
-   fisicamente em paisagem, esta media query não bate e o modal segue no
-   comportamento 16:9 centralizado de sempre (regra acima). */
-@media (max-width:800px) and (orientation:portrait){
+/* Em celular/tablet portrait o vídeo respeita a orientação natural da tela.
+   A recomposição em paisagem acontece pela media query do viewport, sem
+   orientation.lock (indisponível no Safari do iOS) nem contra-rotação. */
+@media (max-width:1024px) and (orientation:portrait){
   .maiq-conviction-modal{
     inset:0;
     max-width:none;
@@ -678,24 +675,17 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
     border-radius:0;
     background:var(--p-plat-video-bg,var(--p-bg-deep));
   }
-  /* 100dvh: no celular, 100vh inclui a área da barra do navegador e a faixa girada
-     passava da tela, cortando as pontas. 100vh fica como fallback. */
   .maiq-conviction-modal-media{
-    position:absolute;
-    top:50%;
-    left:50%;
-    width:100vh;
-    width:100dvh;
-    height:100vw;
-    transform:translate(-50%,-50%) rotate(90deg);
+    width:100%;
+    height:100%;
   }
 }
-.maiq-conviction-rotate-hint{
+.maiq-orientation-hint{
   position:absolute;
-  z-index:3;
-  top:16px;
+  z-index:6;
+  top:max(16px,env(safe-area-inset-top));
   left:50%;
-  display:flex;
+  display:none;
   align-items:center;
   gap:8px;
   padding:8px 14px;
@@ -707,12 +697,9 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
   font-size:13px;
   font-weight:var(--fw-medium,500);
   box-shadow:var(--shadow-3);
-  opacity:0;
   pointer-events:none;
-  transition:opacity var(--dur-2) var(--ease-standard);
 }
-.maiq-conviction-rotate-hint[data-visible="true"]{opacity:1}
-@media (prefers-reduced-motion:reduce){.maiq-conviction-rotate-hint{transition:none}}
+@media (max-width:1024px) and (orientation:portrait){.maiq-orientation-hint{display:flex}}
 @media (prefers-reduced-motion:reduce){.maiq-conviction-video{transition:none}.maiq-conviction-modal{animation:none}}
 
 .maiq-model-pilares-bg{
@@ -889,9 +876,8 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
   .maiq-cycle-frame{display:none!important}
   .maiq-cycle-mobile{display:flex;flex-direction:column;align-items:center;width:calc(100% + 48px);margin:0 -24px}
 }
-/* Modal de tela cheia do fluxo completo (mobile). Mesmo padrão de
-   .maiq-conviction-modal/.maiq-platform-modal, incluindo a rotação via CSS
-   em celular portrait — ver comentário equivalente em .maiq-platform-modal. */
+/* Modal de tela cheia do fluxo completo. Em telas touch, retrato e paisagem
+   usam a orientação física do viewport, sem rotação artificial. */
 .maiq-cycle-modal{position:fixed;z-index:71;inset:clamp(18px,4vw,54px);max-width:1440px;max-height:calc(100vh - clamp(36px,8vw,108px));margin:auto;padding:0;overflow:hidden;border:1px solid var(--p-hair-strong);border-radius:var(--radius-lg);background:var(--p-bg-deep);box-shadow:var(--shadow-3);color:var(--p-text);animation:maiqPlatformModalIn 260ms var(--ease-out)}
 .maiq-cycle-modal-media{--cycle-label-width:202px;position:relative;width:100%;height:100%;display:flex;align-items:center;overflow:hidden;background:var(--p-bg-deep);padding:16px;box-sizing:border-box}
 .maiq-cycle-modal-close{position:absolute;top:12px;right:12px;z-index:2}
@@ -899,12 +885,12 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
   .maiq-cycle-modal{inset:10px;max-height:calc(100vh - 20px);border-radius:var(--radius-md)}
 }
 /* Celular deitado: o fluxo completo já cabe na horizontal, só ocupa a tela toda. */
-@media (orientation:landscape) and (max-height:500px) and (pointer:coarse){
+@media (orientation:landscape) and (max-width:1366px) and (pointer:coarse){
   .maiq-cycle-modal{inset:0;max-width:none;max-height:none;margin:0;border:none;border-radius:0}
 }
-@media (max-width:800px) and (orientation:portrait){
+@media (max-width:1024px) and (orientation:portrait){
   .maiq-cycle-modal{inset:0;max-width:none;max-height:none;margin:0;border:none;border-radius:0}
-  .maiq-cycle-modal-media{position:absolute;top:50%;left:50%;width:100vh;width:100dvh;height:100vw;transform:translate(-50%,-50%) rotate(90deg)}
+  .maiq-cycle-modal-media{width:100%;height:100%;padding:max(64px,calc(env(safe-area-inset-top) + 54px)) 16px max(16px,env(safe-area-inset-bottom))}
 }
 @media (prefers-reduced-motion:reduce){.maiq-cycle-modal{animation:none}}
 [data-maiq-scope]{--c-block-bg:rgba(159,214,210,.07);--c-block-fg:#FFFFFF;--c-block-hair:rgba(159,214,210,.26);--c-line:rgba(159,214,210,.52);--c-dot:rgba(159,214,210,.42);--c-band:#308984;--c-band-fg:#FFFFFF;--c-pill:#1F5956;--c-pill-fg:#FFFFFF;--c-exit:#9FD6D2;--c-exit-fg:#143937;--c-flow:#DFF4F3;--c-flow-core:#F4F8F4;--c-flow-blend:screen;--c-lane-bg:rgba(48,137,132,.46);--c-lane-hair:rgba(159,214,210,.46);--c-lane-fg:#FFFFFF;--c-sep:rgba(159,214,210,.30);--c-frame-bg:rgba(159,214,210,.04);--c-fp-bg:#17403E;--c-fp-bg-on:#1F5956;--c-fp-hair:rgba(175,227,224,.26);--c-fp-hair-on:rgba(175,227,224,.55);--c-fp-glow-edge:rgba(255,255,255,.75);--c-fp-glow:rgba(95,199,193,.45);--c-fp-glow-in:rgba(175,227,224,.16);--c-fp-path:rgba(175,227,224,.34);--c-fp-dot:#FFFFFF;--c-fp-dot-glow:rgba(223,244,243,.55);--c-fp-btn-bg:#17403E;--c-fp-btn-icon:#FFFFFF;--c-fp-btn-shadow:0 12px 24px -8px rgba(0,0,0,.6),0 2px 4px rgba(0,0,0,.3)}
@@ -979,29 +965,6 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 .maiq-platform-modal-media{position:relative;min-height:0;overflow:hidden;background:var(--p-plat-video-bg,var(--p-bg-deep))}
 .maiq-platform-modal-copy{min-height:0;display:flex;flex-direction:column;justify-content:center;padding:clamp(30px,4vw,64px);overflow-y:auto;overscroll-behavior:contain;border-left:1px solid var(--p-hair)}
 .maiq-platform-modal-nav{margin-top:40px;display:flex;align-items:center;gap:14px;color:var(--p-muted);font-size:13px}
-.maiq-platform-rotate-hint{
-  position:absolute;
-  z-index:3;
-  top:16px;
-  left:50%;
-  display:flex;
-  align-items:center;
-  gap:8px;
-  padding:8px 14px;
-  transform:translateX(-50%);
-  border-radius:var(--radius-pill,999px);
-  background:var(--p-bg-deep,#09201F);
-  color:var(--p-text,#EAD9CC);
-  font-family:var(--font-core);
-  font-size:13px;
-  font-weight:var(--fw-medium,500);
-  box-shadow:var(--shadow-3);
-  opacity:0;
-  pointer-events:none;
-  transition:opacity var(--dur-2) var(--ease-standard);
-}
-.maiq-platform-rotate-hint[data-visible="true"]{opacity:1}
-@media (prefers-reduced-motion:reduce){.maiq-platform-rotate-hint{transition:none}}
 @keyframes maiqPlatformFade{from{opacity:0}to{opacity:1}}
 @keyframes maiqPlatformModalIn{from{opacity:0;transform:scale(.98)}to{opacity:1;transform:scale(1)}}
 /* Abaixo de 1024px o estágio sticky de "Nossa Plataforma" continua com
@@ -1056,12 +1019,9 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
   .maiq-platform-modal-copy [data-radix-dialog-description]{margin-top:12px;font-size:14px;line-height:1.55}
   .maiq-platform-modal-nav{margin-top:18px}
 }
-/* Modal de tela cheia em celular portrait: mesma técnica de
-   .maiq-conviction-modal (rotação via CSS, sem orientation.lock nativo —
-   iOS Safari não suporta). O layout interno mantém a grade de duas colunas
-   do desktop (mídia + texto lado a lado) porque, girado, a caixa fica
-   naturalmente "deitada" (width:100vh é a maior dimensão em portrait). */
-@media (max-width:800px) and (orientation:portrait){
+/* Em portrait, a Plataforma usa vídeo acima e conteúdo abaixo. Ao girar o
+   aparelho, a regra landscape recompõe as duas colunas sem remontar o vídeo. */
+@media (max-width:1024px) and (orientation:portrait){
   .maiq-platform-modal{
     inset:0;
     max-width:none;
@@ -1070,18 +1030,17 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
     border-radius:0;
   }
   .maiq-platform-modal-layout{
-    position:absolute;
-    top:50%;
-    left:50%;
-    width:100vh;
-    width:100dvh;
-    height:100vw;
-    transform:translate(-50%,-50%) rotate(90deg);
-    grid-template-columns:minmax(0,1.65fr) minmax(300px,.7fr);
-    grid-template-rows:none;
+    width:100%;
+    height:100%;
+    grid-template-columns:1fr;
+    grid-template-rows:minmax(0,56%) minmax(0,44%);
   }
   .maiq-platform-modal-copy{
     justify-content:flex-start;
+    padding:max(22px,4vw);
+    padding-bottom:max(22px,env(safe-area-inset-bottom));
+    border-top:1px solid var(--p-hair);
+    border-left:0;
   }
   /* Nos 3 modais de tela cheia (Convicção/Plataforma/Perspectiva), nesse
      estado o próprio modal vira `inset:0` opaco e cobre a tela inteira — o
@@ -1093,11 +1052,11 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 }
 /* Quando o aparelho gira de verdade, não há rotação CSS: o modal recompõe a
    experiência em paisagem e ocupa o viewport nativo. */
-@media (orientation:landscape) and (max-height:500px) and (pointer:coarse){
+@media (orientation:landscape) and (max-width:1366px) and (pointer:coarse){
   .maiq-platform-modal{inset:0;max-width:none;margin:0;border:none;border-radius:0}
   .maiq-platform-modal-layout{grid-template-columns:minmax(0,1.65fr) minmax(260px,.7fr);grid-template-rows:none}
   .maiq-platform-modal-copy{justify-content:flex-start;padding:24px;border-top:0;border-left:1px solid var(--p-hair)}
-  .maiq-platform-rotate-hint{display:none}
+  .maiq-conviction-modal{inset:0;max-width:none;max-height:none;aspect-ratio:auto;margin:0;border:none;border-radius:0}
 }
 @media (prefers-reduced-motion:reduce){
   .maiq-platform-line-progress,.maiq-platform-line-divider,.maiq-platform-tab{transition:none!important}

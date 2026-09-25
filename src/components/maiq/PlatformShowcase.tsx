@@ -13,13 +13,6 @@ import tesesClaro from '@/assets/plataforma/plataforma-teses-claro.mp4';
 import tesesNoite from '@/assets/plataforma/plataforma-teses-noite.mp4';
 
 const FEATURE_DURATION = 15;
-// Chave de sessão para a dica "Gire o aparelho" (fullscreen rotacionado do
-// modal em celular portrait) não repetir a cada reabertura na mesma sessão —
-// mesmo padrão de .maiq-conviction-modal em ConvictionScene.tsx.
-const ROTATE_HINT_STORAGE_KEY = 'maiq-platform-rotate-hint-seen';
-const ROTATE_HINT_VISIBLE_MS = 2500;
-const ROTATE_HINT_FADE_BUFFER_MS = 220;
-const NARROW_PORTRAIT_QUERY = '(max-width:800px) and (orientation:portrait)';
 // Abaixo de 1024px o vídeo fica numa faixa estreita sob o texto; tocar nele
 // abre o modal de tela cheia (o botão Maximizar continua disponível).
 const TAP_TO_EXPAND_QUERY = '(max-width:1023px)';
@@ -170,8 +163,6 @@ export default function PlatformShowcase() {
   const [run, setRun] = useState(0);
   const [navProgress, setNavProgress] = useState(0);
   const [navSettling, setNavSettling] = useState(false);
-  const [rotateHintMounted, setRotateHintMounted] = useState(false);
-  const [rotateHintShown, setRotateHintShown] = useState(false);
   const progressRef = useRef(0);
   const segmentProgressRef = useRef(0);
   const mediaLastRef = useRef<number | null>(null);
@@ -259,43 +250,6 @@ export default function PlatformShowcase() {
     const left = tab.offsetLeft - (viewport.clientWidth - tab.offsetWidth) / 2;
     viewport.scrollTo({ left: Math.max(0, left), behavior: 'smooth' });
   }, [active]);
-
-  // Dica "Gire o aparelho": só na primeira vez que o modal abre em celular
-  // portrait (mesma condição da rotação CSS), e só uma vez por sessão.
-  useEffect(() => {
-    if (!modalOpen) {
-      setRotateHintMounted(false);
-      setRotateHintShown(false);
-      return;
-    }
-    if (typeof window === 'undefined') return;
-    if (!window.matchMedia(NARROW_PORTRAIT_QUERY).matches) return;
-    let alreadySeen = false;
-    try {
-      alreadySeen = window.sessionStorage.getItem(ROTATE_HINT_STORAGE_KEY) === '1';
-    } catch {
-      alreadySeen = false;
-    }
-    if (alreadySeen) return;
-    try {
-      window.sessionStorage.setItem(ROTATE_HINT_STORAGE_KEY, '1');
-    } catch {
-      // sessionStorage indisponível (ex.: modo privado) — pior caso é a dica
-      // reaparecer em reaberturas na mesma sessão, sem impacto funcional.
-    }
-    setRotateHintMounted(true);
-    const showFrame = window.requestAnimationFrame(() => setRotateHintShown(true));
-    const hideTimer = window.setTimeout(() => setRotateHintShown(false), ROTATE_HINT_VISIBLE_MS);
-    const unmountTimer = window.setTimeout(
-      () => setRotateHintMounted(false),
-      ROTATE_HINT_VISIBLE_MS + ROTATE_HINT_FADE_BUFFER_MS,
-    );
-    return () => {
-      window.cancelAnimationFrame(showFrame);
-      window.clearTimeout(hideTimer);
-      window.clearTimeout(unmountTimer);
-    };
-  }, [modalOpen]);
 
   useEffect(() => {
     if (timerPaused) {
@@ -465,12 +419,10 @@ export default function PlatformShowcase() {
                 </div>
               </div>
             </div>
-            {rotateHintMounted ? (
-              <div className="maiq-platform-rotate-hint" data-visible={rotateHintShown} role="status">
-                <RotateCw size={15} aria-hidden="true" />
-                <span>Gire o aparelho</span>
-              </div>
-            ) : null}
+            <div className="maiq-orientation-hint" role="status">
+              <RotateCw size={15} aria-hidden="true" />
+              <span>Gire o aparelho</span>
+            </div>
           </DialogPrimitive.Content>
         </DialogPrimitive.Portal>
       </DialogPrimitive.Root>

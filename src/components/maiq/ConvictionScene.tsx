@@ -9,12 +9,6 @@ import posterEscuro from '@/assets/conviccao/valor-na-mesa-noite-poster.jpg';
 import posterClaro from '@/assets/conviccao/valor-na-mesa-claro-poster.jpg';
 
 const DURATION = 20.5;
-// Chave de sessão para a dica "Gire o aparelho" (fullscreen rotacionado do
-// modal em celular portrait) não repetir a cada reabertura na mesma sessão.
-const ROTATE_HINT_STORAGE_KEY = 'maiq-conviction-rotate-hint-seen';
-const ROTATE_HINT_VISIBLE_MS = 2500;
-const ROTATE_HINT_FADE_BUFFER_MS = 220;
-const NARROW_PORTRAIT_QUERY = '(max-width:800px) and (orientation:portrait)';
 
 function PlaybackButton({ playing, value, onClick }: { playing: boolean; value: number; onClick: () => void }) {
   const radius = 18;
@@ -66,8 +60,6 @@ export default function ConvictionScene() {
   const startedRef = useRef(false);
   const transferTimeRef = useRef(0);
   const previousThemeRef = useRef(light);
-  const [rotateHintMounted, setRotateHintMounted] = useState(false);
-  const [rotateHintShown, setRotateHintShown] = useState(false);
   // O vídeo do tema inativo só é montado depois da primeira troca real de
   // tema — evita reservar dois elementos <video> (e dois decoders) enquanto
   // o visitante nunca trocou de tema. `hasReadRef` distingue essa primeira
@@ -247,43 +239,6 @@ export default function ConvictionScene() {
     setModalOpen(expanded);
   };
 
-  // Dica "Gire o aparelho": só na primeira vez que o modal abre em celular
-  // portrait (mesma condição da rotação CSS abaixo), e só uma vez por sessão.
-  useEffect(() => {
-    if (!modalOpen) {
-      setRotateHintMounted(false);
-      setRotateHintShown(false);
-      return;
-    }
-    if (typeof window === 'undefined') return;
-    if (!window.matchMedia(NARROW_PORTRAIT_QUERY).matches) return;
-    let alreadySeen = false;
-    try {
-      alreadySeen = window.sessionStorage.getItem(ROTATE_HINT_STORAGE_KEY) === '1';
-    } catch {
-      alreadySeen = false;
-    }
-    if (alreadySeen) return;
-    try {
-      window.sessionStorage.setItem(ROTATE_HINT_STORAGE_KEY, '1');
-    } catch {
-      // sessionStorage indisponível (ex.: modo privado) — pior caso é a dica
-      // reaparecer em reaberturas na mesma sessão, sem impacto funcional.
-    }
-    setRotateHintMounted(true);
-    const showFrame = window.requestAnimationFrame(() => setRotateHintShown(true));
-    const hideTimer = window.setTimeout(() => setRotateHintShown(false), ROTATE_HINT_VISIBLE_MS);
-    const unmountTimer = window.setTimeout(
-      () => setRotateHintMounted(false),
-      ROTATE_HINT_VISIBLE_MS + ROTATE_HINT_FADE_BUFFER_MS,
-    );
-    return () => {
-      window.cancelAnimationFrame(showFrame);
-      window.clearTimeout(hideTimer);
-      window.clearTimeout(unmountTimer);
-    };
-  }, [modalOpen]);
-
   const duration = activeRef()?.duration || DURATION;
 
   const videoPair = (
@@ -364,12 +319,10 @@ export default function ConvictionScene() {
               {modalOpen ? videoPair(bindModalDark, bindModalLight) : null}
               {controls(true)}
             </div>
-            {rotateHintMounted ? (
-              <div className="maiq-conviction-rotate-hint" data-visible={rotateHintShown} role="status">
-                <RotateCw size={15} aria-hidden="true" />
-                <span>Gire o aparelho</span>
-              </div>
-            ) : null}
+            <div className="maiq-orientation-hint" role="status">
+              <RotateCw size={15} aria-hidden="true" />
+              <span>Gire o aparelho</span>
+            </div>
           </DialogPrimitive.Content>
         </DialogPrimitive.Portal>
       </DialogPrimitive.Root>
