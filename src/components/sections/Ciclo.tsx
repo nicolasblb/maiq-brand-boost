@@ -977,11 +977,13 @@ export default function Ciclo() {
     };
   }, []);
 
-  // Modal de tela cheia (mobile): réplica estática do diagrama, dimensionada
-  // para a área do próprio modal. Sem a coreografia de entrada nem os pontos
-  // luminosos animados do quadro principal — o objetivo aqui é legibilidade
-  // do fluxo completo, não a decoração de scroll. Monta/desmonta com o
-  // diálogo, então o efeito roda de novo a cada abertura.
+  // Modal de tela cheia (mobile/tablet): réplica estática do diagrama,
+  // dimensionada para caber INTEIRA na área do próprio modal — sem arraste
+  // e sem rolagem horizontal, em retrato ou paisagem (decisão de 25/09/2026:
+  // o arraste quebrava a visualização na tela cheia). Também sem a
+  // coreografia de entrada nem os pontos luminosos animados do quadro
+  // principal — o objetivo aqui é legibilidade do fluxo completo. Monta e
+  // desmonta com o diálogo, então o efeito roda de novo a cada abertura.
   useEffect(() => {
     if (!modalOpen) return;
     const media = modalMediaRef.current;
@@ -994,37 +996,26 @@ export default function Ciclo() {
       const fasesEl = modalFasesRef.current;
       const availW = Math.max(240, media.clientWidth - CYCLE_FRAME_PAD);
       const availH = Math.max(200, media.clientHeight - CYCLE_FRAME_PAD);
-      const fit = computeCycleFit(availW, availH);
-      svgEl.setAttribute('viewBox', fit.viewBox);
+      // Ajuste estático: sempre o diagrama completo, escalado livremente
+      // para a área disponível (sem o piso MIN_FULL que forçava rolagem).
+      const width = Math.max(1, Math.min(availW, Math.round(availH / AR)));
+      svgEl.setAttribute('viewBox', '0 130 1400 525');
       svgEl.style.flex = '0 0 auto';
-      svgEl.style.width = fit.width + 'px';
-      svgEl.style.height = fit.height + 'px';
+      svgEl.style.width = width + 'px';
+      svgEl.style.height = Math.round(width * AR) + 'px';
       scEl.style.minHeight = '0px';
-      if (fit.mode === 'full') {
-        scEl.style.overflowX = 'hidden';
-        scEl.style.justifyContent = 'center';
-        if (fasesG) fasesG.style.display = '';
-        if (fasesEl) fasesEl.style.display = 'none';
-      } else {
-        scEl.style.overflowX = 'auto';
-        scEl.style.justifyContent = 'flex-start';
-        if (fasesG) fasesG.style.display = 'none';
-        if (fasesEl) {
-          fasesEl.style.display = 'block';
-          fasesEl.style.height = fit.height + 'px';
-        }
-      }
-      const maxScroll = scEl.scrollWidth - scEl.clientWidth;
-      scEl.dataset['scrollable'] = maxScroll > 1 ? 'true' : 'false';
+      scEl.style.overflowX = 'hidden';
+      scEl.style.justifyContent = 'center';
+      scEl.dataset['scrollable'] = 'false';
+      if (fasesG) fasesG.style.display = '';
+      if (fasesEl) fasesEl.style.display = 'none';
     };
     layout();
     window.addEventListener('resize', layout);
-    const detachScrollControls = attachCycleScrollControls(scEl);
     scEl.focus({ preventScroll: true });
 
     return () => {
       window.removeEventListener('resize', layout);
-      detachScrollControls();
     };
   }, [modalOpen, modalMountTick]);
 
