@@ -794,23 +794,25 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
    .maiq-model-mobile) ficam sempre no DOM; só a visibilidade troca por CSS,
    sem JS de resize (mesmo padrão do SiteHeader). */
 .maiq-model-mobile{display:none}
-/* Abaixo de 760px: duas pílulas verticais sobrepostas (mesma borda e fundo
+/* Abaixo de 760px: dois cartões verticais sobrepostos (mesma borda e fundo
    translúcido do Venn desktop — a interseção ganha destaque só pela soma dos
    dois fundos) com a hélice girada 90° recortada pela interseção exata.
-   --mm-h = altura de cada pílula, --mm-o = sobreposição entre elas. */
-.maiq-model-mobile{--mm-h:440px;--mm-o:160px;--mm-r:112px;position:relative;width:100%;max-width:340px;height:calc(var(--mm-h) * 2 - var(--mm-o));margin:0 auto}
-.maiq-model-mobile-pill{position:absolute;left:0;width:100%;height:var(--mm-h);box-sizing:border-box;border:1px solid var(--p-hair,rgba(159,214,210,.14));border-radius:var(--mm-r);background:var(--p-chip-bg,rgba(159,214,210,.05))}
+   --mm-h = altura de cada cartão, --mm-o = sobreposição entre eles. */
+.maiq-model-mobile{--mm-h:384px;--mm-o:128px;--mm-r-outer:16px;--mm-r-cross:88px;position:relative;width:100%;max-width:340px;height:calc(var(--mm-h) * 2 - var(--mm-o));margin:0 auto}
+.maiq-model-mobile-pill{position:absolute;left:0;width:100%;height:var(--mm-h);box-sizing:border-box;border:1px solid var(--p-hair,rgba(159,214,210,.14));background:var(--p-chip-bg,rgba(159,214,210,.05))}
 .maiq-model-mobile-pill--top{top:0}
 .maiq-model-mobile-pill--bottom{top:calc(var(--mm-h) - var(--mm-o))}
-.maiq-model-mobile-clip-a{position:absolute;left:0;top:0;width:100%;height:var(--mm-h);border-radius:var(--mm-r);overflow:hidden}
-.maiq-model-mobile-clip-b{position:absolute;left:0;top:calc(var(--mm-h) - var(--mm-o));width:100%;height:var(--mm-h);border-radius:var(--mm-r);overflow:hidden}
+.maiq-model-mobile-pill--top,.maiq-model-mobile-clip-a{border-radius:var(--mm-r-outer) var(--mm-r-outer) var(--mm-r-cross) var(--mm-r-cross)}
+.maiq-model-mobile-pill--bottom,.maiq-model-mobile-clip-b{border-radius:var(--mm-r-cross) var(--mm-r-cross) var(--mm-r-outer) var(--mm-r-outer)}
+.maiq-model-mobile-clip-a{position:absolute;left:0;top:0;width:100%;height:var(--mm-h);overflow:hidden}
+.maiq-model-mobile-clip-b{position:absolute;left:0;top:calc(var(--mm-h) - var(--mm-o));width:100%;height:var(--mm-h);overflow:hidden}
 .maiq-model-mobile-helix{position:absolute;left:50%;top:calc(var(--mm-o) / 2);width:0;height:0}
 /* A hélice nasce vertical (240x360); girada, as barras ficam em pé e o vão
    da máscara precisa ser largo na horizontal para o texto central. */
 .maiq-model-mobile-helix>div{
   left:50%!important;
   top:50%!important;
-  transform:translate(-50%,-50%) rotate(90deg) scale(.94)!important;
+  transform:translate(-50%,-50%) rotate(90deg) scale(.752)!important;
   -webkit-mask-image:radial-gradient(ellipse 50px 104px at 50% 50%,transparent 0%,transparent 50%,#000 100%)!important;
   mask-image:radial-gradient(ellipse 50px 104px at 50% 50%,transparent 0%,transparent 50%,#000 100%)!important;
 }
@@ -821,7 +823,7 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 .maiq-model-mobile-card-sub{font-size:14.5px;font-weight:600;margin-top:8px;color:var(--p-text,#FFFFFF)}
 .maiq-model-mobile-card-tag{font-size:12.5px;font-style:italic;color:var(--p-muted,#9FD6D2);margin-top:2px}
 .maiq-model-mobile-list{list-style:none;width:80%;margin:18px 0 0;padding:0}
-.maiq-model-mobile-list li{padding:11px 0;background:linear-gradient(90deg,transparent 0%,var(--p-hair,rgba(159,214,210,.14)) 18%,var(--p-hair,rgba(159,214,210,.14)) 82%,transparent 100%) top/100% 1px no-repeat;font-size:15.5px;color:var(--p-text-2,#AFE3E0)}
+.maiq-model-mobile-list li{padding:11px 0;background:linear-gradient(90deg,transparent 0%,color-mix(in oklab,var(--p-text) 34%,transparent) 18%,color-mix(in oklab,var(--p-text) 34%,transparent) 82%,transparent 100%) top/100% 1px no-repeat;font-size:15.5px;color:var(--p-text-2,#AFE3E0)}
 .maiq-model-mobile-center{position:absolute;left:50%;top:calc(var(--mm-h) - var(--mm-o) / 2);transform:translate(-50%,-50%);z-index:1;font-size:14px;line-height:1.34;font-weight:600;letter-spacing:.01em;color:var(--p-text,#FFFFFF);text-align:center;white-space:nowrap;text-shadow:0 0 12px var(--p-bg),0 0 4px var(--p-bg)}
 @media (max-width:760px){
   .maiq-model-dna-row{display:none!important}
