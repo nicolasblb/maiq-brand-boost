@@ -720,3 +720,7 @@ Plataforma repetindo no modal por 18s sem pausar. Varredura completa de scroll (
 ## Linha de corte das sobreposições da Home (25/09/2026)
 
 - [x] Revisar em conjunto o topo das sobreposições “Nosso Modelo / Nossa Convicção” e “Nossa Perspectiva”. A causa era a linha de corte: cada sobreposição começava exatamente na mesma coordenada de sua base estática, que ficava visível pelas áreas externas das quinas arredondadas. As duas sobreposições agora entram 24 px antes dessa linha (o mesmo valor do raio), com compensação equivalente nos `hold`s para preservar a altura total, a ordem e a mecânica de rolagem. Os topos das bases estáticas continuam retos.
+
+## Elemento central de Nosso Modelo no mobile (25/09/2026)
+
+- [ ] Preservar os dois cards cruzados e refinar somente no mobile: raios externos iguais aos do menu suspenso, raios grandes na interseção, DNA e sobreposição 20% menores e divisórias horizontais mais claras.
