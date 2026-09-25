@@ -720,7 +720,11 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 .maiq-nav-dropdown-item:hover,.maiq-nav-dropdown-item:focus-visible{color:var(--p-text)!important;background:var(--p-chip-bg-strong)!important}
 .maiq-platform-ciclo-bg{background:linear-gradient(180deg,var(--p-platform-block-edge) 0%,var(--p-platform-block-center) 50%,var(--p-platform-block-edge) 100%);transition:background var(--dur-3) var(--ease-out)}
 .maiq-platform-transition{background:var(--p-platform-block-edge)}
-.maiq-scroll-stack{position:relative;z-index:1;background:var(--p-bg)}
+/* O contêiner da primeira pilha precisa permanecer transparente: seu fundo
+   opaco aparecia pelos recortes das quinas de .maiq-primary-overlay e criava
+   uma faixa reta sobre o arredondamento. A própria base sticky continua
+   preenchendo a área atrás do bloco, como na pilha de Nossa Perspectiva. */
+.maiq-scroll-stack{position:relative;z-index:1;background:transparent}
 .maiq-platform-base{position:sticky;z-index:0;overflow:clip;border-radius:24px 24px 0 0}
 .maiq-primary-overlay{position:relative;z-index:2;overflow:clip;border:1px solid var(--p-hair);border-radius:24px;background:var(--p-bg);box-shadow:var(--p-overlay-shadow),0 30px 60px -18px color-mix(in oklab,var(--p-bg-deep) 72%,transparent);transition:background var(--dur-3) var(--ease-out)}
 .maiq-platform-hold{position:relative;z-index:0;pointer-events:none}
