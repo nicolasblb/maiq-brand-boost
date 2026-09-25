@@ -677,3 +677,24 @@ Plataforma repetindo no modal por 18s sem pausar. Varredura completa de scroll (
       textual usa rolagem interna quando o conteúdo não cabe, sem recortar o vídeo.
 
 `tsc`, `eslint` (sem a regra de aspas do prettier) e `npm run build` limpos.
+
+## Rotação do celular na Home (25/09/2026)
+
+- [x] **Girar o celular para a horizontal quebrava a Home** (scroll travava, seções fora de ordem,
+  piorando a cada novo giro). Duas causas somadas: (a) a pilha de sobreposições sticky com margens
+  negativas medidas em ~300px de altura útil; (b) dezenas de `resize` disparados durante a animação
+  de rotação, com `_fitHero`/`_fitNet`/`_fitFinal` medindo e gravando estilos inline no meio do giro,
+  acumulando erro a cada repetição. Solução (Solução 2 combinada com o usuário):
+  - `maiq.css`: em `@media (orientation:landscape) and (max-height:520px) and (pointer:coarse)` a pilha
+    é desarmada — `position:relative` nas bases, margens negativas zeradas, `hold`s ocultos,
+    `.maiq-final-content` com altura automática e a lista do FAQ sem scroll aninhado. Como no fluxo
+    contínuo o FAQ viria antes de "Nossa Perspectiva", `.maiq-final-reveal-stage` vira flex column com
+    `order` para restabelecer a ordem de leitura.
+  - `PaginaInstitucional.tsx`: helper `isFlatLayout()` — nessa faixa as funções `_fit*` limpam os
+    estilos inline em vez de medir; e os ouvintes individuais de `resize` foram substituídos por um
+    único estabilizador `S._refit` (debounce de 240ms, também em `orientationchange`) que recalcula
+    tudo numa passada só, depois que as dimensões assentam.
+  - Validado com Playwright: três ciclos vertical↔horizontal em 393×852 / 852×393, nos dois temas —
+    altura da página estável (5521 / 3756 px em todos os ciclos), scroll íntegro e console limpo.
+- [ ] Se a leitura com o celular deitado não agradar, alternativa já desenhada: overlay "use o
+  aparelho na vertical" fora da tela cheia (Solução 1).
