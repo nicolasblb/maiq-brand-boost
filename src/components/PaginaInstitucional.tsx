@@ -486,10 +486,16 @@ export default function PaginaInstitucional() {
 
   // o hero fica preso no topo; o conteúdo recua e desvanece
   function setupScroll() {
+    const scope = scopeRef.current as HTMLElement | null;
+    const flatQuery = window.matchMedia('(orientation:landscape) and (max-height:520px) and (pointer:coarse)');
+    S._layoutMode = isFlatLayout() ? 'flat' : 'stacked';
+    if (scope) scope.dataset['maiqLayout'] = S._layoutMode;
+    const usesFlatFlow = () => S._layoutMode !== 'stacked';
+
     const hero = heroRef.current;
     if (hero) {
       S._fitHero = () => {
-        if (isFlatLayout()) { hero.style.top = ''; return; }
+        if (usesFlatFlow()) { hero.style.top = ''; return; }
         hero.style.top = Math.min(0, window.innerHeight - hero.offsetHeight) + 'px';
       };
       S._fitHero();
@@ -503,7 +509,7 @@ export default function PaginaInstitucional() {
       S._fitNet = () => {
         const primary = overlayRef.current;
         const hold = platformHoldRef.current;
-        if (isFlatLayout()) {
+        if (usesFlatFlow()) {
           net.style.top = '';
           if (primary) primary.style.marginTop = '';
           if (hold) hold.style.height = '';
@@ -528,7 +534,7 @@ export default function PaginaInstitucional() {
       S._fitFinal = () => {
         const middle = overlay2Ref.current;
         const hold = finalHoldRef.current;
-        if (isFlatLayout()) {
+        if (usesFlatFlow()) {
           final.style.top = '';
           if (middle) middle.style.marginTop = '';
           if (hold) hold.style.height = '';
@@ -550,57 +556,97 @@ export default function PaginaInstitucional() {
     // Ao trocar de modo (deitado <-> em pé) a posição de rolagem do modo
     // anterior não vale mais: guardamos a seção visível e voltamos a ela.
     let refitTimers: number[] = [];
-    let wasFlat = isFlatLayout();
-    let anchor: { el: Element; off: number } | null = null;
+    let anchorId: string | null = null;
     const captureAnchor = () => {
       const secs = Array.from(document.querySelectorAll('[data-maiq-sec]'));
-      let best: Element | null = null;
-      for (const s of secs) {
-        if (s.getBoundingClientRect().top <= window.innerHeight * 0.3) best = s;
-      }
-      return best ? { el: best, off: 0 } : null;
+      const line = window.innerHeight * 0.3;
+      const containing = secs.find((section) => {
+        const rect = section.getBoundingClientRect();
+        return rect.top <= line && rect.bottom > line;
+      });
+      const nearest = containing ?? secs.reduce<Element | null>((best, section) => {
+        if (!best) return section;
+        return Math.abs(section.getBoundingClientRect().top - line) < Math.abs(best.getBoundingClientRect().top - line)
+          ? section
+          : best;
+      }, null);
+      return nearest?.getAttribute('data-maiq-sec') ?? null;
     };
-    const runFit = () => {
+    const restoreAnchor = () => {
+      if (!anchorId) return;
+      const target = document.querySelector(`[data-maiq-sec="${anchorId}"]`);
+      if (!target) return;
+      let ref: Element = target;
+      if (S._layoutMode === 'stacked' && anchorId === 'plataforma' && platformHoldRef.current) ref = platformHoldRef.current;
+      if (S._layoutMode === 'stacked' && anchorId === 'faq' && finalHoldRef.current) ref = finalHoldRef.current;
+      const y = ref.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({ top: Math.max(0, S._layoutMode === 'flat' ? y - 60 : y), behavior: 'auto' });
+    };
+    const runFit = (restore = false) => {
       S._fitHero?.();
       S._fitNet?.();
       S._fitFinal?.();
       S._faqGuard?.();
-      const flat = isFlatLayout();
-      if (flat !== wasFlat) {
-        wasFlat = flat;
-        if (anchor) {
-          const holdTarget = anchor.el;
-          // força o layout novo antes de medir o destino
-          void document.body.offsetHeight;
-          const id = holdTarget.getAttribute('data-maiq-sec');
-          let ref: Element = holdTarget;
-          if (!flat && id === 'plataforma' && platformHoldRef.current) ref = platformHoldRef.current;
-          if (!flat && id === 'faq' && finalHoldRef.current) ref = finalHoldRef.current;
-          const y = ref.getBoundingClientRect().top + window.scrollY;
-          window.scrollTo({ top: Math.max(0, flat ? y - 60 : y), behavior: 'auto' });
-        }
-      }
+      if (restore) restoreAnchor();
       S._heroCovered = undefined;
       S._onScroll?.();
     };
     S._refit = () => {
-      if (!refitTimers.length) anchor = captureAnchor();
       refitTimers.forEach((t) => window.clearTimeout(t));
-      // Várias passadas: iOS/Android concluem a rotação e a barra de endereço
-      // em tempos diferentes; cada passada é idempotente.
-      refitTimers = [240, 600, 1100].map((ms, i, arr) =>
+      // Fora de uma troca de orientação, resize só estabiliza as medidas do
+      // modo atual (inclui abrir/fechar a barra de endereço do navegador).
+      refitTimers = [240, 600].map((ms, i, arr) =>
         window.setTimeout(() => {
           runFit();
-          if (i === arr.length - 1) { refitTimers = []; anchor = null; }
+          if (i === arr.length - 1) refitTimers = [];
+        }, ms),
+      );
+    };
+    S._changeLayout = () => {
+      const nextMode = flatQuery.matches ? 'flat' : 'stacked';
+      if (nextMode === S._layoutMode) return;
+      anchorId = captureAnchor();
+      refitTimers.forEach((timer) => window.clearTimeout(timer));
+
+      // Ao voltar para retrato, mantemos temporariamente o fluxo linear. Assim
+      // nenhuma camada sticky é remontada durante a animação de rotação.
+      S._layoutMode = nextMode === 'stacked' ? 'settling' : 'flat';
+      if (scope) scope.dataset['maiqLayout'] = S._layoutMode;
+      runFit();
+
+      refitTimers = [420, 800, 1200].map((ms, index, times) =>
+        window.setTimeout(() => {
+          if (index === 0) {
+            S._layoutMode = nextMode;
+            if (scope) scope.dataset['maiqLayout'] = nextMode;
+            // Elimina qualquer geometria gravada no modo anterior antes de
+            // medir a pilha vertical a partir do layout natural.
+            if (hero) hero.style.top = '';
+            if (net) net.style.top = '';
+            if (overlayRef.current) overlayRef.current.style.marginTop = '';
+            if (platformHoldRef.current) platformHoldRef.current.style.height = '';
+            if (final) final.style.top = '';
+            if (overlay2Ref.current) overlay2Ref.current.style.marginTop = '';
+            if (finalHoldRef.current) finalHoldRef.current.style.height = '';
+            void document.body.offsetHeight;
+          }
+          runFit(index === 0);
+          if (index === times.length - 1) {
+            refitTimers = [];
+            anchorId = null;
+          }
         }, ms),
       );
     };
     window.addEventListener('resize', S._refit);
     window.addEventListener('orientationchange', S._refit);
     window.visualViewport?.addEventListener('resize', S._refit);
+    flatQuery.addEventListener('change', S._changeLayout);
     S._clearRefit = () => {
       refitTimers.forEach((t) => window.clearTimeout(t));
       window.visualViewport?.removeEventListener('resize', S._refit);
+      flatQuery.removeEventListener('change', S._changeLayout);
+      if (scope) delete scope.dataset['maiqLayout'];
     };
 
 

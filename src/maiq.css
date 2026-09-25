@@ -1329,20 +1329,39 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
    as camadas sticky com margens negativas se embaralham e o scroll trava,
    piorando a cada giro. Aqui cada seção simplesmente rola em sequência.
    ------------------------------------------------------------------ */
-@media (orientation:landscape) and (max-height:520px) and (pointer:coarse){
-  .maiq-platform-base,
-  .maiq-final-base{position:relative!important;top:auto!important;clip-path:none!important}
+[data-maiq-scope][data-maiq-layout="flat"] .maiq-scroll-stack,
+[data-maiq-scope][data-maiq-layout="settling"] .maiq-scroll-stack{display:flex;flex-direction:column}
+[data-maiq-scope][data-maiq-layout="flat"] .maiq-platform-base,
+[data-maiq-scope][data-maiq-layout="settling"] .maiq-platform-base{order:2}
+[data-maiq-scope][data-maiq-layout="flat"] .maiq-primary-overlay,
+[data-maiq-scope][data-maiq-layout="settling"] .maiq-primary-overlay{order:1}
+[data-maiq-scope][data-maiq-layout="flat"] .maiq-platform-hold,
+[data-maiq-scope][data-maiq-layout="settling"] .maiq-platform-hold{order:3}
+[data-maiq-scope][data-maiq-layout="flat"] .maiq-final-reveal-stage,
+[data-maiq-scope][data-maiq-layout="settling"] .maiq-final-reveal-stage{order:4;display:flex;flex-direction:column}
+[data-maiq-scope][data-maiq-layout="flat"] .maiq-platform-base,
+[data-maiq-scope][data-maiq-layout="flat"] .maiq-final-base,
+[data-maiq-scope][data-maiq-layout="settling"] .maiq-platform-base,
+[data-maiq-scope][data-maiq-layout="settling"] .maiq-final-base{position:relative!important;top:auto!important;clip-path:none!important}
   /* Em fluxo contínuo o FAQ (que na pilha fica "atrás") viria antes de
      "Nossa Perspectiva"; a ordem de leitura é restabelecida aqui. */
-  .maiq-final-reveal-stage{display:flex;flex-direction:column}
-  .maiq-cycle-domains-overlay{order:1}
-  .maiq-final-base{order:2}
-  .maiq-primary-overlay,
-  .maiq-cycle-domains-overlay{margin-top:0!important}
-  .maiq-platform-hold,
-  .maiq-final-hold{display:none!important;height:0!important}
-  .maiq-final-content{height:auto!important;min-height:0!important;overflow:visible!important}
-  .maiq-faq-list{max-height:none!important;overflow:visible!important;pointer-events:auto!important}
-  .maiq-platform-section{min-height:0!important;padding-top:72px!important;padding-bottom:72px!important}
-  .maiq-hero{position:relative!important;top:auto!important}
-}
+[data-maiq-scope][data-maiq-layout="flat"] .maiq-cycle-domains-overlay,
+[data-maiq-scope][data-maiq-layout="settling"] .maiq-cycle-domains-overlay{order:1}
+[data-maiq-scope][data-maiq-layout="flat"] .maiq-final-base,
+[data-maiq-scope][data-maiq-layout="settling"] .maiq-final-base{order:2}
+[data-maiq-scope][data-maiq-layout="flat"] .maiq-primary-overlay,
+[data-maiq-scope][data-maiq-layout="flat"] .maiq-cycle-domains-overlay,
+[data-maiq-scope][data-maiq-layout="settling"] .maiq-primary-overlay,
+[data-maiq-scope][data-maiq-layout="settling"] .maiq-cycle-domains-overlay{margin-top:0!important}
+[data-maiq-scope][data-maiq-layout="flat"] .maiq-platform-hold,
+[data-maiq-scope][data-maiq-layout="flat"] .maiq-final-hold,
+[data-maiq-scope][data-maiq-layout="settling"] .maiq-platform-hold,
+[data-maiq-scope][data-maiq-layout="settling"] .maiq-final-hold{display:none!important;height:0!important}
+[data-maiq-scope][data-maiq-layout="flat"] .maiq-final-content,
+[data-maiq-scope][data-maiq-layout="settling"] .maiq-final-content{height:auto!important;min-height:0!important;overflow:visible!important}
+[data-maiq-scope][data-maiq-layout="flat"] .maiq-faq-list,
+[data-maiq-scope][data-maiq-layout="settling"] .maiq-faq-list{max-height:none!important;overflow:visible!important;pointer-events:auto!important}
+[data-maiq-scope][data-maiq-layout="flat"] .maiq-platform-section,
+[data-maiq-scope][data-maiq-layout="settling"] .maiq-platform-section{min-height:0!important;padding-top:72px!important;padding-bottom:72px!important}
+[data-maiq-scope][data-maiq-layout="flat"] .maiq-hero,
+[data-maiq-scope][data-maiq-layout="settling"] .maiq-hero{position:relative!important;top:auto!important}
