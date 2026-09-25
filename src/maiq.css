@@ -1332,9 +1332,9 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 [data-maiq-scope][data-maiq-layout="flat"] .maiq-scroll-stack,
 [data-maiq-scope][data-maiq-layout="settling"] .maiq-scroll-stack{display:flex;flex-direction:column}
 [data-maiq-scope][data-maiq-layout="flat"] .maiq-platform-base,
-[data-maiq-scope][data-maiq-layout="settling"] .maiq-platform-base{order:2}
+[data-maiq-scope][data-maiq-layout="settling"] .maiq-platform-base{order:1}
 [data-maiq-scope][data-maiq-layout="flat"] .maiq-primary-overlay,
-[data-maiq-scope][data-maiq-layout="settling"] .maiq-primary-overlay{order:1}
+[data-maiq-scope][data-maiq-layout="settling"] .maiq-primary-overlay{order:2}
 [data-maiq-scope][data-maiq-layout="flat"] .maiq-platform-hold,
 [data-maiq-scope][data-maiq-layout="settling"] .maiq-platform-hold{order:3}
 [data-maiq-scope][data-maiq-layout="flat"] .maiq-final-reveal-stage,
