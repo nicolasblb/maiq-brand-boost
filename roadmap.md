@@ -60,7 +60,7 @@
 - [x] Restaurar o odômetro do Nosso Modelo por dígito, reversível e orientado pela posição da seção na tela.
 - [x] Destacar as subopções de Home, alinhar seus destinos ao topo e concluir o odômetro quando Nosso Modelo alcança o topo.
 - [x] Corrigir no celular os odômetros e a faixa de marcas do Modelo, criar o carrossel da identidade, uniformizar o menu compacto, limpar as quinas das sobreposições e estabilizar vídeos ampliados em desktop/paisagem.
-- [x] Reorganizar as telas cheias de Convicção, Plataforma e Perspectiva para respeitar a orientação natural em celular/tablet: composição vertical sem rotação artificial, indicação permanente “Gire o aparelho” em retrato e recomposição horizontal ao girar fisicamente o dispositivo.
+- [x] Reorganizar as telas cheias de Convicção, Plataforma e Perspectiva para respeitar a orientação natural em celular/tablet: composição vertical sem rotação artificial, indicação permanente “Gire o aparelho” em retrato e recomposição horizontal ao girar fisicamente o dispositivo. Complemento (25/09/2026): a tela cheia do fluxo de "Nossa Perspectiva" perdeu o arraste — virou visualização estática, com o diagrama completo escalado para caber inteiro em retrato e paisagem (o arraste quebrava a visualização).
 
 ## Header responsivo e tema noturno sem Areia Nobre (22/09)
 - [x] Adicionar breakpoint estrutural único em 1024px ao `SiteHeader`: abaixo dele, `<nav>`
