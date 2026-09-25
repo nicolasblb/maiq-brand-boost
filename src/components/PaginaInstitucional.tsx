@@ -355,9 +355,12 @@ export default function PaginaInstitucional() {
       if (S._onScroll) { window.removeEventListener('scroll', S._onScroll); window.removeEventListener('resize', S._onScroll); }
       if (S._logoMode) window.removeEventListener('resize', S._logoMode);
       if (S._logoLoad) window.removeEventListener('load', S._logoLoad);
-      if (S._fitHero) window.removeEventListener('resize', S._fitHero);
-      if (S._fitNet) window.removeEventListener('resize', S._fitNet);
-      if (S._fitFinal) window.removeEventListener('resize', S._fitFinal);
+      if (S._refit) {
+        window.removeEventListener('resize', S._refit);
+        window.removeEventListener('orientationchange', S._refit);
+      }
+      if (S._clearRefit) S._clearRefit();
+
       if (S._faqGuard) { window.removeEventListener('scroll', S._faqGuard); window.removeEventListener('resize', S._faqGuard); }
 
       if (S._wrap) {
