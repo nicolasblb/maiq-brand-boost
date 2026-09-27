@@ -813,9 +813,9 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 .maiq-model-mobile-helix>div{
   left:50%!important;
   top:50%!important;
-  transform:translate(-50%,-50%) rotate(90deg) scale(.752)!important;
-  -webkit-mask-image:radial-gradient(ellipse 50px 104px at 50% 50%,transparent 0%,transparent 50%,#000 100%)!important;
-  mask-image:radial-gradient(ellipse 50px 104px at 50% 50%,transparent 0%,transparent 50%,#000 100%)!important;
+  transform:translate(-50%,-50%) rotate(90deg) scale(.602)!important;
+  -webkit-mask-image:radial-gradient(ellipse 54px 118px at 50% 50%,transparent 0%,transparent 50%,#000 100%)!important;
+  mask-image:radial-gradient(ellipse 54px 118px at 50% 50%,transparent 0%,transparent 50%,#000 100%)!important;
 }
 .maiq-model-mobile-content{position:absolute;left:0;width:100%;height:calc(var(--mm-h) - var(--mm-o));box-sizing:border-box;display:flex;flex-direction:column;align-items:center;text-align:center}
 .maiq-model-mobile-content--top{top:0;justify-content:flex-end;padding-bottom:14px}
