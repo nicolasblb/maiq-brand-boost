@@ -734,3 +734,8 @@ Plataforma repetindo no modal por 18s sem pausar. Varredura completa de scroll (
 - [x] Codificação já no padrão do projeto (H.264 High, 1920×1080, 30fps, 20,5s, ~600 kbps) — copiados sem re-encode.
 - [x] Posters regenerados do primeiro quadro de cada versão (`valor-na-mesa-claro-poster.jpg` / `valor-na-mesa-noite-poster.jpg`).
 - [x] Validado em desktop, temas noite e dia: vídeos corretos carregando, player e controles íntegros, sem erros de console; build OK.
+
+## Aviso de rotação nas telas cheias (28/09/2026)
+
+- [x] Exibir “Gire o aparelho” apenas no celular em retrato, por 4 segundos, ao abrir Convicção ou Perspectiva (ou ao voltar para retrato). Ícone de celular com seta animada, respeitando redução de movimento.
+- [x] Não exibir o aviso no tablet nem nos vídeos de Nossa Plataforma. Sem alterar a composição dos conteúdos em retrato/paisagem.

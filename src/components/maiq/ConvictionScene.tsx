@@ -1,8 +1,9 @@
 import * as DialogPrimitive from '@radix-ui/react-dialog';
-import { FastForward, Maximize2, Minimize2, Pause, Play, RotateCw, Rewind } from 'lucide-react';
+import { FastForward, Maximize2, Minimize2, Pause, Play, Rewind } from 'lucide-react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 import MaiqButton from '@/components/maiq/MaiqButton';
+import OrientationHint from '@/components/maiq/OrientationHint';
 import videoEscuro from '@/assets/conviccao/valor-na-mesa-noite.mp4';
 import videoClaro from '@/assets/conviccao/valor-na-mesa-claro.mp4';
 import posterEscuro from '@/assets/conviccao/valor-na-mesa-noite-poster.jpg';
@@ -319,10 +320,7 @@ export default function ConvictionScene() {
               {modalOpen ? videoPair(bindModalDark, bindModalLight) : null}
               {controls(true)}
             </div>
-            <div className="maiq-orientation-hint" role="status">
-              <RotateCw size={15} aria-hidden="true" />
-              <span>Gire o aparelho</span>
-            </div>
+            {modalOpen ? <OrientationHint /> : null}
           </DialogPrimitive.Content>
         </DialogPrimitive.Portal>
       </DialogPrimitive.Root>

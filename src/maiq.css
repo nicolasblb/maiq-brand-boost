@@ -683,23 +683,32 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 .maiq-orientation-hint{
   position:absolute;
   z-index:6;
-  top:max(16px,env(safe-area-inset-top));
+  top:max(18px,env(safe-area-inset-top));
   left:50%;
-  display:none;
+  display:flex;
   align-items:center;
-  gap:8px;
-  padding:8px 14px;
+  gap:10px;
+  min-height:48px;
+  padding:7px 18px 7px 10px;
   transform:translateX(-50%);
-  border-radius:var(--radius-pill,999px);
-  background:var(--p-bg-deep,#09201F);
-  color:var(--p-text,#EAD9CC);
+  border:1px solid var(--p-hair-strong);
+  border-radius:var(--radius-pill);
+  background:var(--p-header-bg);
+  color:var(--p-text);
   font-family:var(--font-core);
-  font-size:13px;
-  font-weight:var(--fw-medium,500);
+  font-size:14px;
+  font-weight:var(--fw-medium);
+  white-space:nowrap;
   box-shadow:var(--shadow-3);
   pointer-events:none;
 }
-@media (max-width:1024px) and (orientation:portrait){.maiq-orientation-hint{display:flex}}
+.maiq-orientation-hint-icon{position:relative;display:grid;place-items:center;width:32px;height:32px;flex:none;color:var(--p-text-2)}
+.maiq-orientation-hint-arrow{position:absolute;inset:0;animation:maiqHintArrow 2s ease-in-out infinite}
+.maiq-orientation-hint-phone{position:relative;transform:rotate(-20deg);animation:maiqHintPhone 2s ease-in-out infinite}
+@keyframes maiqHintPhone{0%,18%,100%{transform:rotate(-20deg)}55%,75%{transform:rotate(70deg)}}
+@keyframes maiqHintArrow{0%,18%,100%{transform:rotate(0)}55%,75%{transform:rotate(90deg)}}
+@media (prefers-reduced-motion:reduce){.maiq-orientation-hint-arrow,.maiq-orientation-hint-phone{animation:none}}
+@media not all and (max-width:760px) and (orientation:portrait){.maiq-orientation-hint{display:none}}
 @media (prefers-reduced-motion:reduce){.maiq-conviction-video{transition:none}.maiq-conviction-modal{animation:none}}
 
 .maiq-model-pilares-bg{
