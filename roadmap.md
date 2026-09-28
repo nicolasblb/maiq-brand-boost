@@ -727,3 +727,10 @@ Plataforma repetindo no modal por 18s sem pausar. Varredura completa de scroll (
 - [x] Revisão dos raios (27/09/2026): extremidades em 22px (`--mm-r-outer`) e interseção em 80px (`--mm-r-cross`), validado em 393×852 nos temas noite e dia.
 - [x] Ajuste final dos raios (28/09/2026): extremidades em 28px e interseção em 100px, validado em 393×852 nos temas noite e dia, sem erros de console.
 - [x] Interseção como pílula (28/09/2026): `--mm-r-cross` em 50% da largura — fecha a curva plena mantendo as extremidades em 28px. O valor literal 999px era reduzido pelo CSS junto com todos os raios do elemento (escalonamento uniforme), apagando os cantos externos; 50% produz a mesma pílula sem esse efeito.
+
+## Novos vídeos da Convicção — versão 3 (28/09/2026)
+
+- [x] Substituir `src/assets/conviccao/valor-na-mesa-claro.mp4` e `valor-na-mesa-noite.mp4` pelos arquivos enviados (`maiq-valor-na-mesa-claro-3.mp4` / `maiq-valor-na-mesa-escuro-3.mp4`), mantendo os mesmos nomes — nenhuma alteração de código.
+- [x] Codificação já no padrão do projeto (H.264 High, 1920×1080, 30fps, 20,5s, ~600 kbps) — copiados sem re-encode.
+- [x] Posters regenerados do primeiro quadro de cada versão (`valor-na-mesa-claro-poster.jpg` / `valor-na-mesa-noite-poster.jpg`).
+- [x] Validado em desktop, temas noite e dia: vídeos corretos carregando, player e controles íntegros, sem erros de console; build OK.
