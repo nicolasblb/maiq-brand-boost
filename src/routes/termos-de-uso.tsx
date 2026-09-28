@@ -9,13 +9,13 @@ export const Route = createFileRoute('/termos-de-uso')({
       {
         name: 'description',
         content:
-          'Termos de Uso da Maiq: condições de acesso à plataforma de fusões, aquisições e combinação de negócios, incluindo cadastro, planos, propriedade intelectual e uso de inteligência artificial.',
+          'Termos de Uso do Maiq: condições de acesso à plataforma de fusões, aquisições e combinação de negócios, incluindo cadastro, planos, propriedade intelectual e uso de inteligência artificial.',
       },
       { name: 'robots', content: 'index, follow' },
       { property: 'og:title', content: 'Termos de Uso — Maiq' },
       {
         property: 'og:description',
-        content: 'Condições de uso do site e da plataforma Maiq para empresas que conduzem processos de M&A.',
+        content: 'Condições de uso do site e da plataformo Maiq para empresas que conduzem processos de M&A.',
       },
       { property: 'og:type', content: 'website' },
       { name: 'twitter:card', content: 'summary_large_image' },
@@ -35,7 +35,7 @@ const SECOES: LegalSection[] = [
       {
         kind: 'paragraph',
         content:
-          'Estes Termos de Serviço regem o acesso e uso da plataforma Maiq, disponível em maiq.app.br, por empresas e seus representantes legais. Ao criar uma conta, assinar um plano ou utilizar qualquer funcionalidade da plataforma, você, na qualidade de representante da empresa contratante, declara ter plenos poderes para vinculá-la e concorda com estes Termos e com a nossa Política de Privacidade. Se Você não concordar com qualquer disposição destes Termos, não deve utilizar a plataforma Maiq.',
+          'Estes Termos de Serviço regem o acesso e uso da plataformo Maiq, disponível em maiq.app.br, por empresas e seus representantes legais. Ao criar uma conta, assinar um plano ou utilizar qualquer funcionalidade da plataforma, você, na qualidade de representante da empresa contratante, declara ter plenos poderes para vinculá-la e concorda com estes Termos e com a nossa Política de Privacidade. Se Você não concordar com qualquer disposição destes Termos, não deve utilizar a plataformo Maiq.',
       },
     ],
   },
@@ -45,7 +45,7 @@ const SECOES: LegalSection[] = [
       {
         kind: 'paragraph',
         content:
-          'A Maiq oferece uma plataforma SaaS especializada em fusões, aquisições e combinação de negócios, que inclui, sem se limitar a:',
+          'O Maiq oferece uma plataforma SaaS especializada em fusões, aquisições e combinação de negócios, que inclui, sem se limitar a:',
       },
       {
         kind: 'list',
@@ -60,7 +60,7 @@ const SECOES: LegalSection[] = [
       {
         kind: 'paragraph',
         content:
-          'A Maiq reserva-se o direito de modificar, suspender ou descontinuar qualquer funcionalidade da plataforma a qualquer momento, com aviso prévio razoável ao Cliente.',
+          'O Maiq reserva-se o direito de modificar, suspender ou descontinuar qualquer funcionalidade da plataforma a qualquer momento, com aviso prévio razoável ao Cliente.',
       },
     ],
   },
@@ -73,7 +73,7 @@ const SECOES: LegalSection[] = [
           {
             kind: 'paragraph',
             content:
-              'O uso da plataforma Maiq é restrito a pessoas jurídicas e a pessoas físicas maiores de 18 anos que representem legalmente uma empresa. É vedado o uso por pessoas físicas em caráter pessoal.',
+              'O uso da plataformo Maiq é restrito a pessoas jurídicas e a pessoas físicas maiores de 18 anos que representem legalmente uma empresa. É vedado o uso por pessoas físicas em caráter pessoal.',
           },
         ],
       },
@@ -89,7 +89,7 @@ const SECOES: LegalSection[] = [
             items: [
               'Fornecer informações precisas, completas e atualizadas no cadastro;',
               'Manter a confidencialidade de suas credenciais de acesso;',
-              'Notificar imediatamente a Maiq em caso de acesso não autorizado à sua conta;',
+              'Notificar imediatamente o Maiq em caso de acesso não autorizado à sua conta;',
               'Ser o único responsável por todas as atividades realizadas por meio de sua conta.',
             ],
           },
@@ -109,7 +109,7 @@ const SECOES: LegalSection[] = [
         kind: 'list',
         items: [
           'Os pagamentos serão cobrados conforme o plano contratado (mensal ou anual);',
-          'Em caso de inadimplência, a Maiq poderá suspender o acesso sem aviso prévio após 30 (trinta) dias de inadimplência, contados a partir do dia de vencimento da primeira fatura em aberto;',
+          'Em caso de inadimplência, o Maiq poderá suspender o acesso sem aviso prévio após 30 (trinta) dias de inadimplência, contados a partir do dia de vencimento da primeira fatura em aberto;',
           'Não há reembolso por períodos parcialmente utilizados, salvo disposição contratável específica;',
           'Todos os preços são expressos em Reais (BRL) e sujeitos a impostos aplicáveis.',
         ],
@@ -122,7 +122,7 @@ const SECOES: LegalSection[] = [
       {
         kind: 'paragraph',
         content:
-          'O Cliente compromete-se a utilizar a plataforma Maiq exclusivamente para finalidades lícitas e de acordo com estes Termos, sendo-lhe vedado:',
+          'O Cliente compromete-se a utilizar a plataformo Maiq exclusivamente para finalidades lícitas e de acordo com estes Termos, sendo-lhe vedado:',
       },
       {
         kind: 'list',
@@ -131,7 +131,7 @@ const SECOES: LegalSection[] = [
           'Copiar, modificar, distribuir ou fazer engenharia reversa do software;',
           'Tentar obter acesso não autorizado a sistemas ou redes relacionados à plataforma;',
           'Inserir informações falsas ou enganosas sobre empresas ou transações;',
-          'Violar direitos de propriedade intelectual da Maiq ou de terceiros;',
+          'Violar direitos de propriedade intelectual do Maiq ou de terceiros;',
           'Transmitir códigos maliciosos ou qualquer conteúdo que prejudique a plataforma.',
         ],
       },
@@ -158,7 +158,7 @@ const SECOES: LegalSection[] = [
       {
         kind: 'paragraph',
         content:
-          'Todos os direitos de propriedade intelectual relativos à plataforma Maiq, incluindo software, algoritmos, design, marca e conteúdo, são de titularidade exclusiva da Maiq ou de seus licenciantes. Ao inserir conteúdo na plataforma, o Cliente concede à Maiq licença não exclusiva, mundial e livre de royalties para processar e armazenar tal conteúdo exclusivamente para a prestação dos serviços contratados.',
+          'Todos os direitos de propriedade intelectual relativos à plataformo Maiq, incluindo software, algoritmos, design, marca e conteúdo, são de titularidade exclusiva do Maiq ou de seus licenciantes. Ao inserir conteúdo na plataforma, o Cliente concede ao Maiq licença não exclusiva, mundial e livre de royalties para processar e armazenar tal conteúdo exclusivamente para a prestação dos serviços contratados.',
       },
     ],
   },
@@ -168,13 +168,13 @@ const SECOES: LegalSection[] = [
       {
         kind: 'paragraph',
         content:
-          'A plataforma Maiq integra modelos de linguagem (LLMs) de mercado para potencializar suas funcionalidades. O Cliente reconhece que:',
+          'A plataformo Maiq integra modelos de linguagem (LLMs) de mercado para potencializar suas funcionalidades. O Cliente reconhece que:',
       },
       {
         kind: 'list',
         items: [
           'As saídas geradas por IA são de caráter orientativo e não substituem o julgamento profissional;',
-          'A Maiq não se responsabiliza por decisões tomadas com base exclusivamente em conteúdo gerado por IA;',
+          'O Maiq não se responsabiliza por decisões tomadas com base exclusivamente em conteúdo gerado por IA;',
           'Os dados inseridos para processamento por LLMs estão sujeitos aos contratos de privacidade com os respectivos fornecedores de IA.',
         ],
       },
@@ -185,7 +185,7 @@ const SECOES: LegalSection[] = [
     blocks: [
       {
         kind: 'paragraph',
-        content: 'Na máxima extensão permitida pela lei aplicável, a Maiq não será responsável por:',
+        content: 'Na máxima extensão permitida pela lei aplicável, o Maiq não será responsável por:',
       },
       {
         kind: 'list',
@@ -199,7 +199,7 @@ const SECOES: LegalSection[] = [
       {
         kind: 'paragraph',
         content:
-          'A responsabilidade total da Maiq, em qualquer caso, não excederá o valor pago pelo Cliente nos últimos 12 (doze) meses de serviço.',
+          'A responsabilidade total do Maiq, em qualquer caso, não excederá o valor pago pelo Cliente nos últimos 12 (doze) meses de serviço.',
       },
     ],
   },
@@ -214,7 +214,7 @@ const SECOES: LegalSection[] = [
       {
         kind: 'paragraph',
         content:
-          'A Maiq poderá suspender ou encerrar imediatamente o acesso em caso de violação destes Termos, sem prejuízo das medidas legais cabíveis.',
+          'O Maiq poderá suspender ou encerrar imediatamente o acesso em caso de violação destes Termos, sem prejuízo das medidas legais cabíveis.',
       },
       {
         kind: 'paragraph',
@@ -229,7 +229,7 @@ const SECOES: LegalSection[] = [
       {
         kind: 'paragraph',
         content:
-          'A Maiq poderá revisar estes Termos a qualquer momento. Em caso de alterações substanciais, notificaremos o Cliente com pelo menos 30 (trinta) dias de antecedência. A continuação do uso após esse prazo implica aceitação dos novos termos.',
+          'O Maiq poderá revisar estes Termos a qualquer momento. Em caso de alterações substanciais, notificaremos o Cliente com pelo menos 30 (trinta) dias de antecedência. A continuação do uso após esse prazo implica aceitação dos novos termos.',
       },
     ],
   },

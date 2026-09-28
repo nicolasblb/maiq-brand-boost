@@ -5,12 +5,12 @@ import MaiqButton from '@/components/maiq/MaiqButton';
 
 const FAQ_ITEMS = [
   {
-    question: 'Para quais empresas a Maiq é indicada?',
+    question: 'Para quais empresas o Maiq é indicado?',
     answer:
       'Atuamos com médias empresas que enxergam fusões e aquisições como parte de uma estratégia contínua de crescimento, consolidação ou sucessão.',
   },
   {
-    question: 'Em quais etapas de M&A a Maiq atua?',
+    question: 'Em quais etapas de M&A o Maiq atua?',
     answer:
       'Acompanhamos toda a jornada: definição da tese, originação de oportunidades, avaliação, negociação, diligência e preparação para a integração.',
   },
@@ -25,7 +25,7 @@ const FAQ_ITEMS = [
       'Sim. O acesso às informações é controlado por etapa e por participante, seguindo práticas de confidencialidade adequadas a processos de M&A.',
   },
   {
-    question: 'Como começar uma conversa com a Maiq?',
+    question: 'Como começar uma conversa com o Maiq?',
     answer:
       'Envie seus dados pelo formulário de contato. Nossa equipe fará uma conversa inicial para entender o contexto, os objetivos e o momento da sua empresa.',
   },

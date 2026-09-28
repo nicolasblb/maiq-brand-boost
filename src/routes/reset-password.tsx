@@ -13,12 +13,12 @@ export const Route = createFileRoute('/reset-password')({
       { title: 'Redefinir senha — Maiq' },
       {
         name: 'description',
-        content: 'Crie uma nova senha para acessar sua área Maiq com segurança.',
+        content: 'Crie uma nova senha para acessar sua áreo Maiq com segurança.',
       },
       { property: 'og:title', content: 'Redefinir senha — Maiq' },
       {
         property: 'og:description',
-        content: 'Crie uma nova senha para acessar sua área Maiq com segurança.',
+        content: 'Crie uma nova senha para acessar sua áreo Maiq com segurança.',
       },
       { property: 'og:type', content: 'website' },
       { name: 'twitter:card', content: 'summary_large_image' },
@@ -99,7 +99,7 @@ function ResetPasswordPage() {
       <section style={{ width: 'min(100%, 520px)', border: '1px solid var(--p-hair,rgba(234,217,204,.14))', borderRadius: 'var(--radius-xl)', background: 'var(--p-card,#1F5956)', boxShadow: 'var(--shadow-3)', padding: '30px' }}>
         <p style={{ margin: 0, color: 'var(--p-muted,#9FD6D2)', fontSize: '12px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '.12em' }}>Segurança</p>
         <h1 style={{ margin: '10px 0 12px', fontSize: 'clamp(30px,5vw,42px)', lineHeight: 1.05, fontWeight: 500, letterSpacing: 0 }}>Redefinir senha</h1>
-        <p style={{ margin: 0, color: 'var(--p-text-2,#AFE3E0)', fontSize: '15px', lineHeight: 1.55 }}>Crie uma nova senha para continuar acessando a Maiq.</p>
+        <p style={{ margin: 0, color: 'var(--p-text-2,#AFE3E0)', fontSize: '15px', lineHeight: 1.55 }}>Crie uma nova senha para continuar acessando o Maiq.</p>
 
         {invalid ? (
           <div style={{ marginTop: '24px' }}>

@@ -9,14 +9,14 @@ export const Route = createFileRoute('/politica-de-privacidade')({
       {
         name: 'description',
         content:
-          'Política de Privacidade e Uso de Dados da Maiq: como coletamos, usamos, compartilhamos e protegemos os dados pessoais de representantes das empresas clientes, em conformidade com a LGPD.',
+          'Política de Privacidade e Uso de Dados do Maiq: como coletamos, usamos, compartilhamos e protegemos os dados pessoais de representantes das empresas clientes, em conformidade com a LGPD.',
       },
       { name: 'robots', content: 'index, follow' },
       { property: 'og:title', content: 'Política de Privacidade — Maiq' },
       {
         property: 'og:description',
         content:
-          'Como a Maiq trata os dados pessoais compartilhados por empresas em processos de M&A, em conformidade com a LGPD.',
+          'Como o Maiq trata os dados pessoais compartilhados por empresas em processos de M&A, em conformidade com a LGPD.',
       },
       { property: 'og:type', content: 'website' },
       { name: 'twitter:card', content: 'summary_large_image' },
@@ -33,7 +33,7 @@ const SECOES: LegalSection[] = [
       {
         kind: 'paragraph',
         content:
-          'A Maiq, disponível em maiq.app.br, é uma plataforma especializada em fusões, aquisições e combinação de negócios, que une experiência financeira, estratégia e tecnologia de vanguarda para auxiliar empresários na compra, venda ou integração de companhias.',
+          'O Maiq, disponível em maiq.app.br, é uma plataforma especializada em fusões, aquisições e combinação de negócios, que une experiência financeira, estratégia e tecnologia de vanguarda para auxiliar empresários na compra, venda ou integração de companhias.',
       },
       {
         kind: 'paragraph',
@@ -43,7 +43,7 @@ const SECOES: LegalSection[] = [
       {
         kind: 'paragraph',
         content:
-          'Ao acessar ou utilizar a plataforma Maiq, você declara ter lido, entendido e concordado com os termos desta Política. Caso não concorde, não utilize nossos serviços.',
+          'Ao acessar ou utilizar a plataformo Maiq, você declara ter lido, entendido e concordado com os termos desta Política. Caso não concorde, não utilize nossos serviços.',
       },
     ],
   },
@@ -225,7 +225,7 @@ const SECOES: LegalSection[] = [
         kind: 'paragraph',
         content: (
           <>
-            Nos termos do Art. 41 da LGPD, a Maiq indicará um Encarregado de Proteção de Dados (DPO). Até a
+            Nos termos do Art. 41 da LGPD, o Maiq indicará um Encarregado de Proteção de Dados (DPO). Até a
             designação formal, as comunicações relacionadas à privacidade devem ser encaminhadas para:{' '}
             <a href="mailto:contato@maiq.app.br">contato@maiq.app.br</a>.
           </>
