@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState, type CSSProperties, type FormEvent, type 
 import { useQueryClient } from '@tanstack/react-query';
 import { useServerFn } from '@tanstack/react-start';
 import type { User } from '@supabase/supabase-js';
-import { AlertCircle, ArrowLeft, Building2, CheckCircle2, Eye, EyeOff, LockKeyhole, LogOut, Mail, MessageSquareText, Phone, UserRound } from 'lucide-react';
+import { AlertCircle, ArrowLeft, Building2, CheckCircle2, Eye, EyeOff, LockKeyhole, LogOut, Mail, MessageSquareText, Phone, UserRound, X } from 'lucide-react';
 import { toast } from 'sonner';
 
 import MaiqButton from '@/components/maiq/MaiqButton';
@@ -139,6 +139,7 @@ function ModalFrame({
         aria-label={title}
         onMouseDown={(event) => event.stopPropagation()}
         style={{
+          position: 'relative',
           width: 'min(100%, 520px)',
           maxHeight: 'min(86vh, 760px)',
           overflow: 'hidden',
@@ -149,6 +150,31 @@ function ModalFrame({
           boxShadow: 'var(--shadow-3)',
         }}
       >
+        <button
+          type="button"
+          aria-label="Fechar"
+          title="Fechar"
+          onClick={onClose}
+          style={{
+            position: 'absolute',
+            top: '16px',
+            right: '16px',
+            zIndex: 2,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '34px',
+            height: '34px',
+            border: '1px solid var(--p-hair,rgba(234,217,204,.14))',
+            borderRadius: '999px',
+            background: 'var(--p-chip-bg,rgba(234,217,204,.04))',
+            color: 'var(--p-text-2,#AFE3E0)',
+            cursor: 'pointer',
+            transition: 'background 200ms cubic-bezier(.2,0,0,1), border-color 200ms cubic-bezier(.2,0,0,1)',
+          }}
+        >
+          <X size={17} strokeWidth={1.9} />
+        </button>
         {children}
       </section>
     </div>
