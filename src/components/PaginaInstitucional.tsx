@@ -1258,7 +1258,7 @@ export default function PaginaInstitucional() {
         <div ref={finalWrapRef} className="maiq-final-base">
           <div ref={overlay3Ref} className="maiq-final-content">
             <Faq onContact={() => setLeadOpen(true)} />
-            <SiteFooter dia={dia} />
+            <div className="maiq-footer-desktop"><SiteFooter dia={dia} /></div>
           </div>
         </div>
         <div ref={overlay2Ref} className="maiq-cycle-domains-overlay">
@@ -1267,6 +1267,7 @@ export default function PaginaInstitucional() {
           </div>
         </div>
         <div ref={finalHoldRef} className="maiq-final-hold" aria-hidden="true" />
+        <div className="maiq-footer-mobile"><SiteFooter dia={dia} /></div>
       </div>
       </div>
       </div>

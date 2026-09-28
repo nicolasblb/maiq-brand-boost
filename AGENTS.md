@@ -10,3 +10,4 @@
 <!-- LOVABLE:END -->
 
 - O aviso de rotação das telas cheias de Convicção e Perspectiva usa um componente compartilhado e temporizado, para manter o mesmo comportamento no celular sem duplicar lógica.
+- Na Home, o rodapé móvel é uma sobreposição após o hold do FAQ, enquanto o rodapé desktop permanece dentro da base sticky; isso preserva a geometria existente fora do celular.
