@@ -82,7 +82,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         name: "description",
         content:
-          "A Maiq une método, plataforma e inteligência para transformar fusões e aquisições em uma disciplina contínua de criação de valor.",
+          "O Maiq une método, plataforma e inteligência para transformar fusões e aquisições em uma disciplina contínua de criação de valor.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

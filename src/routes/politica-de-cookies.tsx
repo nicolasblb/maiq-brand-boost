@@ -9,13 +9,13 @@ export const Route = createFileRoute('/politica-de-cookies')({
       {
         name: 'description',
         content:
-          'Como a Maiq usa cookies e tecnologias similares hoje — sessão de autenticação e preferência de tema — e quais categorias poderão ser adotadas no futuro, mediante consentimento.',
+          'Como o Maiq usa cookies e tecnologias similares hoje — sessão de autenticação e preferência de tema — e quais categorias poderão ser adotadas no futuro, mediante consentimento.',
       },
       { name: 'robots', content: 'index, follow' },
       { property: 'og:title', content: 'Política de Cookies — Maiq' },
       {
         property: 'og:description',
-        content: 'Cookies e tecnologias similares usados pela Maiq, hoje e no futuro.',
+        content: 'Cookies e tecnologias similares usados pelo Maiq, hoje e no futuro.',
       },
       { property: 'og:type', content: 'website' },
       { name: 'twitter:card', content: 'summary_large_image' },
@@ -46,7 +46,7 @@ const SECOES: LegalSection[] = [
       {
         kind: 'paragraph',
         content:
-          'A Maiq utiliza hoje apenas os itens estritamente necessários ao funcionamento do site e da plataforma, que dispensam consentimento sob a LGPD (Art. 7º, IX, e Art. 11, II) por serem indispensáveis à prestação do serviço solicitado pelo próprio usuário:',
+          'O Maiq utiliza hoje apenas os itens estritamente necessários ao funcionamento do site e da plataforma, que dispensam consentimento sob a LGPD (Art. 7º, IX, e Art. 11, II) por serem indispensáveis à prestação do serviço solicitado pelo próprio usuário:',
       },
       {
         kind: 'list',
@@ -67,7 +67,7 @@ const SECOES: LegalSection[] = [
       {
         kind: 'paragraph',
         content:
-          'As categorias abaixo não estão em uso hoje. Elas descrevem o que a Maiq poderia vir a adotar no futuro, e só entrariam em operação após a implementação de um banner de consentimento e mediante sua autorização prévia:',
+          'As categorias abaixo não estão em uso hoje. Elas descrevem o que o Maiq poderia vir a adotar no futuro, e só entrariam em operação após a implementação de um banner de consentimento e mediante sua autorização prévia:',
       },
       {
         kind: 'list',
@@ -94,7 +94,7 @@ const SECOES: LegalSection[] = [
       {
         kind: 'paragraph',
         content:
-          'Atenção: bloquear o cookie de sessão de autenticação impede o login na área logada da Maiq, já que ele é indispensável para manter você conectado.',
+          'Atenção: bloquear o cookie de sessão de autenticação impede o login na área logada do Maiq, já que ele é indispensável para manter você conectado.',
       },
     ],
   },
@@ -104,7 +104,7 @@ const SECOES: LegalSection[] = [
       {
         kind: 'paragraph',
         content:
-          'Hoje a Maiq não compartilha dados de navegação com terceiros por meio de cookies. Se isso mudar — por exemplo, com a adoção de uma ferramenta de analytics de terceiros —, esta seção será atualizada para nomear o fornecedor e descrever o tratamento.',
+          'Hoje o Maiq não compartilha dados de navegação com terceiros por meio de cookies. Se isso mudar — por exemplo, com a adoção de uma ferramenta de analytics de terceiros —, esta seção será atualizada para nomear o fornecedor e descrever o tratamento.',
       },
     ],
   },

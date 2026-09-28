@@ -354,11 +354,11 @@ export default function AuthLeadDialogs({
 
   return (
     <>
-      <ModalFrame open={authOpen} theme={theme} title="Entrar na Maiq" onClose={closeAuth}>
+      <ModalFrame open={authOpen} theme={theme} title="Entrar no Maiq" onClose={closeAuth}>
         {authMode === 'account' && user ? (
           <div>
             <DialogHeader eyebrow="Área logada" title="Seu acesso está reservado.">
-              <p style={{ margin: 0 }}>A área logada da Maiq está em preparação. Você já está conectado como {signedInEmail}.</p>
+              <p style={{ margin: 0 }}>A área logada do Maiq está em preparação. Você já está conectado como {signedInEmail}.</p>
             </DialogHeader>
             <div style={{ padding: '24px 28px 28px', display: 'grid', gap: '14px' }}>
               {authError ? <Message tone="critical">{authError}</Message> : null}

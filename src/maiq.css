@@ -742,6 +742,16 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 .maiq-final-content{display:flex;height:100svh;min-height:0;overflow:hidden;flex-direction:column;background:linear-gradient(180deg,var(--p-platform-block-edge) 0%,var(--p-platform-block-center) 50%,var(--p-platform-block-edge) 100%);transition:background var(--dur-3) var(--ease-out)}
 .maiq-cycle-domains-overlay{position:relative;z-index:2;overflow:clip;border:1px solid var(--p-hair);border-radius:24px;background:var(--p-bg);box-shadow:var(--p-overlay-shadow),0 30px 60px -18px color-mix(in oklab,var(--p-bg-deep) 72%,transparent);transition:background var(--dur-3) var(--ease-out)}
 .maiq-final-hold{position:relative;z-index:0;pointer-events:none}
+/* Apenas na Home em celular: o FAQ conserva a altura integral da base sticky.
+   O rodapé, depois do hold, recebe sua própria superfície sobreposta. */
+.maiq-footer-mobile{display:none}
+.maiq-footer-desktop{flex:0 0 auto}
+@media (max-width:760px){
+  .maiq-final-content>.maiq-faq{flex:1 1 100%;height:100%;min-height:0}
+  .maiq-footer-desktop{display:none}
+  .maiq-footer-mobile{position:relative;z-index:4;display:block;margin-top:-24px;overflow:hidden;border:1px solid var(--p-hair);border-radius:24px 24px 0 0;background:var(--p-footer-bg);box-shadow:var(--p-overlay-shadow);transition:background var(--dur-3) var(--ease-out)}
+  .maiq-footer-mobile .maiq-footer{border-top:0!important;padding-top:36px!important}
+}
 /* Faixa label + carrossel mais próxima do conteúdo central da seção (antes 96px fixos) */
 .maiq-team-band{display:flex;flex-direction:column;align-items:center;margin-top:clamp(40px,5.5vh,64px)}
 .maiq-team-band-label{max-width:560px;margin:0 auto clamp(16px,2.2vh,22px);color:var(--p-text-2);font-family:var(--font-core);font-size:var(--fs-body-sm);font-weight:var(--fw-regular);line-height:var(--lh-body-sm);text-align:center}
@@ -1369,6 +1379,8 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 [data-maiq-scope][data-maiq-layout="settling"] .maiq-cycle-domains-overlay{order:1}
 [data-maiq-scope][data-maiq-layout="flat"] .maiq-final-base,
 [data-maiq-scope][data-maiq-layout="settling"] .maiq-final-base{order:2}
+[data-maiq-scope][data-maiq-layout="flat"] .maiq-footer-mobile,
+[data-maiq-scope][data-maiq-layout="settling"] .maiq-footer-mobile{order:3;margin-top:0}
 [data-maiq-scope][data-maiq-layout="flat"] .maiq-primary-overlay,
 [data-maiq-scope][data-maiq-layout="flat"] .maiq-cycle-domains-overlay,
 [data-maiq-scope][data-maiq-layout="settling"] .maiq-primary-overlay,

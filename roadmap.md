@@ -739,3 +739,8 @@ Plataforma repetindo no modal por 18s sem pausar. Varredura completa de scroll (
 
 - [x] Exibir “Gire o aparelho” apenas no celular em retrato, por 4 segundos, ao abrir Convicção ou Perspectiva (ou ao voltar para retrato). Ícone de celular com seta animada, respeitando redução de movimento.
 - [x] Não exibir o aviso no tablet nem nos vídeos de Nossa Plataforma. Sem alterar a composição dos conteúdos em retrato/paisagem.
+
+## FAQ e rodapé móvel (28/09/2026)
+
+- [x] Tratar o Maiq no masculino nas perguntas e demais menções do site, mantendo referências à plataforma e à área logada no feminino.
+- [x] Apenas na Home até 760px, reservar a base sticky inteira para o FAQ e apresentar o rodapé em um bloco seguinte com topo arredondado sobreposto. Tablet e desktop conservam FAQ e rodapé juntos; em celular deitado com fluxo linear, manter FAQ seguido pelo rodapé sem margem negativa.
