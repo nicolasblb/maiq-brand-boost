@@ -724,3 +724,4 @@ Plataforma repetindo no modal por 18s sem pausar. Varredura completa de scroll (
 ## Elemento central de Nosso Modelo no mobile (25/09/2026)
 
 - [x] Preservar os dois cards cruzados e refinar somente no mobile: raios externos iguais aos do menu suspenso, raios grandes na interseção, DNA e sobreposição 20% menores e divisórias horizontais mais claras.
+- [x] Revisão dos raios (27/09/2026): extremidades em 22px (`--mm-r-outer`) e interseção em 80px (`--mm-r-cross`), validado em 393×852 nos temas noite e dia.
