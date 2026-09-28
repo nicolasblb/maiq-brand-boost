@@ -15,7 +15,7 @@ export const Route = createFileRoute('/termos-de-uso')({
       { property: 'og:title', content: 'Termos de Uso — Maiq' },
       {
         property: 'og:description',
-        content: 'Condições de uso do site e da plataformo Maiq para empresas que conduzem processos de M&A.',
+        content: 'Condições de uso do site e da plataforma Maiq para empresas que conduzem processos de M&A.',
       },
       { property: 'og:type', content: 'website' },
       { name: 'twitter:card', content: 'summary_large_image' },
@@ -35,7 +35,7 @@ const SECOES: LegalSection[] = [
       {
         kind: 'paragraph',
         content:
-          'Estes Termos de Serviço regem o acesso e uso da plataformo Maiq, disponível em maiq.app.br, por empresas e seus representantes legais. Ao criar uma conta, assinar um plano ou utilizar qualquer funcionalidade da plataforma, você, na qualidade de representante da empresa contratante, declara ter plenos poderes para vinculá-la e concorda com estes Termos e com a nossa Política de Privacidade. Se Você não concordar com qualquer disposição destes Termos, não deve utilizar a plataformo Maiq.',
+          'Estes Termos de Serviço regem o acesso e uso da plataforma Maiq, disponível em maiq.app.br, por empresas e seus representantes legais. Ao criar uma conta, assinar um plano ou utilizar qualquer funcionalidade da plataforma, você, na qualidade de representante da empresa contratante, declara ter plenos poderes para vinculá-la e concorda com estes Termos e com a nossa Política de Privacidade. Se Você não concordar com qualquer disposição destes Termos, não deve utilizar a plataforma Maiq.',
       },
     ],
   },
@@ -73,7 +73,7 @@ const SECOES: LegalSection[] = [
           {
             kind: 'paragraph',
             content:
-              'O uso da plataformo Maiq é restrito a pessoas jurídicas e a pessoas físicas maiores de 18 anos que representem legalmente uma empresa. É vedado o uso por pessoas físicas em caráter pessoal.',
+              'O uso da plataforma Maiq é restrito a pessoas jurídicas e a pessoas físicas maiores de 18 anos que representem legalmente uma empresa. É vedado o uso por pessoas físicas em caráter pessoal.',
           },
         ],
       },
@@ -122,7 +122,7 @@ const SECOES: LegalSection[] = [
       {
         kind: 'paragraph',
         content:
-          'O Cliente compromete-se a utilizar a plataformo Maiq exclusivamente para finalidades lícitas e de acordo com estes Termos, sendo-lhe vedado:',
+          'O Cliente compromete-se a utilizar a plataforma Maiq exclusivamente para finalidades lícitas e de acordo com estes Termos, sendo-lhe vedado:',
       },
       {
         kind: 'list',
@@ -158,7 +158,7 @@ const SECOES: LegalSection[] = [
       {
         kind: 'paragraph',
         content:
-          'Todos os direitos de propriedade intelectual relativos à plataformo Maiq, incluindo software, algoritmos, design, marca e conteúdo, são de titularidade exclusiva do Maiq ou de seus licenciantes. Ao inserir conteúdo na plataforma, o Cliente concede ao Maiq licença não exclusiva, mundial e livre de royalties para processar e armazenar tal conteúdo exclusivamente para a prestação dos serviços contratados.',
+          'Todos os direitos de propriedade intelectual relativos à plataforma Maiq, incluindo software, algoritmos, design, marca e conteúdo, são de titularidade exclusiva do Maiq ou de seus licenciantes. Ao inserir conteúdo na plataforma, o Cliente concede ao Maiq licença não exclusiva, mundial e livre de royalties para processar e armazenar tal conteúdo exclusivamente para a prestação dos serviços contratados.',
       },
     ],
   },
@@ -168,7 +168,7 @@ const SECOES: LegalSection[] = [
       {
         kind: 'paragraph',
         content:
-          'A plataformo Maiq integra modelos de linguagem (LLMs) de mercado para potencializar suas funcionalidades. O Cliente reconhece que:',
+          'A plataforma Maiq integra modelos de linguagem (LLMs) de mercado para potencializar suas funcionalidades. O Cliente reconhece que:',
       },
       {
         kind: 'list',

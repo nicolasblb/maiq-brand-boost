@@ -43,7 +43,7 @@ const SECOES: LegalSection[] = [
       {
         kind: 'paragraph',
         content:
-          'Ao acessar ou utilizar a plataformo Maiq, você declara ter lido, entendido e concordado com os termos desta Política. Caso não concorde, não utilize nossos serviços.',
+          'Ao acessar ou utilizar a plataforma Maiq, você declara ter lido, entendido e concordado com os termos desta Política. Caso não concorde, não utilize nossos serviços.',
       },
     ],
   },

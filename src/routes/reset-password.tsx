@@ -13,12 +13,12 @@ export const Route = createFileRoute('/reset-password')({
       { title: 'Redefinir senha — Maiq' },
       {
         name: 'description',
-        content: 'Crie uma nova senha para acessar sua áreo Maiq com segurança.',
+        content: 'Crie uma nova senha para acessar sua área Maiq com segurança.',
       },
       { property: 'og:title', content: 'Redefinir senha — Maiq' },
       {
         property: 'og:description',
-        content: 'Crie uma nova senha para acessar sua áreo Maiq com segurança.',
+        content: 'Crie uma nova senha para acessar sua área Maiq com segurança.',
       },
       { property: 'og:type', content: 'website' },
       { name: 'twitter:card', content: 'summary_large_image' },
