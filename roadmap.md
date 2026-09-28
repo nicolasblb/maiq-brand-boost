@@ -726,4 +726,4 @@ Plataforma repetindo no modal por 18s sem pausar. Varredura completa de scroll (
 - [x] Preservar os dois cards cruzados e refinar somente no mobile: raios externos iguais aos do menu suspenso, raios grandes na interseção, DNA e sobreposição 20% menores e divisórias horizontais mais claras.
 - [x] Revisão dos raios (27/09/2026): extremidades em 22px (`--mm-r-outer`) e interseção em 80px (`--mm-r-cross`), validado em 393×852 nos temas noite e dia.
 - [x] Ajuste final dos raios (28/09/2026): extremidades em 28px e interseção em 100px, validado em 393×852 nos temas noite e dia, sem erros de console.
-- [x] Interseção como pílula (28/09/2026, teste): `--mm-r-cross` em 999px — o encontro das formas fecha em curva plena. Extremidades seguem em 28px.
+- [x] Interseção como pílula (28/09/2026): `--mm-r-cross` em 50% da largura — fecha a curva plena mantendo as extremidades em 28px. O valor literal 999px era reduzido pelo CSS junto com todos os raios do elemento (escalonamento uniforme), apagando os cantos externos; 50% produz a mesma pílula sem esse efeito.
