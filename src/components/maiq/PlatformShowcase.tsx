@@ -1,5 +1,5 @@
 import * as DialogPrimitive from '@radix-ui/react-dialog';
-import { ChevronLeft, ChevronRight, Maximize2, Minimize2, Pause, Play, RotateCw } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Maximize2, Minimize2, Pause, Play } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 
 import MaiqButton from '@/components/maiq/MaiqButton';
@@ -418,10 +418,6 @@ export default function PlatformShowcase() {
                   <MaiqButton variant="ghost" size="sm" aria-label="Próxima funcionalidade" title="Próxima" className="maiq-platform-icon-nav" onClick={() => selectFeature(active + 1)}><ChevronRight size={20} /></MaiqButton>
                 </div>
               </div>
-            </div>
-            <div className="maiq-orientation-hint" role="status">
-              <RotateCw size={15} aria-hidden="true" />
-              <span>Gire o aparelho</span>
             </div>
           </DialogPrimitive.Content>
         </DialogPrimitive.Portal>
