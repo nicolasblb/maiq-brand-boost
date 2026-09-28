@@ -744,3 +744,10 @@ Plataforma repetindo no modal por 18s sem pausar. Varredura completa de scroll (
 
 - [x] Tratar o Maiq no masculino nas perguntas e demais menções do site, mantendo referências à plataforma e à área logada no feminino.
 - [x] Apenas na Home até 760px, reservar a base sticky inteira para o FAQ e apresentar o rodapé em um bloco seguinte com topo arredondado sobreposto. Tablet e desktop conservam FAQ e rodapé juntos; em celular deitado com fluxo linear, manter FAQ seguido pelo rodapé sem margem negativa.
+
+## Ajustes simples — modais, label do hero e cargos (28/09/2026)
+
+- [x] Botão de fechar (X) no canto superior direito dos formulários “Entrar” e “Fale Conosco”, aplicado no quadro compartilhado dos modais.
+- [x] Label “Como ajudamos nossos clientes e parceiros” centralizada: uma linha quando couber; abaixo de 380px, quebra após “nossos”.
+- [x] Sobre nós: cargos dos fundadores trocados para “Negócios” (Enzo) e “Tecnologia” (Nicolas).
+- [x] Validado em 393/375/1280px: X visível nos dois modais, label centrada nas duas formas, sem erros de console; build OK.
