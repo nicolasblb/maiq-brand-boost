@@ -1397,3 +1397,10 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 [data-maiq-scope][data-maiq-layout="settling"] .maiq-platform-section{min-height:0!important;padding-top:72px!important;padding-bottom:72px!important}
 [data-maiq-scope][data-maiq-layout="flat"] .maiq-hero,
 [data-maiq-scope][data-maiq-layout="settling"] .maiq-hero{position:relative!important;top:auto!important}
+
+/* Label do carrossel do hero: uma linha quando couber; senão, quebra após "nossos". */
+.maiq-hero-label{white-space:nowrap}
+@media (max-width:379px){
+  .maiq-hero-label{white-space:normal}
+  .maiq-hero-label span{display:block}
+}

@@ -957,8 +957,8 @@ export default function PaginaInstitucional() {
         <div style={{ position: "relative", margin: "clamp(30px,5vh,72px) auto 0", display: "flex", flexDirection: "column", alignItems: "center", gap: "clamp(30px,5vh,72px)" }}>
           <div style={{ width: "68px", height: "1px", background: "linear-gradient(90deg,transparent 0%,var(--p-hair,rgba(234,217,204,.14)) 22%,var(--p-hair,rgba(234,217,204,.14)) 78%,transparent 100%)" }}>
           </div>
-          <div style={{ fontSize: "12px", letterSpacing: ".14em", fontWeight: "500", color: "var(--p-muted,#9FD6D2)" }}>
-            Como ajudamos nossos clientes e parceiros
+          <div className="maiq-hero-label" style={{ fontSize: "12px", letterSpacing: ".14em", fontWeight: "500", color: "var(--p-muted,#9FD6D2)", textAlign: "center" }}>
+            <span>Como ajudamos nossos</span> <span>clientes e parceiros</span>
           </div>
         </div>
         <div ref={marqueeRef} style={{ position: "relative", margin: "clamp(16px,2.2vh,28px) auto 0", width: "80%", display: "flex", flexDirection: "column", gap: "10px", maskImage: "linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%)", WebkitMaskImage: "linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%)" }}>

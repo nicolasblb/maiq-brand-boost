@@ -12,14 +12,14 @@ type Founder = {
 const FOUNDERS: Founder[] = [
   {
     name: 'Enzo Rodrigues',
-    role: 'Business',
+    role: 'Negócios',
     signature: assinaturaEnzo,
     ariaLabel: 'Assinatura de Enzo Rodrigues',
     aspectRatio: '227 / 71',
   },
   {
     name: 'Nicolas Bernard',
-    role: 'Digital',
+    role: 'Tecnologia',
     signature: assinaturaNicolas,
     ariaLabel: 'Assinatura de Nicolas Bernard',
     aspectRatio: '227 / 83',
