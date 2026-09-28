@@ -798,8 +798,8 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
    translúcido do Venn desktop — a interseção ganha destaque só pela soma dos
    dois fundos) com a hélice girada 90° recortada pela interseção exata.
    --mm-h = altura de cada cartão, --mm-o = sobreposição entre eles. */
-/* --mm-r-outer = raio em pílula do header fixo (999px); --mm-r-cross = encontro das formas */
-.maiq-model-mobile{--mm-h:384px;--mm-o:102px;--mm-r-outer:999px;--mm-r-cross:80px;position:relative;width:100%;max-width:340px;height:calc(var(--mm-h) * 2 - var(--mm-o));margin:0 auto}
+/* --mm-r-outer = extremidades (22px); --mm-r-cross = encontro das formas (80px) */
+.maiq-model-mobile{--mm-h:384px;--mm-o:102px;--mm-r-outer:22px;--mm-r-cross:80px;position:relative;width:100%;max-width:340px;height:calc(var(--mm-h) * 2 - var(--mm-o));margin:0 auto}
 .maiq-model-mobile-pill{position:absolute;left:0;width:100%;height:var(--mm-h);box-sizing:border-box;border:1px solid var(--p-hair,rgba(159,214,210,.14));background:var(--p-chip-bg,rgba(159,214,210,.05))}
 .maiq-model-mobile-pill--top{top:0}
 .maiq-model-mobile-pill--bottom{top:calc(var(--mm-h) - var(--mm-o))}
