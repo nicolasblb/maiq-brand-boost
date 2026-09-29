@@ -33,10 +33,10 @@ const DNA_ROW_CFG = [
 const DNA_EASE = 'cubic-bezier(.33,0,.2,1)';
 const DNA_DUR = 560;
 
-function OdometerValue({ value, prefix = '' }: { value: number; prefix?: string }) {
+function OdometerValue({ value, prefix = '', suffix = '' }: { value: number; prefix?: string; suffix?: string }) {
   const digits = String(value).split('');
   return (
-    <span className="maiq-odometer" data-maiq-odo="" aria-label={`${prefix}${value.toLocaleString('pt-BR')}`}>
+    <span className="maiq-odometer" data-maiq-odo="" aria-label={`${prefix}${value.toLocaleString('pt-BR')}${suffix ? ` ${suffix}` : ''}`}>
       {prefix ? <span className="maiq-odometer-prefix" aria-hidden="true">{prefix}</span> : null}
       <span className="maiq-odometer-digits" aria-hidden="true">
         {digits.map((digit, index) => {
@@ -57,6 +57,7 @@ function OdometerValue({ value, prefix = '' }: { value: number; prefix?: string 
           );
         })}
       </span>
+      {suffix ? <span className="maiq-odometer-suffix" aria-hidden="true">{suffix}</span> : null}
     </span>
   );
 }
@@ -1229,12 +1230,12 @@ export default function PaginaInstitucional() {
               </div>
               <div style={{ display: "flex", flexDirection: "column", gap: "13px" }}>
                 <div style={{ fontSize: "clamp(38px,4.2vw,58px)", lineHeight: "1", fontWeight: "600", letterSpacing: "-.022em", fontVariantNumeric: "tabular-nums" }}>
-                  <OdometerValue value={291} prefix="R$ " />
+                  <OdometerValue value={291} prefix="R$" suffix="M" />
                 </div>
                 <div style={{ height: "3px", background: "var(--p-mark-2,#308984)" }}>
                 </div>
                 <div style={{ fontSize: "12px", letterSpacing: ".14em", fontWeight: "500", color: "var(--p-muted,#9FD6D2)" }}>
-                  Milhões em transações realizadas
+                  Em transações realizadas
                 </div>
               </div>
               <div style={{ display: "flex", flexDirection: "column", gap: "13px" }}>
