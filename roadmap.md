@@ -758,3 +758,9 @@ Plataforma repetindo no modal por 18s sem pausar. Varredura completa de scroll (
 - [x] Texto descritivo trocado de "Milhões em transações realizadas" para "Em transações realizadas".
 - [x] Margens dos afixos recalibradas (relativas ao próprio tamanho) em desktop e no bloco mobile do odômetro.
 - [x] Validado em desktop, tablet e celular, nos temas noite e dia: enquadramento correto, animação de rolagem íntegra, sem erros de console; build OK.
+
+## Odômetro legível no celular e fundadores em caixa normal (29/09/2026)
+
+- [x] "R$" e "M" dobrados de 25% para 50% da fonte do número — legíveis no celular, mantendo a hierarquia.
+- [x] Sobre nós: "Fundadores", "Negócios" e "Tecnologia" sem caixa alta forçada (removido `text-transform:uppercase`).
+- [x] Validado no celular (393×852), temas noite e dia, e no build — sem erros de console.

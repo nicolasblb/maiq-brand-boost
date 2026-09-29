@@ -296,7 +296,7 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
   line-height:1.4;
 }
 .maiq-odometer{display:inline-flex;align-items:baseline;white-space:nowrap}
-.maiq-odometer-prefix,.maiq-odometer-suffix{display:inline-block;font-size:25%;letter-spacing:0}
+.maiq-odometer-prefix,.maiq-odometer-suffix{display:inline-block;font-size:50%;letter-spacing:0}
 .maiq-odometer-prefix{margin-right:.5em}
 .maiq-odometer-suffix{margin-left:.5em}
 .maiq-odometer-digits{display:inline-flex;align-items:flex-start}
@@ -1298,12 +1298,12 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 .maiq-about-quote-highlight{margin:16px 0;padding:24px 0;font-size:22px;line-height:1.5;font-weight:600;color:var(--text-primary);border-top:1px solid var(--border-hair);border-bottom:1px solid var(--border-hair);border-image:linear-gradient(90deg,transparent,var(--border-mid) 18%,var(--border-mid) 82%,transparent) 1;text-wrap:pretty}
 
 .maiq-about-founders{max-width:760px;width:100%;margin:0 auto;padding-top:40px;border-top:1px solid var(--border-hair);border-image:linear-gradient(90deg,transparent,var(--border-mid) 18%,var(--border-mid) 82%,transparent) 1;display:flex;flex-wrap:wrap;align-items:center;gap:32px 64px}
-.maiq-about-founders-label{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;color:var(--text-muted)}
+.maiq-about-founders-label{font-size:12px;letter-spacing:.14em;font-weight:500;color:var(--text-muted)}
 .maiq-about-founder{display:flex;flex-direction:column;align-items:flex-start;gap:10px}
 .maiq-about-founder-signature{height:64px;background:var(--text-primary);-webkit-mask-position:left center;-webkit-mask-size:contain;-webkit-mask-repeat:no-repeat;mask-position:left center;mask-size:contain;mask-repeat:no-repeat}
 .maiq-about-founder-meta{display:flex;flex-direction:column;gap:2px}
 .maiq-about-founder-name{font-size:16px;font-weight:600;color:var(--text-primary)}
-.maiq-about-founder-role{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;color:var(--border-focus)}
+.maiq-about-founder-role{font-size:12px;letter-spacing:.14em;font-weight:500;color:var(--border-focus)}
 /* Mobile: rótulo centralizado acima, assinaturas lado a lado abaixo. */
 @media(max-width:760px){.maiq-about-founders{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 16px;justify-items:center;text-align:center}.maiq-about-founders-label{grid-column:1/-1}.maiq-about-founder{align-items:center;min-width:0;max-width:100%}.maiq-about-founder-signature{height:52px;max-width:100%;-webkit-mask-position:center;mask-position:center}}
 
