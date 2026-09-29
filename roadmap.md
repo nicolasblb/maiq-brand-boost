@@ -751,3 +751,10 @@ Plataforma repetindo no modal por 18s sem pausar. Varredura completa de scroll (
 - [x] Label “Como ajudamos nossos clientes e parceiros” centralizada: uma linha quando couber; abaixo de 380px, quebra após “nossos”.
 - [x] Sobre nós: cargos dos fundadores trocados para “Negócios” (Enzo) e “Tecnologia” (Nicolas).
 - [x] Validado em 393/375/1280px: X visível nos dois modais, label centrada nas duas formas, sem erros de console; build OK.
+
+## Número "R$ 291 M" em Nosso Modelo (29/09/2026)
+
+- [x] "R$" reduzido a 25% da fonte do número e "M" acrescido após os dígitos com a mesma configuração — sufixo adicionado ao componente do odômetro.
+- [x] Texto descritivo trocado de "Milhões em transações realizadas" para "Em transações realizadas".
+- [x] Margens dos afixos recalibradas (relativas ao próprio tamanho) em desktop e no bloco mobile do odômetro.
+- [x] Validado em desktop, tablet e celular, nos temas noite e dia: enquadramento correto, animação de rolagem íntegra, sem erros de console; build OK.
