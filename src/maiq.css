@@ -295,7 +295,7 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
   font-size:12px;
   line-height:1.4;
 }
-.maiq-odometer{display:inline-flex;align-items:flex-end;white-space:nowrap}
+.maiq-odometer{display:inline-flex;align-items:flex-end;vertical-align:bottom;white-space:nowrap}
 .maiq-odometer-prefix,.maiq-odometer-suffix{display:inline-block;font-size:50%;letter-spacing:0;line-height:1;margin-bottom:.24em}
 .maiq-odometer-prefix{margin-right:.25em}
 .maiq-odometer-suffix{margin-left:.25em}
