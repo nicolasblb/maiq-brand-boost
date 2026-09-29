@@ -1336,8 +1336,8 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
   [data-maiq-odo-row]>div>div:last-child{overflow-wrap:anywhere;font-size:10px!important;line-height:1.45;letter-spacing:.08em!important}
   .maiq-odometer{max-width:100%;align-items:flex-end}
   .maiq-odometer-prefix,.maiq-odometer-suffix{flex:none}
-  .maiq-odometer-prefix{margin-right:.2em}
-  .maiq-odometer-suffix{margin-left:.2em}
+  .maiq-odometer-prefix{margin-right:.14em}
+  .maiq-odometer-suffix{margin-left:.08em}
   .maiq-odometer-digits{min-width:0}
 
   .maiq-about-section{gap:56px}
