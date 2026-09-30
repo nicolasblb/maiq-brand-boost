@@ -802,11 +802,15 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 @keyframes maiqRung{0%,100%{transform:scaleX(1);opacity:.46}50%{transform:scaleX(.04);opacity:.1}}
 @media (max-width:1040px){[data-maiq-toggle]{top:104px!important}}
 @media (max-width:1330px){[data-maiq-side-text]{display:none!important}}
-@media (max-width:930px){[data-maiq-venn]{transform:scale(.78);margin:-40px -92px}}
-@media (max-width:750px){[data-maiq-venn]{transform:scale(.62);margin:-68px -159px}}
-@media (max-width:620px){[data-maiq-venn]{transform:scale(.46);margin:-97px -226px}}
-@media (max-height:940px) and (min-width:931px){[data-maiq-venn]{transform:scale(.86);margin:-25px -59px}}
-@media (max-height:840px) and (min-width:931px){[data-maiq-venn]{transform:scale(.74);margin:-47px -109px}}
+/* Margens negativas = compensação do espaço ocioso do transform:scale.
+   Vertical = 280 * (s - 1) / 2; horizontal = 836 * (s - 1) / 2. */
+@media (max-width:930px){[data-maiq-venn]{transform:scale(.78);margin:-31px -92px}}
+@media (max-width:750px){[data-maiq-venn]{transform:scale(.62);margin:-53px -159px}}
+@media (max-width:620px){[data-maiq-venn]{transform:scale(.46);margin:-76px -226px}}
+@media (max-height:940px) and (min-width:931px){[data-maiq-venn]{transform:scale(.86);margin:-20px -59px}}
+@media (max-height:840px) and (min-width:931px){[data-maiq-venn]{transform:scale(.74);margin:-36px -109px}}
+/* Hélice (360px de alto) centrada na lente de 280px do Venn. */
+.maiq-venn-helix-wrap{position:absolute;left:0;top:50%;width:240px;height:360px;transform:translateY(-50%)}
 /* "Nosso Modelo" abaixo de 760px: o Venn em px absolutos fica ilegível mesmo
    escalado (texto de 16.8px vira ~7.7px) — abaixo desse breakpoint ele é
    trocado por um layout empilhado em fluxo normal (dois cartões + hélice
