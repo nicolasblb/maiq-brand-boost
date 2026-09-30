@@ -1412,3 +1412,44 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
   .maiq-hero-label{white-space:normal}
   .maiq-hero-label span{display:block}
 }
+
+/* ------------------------------------------------------------------
+   Enquadramento vertical (desktop e tablet, ≥769px) — margem superior
+   uniforme de 115px (compensa o header flutuante) e base enxuta de
+   28-30px, com o espaço economizado devolvido ao miolo de cada seção.
+   Não se aplica ao Hero, nem ao celular, nem ao modo deitado (flat).
+   ------------------------------------------------------------------ */
+@media (min-width:769px){
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-model-section,
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-conviction,
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) [data-maiq-sec="ciclo"]{
+    padding-top:115px!important;
+    padding-bottom:28px!important;
+  }
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-platform-section{
+    padding-top:115px!important;
+    padding-bottom:30px!important;
+  }
+  /* Plataforma: a linha temporizadora encosta (sem tocar) no cartão, e a
+     folga restante vai para a altura do vídeo + descrição. */
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-platform-tabs{padding-bottom:8px}
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-platform-showcase{margin-top:clamp(36px,4.6vh,52px)}
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-platform-card{
+    margin-top:18px;
+    height:min(52vh,560px);
+    min-height:clamp(300px,48vh,440px);
+  }
+  /* Convicção: sem a linha decorativa, rótulo junto do carrossel. */
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-team-band-divider{display:none}
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-team-band-label{margin-bottom:12px}
+  /* Perspectiva: o quadro do fluxo para de esticar; proporções mantidas. */
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-cycle-frame{
+    max-height:min(460px,48vh);
+    width:100%;
+    margin:0 auto;
+  }
+  /* FAQ ganha o topo padrão; o rodapé da home cede a altura necessária. */
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-faq{padding-top:115px!important}
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-footer-desktop .maiq-footer{padding:18px 48px 14px!important}
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-footer-desktop .maiq-footer-top+div{margin-top:14px!important;padding-top:10px!important}
+}
