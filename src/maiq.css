@@ -1446,7 +1446,7 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
   [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-cycle-frame{
     max-height:min(460px,48vh);
     width:100%;
-    margin:0 auto;
+    margin:auto;
   }
   /* FAQ ganha o topo padrão; o rodapé da home cede a altura necessária. */
   [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-faq{padding-top:115px!important}
