@@ -1075,15 +1075,19 @@ export default function PaginaInstitucional() {
                   </div>
                 </div>
               </div>
-              <div ref={vennBoxRef} data-maiq-venn="" style={{ position: "relative", width: "836px", height: "360px", flex: "0 0 auto" }}>
-                <div aria-hidden="true" style={{ position: "absolute", left: "178px", top: "0", width: "360px", height: "360px", borderRadius: "50%", clipPath: "circle(50% at 50% 50%)", overflow: "hidden" }}>
-                  <div style={{ position: "absolute", left: "120px", top: "0", width: "360px", height: "360px", borderRadius: "50%", clipPath: "circle(50% at 50% 50%)", overflow: "hidden" }}>
-                    {helixBars}
+              <div ref={vennBoxRef} data-maiq-venn="" style={{ position: "relative", width: "836px", height: "280px", flex: "0 0 auto" }}>
+                <div aria-hidden="true" style={{ position: "absolute", left: "258px", top: "0", width: "280px", height: "280px", borderRadius: "50%", clipPath: "circle(50% at 50% 50%)", overflow: "hidden" }}>
+                  <div style={{ position: "absolute", left: "40px", top: "0", width: "280px", height: "280px", borderRadius: "50%", clipPath: "circle(50% at 50% 50%)", overflow: "hidden" }}>
+                    {/* A hélice é desenhada com 360px de altura fixa (compartilhada com o
+                        layout móvel); aqui ela é apenas centralizada na lente de 280px. */}
+                    <div className="maiq-venn-helix-wrap">
+                      {helixBars}
+                    </div>
                   </div>
                 </div>
-                <div aria-hidden="true" style={{ position: "absolute", left: "0", top: "0", width: "538px", height: "360px", border: "1px solid var(--p-hair,rgba(234,217,204,.14))", borderRadius: "180px", background: "var(--p-chip-bg,rgba(234,217,204,.04))" }}>
+                <div aria-hidden="true" style={{ position: "absolute", left: "0", top: "0", width: "538px", height: "280px", border: "1px solid var(--p-hair,rgba(234,217,204,.14))", borderRadius: "140px", background: "var(--p-chip-bg,rgba(234,217,204,.04))" }}>
                 </div>
-                <div aria-hidden="true" style={{ position: "absolute", left: "298px", top: "0", width: "538px", height: "360px", border: "1px solid var(--p-hair,rgba(234,217,204,.14))", borderRadius: "180px", background: "var(--p-chip-bg,rgba(234,217,204,.04))" }}>
+                <div aria-hidden="true" style={{ position: "absolute", left: "298px", top: "0", width: "538px", height: "280px", border: "1px solid var(--p-hair,rgba(234,217,204,.14))", borderRadius: "140px", background: "var(--p-chip-bg,rgba(234,217,204,.04))" }}>
                 </div>
                 <div style={{ position: "absolute", left: "418px", top: "50%", transform: "translate(-50%,-50%)", textAlign: "center", fontSize: "14px", lineHeight: "1.34", fontWeight: "600", letterSpacing: ".01em", color: "var(--p-text,#EAD9CC)", whiteSpace: "nowrap" }}>
                   <div>
