@@ -764,3 +764,21 @@ Plataforma repetindo no modal por 18s sem pausar. Varredura completa de scroll (
 - [x] "R$" e "M" dobrados de 25% para 50% da fonte do número — legíveis no celular, mantendo a hierarquia.
 - [x] Sobre nós: "Fundadores", "Negócios" e "Tecnologia" sem caixa alta forçada (removido `text-transform:uppercase`).
 - [x] Validado no celular (393×852), temas noite e dia, e no build — sem erros de console.
+
+## Enquadramento vertical das seções (30/09/2026)
+
+Desktop/tablet (≥769px, fora do modo deitado): topo padronizado em 115px
+(≈30px livres abaixo do header flutuante) e base em 28px (30px na Plataforma).
+Não se aplica ao Hero nem ao celular.
+
+- Nosso Modelo: forma central (Venn/hélice) de 360px → 280px, raios 180 → 140,
+  hélice centrada na lente (`.maiq-venn-helix-wrap`); margens negativas de
+  compensação do `scale` recalculadas para a nova altura.
+- Nossa Convicção: divisória horizontal entre o rótulo e o carrossel ocultada e
+  rótulo aproximado (margin-bottom 12px). Mantida no celular.
+- Nossa Plataforma: linha temporizadora a 28px do cartão (sem tocar); cartão
+  com `height:min(52vh,560px)`.
+- Nossa Perspectiva: quadro do fluxo com `max-height:min(460px,48vh)`,
+  centralizado, proporções preservadas.
+- FAQ: topo de 115px, viabilizado pelo rodapé desktop da home compactado
+  (padding 18px/14px).
