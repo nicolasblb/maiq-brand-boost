@@ -72,7 +72,8 @@ fixo, hero, e a orquestração de rolagem. As seções em ordem de leitura:
    progresso, modal ampliar/reduzir; um vídeo MP4 por funcionalidade e por tema em
    `src/assets/plataforma/` — a antiga cena programada `maiq/vdr/` foi excluída em 24/09/2026)
 3. **Nosso Modelo** — Venn de duas pílulas (710×308px, `VENN_W`/`VENN_H` no componente; a
-   geometria do hover deriva deles) com hélice de DNA na interseção, textos laterais em hover,
+   geometria do hover deriva deles) com hélice de DNA na interseção (`maiq/DnaHelix.tsx`, a mesma
+   no Venn e no celular; em pé no desktop), textos laterais em hover,
    odômetro de 3 números. A faixa de logos de LLMs foi removida em 30/09/2026
 4. **Nossa Convicção** — `sections/Conviccao.tsx` + `maiq/ConvictionScene.tsx` (vídeos
    "Valor na mesa", claro/escuro, play/pause, ±5s, troca de tema sem reiniciar); termina com
