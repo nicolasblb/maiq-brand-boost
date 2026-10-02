@@ -539,7 +539,7 @@ fora das seções.
 | Bloco 1: margem interna abaixo da Convicção | 15% | 0 (ver nota) | 0 |
 | Pausa da Plataforma (espaço de rolagem entre os blocos) | 130% | 130% | 100% |
 | Bloco 2: margem acima da Perspectiva | 10% | 15% | 0 |
-| Bloco 2: margem abaixo da Perspectiva | 15% | 0 (ver nota) | 0 |
+| Bloco 2: margem abaixo da Perspectiva | 15% | 5% (ver nota) | 0 |
 | Pausa do FAQ antes do rodapé (no celular o rodapé é um bloco de sobreposição) | — | 130% | 100% |
 
 A pausa de 130% = 100% para revelar a Plataforma + 30% com ela inteira e parada (no celular, também 30% desde 02/10/2026). Os
@@ -554,6 +554,9 @@ Convicção, da base das logos, não da faixa de 64px que as centraliza. A altur
 cai de 100% para 85% da tela (o bastante para o bloco 2 cobrir a tela inteira ao entrar). Intervalos medidos
 (390×664, 390×844, 360×740): borda a borda, 130% entre os blocos 1 e 2 e 130% entre o bloco 2 e o rodapé;
 conteúdo a conteúdo, ~168% e ~147%.
+No bloco 2, uma sobra de 5% abaixo da Perspectiva (a pedido, mesmo dia). Medido na imagem: o quadro das
+fases tem ~70px vazios abaixo das pílulas, então o espaço visível sob o conteúdo fica em ~26–28% (12% de
+margem + ~70px + 5%), parecido com o espaço acima do título (~27–28% = 15% + 12% + respiro da linha).
 
 ### Fora da Home — Sobre nós, "Nossa Identidade" · *quadro deitado implementado (01/10/2026)*
 

@@ -568,7 +568,7 @@ export default function PaginaInstitucional() {
     // Ver docs/diretriz-enquadramento-home.md, ficha "Pilha de rolagem".
     const STACK_GAPS = {
       desktop: { heroBreath: 0.05, block1: [0.05, 0.15], block1Between: 0, platformHold: 1.3, block2: [0.1, 0.15], faqHold: 1 },
-      mobile: { heroBreath: 0.05, block1: [0.15, 0], block1Between: 0.15, platformHold: 1.3, block2: [0.15, 0], faqHold: 1.3, sectionBottom: 0.12 },
+      mobile: { heroBreath: 0.05, block1: [0.15, 0], block1Between: 0.15, platformHold: 1.3, block2: [0.15, 0.05], faqHold: 1.3, sectionBottom: 0.12 },
     } as const;
     const stackGaps = () => (fitQuery.matches ? STACK_GAPS.desktop : STACK_GAPS.mobile);
     // Margem inferior das seções que fecham os blocos: inline com !important porque o CSS de

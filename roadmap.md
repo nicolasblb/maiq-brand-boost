@@ -1180,5 +1180,8 @@ Referência: `referencias/nova-helix-dna/` (especificação + componente, versã
 - [x] Intervalos resultantes: 130% de rolagem borda a borda (pausas da Plataforma e do FAQ no celular
       ajustadas de 125% para 130%, a pedido) entre os blocos 1 e 2 e entre o bloco 2 e o
       rodapé; conteúdo a conteúdo ~168% e ~147%.
+- [x] Bloco 2: sobra de 5% abaixo da Perspectiva (a pedido). Medido na imagem: o quadro das fases tem
+      ~70px vazios abaixo das pílulas; espaço visível sob o conteúdo ~26–28%, próximo dos ~27–28% acima do
+      título. Folga borda a borda segue em 130%.
 - [ ] Conferência visual do usuário no celular, rolando a página inteira nos dois sentidos.
 
