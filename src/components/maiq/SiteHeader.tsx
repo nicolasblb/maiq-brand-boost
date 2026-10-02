@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from 'react';
+import { useRef, useState, type ReactNode } from 'react';
 import { Link, useNavigate } from '@tanstack/react-router';
 import { Moon, Sun } from 'lucide-react';
 import type { User } from '@supabase/supabase-js';
@@ -56,10 +56,11 @@ export default function SiteHeader({
   logoSlot,
 }: SiteHeaderProps) {
   const [tipOpen, setTipOpen] = useState(false);
+  const tipSuppressedRef = useRef(false);
   const navigate = useNavigate();
 
   // Itens de "Entrar"/"Conta" e "Fale Conosco" só aparecem visualmente
-  // em <=430px (ver .maiq-nav-dropdown-item--mobile-auth em maiq.css) —
+  // em <=520px (ver .maiq-nav-dropdown-item--mobile-auth em maiq.css) —
   // sempre renderizados aqui para que a troca de layout seja só CSS.
   const compactMenuItems = [
     { key: COMPACT_KEY_ENTRAR, label: user ? 'Conta' : 'Entrar', mobileOnly: true },
@@ -106,15 +107,23 @@ export default function SiteHeader({
       >
         <div
           className="maiq-site-theme-toggle"
-          onClick={onToggleTheme}
-          onMouseEnter={() => setTipOpen(true)}
-          onMouseLeave={() => setTipOpen(false)}
+          onClick={() => {
+            // O clique troca o tema e redesenha o botão sob o cursor, e o mouseleave seguinte
+            // nem sempre chega: o tooltip ficava aberto. Ele fecha no clique e só volta quando o
+            // mouse sai e entra de novo.
+            tipSuppressedRef.current = true;
+            setTipOpen(false);
+            onToggleTheme();
+          }}
+          onMouseEnter={() => { if (!tipSuppressedRef.current) setTipOpen(true); }}
+          onMouseLeave={() => { tipSuppressedRef.current = false; setTipOpen(false); }}
           role="button"
           tabIndex={0}
           aria-label={dia ? 'Mudar para modo noite' : 'Mudar para modo dia'}
           onKeyDown={(e) => {
             if (e.key === 'Enter' || e.key === ' ') {
               e.preventDefault();
+              setTipOpen(false);
               onToggleTheme();
             }
           }}

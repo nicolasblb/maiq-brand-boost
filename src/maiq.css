@@ -516,7 +516,9 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 .maiq-hero-subhead{
   color:var(--p-subhead)!important;
   font-family:var(--font-core);
-  font-size:clamp(24px,2.76vw,41px);
+  /* Mesma escala de .maiq-section-subhead em todas as larguras (antes 24-41px fora
+     do bloco de desktop/tablet, o que fazia a fonte "voltar a crescer" abaixo de 761px). */
+  font-size:clamp(15.2px,1.68vw,23px);
   font-weight:var(--fw-regular);
   line-height:1.24;
   letter-spacing:0;
@@ -535,7 +537,6 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 @media (max-height:860px){
   .maiq-model-section{padding-top:clamp(64px,9vh,104px) !important;padding-bottom:clamp(20px,3vh,36px) !important}
   .maiq-model-inner{gap:clamp(16px,2.4vh,32px) !important}
-  .maiq-model-tools-row{padding-top:10px !important;padding-bottom:10px !important}
   .maiq-conviction{padding-top:clamp(64px,9vh,104px) !important;padding-bottom:clamp(40px,5vh,64px) !important}
   .maiq-conviction-body{margin-top:clamp(24px,4vh,48px) !important}
   .maiq-team-band{margin-top:clamp(32px,5vh,64px) !important}
@@ -558,16 +559,6 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 @media (max-width:560px){
   .maiq-subhead-break-platform{display:block}
   .maiq-subhead-break-platform::before{content:none}
-}
-@media (max-width:640px){
-  .maiq-subhead-break-team{display:block}
-  .maiq-subhead-break-team::before{content:none}
-}
-/* A faixa de logos de LLM em "Nosso Modelo" tinha min-width:520px inline
-   (pensada para o layout desktop) — em telas mais estreitas isso forçava a
-   faixa a estourar a largura da viewport, cortando as últimas logos. */
-@media (max-width:640px){
-  .maiq-model-tools-row{width:100% !important;min-width:0 !important;gap:16px 28px !important}
 }
 .maiq-conviction-body{
   display:flex;
@@ -606,6 +597,11 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 .maiq-conviction-lede p:first-child{
   color:var(--p-text);
 }
+/* CTA para "Sobre nós" abaixo do texto: link (não botão), com o visual do botão "Envie sua dúvida" do FAQ (tokens --p-cta-*). */
+.maiq-conviction-cta{align-self:flex-start;display:inline-flex;align-items:center;gap:var(--space-2,8px);height:42px;margin-top:12px;padding:0 22px;box-sizing:border-box;border:1px solid transparent;border-radius:var(--radius-pill);background:var(--p-cta-bg);color:var(--p-cta-fg);font-family:var(--font-core);font-size:var(--fs-body-sm);font-weight:var(--fw-medium);text-decoration:none;white-space:nowrap;transition:var(--transition-ui)}
+.maiq-conviction-cta:hover{background:var(--p-cta-bg-hover)}
+.maiq-conviction-cta:active{background:var(--p-cta-bg-active)}
+.maiq-conviction-cta:focus-visible{outline:none;box-shadow:var(--glow-focus)}
 .maiq-conviction-player-wrap{
   flex:1 1 auto;
   min-width:0;
@@ -748,6 +744,9 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
    O rodapé, depois do hold, recebe sua própria superfície sobreposta. */
 .maiq-footer-mobile{display:none}
 .maiq-footer-desktop{flex:0 0 auto}
+/* "Nosso Modelo": números e rótulos centralizados sobre as respectivas linhas (02/10/2026). */
+[data-maiq-odo-row]>div{align-items:center;text-align:center}
+[data-maiq-odo-row]>div>div:nth-child(2){align-self:stretch}
 @media (max-width:760px){
   .maiq-final-content>.maiq-faq{flex:1 1 100%;height:100%;min-height:0}
   .maiq-footer-desktop{display:none}
@@ -774,7 +773,8 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 [data-theme="claro"] .maiq-team-logo .maiq-team-logo-dia{display:block}
 @keyframes maiqTeamMarquee{to{transform:translate3d(-50%,0,0)}}
 @media(max-width:800px){.maiq-team-band{margin-top:var(--space-8,40px)}.maiq-team-logo{width:152px;padding:0 22px}.maiq-team-logo img{max-height:27px}.maiq-team-logo--tr img{max-height:35px}}
-@media(max-width:760px){.maiq-team-band-label{margin-bottom:20px}.maiq-team-band-divider{width:75%;margin-bottom:20px}}
+/* Rótulo do carrossel em uma linha sempre que couber em até 80% da tela; senão quebra equilibrado. */
+@media(max-width:760px){.maiq-team-band-label{max-width:80vw;text-wrap:balance;margin-bottom:20px}.maiq-team-band-divider{width:75%;margin-bottom:20px}}
 @media(prefers-reduced-motion:reduce){.maiq-team-logo-track{animation:none;transform:none}.maiq-team-marquee{overflow-x:auto;scrollbar-width:none}.maiq-team-marquee::-webkit-scrollbar{display:none}}
 @media (prefers-reduced-motion:reduce){
   .maiq-model-pilares-bg::before,.maiq-model-pilares-bg::after{animation:none}
@@ -802,15 +802,11 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 @keyframes maiqRung{0%,100%{transform:scaleX(1);opacity:.46}50%{transform:scaleX(.04);opacity:.1}}
 @media (max-width:1040px){[data-maiq-toggle]{top:104px!important}}
 @media (max-width:1330px){[data-maiq-side-text]{display:none!important}}
-/* Margens negativas = compensação do espaço ocioso do transform:scale.
-   Vertical = 280 * (s - 1) / 2; horizontal = 836 * (s - 1) / 2. */
-@media (max-width:930px){[data-maiq-venn]{transform:scale(.78);margin:-31px -92px}}
-@media (max-width:750px){[data-maiq-venn]{transform:scale(.62);margin:-53px -159px}}
-@media (max-width:620px){[data-maiq-venn]{transform:scale(.46);margin:-76px -226px}}
-@media (max-height:940px) and (min-width:931px){[data-maiq-venn]{transform:scale(.86);margin:-20px -59px}}
-@media (max-height:840px) and (min-width:931px){[data-maiq-venn]{transform:scale(.74);margin:-36px -109px}}
-/* Hélice (360px de alto) centrada na lente de 280px do Venn. */
-.maiq-venn-helix-wrap{position:absolute;left:0;top:50%;width:240px;height:360px;transform:translateY(-50%)}
+/* Escala do Venn por largura: contínua, aplicada como `zoom` em JS (_fitZoom em
+   PaginaInstitucional.tsx). A redução por altura é da seção inteira, não só do Venn. */
+/* Hélice do Venn desktop: 85% do tamanho original, centrada na lente (x=102 do círculo
+   interno; o bloco de 240px é deslocado 18px para o centro coincidir). */
+.maiq-venn-helix{position:absolute;left:-18px;top:50%;width:240px;height:360px;transform:translateY(-50%) scale(.85);transform-origin:50% 50%}
 /* "Nosso Modelo" abaixo de 760px: o Venn em px absolutos fica ilegível mesmo
    escalado (texto de 16.8px vira ~7.7px) — abaixo desse breakpoint ele é
    trocado por um layout empilhado em fluxo normal (dois cartões + hélice
@@ -896,10 +892,10 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 .maiq-cycle-flow-pill[data-active="true"]{background:var(--c-fp-bg-on);border-color:var(--c-fp-hair-on)}
 .maiq-cycle-flow-pill[data-phase="0"]{left:0;top:0}
 .maiq-cycle-flow-pill[data-phase="1"]{left:206px;top:0}
-.maiq-cycle-flow-pill[data-phase="2"]{left:206px;top:312px}
-.maiq-cycle-flow-pill[data-phase="3"]{left:0;top:312px}
+.maiq-cycle-flow-pill[data-phase="2"]{left:206px;top:240px}
+.maiq-cycle-flow-pill[data-phase="3"]{left:0;top:240px}
 .maiq-cycle-flow-pill-glow{position:absolute;inset:-1px;border-radius:24px;border:1px solid var(--c-fp-glow-edge);box-shadow:0 0 24px 2px var(--c-fp-glow),inset 0 0 14px var(--c-fp-glow-in);opacity:0;pointer-events:none;will-change:opacity}
-.maiq-cycle-flow-cta{position:absolute;left:76px;top:72px;width:190px;height:216px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;margin:0;padding:0;border:0;background:none;color:var(--p-text);font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.maiq-cycle-flow-cta{position:absolute;left:76px;top:72px;width:190px;height:144px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;margin:0;padding:0;border:0;background:none;color:var(--p-text);font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .maiq-cycle-flow-cta-circle{position:relative;display:flex;align-items:center;justify-content:center;width:76px;height:76px;border-radius:50%;background:var(--c-fp-btn-bg);border:1px solid var(--c-fp-hair-on);color:var(--c-fp-btn-icon);box-shadow:var(--c-fp-btn-shadow);transition:background-color 200ms cubic-bezier(.2,0,0,1)}
 .maiq-cycle-flow-cta:hover .maiq-cycle-flow-cta-circle{background:var(--c-fp-bg-on)}
 .maiq-cycle-flow-cta:active .maiq-cycle-flow-cta-circle{transform:translateY(1px)}
@@ -916,7 +912,9 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
    usam a orientação física do viewport, sem rotação artificial. */
 .maiq-cycle-modal{position:fixed;z-index:71;inset:clamp(18px,4vw,54px);max-width:1440px;max-height:calc(100vh - clamp(36px,8vw,108px));margin:auto;padding:0;overflow:hidden;border:1px solid var(--p-hair-strong);border-radius:var(--radius-lg);background:var(--p-bg-deep);box-shadow:var(--shadow-3);color:var(--p-text);animation:maiqPlatformModalIn 260ms var(--ease-out)}
 .maiq-cycle-modal-media{--cycle-label-width:202px;position:relative;width:100%;height:100%;display:flex;align-items:center;overflow:hidden;background:var(--p-bg-deep);padding:16px;box-sizing:border-box}
-.maiq-cycle-modal-close{position:absolute;top:12px;right:12px;z-index:2}
+/* Mesmo botão circular dos controles de mídia (Convicção/Plataforma); a classe deles força
+   position:relative, daí o reforço. */
+.maiq-cycle-modal-close.maiq-media-icon-button{position:absolute!important;top:12px;right:12px;z-index:2}
 @media (max-width:800px){
   .maiq-cycle-modal{inset:10px;max-height:calc(100vh - 20px);border-radius:var(--radius-md)}
 }
@@ -933,7 +931,7 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 [data-maiq-scope][data-theme="claro"]{--c-block-bg:rgba(255,253,248,.55);--c-block-fg:#342316;--c-block-hair:rgba(52,35,22,.24);--c-line:rgba(104,70,43,.42);--c-dot:rgba(52,35,22,.34);--c-band:#68462B;--c-band-fg:#F6EFE2;--c-pill:#68462B;--c-pill-fg:#F6EFE2;--c-exit:#D8C9B4;--c-exit-fg:#342316;--c-flow:#8A6038;--c-flow-core:#342316;--c-flow-blend:multiply;--c-lane-bg:rgba(255,253,248,.82);--c-lane-hair:rgba(52,35,22,.42);--c-lane-fg:#342316;--c-sep:rgba(52,35,22,.30);--c-frame-bg:rgba(255,253,248,.46);--c-fp-bg:#FBF6F0;--c-fp-bg-on:#F0E2D3;--c-fp-hair:rgba(52,35,22,.22);--c-fp-hair-on:rgba(52,35,22,.48);--c-fp-glow-edge:rgba(104,70,43,.7);--c-fp-glow:rgba(138,96,56,.32);--c-fp-glow-in:rgba(138,96,56,.10);--c-fp-path:rgba(52,35,22,.28);--c-fp-dot:#68462B;--c-fp-dot-glow:rgba(138,96,56,.45);--c-fp-btn-bg:#FBF6F0;--c-fp-btn-icon:#342316;--c-fp-btn-shadow:0 12px 24px -8px rgba(52,35,22,.28),0 2px 4px rgba(52,35,22,.12)}
 @keyframes maiqPlatPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.075)}}
 @keyframes maiqPlatPulseSoft{0%,100%{transform:scale(1);opacity:.9}50%{transform:scale(1.05);opacity:1}}
-@media (max-width:1023px){[data-maiq-plat-tabs]{flex-wrap:wrap;justify-content:center}[data-maiq-plat-tab]{flex:0 0 auto!important}[data-maiq-plat-pin]{min-height:0!important;padding-top:96px!important;padding-bottom:96px!important}[data-maiq-plat-inner]{padding-top:0!important;height:auto!important;gap:40px!important}[data-maiq-plat-bar]{margin-top:0!important}[data-maiq-plat-card]{margin-top:0!important}[data-maiq-plat-spacer]{display:none!important}[data-maiq-plat-card]{grid-template-columns:minmax(0,1fr)!important;height:auto!important;width:min(100%,529px)!important}[data-maiq-plat-anim]{aspect-ratio:1/1}[data-maiq-plat-right]{border-left:0!important;border-top:1px solid var(--p-hair,rgba(234,217,204,.14))!important;min-height:300px}}
+@media (max-width:1023px){[data-maiq-plat-spacer]{display:none!important}}
 @media (prefers-reduced-motion:reduce){[data-maiq-anim]{animation:none!important}}
 
 /* Plataforma — navegação linear e mídia controlada */
@@ -1152,9 +1150,12 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 }
 .maiq-site-theme-toggle-compact:focus-visible,.maiq-site-menu-trigger:focus-visible{box-shadow:var(--glow-focus)}
 
-/* "Entrar"/"Conta" e "Fale Conosco" só entram no menu compacto em <=430px
-   (ver media query abaixo) — entre 431 e 1024px a pílula CTA continua
-   visível ao lado do gatilho, e esses itens ficam ocultos dentro do painel. */
+/* "Entrar"/"Conta" e "Fale Conosco" só entram no menu compacto em <=520px
+   (ver media query abaixo) — entre 521 e 1024px a pílula CTA continua
+   visível ao lado do gatilho, e esses itens ficam ocultos dentro do painel.
+   O limite era 430px, mas o cabeçalho completo (logo + pílula + tema + menu) precisa
+   de ~487px de tela: em celulares de 440px (iPhone 16/17 Pro Max) a logo ficava
+   embaixo da pílula. 520px dá folga para tamanhos de texto maiores. */
 .maiq-nav-dropdown-item--mobile-auth,.maiq-nav-dropdown-separator--mobile-auth{display:none}
 
 @media(max-width:1024px){
@@ -1176,7 +1177,7 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
   .maiq-site-header{top:10px !important;height:56px !important}
   .maiq-site-theme-toggle-wrap{top:16px !important}
 }
-@media(max-width:430px){
+@media(max-width:520px){
   .maiq-site-header-cta{display:none !important}
   .maiq-nav-dropdown-item--mobile-auth,.maiq-nav-dropdown-separator--mobile-auth{display:block}
 }
@@ -1332,8 +1333,6 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
 
 @media(max-width:760px){
   .maiq-model-section{padding-right:24px!important;padding-left:24px!important}
-  .maiq-model-tools-row{flex-wrap:nowrap!important;gap:12px!important;padding-right:12px!important;padding-left:12px!important}
-  .maiq-model-tools-row img{width:auto!important;height:18px!important;min-width:0;flex:0 1 auto}
   [data-maiq-odo-row]{gap:12px!important}
   [data-maiq-odo-row]>div{min-width:0;gap:10px!important}
   [data-maiq-odo-row]>div>div:first-child{min-width:0;font-size:clamp(25px,8vw,34px)!important;letter-spacing:0!important}
@@ -1420,36 +1419,229 @@ body{margin:0;background:#0F2B2A;transition:background 320ms cubic-bezier(.16,1,
    Não se aplica ao Hero, nem ao celular, nem ao modo deitado (flat).
    ------------------------------------------------------------------ */
 @media (min-width:769px){
-  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-model-section,
-  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-conviction,
-  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) [data-maiq-sec="ciclo"]{
-    padding-top:115px!important;
-    padding-bottom:28px!important;
-  }
-  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-platform-section{
-    padding-top:115px!important;
-    padding-bottom:30px!important;
-  }
   /* Plataforma: a linha temporizadora encosta (sem tocar) no cartão, e a
      folga restante vai para a altura do vídeo + descrição. */
   [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-platform-tabs{padding-bottom:8px}
-  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-platform-showcase{margin-top:clamp(36px,4.6vh,52px)}
-  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-platform-card{
-    margin-top:18px;
-    height:min(52vh,560px);
-    min-height:clamp(300px,48vh,440px);
-  }
   /* Convicção: sem a linha decorativa, rótulo junto do carrossel. */
   [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-team-band-divider{display:none}
   [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-team-band-label{margin-bottom:12px}
-  /* Perspectiva: o quadro do fluxo para de esticar; proporções mantidas. */
-  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-cycle-frame{
-    max-height:min(460px,48vh);
-    width:100%;
-    margin:auto;
-  }
   /* FAQ ganha o topo padrão; o rodapé da home cede a altura necessária. */
   [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-faq{padding-top:115px!important}
   [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-footer-desktop .maiq-footer{padding:18px 48px 14px!important}
   [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-footer-desktop .maiq-footer-top+div{margin-top:14px!important;padding-top:10px!important}
+}
+
+/* ==================================================================
+   Enquadramento padrão da Home — desktop e tablet (≥761px). FAQ fica de fora.
+   - Margens mínimas: 108px no topo (24px livres abaixo do header flutuante) e 65px na base.
+     Exceções só de medida: o Hero desconta os 24px da camada seguinte que invadem sua base
+     (padding 89px) e a Convicção mede a base até as logos (faixa de 64px com logos de
+     32–42px: padding 54px).
+   - Cada seção ocupa a tela e centraliza o conteúdo. O conteúdo tem tamanho de projeto fixo
+     (sem espaços em vh), reduzido pelo quadro proporcional (bloco seguinte). Abaixo de 560px
+     de altura a Home passa para a rolagem contínua (data-maiq-layout="flat").
+   - Os tamanhos de conteúdo valem nos dois modos; margens, altura de tela e centralização
+     só na pilha (fora de flat/settling).
+   ================================================================== */
+@media (min-width:761px){
+  /* Conteúdo — tamanhos de projeto (os espaços equivalem aos de uma tela de ~900px) */
+  [data-maiq-scope] .maiq-hero-content,[data-maiq-scope] .maiq-hero-subwrap{gap:32px !important}
+  [data-maiq-scope] .maiq-hero-cta{margin-top:32px !important;gap:32px !important}
+  [data-maiq-scope] .maiq-hero-rule{width:clamp(120px,18vw,260px) !important}
+  [data-maiq-scope] .maiq-hero-subhead-part{white-space:nowrap}
+  [data-maiq-scope] .maiq-platform-showcase{margin-top:40px}
+  [data-maiq-scope] .maiq-platform-card{margin-top:18px;height:460px;min-height:0}
+  [data-maiq-scope] .maiq-model-inner{gap:40px !important}
+  /* Números 15% menores (antes clamp(38px,4.2vw,58px)); R$ e M acompanham (50% do número). */
+  [data-maiq-scope] [data-maiq-odo-row]>div>div:first-child{font-size:clamp(32px,3.57vw,49px) !important}
+  /* Colunas dos textos de hover (invisíveis até o hover) seguem a altura do Venn. */
+  [data-maiq-scope] .maiq-model-dna-row>[data-maiq-side-text]{contain:size;align-self:stretch}
+  [data-maiq-scope] .maiq-conviction-body{margin-top:36px !important}
+  [data-maiq-scope] .maiq-team-band{margin-top:36px !important}
+  [data-maiq-scope] .maiq-conviction-player{height:auto !important}
+  [data-maiq-scope] .maiq-cycle-inner{flex:0 0 auto !important;gap:40px !important}
+  [data-maiq-scope] .maiq-cycle-frame{flex:0 0 auto !important}
+}
+
+/* ==================================================================
+   Quadro proporcional (docs/diretriz-enquadramento-home.md, regras R1–R4)
+   - Unidade de quadro: 1u = 1px no quadro de referência de 1440×900. Segue o menor eixo
+     (não deforma) e para de crescer em 1px (teto, D3): em telas maiores que a referência o
+     conteúdo fica no tamanho de projeto, centralizado.
+   - Seção reestruturada usa só u (ou px de projeto + zoom: var(--uf)) para tamanhos e posições (D5).
+   ================================================================== */
+@media (min-width:761px){
+  [data-maiq-scope]{--u:min(calc(100vh / 900), calc(100vw / 1440), 1px)}
+
+  /* Hero — ficha do Hero (01/10/2026). Faixas verticais em % do quadro de 900u:
+     título 28,0–44,7% · divisória 47,7% · subtítulo 51,4–54,5% · divisória 58,1% ·
+     rótulo 62,0–63,6% · chips 66,0–70,0% e 71,1–75,1% · margem inferior 24,9%.
+     Faixas horizontais em % do quadro de 1440u: título e chips 18,1–81,9% (63,8%);
+     divisórias 41–59% (18%); subtítulo 25,4–74,6%; rótulo 39,7–60,3%.
+     O quadro fica centralizado na tela: quando a largura é o eixo menor (tablet em pé), sobra
+     altura acima e abaixo (D2, opção a). O topo das letras do título fica 5,1u acima da
+     caixa do h1; por isso 252u (28%) + 5,1u. Estilos base são inline, daí os !important. */
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-hero{
+    justify-content:flex-start !important;
+    padding-top:calc((100vh - 900 * var(--u)) / 2 + 257.1 * var(--u)) !important;
+    padding-bottom:0 !important;
+  }
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-hero-content{max-width:calc(1200 * var(--u)) !important;gap:calc(32 * var(--u)) !important}
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-hero-content h1{font-size:calc(66.24 * var(--u)) !important}
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-hero-subwrap{gap:calc(32 * var(--u)) !important}
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-hero-divider,[data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-hero-rule{width:calc(259.2 * var(--u)) !important}
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-hero-subhead{font-size:calc(23 * var(--u));max-width:calc(1080 * var(--u)) !important}
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-hero-cta{margin-top:calc(32 * var(--u)) !important;gap:calc(32 * var(--u)) !important}
+  /* Piso de legibilidade (R4): rótulo e chips não descem de 12px */
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-hero-label{font-size:max(12px, calc(12 * var(--u))) !important}
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-hero-marquee{width:calc(918.7 * var(--u)) !important;margin-top:calc(19.8 * var(--u)) !important;gap:calc(10 * var(--u)) !important}
+  /* Folga nas faixas de chips: com altura fracionária (36u), o overflow:hidden da faixa cortava
+     a borda inferior dos chips em alguns tamanhos. */
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-hero-marquee>div{padding:3px 0}
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-hero-marquee>div>div{gap:calc(10 * var(--u)) !important}
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-hero-marquee>div>div>div{height:calc(36 * var(--u)) !important;padding:0 calc(16 * var(--u)) !important;font-size:max(12px, calc(15 * var(--u))) !important}
+
+  /* Nosso Modelo — ficha de 01/10/2026. O conteúdo interno é escrito em px do quadro de
+     referência e reduzido inteiro por zoom: var(--uf) (o mesmo u, como número — o Venn tem
+     dezenas de medidas em px e o hover calcula sobre elas). Faixas verticais em % de 900u:
+     título 19,0–26,8% · subtítulo 31,8–35,0% · Venn 40,0–68,9% · números 73,9–79,4% ·
+     barras 80,8–81,1% · rótulos 82,8–84,8% · margem inferior 15,2%.
+     Horizontais em % de 1440u: título 36,5–63,5%; subtítulo 16,5–83,5%; Venn com a proporção
+     mantida (41,6%, decisão do usuário); colunas dos números 15–35%, 40–60% e 65–85%.
+     Os valores abaixo saem das faixas: topo da caixa do h2 = 171u + 4,9u (o topo das letras
+     fica acima da caixa); margens = distância entre as faixas, descontado o mesmo ajuste. */
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-model-section{
+    align-items:flex-start !important;
+    padding-top:calc((100vh - 900 * var(--u)) / 2 + 175.9 * var(--u)) !important;
+    padding-bottom:0 !important;
+  }
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-model-inner{zoom:var(--uf,1);gap:0 !important}
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-model-inner h2{font-size:58px !important}
+  /* Subtítulo: 5% visuais (entre as letras) abaixo do título, não 5% da área da fonte — a folga
+     de 13px abaixo de "Nosso Modelo" fazia o espaço parecer 7,4% (diretriz, R2). Tudo abaixo sobe junto. */
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-model-inner .maiq-section-subhead{font-size:23px;margin-top:29.65px !important}
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-model-dna-row{margin-top:44.4px}
+  /* Venn 15,5% menor que o original (altura 28,9% em vez de 34,2%), proporção mantida */
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) [data-maiq-venn]{zoom:.8445}
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) [data-maiq-odo-row]{width:1008px;max-width:100%;margin:45px auto 0;gap:72px !important}
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) [data-maiq-odo-row]>div>div:first-child{font-size:49px !important}
+  /* Rótulos a 15px (preenchem a faixa de 2,0%, decisão do usuário); piso de 12px na tela */
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) [data-maiq-odo-row]>div>div:last-child{font-size:max(15px, calc(12px / var(--uf,1))) !important;margin-top:0.3px;white-space:nowrap}
+
+  /* Nossa Convicção — ficha de 01/10/2026. Mesmo modelo de "Nosso Modelo": conteúdo interno em
+     px do quadro de referência, reduzido inteiro por zoom: var(--uf). Faixas (medidas pelas letras):
+     título 20,4–25,3% (58px, alinhado ao Modelo; a cauda do "ç" desce ~1%) · subtítulo 30,3–32,6% ·
+     vídeo 37,6–73,6% · rótulo a partir de 78,6% (2 linhas, centralizado em 40–60%, decisão do
+     usuário) · logos 4,0% de altura, 1,5% abaixo do rótulo. Texto ao lado do vídeo: coluna de
+     15,6–40,2% (linha decorativa em 13,8%; 2,6px mais larga que a tabela para manter as 3 linhas
+     do 1º parágrafo), espaço de 4,8%, vídeo 45–85% (576×324, 16:9). O corpo vai de 13,8% a
+     85%: 8,6px à esquerda do centro. Logos 14% menores (36px em vez de 42px no mais alto).
+     01/10/2026: CTA "Mais Detalhes" abaixo do texto. Para caber, texto em 16px (entrelinha 1,55,
+     mesmas quebras 3/4/3); coluna texto + CTA ~39% de altura com o vídeo centralizado nela;
+     rótulo e logos descem ~1,4%. */
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-conviction{
+    display:flex;flex-direction:column;justify-content:flex-start;min-height:100vh;
+    padding-top:calc((100vh - 900 * var(--u)) / 2 + 172.4 * var(--u)) !important;
+    padding-bottom:0 !important;
+  }
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-conviction-inner{zoom:var(--uf,1)}
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-conviction-head h2{font-size:58px}
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-conviction-head h3{font-size:23px;margin-top:32.9px}
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-conviction-body{width:1025.4px;max-width:none;margin:35.5px auto 0 !important;gap:69.4px;position:relative;left:-8.6px;justify-content:flex-start}
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-conviction-lede{flex:0 0 380px}
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-conviction-lede{gap:12px}
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-conviction-lede p{font-size:16px;line-height:1.55}
+  /* A linha decorativa tem 1px: dentro do zoom ficaria com menos de 1px na tela e some em alguns
+     tamanhos. Compensar o zoom mantém 1px real. */
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-conviction-lede::before{width:calc(1px / var(--uf,1))}
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-conviction-player-wrap{flex:0 0 576px}
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-team-band{margin-top:30.3px !important}
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-team-band-label{max-width:20.57em;font-size:max(14px, calc(12px / var(--uf,1)));margin-bottom:0.8px !important}
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-team-marquee{zoom:.857;width:1008px}
+
+  /* Nossa Plataforma — ficha de 01/10/2026. Mesmo modelo de "Nosso Modelo" (px do quadro de
+     referência + zoom: var(--uf)). Faixas (pelas letras): título 20,4–24,8% · subtítulo
+     29,8–32,1% · abas 37,1–38,7% · linha 39,9–41,7% · cartão 43,2–85,0% · margem inferior 15%.
+     O cartão ficou 18,2% mais baixo (376px) e reduz mantendo a proporção: 865,6px de largura
+     (19,9–80,1%). Fontes do texto do cartão, botões e distâncias aos cantos sem mudança. A seção é
+     a base fixa da pilha: as medidas valem na posição em que o menu a mostra por inteiro. */
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-platform-section{
+    align-items:flex-start !important;
+    padding-top:calc((100vh - 900 * var(--u)) / 2 + 171 * var(--u)) !important;
+    padding-bottom:0 !important;
+  }
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-platform-section-inner{zoom:var(--uf,1)}
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-platform-heading h2{font-size:58px}
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-platform-heading>p{font-size:23px;margin-top:30.2px}
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-platform-showcase{margin-top:32.8px}
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-platform-card{width:865.6px;max-width:100%;height:376.2px;min-height:0;margin-top:3.6px}
+
+  /* Nossa Perspectiva — ficha de 01/10/2026. Mesmo modelo de "Nosso Modelo" (px do quadro de
+     referência + zoom: var(--uf)). Faixas (pelas letras): título 20,4–25,1% · subtítulo
+     30,1–32,5% · quadro 37,5–84,0% · margem inferior 16%. O quadro mantém o desenho de projeto
+     (1200×459, o diagrama inteiro cabe sem arrastar) e reduz como um bloco para 418,5px de altura
+     (zoom .9118 → 1094px, 12,0–88,0%): raias, pílulas e textos mantêm a proporção. Reduzir só a
+     altura faria o diagrama passar para o modo recortado (coluna fixa das raias + arrastar). */
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) [data-maiq-sec="ciclo"]{
+    justify-content:flex-start !important;
+    padding-top:calc((100vh - 900 * var(--u)) / 2 + 175.5 * var(--u)) !important;
+    padding-bottom:0 !important;
+  }
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-cycle-inner{zoom:var(--uf,1);gap:0 !important}
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) [data-maiq-sec="ciclo"] h2{font-size:58px !important}
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) [data-maiq-sec="ciclo"] .maiq-section-subhead{font-size:23px;margin-top:29.1px !important}
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-cycle-frame{zoom:.9118;width:1200px;max-width:none;align-self:center;margin-top:48.75px}
+
+  /* Faixa 761–1023px: regras antigas de tablet/celular (empilhar vídeo e texto da Convicção,
+     cartão da Plataforma em coluna, quebra forçada de subtítulos, logos menores) e tamanhos em
+     vw/vh dentro das seções continuavam valendo por baixo do quadro proporcional, que já cuida
+     da redução. Aqui o desenho de 1440×900 é restaurado; fora da pilha (flat) nada muda. */
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-subhead-break-model,
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-subhead-break-perspective{display:inline}
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-subhead-break-model::before,
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-subhead-break-perspective::before{content:" "}
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-conviction-body{flex-direction:row;align-items:center}
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-conviction-player-wrap{width:auto}
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-conviction-player{border-radius:var(--radius-lg)}
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-team-band-divider{margin-bottom:18px}
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-team-logo{width:204px;padding:0 32px}
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-team-logo img{max-height:32px}
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-team-logo--tr img{max-height:42px}
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-platform-card{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:none;grid-template-areas:"media copy"}
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-platform-media .maiq-platform-video{object-fit:contain}
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-platform-copy{align-items:center;justify-content:flex-start;overflow:visible;border-top:0;border-left:1px solid var(--p-hair)}
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-platform-copy-inner{width:auto}
+  [data-maiq-scope]:not([data-maiq-layout="flat"]):not([data-maiq-layout="settling"]) .maiq-platform-copy h3{font-size:32px}
+
+  /* Logo grande do Hero (antes de voar para o header): x 3,3%, altura 44u (mín. 22px).
+     O centro vertical continua alinhado ao header, que tem tamanho fixo (top 52px). */
+  [data-maiq-scope] .maiq-hero-logo-slot{left:3.3vw !important;height:max(22px, calc(44 * var(--u))) !important}
+  [data-maiq-scope] .maiq-hero-logo-slot img,[data-maiq-scope] .maiq-fly-logo img{height:max(22px, calc(44 * var(--u))) !important}
+
+  /* Sobre nós — "Nossa Identidade", quadro deitado (teste de 01/10/2026). O desenho de 1440×900
+     (logo com Pronúncia/Gênero ao lado) vale para toda tela ≥761px, reduzido por igual com
+     zoom: var(--uf) (definido em SobreNos.tsx); a seção ocupa exatamente a primeira tela e a
+     nota dos fundadores começa na dobra. Os estágios por largura (≤1024px: Pronúncia/Gênero
+     abaixo da logo) ficam neutralizados aqui; o carrossel abaixo de 761px não muda. */
+  [data-maiq-scope] .maiq-about-identity-wrap{min-height:100vh;box-sizing:border-box;padding-top:calc((100vh - 900 * var(--u)) / 2)}
+  [data-maiq-scope] .maiq-about-identity-wrap>.maiq-about-section{zoom:var(--uf,1);padding:162px 48px 0}
+  [data-maiq-scope] .maiq-about-identity-wrap .maiq-about-meta{width:auto;justify-content:flex-start}
+  [data-maiq-scope] .maiq-about-identity-wrap .maiq-about-meta-col{flex:0 1 auto;align-items:stretch;text-align:left;border-left:1px solid var(--border-hair);border-image:linear-gradient(180deg,transparent,var(--border-mid) 22%,var(--border-mid) 78%,transparent) 1}
+  [data-maiq-scope] .maiq-about-identity-wrap .maiq-about-meta-col--pronuncia{padding:4px 40px}
+  [data-maiq-scope] .maiq-about-identity-wrap .maiq-about-meta-col--genero{padding:4px 0 4px 40px}
+  /* Piso de 12px na tela (R4) para os textos menores. */
+  [data-maiq-scope] .maiq-about-identity-wrap .maiq-about-meta-overline{font-size:max(12px, calc(12px / var(--uf,1)))}
+  [data-maiq-scope] .maiq-about-identity-wrap .maiq-about-meta-note{font-size:max(14px, calc(12px / var(--uf,1)))}
+  [data-maiq-scope] .maiq-about-identity-wrap .maiq-about-card-desc{font-size:max(15px, calc(12px / var(--uf,1)))}
+  /* Nota dos fundadores acompanha a mesma redução (o título destoava do de "Nossa Identidade").
+     Espaços em vh trocados pelos valores de 900px de altura; a citação mantém o desenho largo
+     (aspas fora da coluna), neutralizando o ajuste de 721–1024px. */
+  [data-maiq-scope] .maiq-about-main>.maiq-about-section{zoom:var(--uf,1);padding:162px 48px 108px}
+  [data-maiq-scope] .maiq-about-main>.maiq-about-section .maiq-about-quote{padding:24px 0 0}
+  [data-maiq-scope] .maiq-about-main>.maiq-about-section .maiq-about-quote-mark--open{left:-96px}
+  [data-maiq-scope] .maiq-about-main>.maiq-about-section .maiq-about-quote-mark--close{right:-96px}
+  [data-maiq-scope] .maiq-about-main>.maiq-about-section .maiq-about-quote-p{font-size:max(19px, calc(12px / var(--uf,1)))}
+  [data-maiq-scope] .maiq-about-main>.maiq-about-section .maiq-about-founders-label,
+  [data-maiq-scope] .maiq-about-main>.maiq-about-section .maiq-about-founder-role{font-size:max(12px, calc(12px / var(--uf,1)))}
+  [data-maiq-scope] .maiq-about-main>.maiq-about-section .maiq-about-founder-name{font-size:max(16px, calc(12px / var(--uf,1)))}
 }

@@ -71,7 +71,9 @@ fixo, hero, e a orquestração de rolagem. As seções em ordem de leitura:
 2. **Nossa Plataforma** — `maiq/PlatformShowcase.tsx` (4 funcionalidades com timer de 15s,
    progresso, modal ampliar/reduzir; um vídeo MP4 por funcionalidade e por tema em
    `src/assets/plataforma/` — a antiga cena programada `maiq/vdr/` foi excluída em 24/09/2026)
-3. **Nosso Modelo** — hélice de DNA, textos laterais em hover, odômetro de 3 números
+3. **Nosso Modelo** — Venn de duas pílulas (710×308px, `VENN_W`/`VENN_H` no componente; a
+   geometria do hover deriva deles) com hélice de DNA na interseção, textos laterais em hover,
+   odômetro de 3 números. A faixa de logos de LLMs foi removida em 30/09/2026
 4. **Nossa Convicção** — `sections/Conviccao.tsx` + `maiq/ConvictionScene.tsx` (vídeos
    "Valor na mesa", claro/escuro, play/pause, ±5s, troca de tema sem reiniciar); termina com
    `maiq/TeamMarquee.tsx` (label + marquee de logos de empresas), que **não é mais uma seção
@@ -98,7 +100,19 @@ pendente no roadmap).
 A página usa uma pilha de revelação (`maiq-scroll-stack`, `maiq-platform-base`,
 `maiq-primary-overlay`, `maiq-final-reveal-stage`, `maiq-*-hold`) com refs e medição em
 `useEffect`. Blocos `sticky` sobrepõem-se conforme o scroll, e `goToSection()` compensa o
-header e as bases sticky. **Mexer em `position`, `z-index`, `min-height` ou padding dessas
+header e as bases sticky.
+
+**Enquadramento (desktop e tablet, ≥761px):** antes de qualquer ajuste de altura, posição ou
+tamanho na Home, ler `docs/diretriz-enquadramento-home.md` (regras base, fichas por seção e
+decisões em aberto). Estado atual (01/10/2026): Hero, Nosso Modelo, Nossa Convicção, Nossa
+Plataforma e Nossa Perspectiva seguem o quadro proporcional da diretriz — cada elemento numa faixa em %
+da tela 1440×900, com o conteúdo em px de projeto reduzido por `zoom: var(--uf)` (`--u`/`--uf` vêm só
+do tamanho da janela). Falta o FAQ. Abaixo de 560px de altura a Home vai para a rolagem contínua
+(`data-maiq-layout="flat"`, o mesmo modo do celular deitado). Não reintroduzir reduções por altura em
+peças isoladas (degraus de `max-height`, espaços em `vh`): isso quebra a proporção. As folgas da pilha
+(respiro do Hero, margens internas dos blocos, pausa da Plataforma) ficam em `STACK_GAPS`, em % da tela. Código que grava
+em estilo medidas tiradas de `getBoundingClientRect` dentro de uma seção reduzida precisa dividir pelo
+zoom dela (ver `setupDna`). **Mexer em `position`, `z-index`, `min-height` ou padding dessas
 divs quebra a sequência de revelação** — testar a página inteira depois de qualquer ajuste
 estrutural.
 
@@ -133,7 +147,7 @@ esse padrão em vez de criar classe nova.
 Duas formas convivem, e a diferença importa:
 
 - **Arquivos reais** no repo (import normal, `import x from '@/assets/x.png'`): `logo-maiq-*.png`,
-  `tool-*.webp`, assinaturas e, desde 24/09/2026, toda a mídia de produção da home:
+  assinaturas e, desde 24/09/2026, toda a mídia de produção da home:
   `plataforma/*.mp4` (8 vídeos, funcionalidade × tema), `conviccao/*` (vídeos + capas) e
   `logos/*-{noite,dia}.webp` (carrossel). Favicon completo em `public/`.
 - **Origem da mídia:** `referencias/midias-origem/` (fora do git) guarda os arquivos

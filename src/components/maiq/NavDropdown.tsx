@@ -11,7 +11,7 @@ type NavDropdownItem = {
    * fadeout nas pontas, usada para indicar troca de página (não de seção). */
   separatorVariant?: 'solid' | 'fade';
   /** Item (e seu separador, se houver) só aparece em `--mobile-auth`
-   * (ver `@media(max-width:430px)` em maiq.css) — usado pelo menu compacto
+   * (ver `@media(max-width:520px)` em maiq.css) — usado pelo menu compacto
    * do SiteHeader para "Entrar"/"Conta" e "Fale Conosco". */
   mobileOnly?: boolean;
   /** Item que leva a outra página (não a uma seção da Home) — ganha peso de

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from '@tanstack/react-router';
 import type { User } from '@supabase/supabase-js';
 
@@ -28,6 +28,18 @@ export default function SobreNos() {
   const [user, setUser] = useState<User | null>(supabaseUser);
   useEffect(() => setUser(supabaseUser), [supabaseUser]);
   const navigate = useNavigate();
+  // Fator do quadro proporcional (--uf, sem unidade), o mesmo da Home: "Nossa Identidade" é
+  // desenhada em 1440×900 e reduzida por zoom (maiq.css). Só depende do tamanho da janela.
+  const scopeRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const setUf = () => {
+      const uf = Math.min(window.innerHeight / 900, window.innerWidth / 1440, 1);
+      scopeRef.current?.style.setProperty('--uf', uf.toFixed(4));
+    };
+    setUf();
+    window.addEventListener('resize', setUf);
+    return () => window.removeEventListener('resize', setUf);
+  }, []);
 
   const goHomeSection = (id: string) => {
     void navigate({ to: '/', state: { secao: id } });
@@ -35,6 +47,7 @@ export default function SobreNos() {
 
   return (
     <div
+      ref={scopeRef}
       data-maiq-scope=""
       data-theme={dia ? 'claro' : undefined}
       style={{

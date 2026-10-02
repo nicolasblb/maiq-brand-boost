@@ -1,3 +1,4 @@
+import { Link } from '@tanstack/react-router';
 import ConvictionScene from '@/components/maiq/ConvictionScene';
 import TeamMarquee from '@/components/maiq/TeamMarquee';
 
@@ -23,8 +24,12 @@ export default function Conviccao() {
               levariam décadas para serem construídas internamente.
             </p>
             <p>
-              Para isso, organização e método para reduzir incertezas é fator fundamental.
+              Nesse sentido, organização e experiência prática são fatores fundamentais para reduzir incertezas.
             </p>
+            <Link to="/sobre-nos" className="maiq-conviction-cta">
+              Mais Detalhes
+              <span aria-hidden="true">→</span>
+            </Link>
           </div>
           <ConvictionScene />
         </div>

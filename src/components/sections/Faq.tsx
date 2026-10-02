@@ -7,12 +7,12 @@ const FAQ_ITEMS = [
   {
     question: 'Para quais empresas o Maiq é indicado?',
     answer:
-      'Atuamos com médias empresas que enxergam fusões e aquisições como parte de uma estratégia contínua de crescimento, consolidação ou sucessão.',
+      'Nosso foco é atender as médias empresas do Brasil. Somos coordenadores de Fusões & Aquisições, sendo assim, apoiamos continuamente empresários que querem explorar as oportunidades do crescimento inorgânico.',
   },
   {
     question: 'Em quais etapas de M&A o Maiq atua?',
     answer:
-      'Acompanhamos toda a jornada: definição da tese, originação de oportunidades, avaliação, negociação, diligência e preparação para a integração.',
+      'Acompanhamos toda a jornada: definição da tese, originação de oportunidades, avaliação, negociação, diligência, preparação e execução do processo de integração.',
   },
   {
     question: 'Como a tecnologia participa do processo?',
@@ -45,7 +45,7 @@ export default function Faq({ onContact }: FaqProps) {
         <div className="maiq-faq-intro">
           <h2 id={`${sectionId}-title`}>FAQ</h2>
           <p className="maiq-faq-sub maiq-section-subhead">
-            Respostas às perguntas frequentes{' '}
+            Perguntas frequentes{' '}
             <br className="maiq-faq-sub-break" />
             sobre a atuação do Maiq
           </p>

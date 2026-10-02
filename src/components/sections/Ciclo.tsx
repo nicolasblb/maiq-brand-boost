@@ -406,6 +406,9 @@ const MIN_CROP = 890;
 const AR = 525 / 1400;
 const ARC = 525 / 1163;
 const CYCLE_FRAME_PAD = 32;
+// Altura de projeto do quadro no desktop e tablet (ver layout() do quadro principal)
+const CYCLE_DESIGN_H = 460;
+const FIT_QUERY = typeof window !== 'undefined' ? window.matchMedia('(min-width:761px)') : { matches: false };
 
 type CycleFit = { mode: 'full' | 'crop'; width: number; height: number; viewBox: string };
 
@@ -493,27 +496,32 @@ function attachCycleScrollControls(sc: HTMLDivElement) {
 
 // Ciclo compacto mobile (abaixo de 760px): 4 pílulas nos cantos de um
 // retângulo, um ponto luminoso percorrendo o perímetro no sentido horário e o
-// botão "Ver fluxo completo" no centro. Geometria fixa em 342x360 (escalada
-// por --flow-k para caber na largura disponível).
+// botão "Ver fluxo completo" no centro. Geometria fixa num quadro de 342x360 (escalado
+// por --flow-k para caber na largura disponível). Desde 02/10/2026 a forma tem 288px de
+// altura (20% a menos): só as laterais encurtaram (312 → 240px), as pílulas de cima ficam
+// no lugar e as de baixo sobem; o quadro segue com 360px, mantendo a altura da seção.
 // Mesma condição do CSS (.maiq-cycle-frame/.maiq-cycle-mobile): celular em
 // pé ou deitado. Deitado, a largura passa de 760px mas o diagrama completo não
 // cabe na altura — ele só aparece pelo botão, em tela cheia.
 const CYCLE_MOBILE_QUERY = '(max-width:760px), (orientation:landscape) and (max-height:500px) and (pointer:coarse)';
 const FLOW_W = 342;
 const FLOW_H = 360;
-const FLOW_L = 1036;
-const FLOW_C = [0, 206, 518, 724];
+const FLOW_SIDE = 240; // laterais do percurso (centro das pílulas de cima ao das de baixo)
+const FLOW_BOTTOM = 24 + FLOW_SIDE;
+const FLOW_L = 2 * 206 + 2 * FLOW_SIDE;
+const FLOW_C = [0, 206, 206 + FLOW_SIDE, 412 + FLOW_SIDE];
 // Distância do centro à borda da pílula no sentido em que o ponto chega nela —
 // o pulso começa no toque da borda, quando o ponto some atrás da pílula.
 const FLOW_E = [24, 68, 24, 68];
-const FLOW_DURATION = 9000;
+// Mesma velocidade do ponto de antes (1036px em 9s): a volta encurta junto com o percurso.
+const FLOW_DURATION = Math.round((9000 * FLOW_L) / 1036);
 const FLOW_ICONS = [Target, Search, Settings, FileCheck];
 
 function flowPos(s: number): [number, number] {
   if (s < 206) return [68 + s, 24];
-  if (s < 518) return [274, 24 + s - 206];
-  if (s < 724) return [274 - (s - 518), 336];
-  return [68, 336 - (s - 724)];
+  if (s < 206 + FLOW_SIDE) return [274, 24 + s - 206];
+  if (s < 412 + FLOW_SIDE) return [274 - (s - 206 - FLOW_SIDE), FLOW_BOTTOM];
+  return [68, FLOW_BOTTOM - (s - 412 - FLOW_SIDE)];
 }
 
 function CycleFlowMobile({ onOpen }: { onOpen: () => void }) {
@@ -616,7 +624,7 @@ function CycleFlowMobile({ onOpen }: { onOpen: () => void }) {
     <div ref={wrapRef} className="maiq-cycle-flow-wrap">
       <div className="maiq-cycle-flow">
         <svg className="maiq-cycle-flow-path" width={FLOW_W} height={FLOW_H} viewBox={`0 0 ${FLOW_W} ${FLOW_H}`} aria-hidden="true">
-          <path d="M68 24 H274 V336 H68 Z" />
+          <path d={`M68 24 H274 V${FLOW_BOTTOM} H68 Z`} />
         </svg>
         <span ref={dotRef} className="maiq-cycle-flow-dot" aria-hidden="true" />
         <ol className="maiq-cycle-flow-list">
@@ -902,11 +910,15 @@ export default function Ciclo() {
     const layout = () => {
       const fases = cicloFasesRef.current;
       const availW = Math.max(240, (sc.clientWidth || sec.clientWidth - 96) - CYCLE_FRAME_PAD);
-      const availH =
-        Math.max(
-          200,
-          Math.round((window.innerHeight || 800) - (sec.getBoundingClientRect().height - sc.clientHeight) - 8)
-        ) - CYCLE_FRAME_PAD - Math.max(0, sc.offsetHeight - sc.clientHeight - 2);
+      // Desktop e tablet (≥761px): o quadro tem altura de projeto fixa (460px); quem reduz é o
+      // CSS (zoom do quadro proporcional, ver "Nossa Perspectiva" em maiq.css). Medir pela
+      // altura da tela aqui encolheria só o diagrama.
+      const availH = FIT_QUERY.matches
+        ? CYCLE_DESIGN_H - CYCLE_FRAME_PAD
+        : Math.max(
+            200,
+            Math.round((window.innerHeight || 800) - (sec.getBoundingClientRect().height - sc.clientHeight) - 8)
+          ) - CYCLE_FRAME_PAD - Math.max(0, sc.offsetHeight - sc.clientHeight - 2);
       const fit = computeCycleFit(availW, availH);
       svg.setAttribute('viewBox', fit.viewBox);
       svg.style.flex = '0 0 auto';
@@ -1036,6 +1048,7 @@ export default function Ciclo() {
       }}
     >
       <div
+        className="maiq-cycle-inner"
         style={{
           width: '100%',
           maxWidth: 1200,
@@ -1068,10 +1081,8 @@ export default function Ciclo() {
               textWrap: 'pretty',
             }}
           >
-            Prontidão é chave.
-            <br />
-            Entendemos M&A como disciplina contínua de gestão,<span className="maiq-subhead-break maiq-subhead-break-perspective" aria-hidden="true" />
-            pois o processo não termina na assinatura de um contrato.
+            Prontidão é chave. O M&A não termina na assinatura de um contrato,<span className="maiq-subhead-break maiq-subhead-break-perspective" aria-hidden="true" />
+            deve ser uma disciplina contínua de gestão.
           </p>
         </div>
         <div
@@ -1155,7 +1166,7 @@ export default function Ciclo() {
               size="sm"
               aria-label="Fechar fluxo completo"
               title="Fechar"
-              className="maiq-cycle-modal-close"
+              className="maiq-media-icon-button maiq-cycle-modal-close"
               onClick={closeFullscreen}
             >
               <Minimize2 size={17} />

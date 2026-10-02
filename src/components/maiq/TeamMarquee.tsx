@@ -73,8 +73,8 @@ export default function TeamMarquee() {
   return (
     <div ref={bandRef} className="maiq-team-band">
       <p id="team-marquee-label" className="maiq-team-band-label">
-        Experiências de nossos especialistas<span className="maiq-subhead-break maiq-subhead-break-team" aria-hidden="true" />
-        que endossam este conceito
+        Experiências práticas<span className="maiq-subhead-break maiq-subhead-break-team" aria-hidden="true" />
+        de nossos especialistas
       </p>
       <span className="maiq-team-band-divider" aria-hidden="true" />
       <div className="maiq-team-marquee" aria-labelledby="team-marquee-label">

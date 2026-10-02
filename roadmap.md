@@ -782,3 +782,330 @@ Não se aplica ao Hero nem ao celular.
   centralizado, proporções preservadas.
 - FAQ: topo de 115px, viabilizado pelo rodapé desktop da home compactado
   (padding 18px/14px).
+
+## Hero — distribuição vertical no desktop e tablet (30/09/2026)
+
+Primeira seção da revisão de enquadramento vertical feita por aqui (a tentativa pelo Lovable não
+chegou ao resultado esperado). Vale só para ≥761px de largura e ≥501px de altura: o celular, em
+pé ou deitado, ficou idêntico (conferido medida a medida contra a versão anterior).
+
+- [x] Divisória longa entre título e subtítulo removida.
+- [x] Subtítulo com a fonte dos demais subtítulos da página (`clamp(15.2px,1.68vw,23px)`, a mesma
+      de `.maiq-section-subhead`) e a 14px do título, como em "Nosso Modelo". Linha única sempre
+      que cabe; se não couber, quebra exatamente depois de "tecnologia" (duas metades com
+      `white-space:nowrap`, `.maiq-hero-subhead-part`). Coube em linha única em todos os tamanhos
+      testados (761px a 1920px).
+- [x] Divisória curta com a largura da antiga divisória longa (`clamp(120px,18vw,260px)`).
+- [x] Conteúdo centralizado na área livre de fato: as margens descontam o header flutuante (84px
+      do topo) e a borda da camada seguinte, que invade 24px da base. Dois grupos: título +
+      subtítulo, e rótulo + chips, com a divisória a espaço igual dos dois lados
+      (`clamp(36px,7vh,80px)`). Título→header / chips→borda: 1280×720 de 63/74 para 114/114;
+      1366×768 de 95/65 para 129/129; 1440×900 181/181; tablet 820×1180 334/334.
+
+- [x] **Revisão no mesmo dia:** a divisória longa voltou entre o título e o subtítulo. Para
+      caber, o espaço de cada lado da divisória curta caiu pela metade
+      (`clamp(36px,7vh,80px)` → `clamp(18px,3.5vh,40px)`), e o mesmo espaço passou a valer antes e
+      depois da divisória longa. O hero fica com um ritmo único (título, divisória, subtítulo,
+      divisória, rótulo) e as duas divisórias com a mesma largura. No 1440×900 são 32px de cada
+      lado; o conteúdo segue centralizado na área livre (1280×720: 121/121; 1440×900: 188/188) e
+      o celular segue idêntico à versão original. Isso substitui os itens "divisória longa
+      removida" e "subtítulo a 14px do título" acima.
+
+Regras em `maiq.css` logo após a de altura curta do hero (`@media (min-width:761px) and
+(min-height:501px)`); classes novas no markup de `PaginaInstitucional.tsx`. Varredura completa de
+scroll (390×844 e 1400×900, dois temas) sem erro; `tsc` limpo.
+
+## Nosso Modelo — enquadramento e formas centrais (30/09/2026)
+
+Segunda seção da revisão de enquadramento vertical (desktop e tablet, ≥761px × ≥501px).
+
+- [x] **Formas centrais recomeçadas da configuração anterior ao Lovable** (pílulas de 360px, a
+      mesma de antes da rodada de 30/09 que as reduziu para 280px) e **reduzidas 10%: 360px →
+      324px** (raio 162px), com largura e sobreposição mantidas. Círculos da lente recalculados
+      (centros em x=376 e x=460). A hélice, compartilhada com o layout do celular, fica a 90% no
+      centro da lente (`.maiq-venn-helix`), na mesma proporção de antes.
+- [x] **Conteúdo das pílulas realocado:** o espaço entre o bloco do título e as linhas caiu de 24px
+      para 20px, e o respiro das linhas de 13px para 11px (bloco de 262px para ~246px, centralizado).
+      Com as novas posições, a curva nas linhas dá praticamente os mesmos valores de antes,
+      então os recuos em escada (25/31/52px) seguem acompanhando o contorno.
+- [x] **Bug corrigido de passagem:** o JavaScript do hover (máscara arredondada, deslocamento e
+      pontos luminosos) usava o raio 180 fixo. A versão do Lovable reduziu as formas sem atualizar
+      esse cálculo. Agora deriva de `VENN_H`/`VENN_R`.
+- [x] **Faixa de logos dos LLMs removida por completo**, também no celular (markup, imports, CSS e
+      os 6 arquivos `tool-*.webp`).
+- [x] **Topo ~108px e base ~18px** (`clamp(100px,12vh,124px)` / `clamp(14px,2vh,24px)`), com a seção
+      saindo do bloco genérico de 115/28px do Lovable. Para as margens aparecerem de fato na tela,
+      o conteúdo passou a ocupar a altura inteira: título e subtítulo presos ao topo, números
+      presos à base e o Venn centralizado entre eles. Antes, a seção centralizava um bloco baixo
+      e sobravam ~135px embaixo.
+- [x] **Redução das formas por altura só em telas baixas** (≤680px → 86%, ≤600px → 74%). Os
+      cortes antigos (940px/840px) existiam para caber a faixa de logos; sem ela, as formas cabem
+      em tamanho cheio até 720px de altura. Medido: 1440×900 → 108/18px, Venn 324px; 1280×720 →
+      100/14px, Venn 324px.
+
+- [x] **Revisão no mesmo dia (margens como mínimos e formas mais estreitas):**
+      - Topo e base passam a ser **mínimos fixos** (108px / 20px). Em telas maiores o conteúdo
+        fica compacto e centralizado (espaços internos `clamp(20px,4.5vh,48px)`); a distribuição
+        pela altura toda (space-between) saiu. O print do usuário era de uma área útil de
+        ~1536×703 (zoom de 125%), em que a base proporcional anterior (`2vh`) caía para 14px.
+      - Venn com **largura −15% e altura −5%**: 836×324 → 710×308 (pílulas de 457px, raio 154,
+        sobreposição 240 → 204). Lente: círculos centrados em x=303 e x=407. Hélice a 85% no
+        centro da lente, na mesma proporção da versão antiga. Fontes mantidas: as colunas de
+        texto perderam os 45px da forma, com a mesma distância de 13px até a interseção (linhas
+        206/201/188px, recuos 25/31/52px).
+      - Em telas baixas o Venn encolhe em **degraus de 20px de altura** (700px → 95% até
+        530px → 45%, calculados para caber entre as margens). Os dois degraus anteriores (680/600)
+        eram largos demais: no 1440×640 a base caía para 14px.
+      - Colunas dos textos de hover com `contain:size` e `align-self:stretch`: invisíveis até o
+        hover, elas ficavam mais altas que o Venn reduzido e empurravam os números (1366×560).
+      - **Números da base 15% menores** no desktop e no tablet (`clamp(32px,3.57vw,49px)`); "R$" e
+        "M" acompanham, por serem 50% do número.
+      - Medido pelo menu "Home → Nosso Modelo": 1536×703 → título a 111px, texto dos números a
+        24px da base; 1920×1080 → 199px abaixo do header e 197px acima da base (centralizado);
+        alturas de 520px a 720px com a base sempre entre 24px e 37px. Celular inalterado.
+- [x] **Base mínima de 20px → 40px** (pedido do usuário). Degraus de redução do Venn recalculados
+      para 148px de margens: tamanho cheio a partir de ~718px de altura, e de 720px (94%) até 530px
+      (36%). Medido pelo menu: 1536×703 → base 43px (Venn a 94%); 1440×900 → 124px (centralizado);
+      alturas de 520px a 720px com a base entre 43px e 56px.
+- [x] **Base mínima de 40px → 65px** (pedido do usuário). Degraus recalculados para 173px de
+      margens: tamanho cheio a partir de ~745px de altura, e de 760px (98%) até 530px (27%).
+      Medido pelo menu: 1536×703 → base 69px, Venn a 86% (611×265); 1366×768 → 77px, Venn cheio;
+      1440×900 → 137px (centralizado). Nas alturas baixas o Venn fica pequeno: 1440×640 → 447px de
+      largura; 1366×560 → 256px; 1280×520 → 192px.
+
+Hover conferido (máscara e pontos alinhados à nova curva), sem rolagem lateral em 1024×768,
+celular sem erro. Varredura completa de scroll (390×844 e 1400×900, dois temas) limpa; `tsc` limpo.
+
+### Nossa Convicção — base mínima de 65px (30/09/2026)
+
+- [x] **Mesma lógica de "Nosso Modelo"** no desktop e tablet largo (≥801px × ≥501px; celular,
+      tablet em pé e modo deitado inalterados). Seção retirada do bloco genérico de 115/28px do
+      Lovable (a faixa de 769–800px mantém esses valores).
+      - Topo mínimo de 115px e **base mínima de 65px até as logos** do carrossel (padding de 54px:
+        a faixa tem 64px com logos de 32–42px centralizadas).
+      - A seção ocupa a tela (`min-height:100vh`) com o conteúdo compacto e centralizado; os dois
+        espaços internos seguem `clamp(16px, 7vh − 29px, 56px)`.
+      - O vídeo encolhe com a altura **mantendo 16:9, sem corte** (antes, abaixo de 860px, era fixado
+        em 42vh com `object-fit:cover`, cortando as bordas). O texto ao lado mantém a largura de 380px
+        e, abaixo de 700/660/620px de altura, a fonte cai para 16/15/14px.
+      - Medido pelo menu "Home → Nossa Convicção": 1536×703 → logos a 65px da base (vídeo 520×293);
+        1366×768 → 66px; 1440×900 → 86px (centralizado); 1920×1080 → 163px (centralizado); de 600px a
+        760px de altura, sempre entre 65px e 69px. Abaixo de ~600px o texto é o piso e a base encolhe
+        (1366×560 → 26px). Varredura de scroll (390×844 e 1400×900, dois temas) limpa; `tsc` limpo.
+
+### Correções — menu no celular de 440px e subtítulo do hero (01/10/2026)
+
+- [x] **Menu quebrado no celular** (print de um usuário em Miami, iPhone de 440px de largura — 16/17
+      Pro Max). O cabeçalho só trocava para a versão celular (sem a pílula "Entrar | Fale Conosco") até
+      430px; acima disso mostrava a versão tablet, que com a logo precisa de ~487px de tela — a logo
+      ficava embaixo da pílula. O "Nosso Modelo" já usava a versão celular porque troca em 760px, daí a
+      mistura. Localização não tem relação. Limite elevado para **520px** (`maiq.css`, folga para
+      textos maiores); "Entrar"/"Fale Conosco" passam para dentro do menu ☰ até essa largura.
+      Conferido de 430 a 700px com a página rolada (logo no cabeçalho), sem sobreposição.
+- [x] **Subtítulo do hero voltava a ficar grande abaixo de 761px**: a escala menor (igual aos demais
+      subtítulos, `clamp(15.2px,1.68vw,23px)`) só existia no bloco de desktop/tablet; fora dele valia a
+      original de 24–41px. A escala virou a regra base, válida em todas as larguras (15,2px no celular).
+      No celular de 390px o subtítulo ocupa duas linhas, quebrando depois de "tecnologia".
+
+### Home — enquadramento padrão e redução proporcional (01/10/2026)
+
+- [x] **Margens mínimas de "Nosso Modelo" viram o padrão** de todas as seções da Home, exceto o FAQ
+      (ajuste individual depois), no desktop e no tablet (≥761px): **108px no topo e 65px na base**.
+      Hero desconta os 24px da camada seguinte (padding 89px); a Convicção mede a base até as logos
+      (padding 54px). Plataforma e Perspectiva saíram do bloco genérico de 115/28–30px do Lovable.
+- [x] **Redução proporcional na vertical.** Antes cada seção reduzia uma peça (as pílulas no Modelo,
+      em 12 degraus só acima de 931px de largura; o vídeo e a fonte na Convicção; o quadro na
+      Perspectiva) e o resto ficava no tamanho cheio — nos prints do usuário, 911×512 com o Venn
+      grande demais e 943×549 com o Venn a 36%. Agora o conteúdo tem tamanho de projeto fixo (espaços
+      equivalentes a uma tela de ~900px; cartão da Plataforma com 460px; quadro da Perspectiva com
+      460px) e, quando não cabe entre as margens, a **seção inteira reduz por igual com `zoom`**
+      (`_fitZoom` em `PaginaInstitucional.tsx`). Os degraus antigos foram removidos.
+- [x] **Venn por largura em escala contínua** (antes degraus em 930/750/620px), cheio a partir de ~1180px.
+- [x] **Rolagem contínua em janelas baixas.** Se alguma seção precisar de menos de 70%, a Home passa
+      para o modo "flat" (o mesmo do celular deitado) com o conteúdo em tamanho cheio; volta à pilha
+      quando todas cabem a ≥73% (folga contra ida e volta). Na prática, abaixo de ~650px de altura.
+- [x] **Correção: a rolagem contínua não revertia.** Um resize no meio da troca de modo cancelava os
+      timers de `_changeLayout` e a página ficava presa em "settling". Agora cada refit termina
+      conferindo o modo desejado e conclui a troca. Testado arrastando de 943×549 a 1440×900, de volta
+      a 1440×560 e com ida e volta rápida: estado final igual ao de uma página aberta do zero.
+- [x] **Correção: menu em rolagem contínua** levava "Nossa Plataforma" para o lugar errado (usava o
+      marcador da pilha, oculto nesse modo — afetava também o celular deitado). Agora o título para a
+      108px do topo.
+- [x] Medido pelo menu (topo/base do conteúdo): 1536×703, 1366×657, 1280×720 → todas as seções
+      exatamente em 108/65px (Convicção 108/54 até a caixa, 65 até as logos), com zoom de 0,71 a 0,95;
+      1440×900 e 1920×1080 sem redução, centralizadas; tablets 768×1024 e 820×1180 sem redução (só a
+      Convicção a 0,95 em 768px). Hover do Venn conferido com a seção reduzida. Varredura de scroll
+      (390×844, 1400×900 nos dois temas, 1536×703, 943×549 em rolagem contínua, 820×1180) limpa.
+      Celular inalterado.
+
+### Menu Home — navegação até as seções (01/10/2026)
+
+- [x] **Vindo de outra página, a navegação era desfeita.** Do menu Home em /insights (ou outra página),
+      a Home rolava até a seção e, ~6ms depois, o TanStack Router devolvia a página ao topo (reset de
+      scroll da troca de rota). Corrida de tempo: em 1536×703 a Home ficava sempre no topo; em outras
+      telas às vezes funcionava.
+- [x] **Conferência do enquadramento ao fim da rolagem** (`goToSection`): quando a rolagem para, o
+      destino é recalculado com o layout do momento e, se estiver a mais de 2px, a rolagem é completada
+      (até 3 correções). Cobre o reset do roteador, fontes terminando de carregar e o enquadramento
+      proporcional se refazendo no meio do caminho. Qualquer rolagem do usuário (roda, toque, teclado,
+      clique) cancela a conferência. O cálculo do destino virou `sectionScrollTarget`.
+- [x] Medido pelo menu, em sequências de 10 navegações entre todas as seções e vindo de /insights:
+      1920×1080, 1536×703, 1440×900, 1366×657, 1280×720, 1024×768, 820×1180 e 943×549 (rolagem contínua)
+      sempre no enquadramento (topo do conteúdo a 108px, ou centralizado nas telas altas). Celular
+      inalterado. Varredura de scroll limpa.
+
+### Hero — piloto da reestruturação por faixas percentuais (01/10/2026)
+
+- [x] **Diretriz criada:** `docs/diretriz-enquadramento-home.md` (regras base, fichas por seção,
+      decisões em aberto). Todo ajuste de enquadramento da Home parte dela.
+- [x] **Hero reestruturado** a partir da tabela do usuário (faixas em % de 1440×900): unidade de
+      quadro `--u` (menor eixo, teto de 1px), tamanhos e posições em u, quadro centralizado, piso de
+      12px no rótulo e nos chips. Encaixe em CSS puro (contínuo no redimensionamento); Hero fora do
+      `_fitZoom`. Faixas idênticas à tabela em 1440×900; em 1536×703 e 1366×657 até 0,6% de desvio
+      nos chips (piso de 12px). Tablet em pé fica pequeno com altura sobrando (decisão D2 pendente).
+      Varredura de scroll e navegação pelo menu limpas; celular inalterado.
+- [x] **Ajustes após o teste do usuário:** folga de 3px nas faixas de chips (com altura fracionária, o
+      corte da faixa comia a borda inferior dos chips em alguns tamanhos); tooltip do botão noite/dia
+      ficava aberto depois do clique (o clique redesenha o botão sob o cursor e o mouseleave nem sempre
+      chega) — agora fecha no clique e só reabre quando o mouse sai e volta.
+
+### Nosso Modelo — reestruturação por faixas percentuais (01/10/2026)
+
+- [x] Tabela do usuário aplicada (espaços de 5%, Venn 15,5% menor com a proporção mantida, colunas
+      dos números em 15–35/40–60/65–85%, rótulos a 15px). Conteúdo interno em px do quadro de
+      referência, reduzido inteiro por `zoom: var(--uf)` (fator da janela, sem medição de conteúdo,
+      atualizado a cada resize). Hover do Venn lendo o zoom real da seção. Fora do `_fitZoom`.
+- [x] Faixas a até 0,1% da tabela em 1440×900, 1536×703 e 1366×657. Hover, navegação pelo menu e
+      varredura de scroll conferidos; celular inalterado.
+- [x] **Espaços medidos pelas letras:** o espaço título → subtítulo era 5% pela área da fonte, mas 7,4%
+      visuais (folga de 13px abaixo de "Nosso Modelo"). Ajustado para 5% entre as letras; Venn, números
+      e rótulos subiram junto (5% visuais também até o Venn e até os números); margem inferior visual
+      de 17,9%. Convenção registrada na diretriz (R2): textos se medem pelo desenho das letras.
+- [x] **Rolagem contínua só abaixo de 560px de altura** (diretriz, D4). Em 1192×642 (print do usuário),
+      1440×640 e 1280×600 a Home caía na rolagem contínua porque "Nossa Plataforma", ainda no `_fitZoom`,
+      precisava de menos de 70% — e o "Nosso Modelo" voltava ao tamanho cheio antigo, com o Venn grande e
+      os números cortados. Agora a decisão depende só da altura da janela; as seções ainda não migradas
+      podem reduzir abaixo de 70% (Plataforma a 57% em 1366×560) até serem reestruturadas.
+
+### Nossa Convicção — reestruturação por faixas percentuais (01/10/2026)
+
+- [x] Primeira seção medida e especificada pela convenção visual (letras). Tabela do usuário aplicada:
+      título e subtítulo alinhados aos de "Nosso Modelo"; vídeo menor (576×324 na referência, 16:9);
+      coluna de texto e vídeo deslocados para 13,8–85%; rótulo centralizado em 40–60% (2 linhas);
+      carrossel em 20–80% com logos 14% menores. Mesmo modelo do Modelo (px de referência + zoom
+      var(--uf)); fora do `_fitZoom`.
+- [x] Faixas a até 0,2% da tabela em 1440×900, 1536×703 e 1192×642, com dois desvios registrados na
+      ficha (coluna de texto +2,6px para manter 3 linhas; rótulo em 2 linhas empurra as logos). Rótulo
+      com largura em `em` (não quebra em 3 linhas com o piso de 12px). Navegação e varredura limpas.
+
+### Nossa Plataforma — reestruturação por faixas percentuais (01/10/2026)
+
+- [x] Tabela vertical do usuário aplicada (título e subtítulo alinhados às demais seções, cartão 18,2%
+      mais baixo); horizontais redistribuídas proporcionalmente (cartão 19,9–80,1%). Mesmo modelo das
+      seções anteriores; fora do `_fitZoom` (que agora só mede "Nossa Perspectiva").
+- [x] Faixas a até 0,1% da tabela em 1440×900, 1536×703, 1192×642 e 1366×560. Navegação, varredura de
+      scroll e troca de modo conferidas.
+- [ ] Abas e itens do cartão ficam abaixo do piso de 12px em telas baixas — avaliar com o usuário.
+
+### Nossa Perspectiva — reestruturação por faixas percentuais (01/10/2026)
+
+- [x] Subtítulo novo: "Prontidão é chave. O M&A não termina na assinatura de um contrato, deve ser uma
+      disciplina contínua de gestão." (1 linha a partir de 943px; quebra após "contrato," abaixo de 820px).
+- [x] Tabela vertical do usuário aplicada (título 20,4%, subtítulo 30,1–32,5%, quadro 37,5–84,0%). O
+      quadro reduz como um bloco (`zoom: .9118` sobre o desenho de projeto 1200×459), mantendo o
+      diagrama inteiro sem arrastar. Fora do `_fitZoom`, que fica sem seções até o FAQ.
+- [x] Faixas conferidas em 1440×900, 1536×703, 1192×642 e 1366×560; navegação, varredura de scroll e
+      troca de modo limpas.
+- [ ] Texto das pílulas abaixo do piso de 12px fora da referência (9,8px em 1536×703) — avaliar junto
+      com o da Plataforma.
+
+### Faixa 761–1023px — conflitos com o quadro proporcional (01/10/2026)
+
+- [x] Regras antigas de tablet/celular continuavam ativas por baixo do quadro proporcional: Convicção
+      empilhava texto e vídeo (≤800px, caso relatado em 779×590), o cartão da Plataforma virava coluna
+      (≤1023px), subtítulos de Modelo e Perspectiva quebravam em 2 linhas (≤820px), logos do carrossel
+      encolhiam (≤800px e `vw`) e o título das funcionalidades reduzia por `vw`. Restaurado o desenho de
+      1440×900 só na pilha (flat e celular sem mudança).
+- [x] Varredura de 761 a 1440px comparando cada seção com a referência: restam só os crescimentos do
+      piso de 12px (chips do Hero, rótulos do odômetro e do carrossel), que são intencionais (R4).
+
+### Ajustes de texto (01/10/2026)
+
+- [x] Nosso Modelo: hover esquerdo "Conjugamos experiências em mercado de capitais, ..."; hover direito "... em um
+      fluxo seguro de decisão informada".
+- [x] Nossa Convicção: 3º parágrafo "Para isso, organização e experiência prática são fatores fundamentais,
+      reduzindo as incertezas da jornada." (passa a 3 linhas); rótulo do carrossel "Experiências práticas de
+      nossos especialistas" (passa a 1 linha em 1440×900: rótulo 78,6–80,0%, logos 81,5–85,5%).
+- [x] FAQ: subtítulo "Perguntas frequentes sobre a atuação do Maiq"; respostas 1 e 2 reescritas.
+
+### Nossa Convicção — vídeos V3 (01/10/2026)
+
+- [x] `maiq-valor-na-mesa-{claro,escuro}-V3.mp4` (referencias/midias-origem/Animções MQ) copiados sobre
+      `src/assets/conviccao/valor-na-mesa-{claro,noite}.mp4` sem recodificar: já vêm em H.264 1920×1080,
+      ~610 kb/s, com o índice no início (mesmo padrão dos anteriores). Capas regeneradas do 1º quadro.
+      Nomes mantidos, então nenhum import muda; os 4 arquivos entram no próximo commit.
+
+### Nossa Convicção — CTA "Mais Detalhes" e linha decorativa (01/10/2026)
+
+- [x] CTA "Mais Detalhes" abaixo do texto, link para `/sobre-nos` (visual do botão primário, igual ao do FAQ). Para caber
+      ao lado do vídeo, o texto foi a 16px (quebras 3/4/3 mantidas); vídeo centralizado na coluna, rótulo
+      e logos ~1,4% mais baixos. Faixas na ficha da diretriz. Aguardando validação visual.
+- [x] Linha decorativa vertical sumia em alguns tamanhos (1px reduzido pelo zoom ficava abaixo de 1px).
+      Agora compensa o zoom e mantém 1px real em todas as larguras.
+
+### Pilha de rolagem — folgas entre os blocos (01/10/2026)
+
+- [x] Respiro de 5% antes de o bloco 1 subir sobre o Hero; margens internas dos cartões (desktop/tablet:
+      bloco 1 5% + 15%, bloco 2 10% + 15%; celular, revisto duas vezes: bloco 1 15% + Modelo + 15% +
+      Convicção + 25%, com o espaço entre as seções dentro do mesmo fundo contínuo; bloco 2 15% + 15%); pausa da Plataforma de 130%
+      (celular 125%), ou seja, 30% (25%) de tela com ela inteira e parada entre os blocos. Menu "Nossa Plataforma"
+      para no meio da pausa. Valores em `STACK_GAPS` (PaginaInstitucional.tsx); ficha na diretriz.
+- [x] Varredura de scroll (celular, desktop nos dois temas, rolagem contínua), navegação pelo menu e troca
+      de modo conferidas. Aguardando validação visual.
+
+### Nosso Modelo — faixa da contagem dos números (01/10/2026)
+
+- [x] A contagem passou a se medir pela linha dos números (antes, pelo topo da seção, e quase toda a
+      contagem acontecia fora da tela; no celular, inteira). Começa quando os números entram pela base e
+      termina com o topo deles a 85% da tela (desktop/tablet) ou 70% (celular) — revisto de 80%/65%. Valores em `ODO_RANGE`
+      (`setupOdometers`). Continua reversível.
+
+### Nossa Convicção — 3º parágrafo (01/10/2026)
+
+- [x] "Nesse sentido, organização e experiência prática são fatores fundamentais para reduzir incertezas."
+      Passa de 3 para 2 linhas: coluna de texto + CTA fica com a altura do vídeo (36,9–72,9%) e rótulo e
+      logos sobem ~2,8% (logos 80,1–84,1%).
+
+### Sobre nós — "Nossa Identidade" no quadro proporcional (01/10/2026)
+
+- [x] Quadro deitado (desenho de 1440×900) para toda tela ≥761px, com zoom por `--uf` e piso de 12px
+      nos textos menores; seção ocupa a primeira tela. Medida pela convenção visual (ficha na diretriz).
+- [x] Faixas de 1440×900 mantidas como estavam (decisão do usuário); só a responsividade aplicada.
+- [x] Nota dos fundadores com a mesma redução (títulos das duas seções iguais em qualquer tela; piso
+      de 12px nos textos pequenos).
+- [ ] Decidir sobre o quadro "em pé" para tablets em pé (hoje faixa central pequena).
+
+### Revisão de código pós-reestruturação (01/10/2026)
+
+- [x] Removido o mecanismo antigo de redução por seção do `_fitZoom` (lista vazia desde a migração de
+      todas as seções; fica só a escala do Venn na rolagem contínua), o evento `maiq:fit` do Ciclo, a
+      variável `--maiq-odo-progress` (gravada a cada quadro, sem uso) e 9 regras de CSS da Plataforma
+      para atributos `data-maiq-plat-*` que não existem mais no DOM. Sem mudança visual.
+- [ ] Opcional, adiado: agrupar o seletor da pilha repetido 68× no maiq.css; hook comum para `--uf`.
+
+### Ajustes antes do commit (02/10/2026)
+
+- [x] Nossa Perspectiva (tela cheia): botão de sair com o mesmo botão circular dos controles de mídia
+      (`maiq-media-icon-button`), em todas as larguras.
+- [x] Rótulo do carrossel da Convicção no celular: sem quebra forçada (regra de ≤640px removida), largura
+      até 80% da tela e quebra equilibrada se não couber. Uma linha de 360 a 740px.
+- [x] Nossa Plataforma no celular cortava o fim do cartão em telas baixas (ex.: 390×664, 559×592): quando
+      o conteúdo passa da altura da tela, reduz por igual até caber (`_fitNet`); quando cabe, nada muda.
+      Desktop/tablet sem mudança.
+- [x] Celular: pausa de 25% de tela com o FAQ inteiro antes de o rodapé (bloco de sobreposição) subir
+      (`faqHold` em `STACK_GAPS`). Desktop sem mudança.
+- [x] Nosso Modelo: números e rótulos centralizados sobre as respectivas linhas (desktop e celular).
+- [x] Nossa Perspectiva (celular): forma animada 20% mais baixa (288px em vez de 360px) encurtando só as
+      laterais (312 → 240px); pílulas de cima no lugar, as de baixo sobem; botão central recentralizado;
+      ponto luminoso com a mesma velocidade. Quadro externo mantido em 360px (altura da seção igual).
+- [ ] Textos internos do Venn ficam com ~8–10px em notebooks (11px na referência) — avaliar com o usuário.
