@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link, useRouterState } from '@tanstack/react-router';
 import type { User } from '@supabase/supabase-js';
 import Ciclo from '@/components/sections/Ciclo';
@@ -9,6 +9,7 @@ import Conviccao from '@/components/sections/Conviccao';
 import Faq from '@/components/sections/Faq';
 import PageLoader from '@/components/maiq/PageLoader';
 import AuthLeadDialogs from '@/components/AuthLeadDialogs';
+import DnaHelix from '@/components/maiq/DnaHelix';
 import PlatformShowcase from '@/components/maiq/PlatformShowcase';
 import SiteFooter from '@/components/maiq/SiteFooter';
 import SiteHeader from '@/components/maiq/SiteHeader';
@@ -59,40 +60,6 @@ function OdometerValue({ value, prefix = '', suffix = '' }: { value: number; pre
       {suffix ? <span className="maiq-odometer-suffix" aria-hidden="true">{suffix}</span> : null}
     </span>
   );
-}
-
-function buildHelix() {
-  const N = 26, STEP = 0.52, A = 78;
-  const lanes: React.ReactNode[] = [];
-  const MASK = 'radial-gradient(ellipse 96px 74px at 50% 50%, transparent 0%, transparent 50%, #000 100%)';
-  for (let i = 0; i < N; i++) {
-    const d = -((N - 1 - i) * STEP);
-    const rung = React.createElement('div', {
-      'data-maiq-anim': '', style: {
-        position: 'absolute', top: 'calc(50% - .75px)', left: 'calc(50% - ' + A + 'px)',
-        height: '1.5px', width: (A * 2) + 'px', background: 'var(--p-helix,rgba(159,214,210,.6))',
-        transformOrigin: '50% 50%', animation: 'maiqRung 4.5s cubic-bezier(.4,0,.6,1) infinite',
-        animationDelay: d.toFixed(3) + 's', willChange: 'transform,opacity',
-      },
-    });
-    const node = (off: number, key: string) => React.createElement('div', {
-      key, 'data-maiq-anim': '', style: {
-        position: 'absolute', top: 'calc(50% - 3px)', left: 'calc(50% - 3px)',
-        width: '6px', height: '6px', borderRadius: '50%',
-        background: 'var(--p-helix-hi,rgba(234,217,204,.92))',
-        animation: 'maiqStrand 9s cubic-bezier(.4,0,.6,1) infinite',
-        animationDelay: (d - off * 2.5).toFixed(3) + 's', willChange: 'transform,opacity',
-      },
-    });
-    lanes.push(React.createElement('div', { key: i, style: { flex: '1 0 0', position: 'relative', width: '100%' } },
-      rung, node(0, 'a'), node(1.8, 'b')));
-  }
-  return React.createElement('div', {
-    style: {
-      position: 'absolute', left: 0, top: 0, width: '240px', height: '360px',
-      display: 'flex', flexDirection: 'column', WebkitMaskImage: MASK, maskImage: MASK,
-    },
-  }, lanes);
 }
 
 function parseStyleText(text: string): Record<string, string> {
@@ -251,7 +218,6 @@ export default function PaginaInstitucional() {
   // estado mutável compartilhado entre os efeitos (equivalente aos campos da classe original)
   const S = useRef<Any>({}).current;
 
-  const helixBars = useMemo(() => buildHelix(), []);
 
   const refs = {
     scopeRef,
@@ -597,12 +563,25 @@ export default function PaginaInstitucional() {
     // valores próprios, com um espaço também entre Modelo e Convicção (`block1Between`), dentro do
     // mesmo fundo do bloco. `faqHold` é a pausa do FAQ antes do rodapé, que no celular é um bloco
     // de sobreposição próprio (no desktop o rodapé faz parte da tela do FAQ: 1 = sem pausa).
+    // `sectionBottom` (só celular) = margem inferior da Convicção e da Perspectiva, que fecham os
+    // blocos 1 e 2 — sem sobra extra abaixo delas (02/10/2026).
     // Ver docs/diretriz-enquadramento-home.md, ficha "Pilha de rolagem".
     const STACK_GAPS = {
       desktop: { heroBreath: 0.05, block1: [0.05, 0.15], block1Between: 0, platformHold: 1.3, block2: [0.1, 0.15], faqHold: 1 },
-      mobile: { heroBreath: 0.05, block1: [0.15, 0.25], block1Between: 0.15, platformHold: 1.25, block2: [0.15, 0.15], faqHold: 1.25 },
+      mobile: { heroBreath: 0.05, block1: [0.15, 0], block1Between: 0.15, platformHold: 1.3, block2: [0.15, 0], faqHold: 1.3, sectionBottom: 0.12 },
     } as const;
     const stackGaps = () => (fitQuery.matches ? STACK_GAPS.desktop : STACK_GAPS.mobile);
+    // Margem inferior das seções que fecham os blocos: inline com !important porque o CSS de
+    // altura curta também usa !important; null = volta ao valor original (o inline do Ciclo.tsx,
+    // guardado na primeira chamada, ou o CSS) no desktop e na rolagem contínua.
+    const setSectionBottom = (sec: HTMLElement | null, px: number | null) => {
+      if (!sec) return;
+      if (sec.dataset['maiqPadBottom'] === undefined) sec.dataset['maiqPadBottom'] = sec.style.paddingBottom;
+      const original = sec.dataset['maiqPadBottom'];
+      if (px !== null) sec.style.setProperty('padding-bottom', `${px}px`, 'important');
+      else if (original) sec.style.setProperty('padding-bottom', original);
+      else sec.style.removeProperty('padding-bottom');
+    };
     const stack = (scope?.querySelector('.maiq-scroll-stack') as HTMLElement | null) ?? null;
     const convictionSec = (scope?.querySelector('[data-maiq-sec="fundacao"]') as HTMLElement | null) ?? null;
     const net = netWrapRef.current;
@@ -614,6 +593,7 @@ export default function PaginaInstitucional() {
           net.style.top = '';
           if (stack) stack.style.marginTop = '';
           if (convictionSec) convictionSec.style.marginTop = '';
+          setSectionBottom(convictionSec, null);
           if (primary) { primary.style.marginTop = ''; primary.style.paddingTop = ''; primary.style.paddingBottom = ''; }
           if (hold) hold.style.height = '';
           const flatPlatInner = net.querySelector('.maiq-platform-section-inner') as HTMLElement | null;
@@ -653,6 +633,14 @@ export default function PaginaInstitucional() {
         // Espaço entre as seções do bloco 1: margem na Convicção, dentro do fundo em degradê comum
         // (.maiq-model-pilares-bg), que segue contínuo.
         if (convictionSec) convictionSec.style.marginTop = g.block1Between ? `${Math.round(g.block1Between * ih)}px` : '';
+        // A margem conta da base visível das logos do carrossel, não da faixa de 64px que as centraliza.
+        if (convictionSec && 'sectionBottom' in g) {
+          const band = convictionSec.querySelector('.maiq-team-marquee');
+          let logoBottom = 0;
+          band?.querySelectorAll('img').forEach((img) => { logoBottom = Math.max(logoBottom, img.getBoundingClientRect().bottom); });
+          const slack = band && logoBottom ? Math.max(0, band.getBoundingClientRect().bottom - logoBottom) : 0;
+          setSectionBottom(convictionSec, Math.max(0, Math.round(g.sectionBottom * ih - slack)));
+        } else setSectionBottom(convictionSec, null);
         // O bloco 1 começa 24px acima da pilha (cornerOverlap): a margem da pilha o empurra
         // para heroBreath abaixo do fim do Hero, que segue parado (sticky) por trás.
         if (stack) stack.style.marginTop = `${Math.round(g.heroBreath * ih) + cornerOverlap}px`;
@@ -669,6 +657,7 @@ export default function PaginaInstitucional() {
     // FAQ + rodapé formam a camada final parada. O bloco Ciclo + Domínios
     // ocupa a mesma posição visual e, ao sair, revela essa camada.
     const final = finalWrapRef.current;
+    const cicloSec = (scope?.querySelector('[data-maiq-sec="ciclo"]') as HTMLElement | null) ?? null;
     if (final) {
       S._fitFinal = () => {
         const middle = overlay2Ref.current;
@@ -677,6 +666,8 @@ export default function PaginaInstitucional() {
           final.style.top = '';
           if (middle) { middle.style.marginTop = ''; middle.style.paddingTop = ''; middle.style.paddingBottom = ''; }
           if (hold) hold.style.height = '';
+          setSectionBottom(cicloSec, null);
+          if (cicloSec) cicloSec.style.minHeight = '100vh';
           return;
         }
         // FAQ follows the same top-anchored reveal rule as Plataforma.
@@ -690,6 +681,12 @@ export default function PaginaInstitucional() {
           middle.style.marginTop = `${-(finalHeight + cornerOverlap)}px`;
           middle.style.paddingTop = `${Math.round(g.block2[0] * ih)}px`;
           middle.style.paddingBottom = `${Math.round(g.block2[1] * ih)}px`;
+          // Celular: a Perspectiva tem altura mínima de uma tela; sem a sobra abaixo dela, essa
+          // altura cai para o bastante para o bloco 2 ainda cobrir a tela (1 - margem superior do
+          // bloco) — menos que isso, o FAQ apareceria por baixo do bloco enquanto ele entra.
+          const mobile = 'sectionBottom' in g;
+          setSectionBottom(cicloSec, mobile ? Math.round(g.sectionBottom * ih) : null);
+          if (cicloSec) cicloSec.style.minHeight = mobile ? `${Math.ceil((1 - g.block2[0]) * ih)}px` : '100vh'; // 100vh = valor do Ciclo.tsx
         }
         const faqPause = Math.round(Math.max(0, stackGaps().faqHold - 1) * window.innerHeight);
         if (hold) hold.style.height = `${finalHeight + cornerOverlap + faqPause}px`;
@@ -1237,13 +1234,13 @@ export default function PaginaInstitucional() {
               </div>
               <div ref={vennBoxRef} data-maiq-venn="" style={{ position: "relative", width: "710px", height: "308px", flex: "0 0 auto" }}>
                 {/* Lente = interseção das pontas arredondadas (círculos de 308px centrados em
-                    x=303 e x=407; lente de 204px de largura, entre x=253 e x=457). A hélice
-                    (240×360, compartilhada com o mobile) fica a 85% no centro da lente, mantendo a
-                    proporção da configuração anterior (360px). */}
+                    x=303 e x=407; lente de 204px de largura, entre x=253 e x=457). A hélice nasce
+                    horizontal e é girada 90° no centro da lente (x=102 do círculo interno); as
+                    pontas são recortadas pela própria lente. */}
                 <div aria-hidden="true" style={{ position: "absolute", left: "149px", top: "0", width: "308px", height: "308px", borderRadius: "50%", clipPath: "circle(50% at 50% 50%)", overflow: "hidden" }}>
                   <div style={{ position: "absolute", left: "104px", top: "0", width: "308px", height: "308px", borderRadius: "50%", clipPath: "circle(50% at 50% 50%)", overflow: "hidden" }}>
                     <div className="maiq-venn-helix">
-                      {helixBars}
+                      <DnaHelix width={397} amplitude={69} columns={21} turns={1.2} period={5} />
                     </div>
                   </div>
                 </div>
@@ -1344,7 +1341,7 @@ export default function PaginaInstitucional() {
               <div className="maiq-model-mobile-clip-a" aria-hidden="true">
                 <div className="maiq-model-mobile-clip-b">
                   <div className="maiq-model-mobile-helix">
-                    {helixBars}
+                    <DnaHelix width={217} amplitude={34} columns={16} period={5} />
                   </div>
                 </div>
               </div>

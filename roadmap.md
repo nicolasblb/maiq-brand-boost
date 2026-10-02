@@ -1108,4 +1108,77 @@ celular sem erro. Varredura completa de scroll (390×844 e 1400×900, dois temas
 - [x] Nossa Perspectiva (celular): forma animada 20% mais baixa (288px em vez de 360px) encurtando só as
       laterais (312 → 240px); pílulas de cima no lugar, as de baixo sobem; botão central recentralizado;
       ponto luminoso com a mesma velocidade. Quadro externo mantido em 360px (altura da seção igual).
+
+### Plataforma — linha na tela cheia, de novo (02/10/2026)
+
+- [x] A linha clara à direita e embaixo do vídeo voltou a aparecer em algumas telas (dia e noite), mesmo
+      com os vídeos em 1072×1072. Nova leitura da causa: a área do vídeo é uma camada de GPU com largura e
+      altura fracionárias (ex.: 933,83px) e o arredondamento das bordas dela deixa 1px do fundo do modal
+      (`--p-card`, mais claro) aparecer. No navegador de teste (renderização por software) não há fresta,
+      o que confirma que vem da composição por GPU. Correção sem mexer em tamanho/posição: o modal passa a
+      ter o fundo do vídeo (`--p-plat-video-bg`) e o painel de texto ganha o próprio `--p-card` — uma
+      eventual fresta fica da mesma cor do vídeo. Visual conferido igual nos dois temas e no celular.
+- [x] O usuário confirmou que a linha persistiu: a fresta do modal não era a causa (a troca de fundo foi
+      mantida, sem efeito visual). Segunda leitura: a decodificação por hardware guarda o quadro numa área
+      alinhada a 32/64px (1072 → 1088, sobra à direita e embaixo — exatamente onde a linha aparece) e a
+      interpolação da ampliação mistura a última coluna/linha com essa sobra. Correção:
+      `object-view-box: inset(2px)` nos vídeos da Plataforma (card e tela cheia), que corta 2px de cada
+      borda da fonte antes de ampliar. Mesmo quadro com e sem o corte: diferença de ~1px, imperceptível.
+      Chrome/Edge aplicam; Safari/Firefox ignoram.
+- [x] Com o corte, a linha mudou mas não sumiu: na tela grande do usuário só embaixo, na menor só à
+      direita — sempre no lado em que o vídeo encosta na borda da caixa. Ideia do usuário aplicada no lugar
+      do corte (removido; vídeo no tamanho original): moldura de 2px na cor do fundo do vídeo por cima das
+      quatro bordas da área de mídia da tela cheia (`::after`, abaixo dos controles, sem receber cliques).
+      Play/pausa e sair conferidos; visual igual nos dois temas e no celular.
+- [x] A linha seguiu (agora à direita nas duas telas). Diagnóstico no monitor do usuário (Chrome; telas a
+      125% e 100%), pintando cada camada de uma cor: a linha ficou **preta, na borda do próprio quadro do
+      vídeo** — não era fresta, moldura nem divisória. As bordas dos arquivos estão limpas (conferido nos 8).
+      Causa: decodificação por hardware do Chrome, que guarda o quadro numa área maior preenchida de preto;
+      a ampliação mistura a última coluna/linha com ela. Correção definitiva: a borda real do vídeo nunca
+      aparece — na tela cheia ele é desenhado 4px maior de cada lado e recortado (`clip-path`) no tamanho
+      exato da imagem visível (min(largura, altura) da área, por unidades de contêiner). As três tentativas
+      anteriores (troca de fundo, corte por `object-view-box`, moldura) foram removidas. Geometria
+      conferida em 1440@125%, 1920, 1280×720 e iPhone em pé/deitado; play e sair funcionando.
+- [x] Com o recorte, a linha seguiu no novo limite da imagem (embaixo na tela a 100%, à direita na de
+      125%): nasce onde a imagem termina, não no conteúdo. Leitura: no Windows o Chrome entrega o vídeo à
+      placa numa camada por baixo da página (com furo transparente) e, com o limite entre pixels físicos,
+      furo e camada arredondam diferente, sobrando 1px do preto de fundo. Correção: moldura opaca de 6px
+      na cor do fundo, centrada no contorno da imagem visível (`::before`, acima do vídeo e abaixo dos
+      controles). Invisível nas capturas; geometria conferida em 5 tamanhos.
+- [x] **Resolvido** — confirmado pelo usuário nas duas telas (100% e 125%). Solução final = recorte com
+      folga de 4px + moldura de 6px no contorno (as duas partes juntas, comentadas em um único bloco no
+      maiq.css). Nada das três primeiras tentativas ficou no código.
 - [ ] Textos internos do Venn ficam com ~8–10px em notebooks (11px na referência) — avaliar com o usuário.
+
+## Nosso Modelo — nova hélice de DNA (02/10/2026)
+
+Referência: `referencias/nova-helix-dna/` (especificação + componente, versão 3a do protótipo mobile).
+
+- [x] Hélice trocada pelo novo desenho nos dois layouts: colunas com degrau de 1px e dois pontos
+      (frente branco, trás Menta Suave, sem brilho) que sobem e descem em sentidos opostos e trocam de
+      opacidade; o degrau encolhe quando eles se cruzam. Uma volta = 3,2s, só `transform`/`opacity`.
+      Componente único `maiq/DnaHelix.tsx`; keyframes, cores e posição em `maiq.css` (`.maiq-dna`).
+- [x] Enquadramento inalterado: mesmas pílulas, lente, rótulo e posição. Desktop/tablet: hélice em pé
+      (girada 90°) no centro da lente, 397px de comprimento e amplitude 69px (dois aumentos de 15% a pedido),
+      volta de 5s nos dois layouts (duas reduções de 20% a pedido; a referência usa 3,2s). Celular: horizontal, 217px. Amplitude
+      constante, com as pontas recortadas pela própria lente (decisão do usuário, entre afinar nas pontas,
+      encurtar ou recortar).
+- [x] Tema claro (a referência só define o escuro): ponto da frente marrom escuro, de trás e degrau em
+      Madeira de Lei translúcida. Tokens `--p-helix-front/back/rung` substituem `--p-helix/-hi/-dim`;
+      keyframes antigos (`maiqStrand`, `maiqRung`) removidos.
+- [x] Movimento reduzido: a hélice congela na fase de cada coluna (continua visível, parada).
+- [x] Conferido em 1440×900 (noite e dia), 1024×768 e iPhone 13 (noite e dia).
+- [ ] Conferência visual do usuário (animação ao vivo, nos dois temas).
+
+## Celular — base dos blocos de sobreposição (02/10/2026)
+
+- [x] Removidas as sobras abaixo dos blocos 1 (25%) e 2 (15%); a margem inferior da Convicção e da
+      Perspectiva passou a 12% da tela, contada da base visível do conteúdo (antes: ~33% e ~24% somadas).
+      Só celular (<761px, pilha); desktop/tablet e rolagem contínua mantêm os valores anteriores.
+- [x] Altura mínima da Perspectiva no celular: 85% da tela em vez de 100% (o bloco 2 continua cobrindo a
+      tela ao entrar, sem o FAQ aparecer por baixo).
+- [x] Intervalos resultantes: 130% de rolagem borda a borda (pausas da Plataforma e do FAQ no celular
+      ajustadas de 125% para 130%, a pedido) entre os blocos 1 e 2 e entre o bloco 2 e o
+      rodapé; conteúdo a conteúdo ~168% e ~147%.
+- [ ] Conferência visual do usuário no celular, rolando a página inteira nos dois sentidos.
+

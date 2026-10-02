@@ -536,17 +536,24 @@ fora das seções.
 | Respiro do Hero (bloco 1 começa a aparecer após) | 5% de rolagem | 5% | 0 (3% visível já no carregamento) |
 | Bloco 1: margem interna acima do Modelo | 5% | 15% | 0 |
 | Bloco 1: espaço entre Modelo e Convicção (mesmo fundo contínuo) | 0 | 15% | 0 |
-| Bloco 1: margem interna abaixo da Convicção | 15% | 25% | 0 |
-| Pausa da Plataforma (espaço de rolagem entre os blocos) | 130% | 125% | 100% |
+| Bloco 1: margem interna abaixo da Convicção | 15% | 0 (ver nota) | 0 |
+| Pausa da Plataforma (espaço de rolagem entre os blocos) | 130% | 130% | 100% |
 | Bloco 2: margem acima da Perspectiva | 10% | 15% | 0 |
-| Bloco 2: margem abaixo da Perspectiva | 15% | 15% | 0 |
-| Pausa do FAQ antes do rodapé (no celular o rodapé é um bloco de sobreposição) | — | 125% | 100% |
+| Bloco 2: margem abaixo da Perspectiva | 15% | 0 (ver nota) | 0 |
+| Pausa do FAQ antes do rodapé (no celular o rodapé é um bloco de sobreposição) | — | 130% | 100% |
 
-A pausa de 130% = 100% para revelar a Plataforma + 30% com ela inteira e parada (no celular, 25%; valores do celular revistos pelo usuário no mesmo dia). Os
+A pausa de 130% = 100% para revelar a Plataforma + 30% com ela inteira e parada (no celular, também 30% desde 02/10/2026). Os
 24px fixos de sobreposição dos cantos arredondados continuam somados à parte. O menu "Nossa
 Plataforma" para no meio dessa pausa (os dois blocos a 15% da tela). Medido em 1440×900: página de 6,0
 para 6,8 telas; Modelo enquadrado em 1,10 tela; Plataforma inteira de 3,25 a 3,55; Perspectiva
 enquadrada em 4,65; FAQ no fim (5,80).
+
+**Celular, base dos blocos (02/10/2026):** sem margem extra abaixo das seções; a margem inferior da própria
+Convicção e da Perspectiva passou a 12% da tela (`sectionBottom`), contada da base visível do conteúdo — na
+Convicção, da base das logos, não da faixa de 64px que as centraliza. A altura mínima da Perspectiva no celular
+cai de 100% para 85% da tela (o bastante para o bloco 2 cobrir a tela inteira ao entrar). Intervalos medidos
+(390×664, 390×844, 360×740): borda a borda, 130% entre os blocos 1 e 2 e 130% entre o bloco 2 e o rodapé;
+conteúdo a conteúdo, ~168% e ~147%.
 
 ### Fora da Home — Sobre nós, "Nossa Identidade" · *quadro deitado implementado (01/10/2026)*
 
